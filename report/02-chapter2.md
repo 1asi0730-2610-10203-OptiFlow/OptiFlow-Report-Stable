@@ -14,7 +14,14 @@
 
 ### Diseño de entrevistas
 
-[Guía de preguntas, objetivos de la entrevista y perfil de los entrevistados seleccionados.]
+
+Preguntas generales:
+
+1.       Datos de perfil: ¿Podrías indicarme tu nombre,  edad, estado civil y ocupación exacta?
+
+2.       Contexto personal: ¿En qué distrito resides y cuáles dirías que son tus principales objetivos profesionales este año? (dudo sobre esta ultima pregunta)
+
+3.       Entorno digital: ¿Qué dispositivos (móvil, tablet, laptop) usas más en tu vida diaria y cuáles son tus canales digitales o marcas preferidas para informarte sobre el sector?
 
 ### Registro de entrevistas
 
