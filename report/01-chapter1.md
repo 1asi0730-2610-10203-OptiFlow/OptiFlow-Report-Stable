@@ -12,6 +12,8 @@ Soy Juan Pablo Azama Fukuda (Código: u202411310), estudiante de quinto ciclo de
 
 ### 1.2.1. Antecedentes y problemática
 
+<img src ="/assets/foto-juan-pablo-azama.png" alt = "jp-photo" width="150" height="5>
+
 El problema central radica en la deficiente administración del ecosistema comercial y operativo de las ópticas ante un alto volumen de demanda. Existe una desconexión crítica (silos de información) entre el consultorio, el área de ventas y el laboratorio de producción. A medida que aumenta la cantidad de pacientes, los sistemas manuales colapsan por sobrecarga cognitiva, generando una ineficiencia operativa severa. Según estudios, la entrada manual de datos en establecimientos de salud provoca errores de omisión y transposición que impactan la integridad del servicio (Flatworld Solutions, 2026). Por otro lado, la retención de historias clínicas y órdenes en papel ralentiza drásticamente el flujo de atención, exponiendo a la clínica a la pérdida de datos y mermas económicas (Glasson, 2025).
 
 Esta desorganización empeora en la cadena de suministro. Las órdenes de trabajo enviadas al laboratorio, a menudo transcritas rápidamente en horas pico hacia hojas de cálculo o chats de WhatsApp, son un foco altísimo de errores de montaje. La falta de un sistema capaz de procesar concurrencia hace que el administrador opere a ciegas, perdiendo el control del inventario y la rentabilidad.
