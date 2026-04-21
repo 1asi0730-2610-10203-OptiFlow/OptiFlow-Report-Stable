@@ -4,6 +4,17 @@
 
 [Mapa de impacto que conecta los objetivos de negocio con los actores, sus impactos y los entregables necesarios.]
 
+## Epics
+
+| ID Épica | Título de la Épica | Descripción formal (Formato de Historia de Usuario) | Historias / Tareas contenidas |
+|---|---|---|---|
+| EP-01P | Portal Web y Autoservicio del Paciente | Como cliente, quiero gestionar mi perfil, consultar el estado de mis órdenes, y solicitar información comercial, para que pueda autogestionar mi atención y compras de manera remota sin depender del personal de la óptica. | US-05P, US-06P, US-07P, US-08P, US-09P, US-10P |
+| EP-02G | Gestión Clínica y Optometría | Como empleado de la óptica, quiero registrar la anamnesis, historias clínicas, cargar exámenes externos, registrar clientes y vincular las recetas directamente a las órdenes de trabajo, para que pueda centralizar el historial médico completo del cliente y garantizar la exactitud en la fabricación. | US-11G, US-12G, US-13G, US-14G, US-15G, US-16G, US-17G |
+| EP-03F | Flujo Comercial, Finanzas y Fidelización (CRM) | Como empleado de la óptica, quiero gestionar cotizaciones, aplicar descuentos, cobrar saldos, registrar devoluciones, cerrar la caja diaria y automatizar notificaciones o encuestas, para que pueda agilizar las ventas, cuadrar las finanzas diarias de la tienda y fomentar la retención de los clientes. | US-18F, US-19F, US-20F, US-21F, US-22F, US-23F, US-24F, US-25F, US-26F, US-27F, US-28F, US-29F, US-30F, US-31F, US-32F |
+| EP-04L | Logística, Inventario y Laboratorio | Como empleado de la óptica, quiero administrar el catálogo, consultar stock, recibir alertas de escasez, registrar mermas e insumos, y actualizar el avance de órdenes, para que se asegure el reabastecimiento oportuno y un control exacto de toda la cadena de producción de los lentes. | US-33L, US-34L, US-35L, US-36L, US-37L, US-38L, US-39L, US-40L, US-41L, US-42L |
+| EP-05A | Administración, Analítica y Plataforma Backend | Como empleado de la óptica, quiero gestionar los roles de acceso, visualizar reportes (dashboards) de ventas/productividad y disponibilizar los servicios de integración (APIs), para que pueda proteger el sistema, tomar decisiones estratégicas basadas en datos y asegurar la comunicación técnica entre módulos. | US-03A, US-04A, US-43A, US-44A, US-45A |
+| EP-06S | Seguridad y Acceso del Empleado | Como empleado de la óptica, quiero autenticarme con mis credenciales y recuperar mi contraseña de forma autónoma, para que pueda acceder al sistema de manera segura según el rol que me corresponde. | US-01S, US-02S |
+
 ## User Stories
 
 | ID US | Título de la US | Descripción de la Historia de Usuario | Criterios de Aceptación (Escenarios BDD) | Relacionado con (Epic ID) |
