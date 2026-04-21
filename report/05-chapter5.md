@@ -105,13 +105,85 @@ La integración de cambios se realiza mediante **Pull Requests** hacia la rama `
 ### Sprint 1
 
 #### Sprint Planning 1
-[Objetivos del sprint, elementos seleccionados del backlog, velocidad del equipo y acuerdos de trabajo.]
+| Aspect | Details |
+| :--- | :--- |
+| **Sprint #** | Sprint n |
+| **Date** | YYYY-MM-DD |
+| **Time** | HH:MM AM/PM |
+| **Location** | (Descripción de la ubicación de la reunión, física o virtual) |
+| **Prepared By** | Jiménez Rosas, Arturo Eduardo |
+| **Attendees (to planning meeting)** | Jiménez Rosas, Arturo Eduardo / Rodríguez Peña, Jorge Andrés / … |
+| **Sprint n – 1 Review Summary** | (Resumen del Sprint anterior, en términos de resultados alcanzados a nivel de productos de software, opiniones de miembros y feedback de product owner.) |
+| **Sprint n – 1 Retrospective Summary** | (Resumen del Sprint anterior, en términos de opiniones de miembros del equipo sobre aciertos u oportunidades de mejora en su forma de trabajo) |
+| **Sprint n Goal** | (Definir el Goal del Sprint n y la métrica de cumplimiento.) |
+| **Sprint n Velocity** | (Definir el Velocity establecido para el Sprint n, es decir cuántos Story Points puede aceptar el equipo para este Sprint n.) |
+| **Sum of Story Points** | (Colocar la suma de los Story Points para los User Stories que se están incluyendo en este Sprint n.) |
+
 
 #### Aspect Leaders and Collaborators
 [Tabla de líderes y colaboradores por aspecto del sprint, con responsabilidades asignadas.]
+| Team Member (Last Name, First Name) | GitHub Username | Aspect Name 1 Leader (L) / Collaborator (C) | Aspect Name 2 Leader (L) / Collaborator (C) | ... | Aspect Name n Leader (L) / Collaborator (C) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Azama Fukuda, Juan Pablo | ajimenezrosas | L | C | ... | |
+| Rodríguez Peña, Jorge Andrés | Japr91 | C | C | ... | L |
+
 
 #### Sprint Backlog 1
-[Listado de tareas del sprint con estado, responsable y estimación de horas.]
+<table>
+  <thead>
+    <tr>
+      <th>Sprint #</th>
+      <th colspan="7">Sprint n</th>
+    </tr>
+    <tr>
+      <th colspan="2">User Story</th>
+      <th colspan="6">Work-Item / Task</th>
+    </tr>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Estimation (Hours)</th>
+      <th>Assigned To</th>
+      <th>Status (To-do / In-Process / To-Review / Done)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 
 #### Development Evidence for Sprint Review
 [Evidencia del desarrollo: commits, pull requests y capturas de avance por cada ítem completado.]
