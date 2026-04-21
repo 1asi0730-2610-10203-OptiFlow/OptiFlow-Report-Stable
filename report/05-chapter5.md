@@ -159,17 +159,17 @@ micro tareas abismal que ocasionarían que los participantes no tengan hilación
     <tr>
       <td>US-01S</td>
       <td>Autenticación de Usuarios</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T01</td>
+      <td>Program login functionality</td>
+      <td>Program login functionality utilizing google API services for google auth</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
     </tr>
     <tr>
       <td>US-02S</td>
       <td>Recuperación de Contraseña</td>
-      <td></td>
+      <td>TO1</td>
       <td></td>
       <td></td>
       <td></td>
