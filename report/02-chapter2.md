@@ -94,7 +94,7 @@ Datos del entrevistado
   
   **Resumen descriptivo:**
 
-  <u>Entrevista 3:</u>
+<u>Entrevista 3:</u>
 
 Entrevistador: 
 
@@ -150,7 +150,7 @@ Datos del entrevistado
   
   **Resumen descriptivo:**
 
-  <u>Entrevista 1:</u>
+<u>Entrevista 3:</u>
 
 Entrevistador: 
 
