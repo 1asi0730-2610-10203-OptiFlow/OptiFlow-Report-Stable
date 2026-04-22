@@ -73,7 +73,8 @@ Datos del entrevistado
 - **Apellidos:** 
 - **Edad:** 
 - **Distrito:** 
-- **Timing:** 
+- **Inicio:**
+- **Duración:** 
 - **Link de la entrevista individual:** 
   
   **Resumen descriptivo:**
@@ -89,7 +90,8 @@ Datos del entrevistado
 - **Apellidos:** 
 - **Edad:** 
 - **Distrito:** 
-- **Timing:** 
+- **Inicio:**
+- **Duración:** 
 - **Link de la entrevista individual:** 
   
   **Resumen descriptivo:**
@@ -104,7 +106,8 @@ Datos del entrevistado
 - **Apellidos:** 
 - **Edad:** 
 - **Distrito:** 
-- **Timing:** 
+- **Inicio:**
+- **Duración:** 
 - **Link de la entrevista individual:** 
   
   **Resumen descriptivo:**
@@ -129,11 +132,11 @@ Datos del entrevistado
 
 **Resumen descriptivo:**
 
-La entrevistada Carla Gallardo, de 19 años, residente en La Molina y estudiante universitaria de ingeniería, presenta un perfil digitalmente activo, utilizando principalmente la computadora y el teléfono móvil en su rutina diaria. Sus canales preferidos de interacción incluyen WhatsApp, Instagram y TikTok, siendo este último incluso utilizado como medio de búsqueda de información. Sus objetivos se centran en el ámbito académico, buscando avanzar en su carrera y aplicar sus conocimientos en el futuro profesional, lo que evidencia una necesidad de eficiencia y organización en los servicios que utiliza .
+La entrevistada Carla Gallardo, de 19 años, residente en La Molina y estudiante universitaria de ingeniería, presenta un perfil digitalmente activo, utilizando principalmente la computadora y el teléfono móvil en su rutina diaria. Sus canales preferidos de interacción incluyen WhatsApp, Instagram y TikTok, siendo este último incluso utilizado como medio de búsqueda de información. Sus objetivos se centran en el ámbito académico, buscando avanzar en su carrera y aplicar sus conocimientos en el futuro profesional, lo que evidencia una necesidad de eficiencia y organización en los servicios que utiliza.
 
-En cuanto a su experiencia en ópticas, describe el proceso como generalmente simple, iniciando con la medición visual y seguido por la elección de monturas según su estilo personal. Sin embargo, identifica que el tiempo puede incrementarse cuando no encuentra modelos de su agrado. Asimismo, el tiempo de entrega de los lentes varía dependiendo del establecimiento, pudiendo ser inmediato o tardar algunos días, lo cual resulta crítico debido a su dependencia de los lentes para sus actividades académicas. En relación con el seguimiento del pedido, indica que no existe visibilidad del proceso, ya que solo se le comunica una fecha de entrega sin actualizaciones intermedias, lo que evidencia una falta de comunicación proactiva por parte de las ópticas .
+En cuanto a su experiencia en ópticas, describe el proceso como generalmente simple, iniciando con la medición visual y seguido por la elección de monturas según su estilo personal. Sin embargo, identifica que el tiempo puede incrementarse cuando no encuentra modelos de su agrado. Asimismo, el tiempo de entrega de los lentes varía dependiendo del establecimiento, pudiendo ser inmediato o tardar algunos días, lo cual resulta crítico debido a su dependencia de los lentes para sus actividades académicas. En relación con el seguimiento del pedido, indica que no existe visibilidad del proceso, ya que solo se le comunica una fecha de entrega sin actualizaciones intermedias, lo que evidencia una falta de comunicación proactiva por parte de las ópticas.
 
-Finalmente, la entrevistada menciona experiencias negativas como errores en la medida de los lentes, así como la importancia de factores como la higiene, la calidad del servicio y el cumplimiento de las especificaciones solicitadas. Considera inaceptable la falta de limpieza o errores en el producto final. Además, destaca que en establecimientos más digitalizados se conserva su historial, mientras que en ópticas pequeñas este suele perderse. También señala la ausencia de seguimiento posterior a la compra, lo que refleja oportunidades de mejora en fidelización. En conjunto, se trata de una usuaria con expectativas de eficiencia, transparencia y control, influenciada por experiencias digitales modernas y con baja tolerancia a errores o desorganización .
+Finalmente, la entrevistada menciona experiencias negativas como errores en la medida de los lentes, así como la importancia de factores como la higiene, la calidad del servicio y el cumplimiento de las especificaciones solicitadas. Considera inaceptable la falta de limpieza o errores en el producto final. Además, destaca que en establecimientos más digitalizados se conserva su historial, mientras que en ópticas pequeñas este suele perderse. También señala la ausencia de seguimiento posterior a la compra, lo que refleja oportunidades de mejora en fidelización. En conjunto, se trata de una usuaria con expectativas de eficiencia, transparencia y control, influenciada por experiencias digitales modernas y con baja tolerancia a errores o desorganización.
 
 <u>Entrevista 2:</u>
 
@@ -145,7 +148,8 @@ Datos del entrevistado
 - **Apellidos:** 
 - **Edad:** 
 - **Distrito:** 
-- **Timing:** 
+- **Inicio:**
+- **Duración:** 
 - **Link de la entrevista individual:** 
   
   **Resumen descriptivo:**
@@ -160,7 +164,8 @@ Datos del entrevistado
 - **Apellidos:** 
 - **Edad:** 
 - **Distrito:** 
-- **Timing:** 
+- **Inicio:**
+- **Duración:**  
 - **Link de la entrevista individual:** 
   
 **Resumen descriptivo:**
