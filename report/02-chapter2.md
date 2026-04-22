@@ -179,8 +179,15 @@ Datos del entrevistado
 ## Needfinding
 
 ### User Personas
+En esta sección se presentan las fichas de User Persona construidas a partir del análisis de las entrevistas realizadas a los segmentos objetivo, así como de la revisión de prácticas y soluciones existentes en el mercado. A partir de esta información, se identificaron patrones comunes en comportamientos, necesidades, motivaciones y frustraciones de los usuarios, los cuales permitieron definir arquetipos representativos.
 
-[Fichas de User Personas representativas de cada segmento objetivo, incluyendo motivaciones, frustraciones y comportamientos.]
+Cada User Persona sintetiza estas características con el objetivo de facilitar la comprensión de los usuarios y orientar el diseño de la solución propuesta, asegurando que esta responda de manera efectiva a sus expectativas y problemáticas reales.
+
+## Empleados de la óptica
+<img src="../assets/user-persona-primer-segmento.png" width="500"/>
+
+## Clientes de la óptica
+<img src="../assets/user-persona-segundo-segmento.png" width="500"/>
 
 ### User Task Matrix
 
