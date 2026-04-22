@@ -134,6 +134,7 @@ micro tareas abismal que ocasionarían que los participantes no tengan hilación
 | Rodríguez Peña, Jorge Andrés | Japr91 | C | C | ... | L |
 | Rodríguez Peña, Jorge Andrés | Japr91 | C | C | ... | L |
 
+### Sprint Backlog
 <table>
   <thead>
     <tr>
@@ -157,464 +158,154 @@ micro tareas abismal que ocasionarían que los participantes no tengan hilación
   </thead>
   <tbody>
     <tr>
-      <td>US-01S</td>
-      <td>Autenticación de Usuarios</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T01</td>
+      <td>UX Research & Entrevistas</td>
+      <td>Realizar entrevistas a admins y clientes; crear User Personas y Empathy Maps.</td>
+      <td>6 hrs</td>
+      <td>Mariana / Mia / Juan Pablo / Luciana</td>
+      <td>Done</td>
     </tr>
     <tr>
-      <td>US-02S</td>
-      <td>Recuperación de Contraseña</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T02</td>
+      <td>Diseño UX/UI de Landing Page</td>
+      <td>Diseñar Wireframes, Mockups y User Flows de la web estática.</td>
+      <td>5 hrs</td>
+      <td>Mia / Juan Pablo / Mariana</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-03A</td>
-      <td>Gestión de Roles</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T03</td>
+      <td>Domain-Driven Design Artifacts</td>
+      <td>Elaborar EventStorming, Bounded Contexts y Context Mapping.</td>
+      <td>5 hrs</td>
+      <td>Luciana / Nicolas</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-04A</td>
-      <td>Auditoría de Inventario</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T04</td>
+      <td>Database & Class Diagram</td>
+      <td>Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD).</td>
+      <td>5 hrs</td>
+      <td>Luciana / Nicolas</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-05P</td>
-      <td>Seguimiento de Orden Web</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T05</td>
+      <td>Software Development Environment</td>
+      <td>Configurar el entorno de desarrollo y dependencias locales del framework frontend.</td>
+      <td>2 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
     </tr>
     <tr>
-      <td>US-06P</td>
-      <td>Gestión de Perfil de Usuario</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T06</td>
+      <td>Source Code Management & Styles</td>
+      <td>Configurar repositorios en GitHub, GitFlow y definir el Style Guide del código.</td>
+      <td>2 hrs</td>
+      <td>Nicolas</td>
+      <td>Done</td>
     </tr>
     <tr>
-      <td>US-07P</td>
-      <td>Solicitud de Demostración</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T07</td>
+      <td>Software Deployment Configuration</td>
+      <td>Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing.</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-08P</td>
-      <td>Consulta de Saldo</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T08</td>
+      <td>Sprint 1 Planning & Backlog</td>
+      <td>Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe.</td>
+      <td>2 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-09P</td>
-      <td>Probador Virtual</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T09</td>
+      <td>Development & Execution Evidence</td>
+      <td>Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution).</td>
+      <td>2 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-10P</td>
-      <td>Calculador de Grosor</td>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>T10</td>
+      <td>Deployment & Services Evidence</td>
+      <td>Documentar el link de producción y métricas de colaboración (Team Collaboration Insights).</td>
+      <td>2 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-11G</td>
-      <td>Registro de Historia Clínica</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>US-46L</td>
+      <td>Propuesta de Valor (Hero Section)</td>
+      <td>T11</td>
+      <td>Desarrollo: Hero Section</td>
+      <td>Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-12G</td>
-      <td>Registro de Anamnesis</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>US-47L</td>
+      <td>Catálogo de Características</td>
+      <td>T12</td>
+      <td>Desarrollo: Módulos del Sistema</td>
+      <td>Programar la sección de módulos (Ventas, Laboratorio) de forma responsive.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-13G</td>
-      <td>Historial de Receta</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>US-48L</td>
+      <td>Consulta de Planes y Precios</td>
+      <td>T13</td>
+      <td>Desarrollo: Pricing Table</td>
+      <td>Maquetar la tabla de precios comparativa interactiva para la web.</td>
+      <td>4 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-14G</td>
-      <td>Consentimiento Digital</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>US-49L</td>
+      <td>Formulario de Contacto General</td>
+      <td>T14</td>
+      <td>Desarrollo: Formulario & Validaciones</td>
+      <td>Codificar el formulario de contacto y agregar validaciones de campos en JavaScript.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
     </tr>
     <tr>
-      <td>US-15G</td>
-      <td>Registro Offline</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-16G</td>
-      <td>Carga de Exámenes Externos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-17G</td>
-      <td>Registro de Clientes</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-18F</td>
-      <td>Gestión de Ventas</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-19F</td>
-      <td>Cotización desde Receta</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-20F</td>
-      <td>Registro de Pago de Saldo</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-21F</td>
-      <td>Aplicación de Descuentos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-22F</td>
-      <td>Pagos con Múltiples Métodos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-23F</td>
-      <td>Recuperación de Cotizaciones</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-24F</td>
-      <td>Registro de Devoluciones</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-25F</td>
-      <td>Cierre de Caja</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-26F</td>
-      <td>Notificaciones de Recojo</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-27F</td>
-      <td>Recordatorios Anuales</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-28F</td>
-      <td>Encuestas de Satisfacción</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-29F</td>
-      <td>Fuga de Clientes</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-30F</td>
-      <td>Tracking por Pasos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-31F</td>
-      <td>Programa de Referidos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-32F</td>
-      <td>Segmentación para Campañas</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-33L</td>
-      <td>Consulta de Inventario en Tiempo Real</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-34L</td>
-      <td>Alertas de Bajo Stock</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-35L</td>
-      <td>Registro de Nuevo Producto</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-36L</td>
-      <td>Gestión de Variantes</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-37L</td>
-      <td>Búsqueda Avanzada</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-38L</td>
-      <td>Control de Órdenes y Tablero Kanban</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-39G</td>
-      <td>Vinculación de Receta a Orden</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-40L</td>
-      <td>Motivos de Retrabajo</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-41L</td>
-      <td>Gestión de Urgencias</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-42L</td>
-      <td>Control de Insumos</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-43A</td>
-      <td>Dashboard de Ventas</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-44A</td>
-      <td>Auditoría de Eficiencia</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-45A</td>
-      <td>Productividad de Laboratorio</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>US-46</td>
-      <td>Inicio de sesión de cliente con DNI</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>US-50L</td>
+      <td>Redirección a Login</td>
+      <td>T15</td>
+      <td>Desarrollo: Navbar & Footer</td>
+      <td>Implementar la barra de navegación superior anclada y el botón de acceso al sistema.</td>
+      <td>3 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
     </tr>
   </tbody>
 </table>
