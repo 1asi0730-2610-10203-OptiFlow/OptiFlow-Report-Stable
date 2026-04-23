@@ -247,4 +247,44 @@ PASO 4:
 
 ## Ubiquitous Language
 
-[Glosario de términos del dominio acordados por el equipo para asegurar una comunicación uniforme.]
+### 1. Gestión de Identidad y Accesos
+*   **Empleado de la Óptica (Optical Employee):** Usuario interno que opera el sistema (Administrador, Vendedor, Optómetra o Técnico) con permisos específicos según su función.
+*   **Rol (Role):** Conjunto de privilegios asignados a un empleado para garantizar que acceda únicamente a las funciones de su competencia.
+*   **Sesión (Session):** Estado de acceso activo de un empleado tras validar sus credenciales mediante el **Login**.
+
+#### 2. Contexto Clínico
+*   **Paciente (Patient):** Persona central del historial clínico que recibe la evaluación visual y es destinatario final del pedido.
+*   **Historia Clínica (Clinical Record):** Registro digital cronológico de las evaluaciones, recetas y diagnósticos del paciente.
+*   **Anamnesis:** Recopilación de síntomas y antecedentes médicos registrada antes del examen visual para dar contexto clínico.
+*   **Receta Óptica (Prescription):** Resultado del examen visual que contiene valores de corrección como **esfera (sphere)**, **cilindro (cylinder)** y **eje (axis)**.
+*   **Versión de Receta (Prescription Version):** Cada instancia histórica de una receta que permite comparar la evolución visual del paciente en el tiempo.
+*   **Consentimiento Digital (Consent Form):** Documento legal firmado mediante **firma táctil** por el paciente para autorizar procedimientos clínicos.
+
+#### 3. Catálogo e Inventario
+*   **Montura (Frame):** Producto físico que sostiene los lentes, caracterizado por marca, modelo y SKU.
+*   **Luna/Lente (Lens):** Componente óptico fabricado según la receta, disponible en diversas **variantes de material** (resina, policarbonato) y tratamientos.
+*   **Stock:** Cantidad física disponible de un producto en el inventario.
+*   **SKU:** Código identificador único de producto utilizado para evitar **colisiones** o duplicados en el catálogo.
+*   **Materia Prima (Raw Material/Supply):** Insumos base (bloques o micas en bruto) que se consumen durante el proceso de fabricación en el laboratorio.
+
+#### 4. Flujo Comercial
+*   **Cotización (Quotation):** Propuesta comercial que vincula una receta vigente con una montura y lunas específicas.
+*   **Venta (Sale):** Acuerdo formalizado que inicia la transición del proceso clínico a la producción logística.
+*   **Adelanto (Deposit):** Pago parcial obligatorio realizado por el paciente para autorizar el inicio de la fabricación de los lentes.
+*   **Saldo Pendiente (Outstanding Balance):** Monto restante que el paciente debe liquidar antes o al momento de recibir su pedido.
+*   **Caja (Cash Register):** Registro diario de ingresos y egresos de dinero físico para asegurar el **cuadre** con las ventas del software.
+*   **Nota de Crédito (Credit Note):** Documento contable emitido tras procesar una devolución para asentar legalmente la reversión de una venta.
+
+#### 5. Operaciones de Laboratorio
+*   **Orden de Trabajo (Work Order):** Registro técnico digital que contiene todas las especificaciones de fabricación enviadas al laboratorio.
+*   **Estado del Pedido (Order Status):** Indicador visual en el **Tablero Kanban** que refleja la etapa actual.
+*   **Biselado (Beveling):** Fase física de corte y pulido de los lentes para que encajen en la montura seleccionada.
+*   **Retrabajo (Rework):** Proceso de fabricar nuevamente un lente debido a fallas detectadas en el control de calidad o errores técnicos.
+*   **Prioridad (Priority/SOS):** Estado de urgencia asignado a una orden para que sea atendida inmediatamente por los técnicos.
+
+#### 6. Fidelización y Analítica
+*   **Notificación (Notification):** Comunicación automática enviada por **WhatsApp**, Email o SMS para informar al paciente sobre el avance de su pedido.
+*   **Tasa de Conversión (Conversion Rate):** Métrica que mide la relación entre recetas emitidas y ventas efectivamente concretadas.
+*   **Dashboard:** Panel visual de indicadores (KPIs) de ventas, productividad del laboratorio y mermas para la toma de decisiones gerenciales.
+*   **Recordatorio Anual (Annual Reminder):** Aviso programado para invitar al paciente a su revisión visual periódica tras un año de su última compra.
+*   **Probador Virtual (Virtual Try-on):** Herramienta 3D que permite al cliente previsualizar monturas sobre su rostro usando la cámara web.
