@@ -33,6 +33,8 @@ Hemos observado que, en este tipo de establecimientos, la carencia de un sistema
 
 #### 1.2.2.4. Lean UX Canvas
 
+<img src="../assets/lean-UX-Canvas.png" width="500"/>
+
 ## 1.3. Segmentos objetivo
 Nuestra propuesta aborda dos grupos clave dentro del ecosistema del servicio óptico, diferenciando entre los usuarios internos que interactúan directamente con el sistema y los clientes finales que se ven impactados por la eficiencia de los procesos operativos.
 
