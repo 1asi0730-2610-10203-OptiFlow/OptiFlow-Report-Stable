@@ -2,13 +2,9 @@
 
 ## Software Configuration Management
 
-### Software Development Environment Configuration
-
 **Figma**
 
-<p align="center">
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjih1p5gfTNIjPJ8wUgngz7_k8tUFdhHG42g&s" alt="Figma-logo" width="150">
-</p>
+![Figma-logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjih1p5gfTNIjPJ8wUgngz7_k8tUFdhHG42g&s)
 
 Herramienta SaaS enfocada en el diseño de interfaces de usuario (UX/UI). Se emplea para conceptualizar la estética y funcionalidad mediante Wireframes, Mock-ups y prototipos dinámicos para sitios web y aplicaciones, facilitando el trabajo cooperativo entre diseñadores en tiempo real.
 
@@ -18,9 +14,7 @@ Herramienta SaaS enfocada en el diseño de interfaces de usuario (UX/UI). Se emp
 
 **HTML5 & CSS3**
 
-<p align="center">
-  <img src="https://i.pinimg.com/736x/fe/57/10/fe571020f2e476bca20e1ae6441569ec.jpg" alt="html_css-logo" width="150">
-</p>
+![html_css-logo](https://i.pinimg.com/736x/fe/57/10/fe571020f2e476bca20e1ae6441569ec.jpg) 
 
 Tecnologías base de la web utilizadas para estructurar el contenido de forma semántica y aplicar estilos visuales a los componentes de la interfaz, asegurando una presentación coherente en las aplicaciones front-end y páginas de aterrizaje.
 
@@ -30,20 +24,17 @@ Tecnologías base de la web utilizadas para estructurar el contenido de forma se
 
 **Vue.js Framework**
 
-<p align="center">
-  <img src="https://images.seeklogo.com/logo-png/40/1/vue-js-logo-png_seeklogo-409842.png" alt="vue-logo" width="150">
-</p>
+![vue-logo](/assets/vue.png)
 
 Framework progresivo de JavaScript utilizado para la construcción de interfaces de usuario y aplicaciones de una sola página (SPA). Se basa en una arquitectura de componentes reactivos y un sistema de renderizado optimizado que facilita la integración con otros proyectos y el manejo eficiente del DOM virtual.
 
 * **Ruta de descarga:** [https://vuejs.org/guide/quick-start.html](https://vuejs.org/guide/quick-start.html)
+
 ---
 
 **Miro**
 
-<p align="center">
-  <img src="https://asset.brandfetch.io/idAnDTFapY/idDdbxxs3M.png" alt="miro-logo" width="150">
-</p>
+![miro-logo](https://asset.brandfetch.io/idAnDTFapY/idDdbxxs3M.png) 
 
 Espacio de trabajo digital tipo pizarra blanca, ideal para el análisis de requerimientos y el modelado de procesos mediante metodologías como EventStorming, tanto a nivel de negocio como de diseño técnico.
 
@@ -53,9 +44,7 @@ Espacio de trabajo digital tipo pizarra blanca, ideal para el análisis de reque
 
 **Structurizr**
 
-<p align="center">
-  <img src="https://www.nuget.org/profiles/structurizr/avatar?imageSize=512" alt="structurizr-logo" width="150">
-</p>
+![structurizr-logo](/assets/structurizr.png)
 
 Solución de modelado especializada en la documentación técnica de sistemas. Permite visualizar la arquitectura del software bajo el estándar del Modelo C4, detallando diagramas de contexto, contenedores y componentes.
 
@@ -65,9 +54,7 @@ Solución de modelado especializada en la documentación técnica de sistemas. P
 
 **Microsoft SQL Server**
 
-<p align="center">
-  <img src="https://cdn-icons-png.flaticon.com/512/5968/5968364.png" alt="sql-logo" width="150">
-</p>
+![sql-logo](https://cdn-icons-png.flaticon.com/512/5968/5968364.png) 
 
 Gestor de bases de datos relacionales encargado del almacenamiento seguro y estructurado de la información del sistema. Provee la base para mantener la integridad de los datos transaccionales dentro de los contextos delimitados del proyecto.
 
@@ -77,14 +64,11 @@ Gestor de bases de datos relacionales encargado del almacenamiento seguro y estr
 
 **ASP.NET Core (C#)**
 
-<p align="center">
-  <img src="https://cdn-icons-png.flaticon.com/512/6132/6132221.png" alt="csharp-logo" width="150">
-</p>
+![csharp-logo](https://cdn-icons-png.flaticon.com/512/6132/6132221.png) 
 
 Framework de desarrollo para el lado del servidor que simplifica la creación de microservicios y servicios web RESTful en C#. Administra la lógica operativa, protocolos de seguridad y la exposición de datos hacia el front-end.
 
 * **Documentación y descarga:** [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
-
 ### Source Code Management
 El proyecto utiliza **GitHub** como sistema de control de versiones mediante un repositorio público. Se adoptó una estrategia basada en **GitFlow**:
 * La rama `main` contiene versiones estables del sistema.
@@ -368,7 +352,7 @@ Durante la iteración inicial del proyecto OptiFlow, se consolidó el diseño es
 [Análisis de la colaboración del equipo: métricas de contribución, reuniones y herramientas utilizadas.]
 
 
-## Validation Interviews
+  ## Validation Interviews
 
 ### Diseño de Entrevistas
 [Guía de entrevistas de validación: objetivos, perfil de participantes y protocolo de ejecución.]
