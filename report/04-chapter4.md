@@ -72,4 +72,4 @@
 ## Database Design
 
 ### Database Diagrams
-[Diagramas entidad-relación o de esquema de base de datos, incluyendo tablas, claves y relaciones.]
+<img src = "/assets/dbdiagram.png" alt = "jp-photo" width="500">
