@@ -63,7 +63,7 @@
 <img src = "/assets/C4-d2.png" alt = "jp-photo" width="500">
 
 ### Software Architecture Components Diagrams
-[Diagramas de componentes C4 por contenedor, mostrando módulos internos y sus relaciones.]
+<img src = "/assets/C4-d3.png" alt = "jp-photo" width="1000">
 
 ## Software Object-Oriented Design
 
