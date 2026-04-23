@@ -60,7 +60,7 @@
 <img src = "/assets/C4-d1.png" alt = "jp-photo" width="500">
 
 ### Software Architecture Container Diagrams
-[Diagrama de contenedores C4 que detalla los componentes de alto nivel y sus responsabilidades.]
+<img src = "/assets/C4-d2.png" alt = "jp-photo" width="500">
 
 ### Software Architecture Components Diagrams
 [Diagramas de componentes C4 por contenedor, mostrando módulos internos y sus relaciones.]
