@@ -55,7 +55,21 @@ OptiFlow utiliza esquemas de organización lógica para manejar procesos complej
 
 
 ### Labeling Systems
-[Definición de etiquetas, nomenclaturas y taxonomías utilizadas en la interfaz.]
+Estandarización de etiquetas para alinear al equipo clínico, técnico y comercial:
+
+| Etiqueta | Descripción |
+| :--- | :--- |
+| **Anamnesis** | Registro de antecedentes y motivo de consulta del paciente. |
+| **SOS / Urgente** | Marcador visual rojo para priorizar órdenes en el Kanban. |
+| **Rework** | Orden rechazada por Calidad que requiere re-procesamiento. |
+| **Audit Log** | Registro histórico de cambios realizado por usuario para seguridad. |
+| **Modo Offline** | Indicador de almacenamiento local por falta de conexión. |
+| **Stock Crítico** | Alerta automática cuando el inventario baja del umbral. |
+| **JWT Token** | Estado técnico de la sesión segura del usuario. |
+| **Probar en vivo** | Acciona la cámara para el Probador Virtual (Magic Mirror). |
+| **Historia Clínica** | Expediente digital del paciente y recetas de refracción. |
+| **Stock / SKU** | Identificador único y cantidad de monturas/lentes. |
+
 
 ### SEO Tags and Meta Tags
 [Especificación de metaetiquetas, títulos, descripciones y palabras clave para posicionamiento en buscadores.]
