@@ -213,7 +213,21 @@ Cada User Persona sintetiza estas características con el objetivo de facilitar 
 
 ### User Task Matrix
 
-[Matriz de tareas por usuario, indicando frecuencia e importancia de cada actividad.]
+| Task Matrix (Tareas) | Paciente: Frecuencia | Paciente: Importancia | Admin/Empleado: Frecuencia | Admin/Empleado: Importancia |
+| :--- | :--- | :--- | :--- | :--- |
+| **Acceso y Seguridad (Login)** | Seguido | Alta | Seguido | Crítica |
+| **Agendar/Reprogramar cita** | A veces | Alta | A veces | Alta |
+| **Realizar examen / Historia Clínica** | A veces | Alta | Seguido | Crítica |
+| **Consultar stock en tiempo real** | A veces | Mediana | Seguido | Alta |
+| **Generar cotización desde Receta** | A veces | Mediana | Seguido | Alta |
+| **Realizar pagos, adelantos y saldos** | A veces | Alta | Seguido | Alta |
+| **Tracking de orden (WhatsApp/Web)** | Seguido | Alta | A veces | Mediana |
+| **Gestión de Kanban (Laboratorio)** | - | - | Seguido | Crítica |
+| **Abastecer/Actualizar catálogo** | - | - | A veces | Alta |
+| **Supervisar ventas y métricas (BI)** | - | - | Seguido | Alta |
+| **Cierre de Caja y Auditoría** | - | - | Seguido | Crítica |
+| **Gestión de Urgencias (SOS)** | - | - | A veces | Alta |
+
 
 ### User Journey Mapping
 
