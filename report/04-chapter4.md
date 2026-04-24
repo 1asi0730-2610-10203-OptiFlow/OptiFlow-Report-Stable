@@ -80,7 +80,16 @@ Optimización para la Landing Page orientada a la captación de clientes:
 * Author: OptiFlow Corp.
 
 ### Searching Systems
-[Descripción del sistema de búsqueda: filtros, criterios y mecanismos de recuperación de información.]
+Filtros granulares para agilizar la operación diaria y la auditoría:
+
+| Nombre del Filtro | Descripción |
+| :--- | :--- |
+| **Búsqueda por DNI/ID** | Localización inmediata del historial clínico, compras y estado de deudas. |
+| **Estado de Orden** | Filtro por etapas del Kanban (Pendiente, Biselado, Montaje, Listo). |
+| **Filtro de Material/SKU** | Búsqueda técnica de monturas (Titanio, Acetato) o cristales específicos. |
+| **Estado de Pago** | Identificación de saldos pendientes para agilizar entregas (US15). |
+| **Filtro de Auditoría** | Búsqueda por rango de fechas o usuario para revisar logs de seguridad y eficiencia. |
+
 
 ### Navigation Systems
 [Esquema de navegación: menús, breadcrumbs, flujos de navegación y patrones de interacción.]
