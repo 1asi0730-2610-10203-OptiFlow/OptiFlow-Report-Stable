@@ -148,6 +148,8 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ### Class Diagrams
 [Diagramas de clases UML con atributos, métodos y relaciones entre entidades del dominio.]
+
+## Frontend Class Diagrams
 ### IAM (Identity and Access Management)
 ![IAM Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-iam.puml)
 
@@ -168,6 +170,13 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ### App (Componentes Compartidos y Core)
 ![App Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-app.puml)
+
+
+## Backend Class Diagrams
+#### Identity & Access ↔ Clinical
+![IAM - Clinical](../docs/class-diagrams-backend/class-diagram-iam-clinical.png)
+
+
 ## Database Design
 
 ### Database Diagrams
