@@ -119,10 +119,17 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 [Wireframes de las pantallas principales de la aplicación web.]
 
 ### Web Applications Wireflow Diagrams
-[Diagramas que combinan wireframes con flujos de navegación entre pantallas.]
+![TF-01](../docs/taskflows/Task%20flows%20-%20US01S_.jpg) 
+![TF-02](../docs/taskflows/Task%20flows%20-%20US-02S.jpg)
+![TF-05](../docs/taskflows/Task%20flows%20-%20US-05.jpg)
+![TF-06](../docs/taskflows/Task%20flows%20-%20US-06.jpg)
+![TF-010](../docs/taskflows/Task%20flows%20-%20US-10.jpg)
+![TF-18](../docs/taskflows/Task%20flows%20-%20US-18.jpg)
+![TF-25](../docs/taskflows/Task%20flows%20-%20US-025.jpg)
+![TF-37](../docs/taskflows/Task%20flows%20-%20US-37.jpg)
+
 
 ### Web Applications Mock-ups
-[Mock-ups de alta fidelidad de las pantallas de la aplicación web.]
 
 ### Web Applications User Flow Diagrams
 [Diagramas de flujo de usuario que representan los caminos posibles dentro de la aplicación.]
