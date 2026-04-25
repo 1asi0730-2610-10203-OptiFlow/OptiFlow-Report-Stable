@@ -151,6 +151,8 @@ Datos del entrevistado
 - **Inicio:** 01:24:15
 - **Duración:** 00:11:44
 - **Link de la entrevista individual:** https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241c101_upc_edu_pe/IQD6_x6LnGFrRI1oRJKsXr-0AX0ZlYAGWkN-V3deJtd0eJw?e=VoLxyX 
+
+<img src="../assets/Entrevista-Mia.png" width="500"/>
   
   **Resumen descriptivo:**
 
