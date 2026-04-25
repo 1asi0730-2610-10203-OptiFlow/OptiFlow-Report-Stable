@@ -33,7 +33,7 @@ interacción:
 * Componentes: Botones con bordes redondeados y estados de hover con degradados cian-verde.
 * Responsive: Las métricas de ventas y el tablero Kanban se reorganizan en una sola columna en dispositivos móviles para mantener la operatividad del asesor de ventas en tienda.
 
-<img src = "/assets/spacing.png">
+<img src = "../assets/spacing.png">
 
 ## Information Architecture
 
