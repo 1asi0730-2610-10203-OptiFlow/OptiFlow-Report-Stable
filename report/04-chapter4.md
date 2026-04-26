@@ -144,6 +144,10 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![Wireframe US10 Nuevo Examen – Mobile](<../docs/wireframes/jp/US_ Nuevo Examen Mobile.png>){width=90%}
 
+#### US11 – Registro de Anamnesis
+
+![US11-wfm.png](../docs/wireframes/nico/US11-wfm.png)
+
 #### US17 – Registrar Venta
 
 ![Wireframe US17 Registrar Venta](<../docs/wireframes/jp/US-17_ Registrar venta.png>){width=90%}
@@ -233,6 +237,16 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![](<../docs/wireflows/jp/US_ nuevo examen.png>){width=90%}
 
 ![](<../docs/wireflows/jp/US_ Nuevo Examen Mobile.png>){width=90%}
+
+#### US11 – Registro de Anamnesis
+
+**Taskflow:**
+
+![task-11.jpg](../docs/taskflows/nico/task-11.jpg)
+
+**Wireflow:**
+
+![US11-wfw.png](../docs/wireflows/nico/US11-wfw.png)
 
 #### US17 – Registrar Venta
 
