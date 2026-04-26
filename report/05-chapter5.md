@@ -24,7 +24,7 @@ Tecnologías base de la web utilizadas para estructurar el contenido de forma se
 
 **Vue.js Framework**
 
-![vue-logo](/assets/vue.png)
+![vue-logo](../assets/vue.png)
 
 Framework progresivo de JavaScript utilizado para la construcción de interfaces de usuario y aplicaciones de una sola página (SPA). Se basa en una arquitectura de componentes reactivos y un sistema de renderizado optimizado que facilita la integración con otros proyectos y el manejo eficiente del DOM virtual.
 
@@ -44,7 +44,7 @@ Espacio de trabajo digital tipo pizarra blanca, ideal para el análisis de reque
 
 **Structurizr**
 
-![structurizr-logo](/assets/structurizr.png)
+![structurizr-logo](../assets/structurizr.png)
 
 Solución de modelado especializada en la documentación técnica de sistemas. Permite visualizar la arquitectura del software bajo el estándar del Modelo C4, detallando diagramas de contexto, contenedores y componentes.
 

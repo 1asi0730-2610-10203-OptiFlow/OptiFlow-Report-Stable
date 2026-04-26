@@ -17,6 +17,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 
+      - name: Create URL-encoded copies of image files containing spaces
+        run: |
+          find docs assets -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) 2>/dev/null | \
+          while IFS= read -r f; do
+            dir=$(dirname "$f")
+            base=$(basename "$f")
+            encoded="${base// /%20}"
+            [ "$base" != "$encoded" ] && cp "$f" "$dir/$encoded"
+          done
+
       - name: Build Full PDF
         run: |
           pandoc README.md report/*.md \
