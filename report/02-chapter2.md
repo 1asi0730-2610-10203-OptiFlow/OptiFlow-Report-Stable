@@ -248,8 +248,13 @@ Cada User Persona sintetiza estas características con el objetivo de facilitar 
 ![](../assets/Customer-journey-Cliente.png)
 
 ### Empathy Mapping
+
+#### Segmento 1: *Empleados de la óptica*
+
 Empleado de la óptica: Marco Ruiz
 <img src = "../assets/optic-employee-em.png">
+
+#### Segmento 2: *Clientes de la óptica*
 
 Cliente de la óptica: Adrian Geraldo Huamán Villacorta
 <img src = "../assets/client-em.png">
