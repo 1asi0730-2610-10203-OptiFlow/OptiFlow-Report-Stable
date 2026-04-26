@@ -24,7 +24,9 @@ jobs:
             dir=$(dirname "$f")
             base=$(basename "$f")
             encoded="${base// /%20}"
-            [ "$base" != "$encoded" ] && cp "$f" "$dir/$encoded"
+            if [ "$base" != "$encoded" ]; then
+              cp "$f" "$dir/$encoded"
+            fi
           done
 
       - name: Build Full PDF
