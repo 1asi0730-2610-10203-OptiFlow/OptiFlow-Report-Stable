@@ -118,6 +118,8 @@ El desarrollo de la RESTful API se rige por las "C# Coding Conventions" y las "M
 
 ## Landing Page, Services & Applications Implementation
 
+
+
 ### Sprint 1
 
 #### Sprint Planning 1
@@ -399,8 +401,13 @@ Durante la iteración inicial del proyecto OptiFlow, se consolidó el diseño es
 [Documentación de los servicios o APIs desarrolladas durante el sprint.]
 
 #### Software Deployment Evidence for Sprint Review
-[Evidencia del despliegue realizado: capturas, URLs y configuraciones aplicadas.]
+En este primer sprint se desplegó la primera versión del landing page utilizando github pages.
+![static](../assets/static-yaml-evidence.png)
+![base](../assets/base-config-evidence.png)
+![jobs](../assets/jobs-evidences.png)
 
+Landing page deployed: https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
+![landing-page](../assets/landing-page.png)
 #### Team Collaboration Insights during Sprint
 [Análisis de la colaboración del equipo: métricas de contribución, reuniones y herramientas utilizadas.]
 
