@@ -347,6 +347,48 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 | 1asi0730-2610-10203-OptiFlow/landing-page | feature/hero-section | e4f6bf8 | fix(hero): fix hero background | - | 2026-04-20 |
 | 1asi0730-2610-10203-OptiFlow/landing-page | feature/hero-section | e1884df | feat(hero): add hero section | - | 2026-04-20 |
 | 1asi0730-2610-10203-OptiFlow/landing-page | feature/hero-navbar | 0e314f8 | feat(nav): add hero header navbar | - | 2026-04-20 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | f1b8d02 | feat(i18n): add i18n | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | 69b05b5 | Merge pull request #10 from 1asi0730-2610-10203-OptiFlow/feature/contact | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | e1a8a19 | Update Footer | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | 666a412 | Update ContactSection | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | 92f9625 | Merge pull request #9 from 1asi0730-2610-10203-OptiFlow/feature/two-experiences | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | bcb238a | refactor(two-exp): improve spacing and typography | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | 5f520da | feat(two-exp): style two experiences section | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | afbc58d | feat(two-exp): add two experiences section structure and content | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | a1d2bbf | Merge pull request #8 from 1asi0730-2610-10203-OptiFlow/feature/hero-navbar | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/i18n | a772e70 | feat(nav): add logo and improve navbar design | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | f1b8d02 | feat(i18n): add i18n | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | 69b05b5 | Merge pull request #10 from 1asi0730-2610-10203-OptiFlow/feature/contact | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | e1a8a19 | Update Footer | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | 666a412 | Update ContactSection | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | 92f9625 | Merge pull request #9 from 1asi0730-2610-10203-OptiFlow/feature/two-experiences | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | bcb238a | refactor(two-exp): improve spacing and typography | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | 5f520da | feat(two-exp): style two experiences section | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | afbc58d | feat(two-exp): add two experiences section structure and content | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | a1d2bbf | Merge pull request #8 from 1asi0730-2610-10203-OptiFlow/feature/hero-navbar | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/contact | a772e70 | feat(nav): add logo and improve navbar design | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | f1b8d02 | feat(i18n): add i18n | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | 69b05b5 | Merge pull request #10 from 1asi0730-2610-10203-OptiFlow/feature/contact | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | e1a8a19 | Update Footer | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | 666a412 | Update ContactSection | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | 92f9625 | Merge pull request #9 from 1asi0730-2610-10203-OptiFlow/feature/two-experiences | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | bcb238a | refactor(two-exp): improve spacing and typography | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | 5f520da | feat(two-exp): style two experiences section | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | afbc58d | feat(two-exp): add two experiences section structure and content | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | a1d2bbf | Merge pull request #8 from 1asi0730-2610-10203-OptiFlow/feature/hero-navbar | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/two-experiences | a772e70 | feat(nav): add logo and improve navbar design | - | 2026-04-22 
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | f1b8d02 | feat(i18n): add i18n | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | 69b05b5 | Merge pull request #10 from 1asi0730-2610-10203-OptiFlow/feature/contact | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | e1a8a19 | Update Footer | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | 666a412 | Update ContactSection | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | 92f9625 | Merge pull request #9 from 1asi0730-2610-10203-OptiFlow/feature/two-experiences | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | bcb238a | refactor(two-exp): improve spacing and typography | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | 5f520da | feat(two-exp): style two experiences section | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | afbc58d | feat(two-exp): add two experiences section structure and content | - | 2026-04-23 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | a1d2bbf | Merge pull request #8 from 1asi0730-2610-10203-OptiFlow/feature/hero-navbar | - | 2026-04-22 |
+| 1asi0730-2610-10203-OptiFlow/landing-page | feature/features | a772e70 | feat(nav): add logo and improve navbar design | - | 2026-04-22 |
+
+  https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page.git
 
 #### Execution Evidence for Sprint Review
 Durante la iteración inicial del proyecto OptiFlow, se consolidó el diseño estratégico del sistema mediante la elaboración de artefactos de Domain-Driven Design y el modelado estructural de la base de datos, estableciendo una arquitectura técnica escalable que fue complementada por una exhaustiva investigación de Experiencia de Usuario (UX/UI) y prototipado de alta fidelidad basado en la elicitación de requerimientos de los segmentos objetivo; sobre esta integración teórico-práctica, se ejecutó exitosamente la codificación frontend y el despliegue en entorno cloud de la Landing Page comercial para la captación de prospectos (historias US-46L a US-50L), operando de manera transversal dentro de un entorno de desarrollo colaborativo estrictamente gestionado bajo la estrategia GitFlow para garantizar la integridad, control de versiones y trazabilidad de los aportes del equipo.

@@ -117,16 +117,333 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ## Web Applications UX/UI Design
 
 ### Web Applications Wireframes
-[Wireframes de las pantallas principales de la aplicación web.]
+
+#### US01 – Login
+
+![Wireframe US01 Login – Desktop](<../docs/wireframes/jp/US01_ Login.png>){width=90%}
+
+![Wireframe US01 Login – Mobile](<../docs/wireframes/jp/US_ Login Mobile.png>){width=90%}
+
+#### US02 – Recuperar Contraseña
+
+![Wireframe US02 Recuperar Contraseña](<../docs/wireframes/jp/US02_ Recover password.png>){width=90%}
+
+#### US05
+
+![Wireframe US05](<../docs/wireframes/jp/US05P.png>){width=90%}
+
+#### US06 – Gestión de Perfil
+
+![Wireframe US06 Gestión de Perfil – Desktop](<../docs/wireframes/jp/US-06 DESKTOP.png>){width=90%}
+
+![Wireframe US06 Gestión de Perfil – Mobile](<../docs/wireframes/jp/US-06_ Gestión de perifl Mobile.png>){width=90%}
+
+#### US10 – Nuevo Examen
+
+![Wireframe US10 Nuevo Examen – Desktop](<../docs/wireframes/jp/US_ nuevo examen.png>){width=90%}
+
+![Wireframe US10 Nuevo Examen – Mobile](<../docs/wireframes/jp/US_ Nuevo Examen Mobile.png>){width=90%}
+
+#### US17 – Registrar Venta
+
+![Wireframe US17 Registrar Venta](<../docs/wireframes/jp/US-17_ Registrar venta.png>){width=90%}
+
+#### US18 – Cotización desde Receta
+
+![Wireframe US18 Cotización desde Receta – Mobile](<../docs/wireframes/jp/US-18_ Cotización desde Receta Mobile.png>){width=90%}
+
+#### US25 – Notificaciones a Clientes
+
+![Wireframe US25 Notificaciones Clientes – Vista 1](<../docs/wireframes/jp/US 25_ Notificaciones clientes.png>){width=90%}
+
+![Wireframe US25 Notificaciones Clientes – Vista 2](<../docs/wireframes/jp/US_ Notificaciones clientes.png>){width=90%}
+
+#### US37 – Control de Órdenes y Tablero Kanban
+
+![Wireframe US37 Control de Órdenes – Desktop](<../docs/wireframes/jp/US37_ Control de Órdenes y Tablero Kanban.png>){width=90%}
+
+![Wireframe US37 Control de Órdenes – Mobile](<../docs/wireframes/jp/US_ 37 MOBILE.png>){width=90%}
+
+#### Registro de Empleado
+
+![Wireframe Registro de Empleado – Desktop](<../docs/wireframes/jp/US_ Registro de empleado.png>){width=90%}
+
+![Wireframe Registro de Empleado – Mobile](<../docs/wireframes/jp/US_ Registro de empleado Mobile.png>){width=90%}
+
+#### US42 – Dashboard de Ventas
+
+![Wireframe US42 Dashboard de Ventas – Desktop](<../docs/wireframes/jp/US-42_ Dashboard de ventas.png>){width=90%}
+
+![Wireframe US42 Dashboard de Ventas – Mobile](<../docs/wireframes/jp/US-42_ Dashboard de ventas MOBILE.png>){width=90%}
 
 ### Web Applications Wireflow Diagrams
-[Diagramas que combinan wireframes con flujos de navegación entre pantallas.]
+
+#### US01 – Login
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US01S_.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US01_ Login.png>){width=90%}
+
+![](<../docs/wireflows/jp/US_ Login Mobile.png>){width=90%}
+
+#### US02 – Recuperar Contraseña
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-02S.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US02_ Recover password.png>){width=90%}
+
+#### US05
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-05.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US05P.png>){width=90%}
+
+#### US06 – Gestión de Perfil
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-06.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US-06 DESKTOP.png>){width=90%}
+
+![](<../docs/wireflows/jp/US-06_ Gestión de perifl Mobile.png>){width=90%}
+
+#### US10 – Nuevo Examen
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-10.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US_ nuevo examen.png>){width=90%}
+
+![](<../docs/wireflows/jp/US_ Nuevo Examen Mobile.png>){width=90%}
+
+#### US17 – Registrar Venta
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US-17_ Registrar venta.png>){width=90%}
+
+#### US18 – Cotización desde Receta
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-18.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US-18_ Cotización desde Receta Mobile.png>){width=90%}
+
+#### US25 – Notificaciones a Clientes
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-025.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US 25_ Notificaciones clientes.png>){width=90%}
+
+![](<../docs/wireflows/jp/US_ Notificaciones clientes.png>){width=90%}
+
+#### US37 – Control de Órdenes y Tablero Kanban
+
+**Taskflow:**
+
+![](<../docs/taskflows/jp/Task flows - US-37.jpg>){width=90%}
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US37_ Control de Órdenes y Tablero Kanban.png>){width=90%}
+
+![](<../docs/wireflows/jp/US_ 37 MOBILE.png>){width=90%}
+
+#### Registro de Empleado
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US_ Registro de empleado.png>){width=90%}
+
+![](<../docs/wireflows/jp/US_ Registro de empleado Mobile.png>){width=90%}
+
+#### US42 – Dashboard de Ventas
+
+**Wireflow:**
+
+![](<../docs/wireflows/jp/US-42_ Dashboard de ventas.png>){width=90%}
+
+![](<../docs/wireflows/jp/US-42_ Dashboard de ventas MOBILE.png>){width=90%}
 
 ### Web Applications Mock-ups
-[Mock-ups de alta fidelidad de las pantallas de la aplicación web.]
+
+#### US01 – Login
+
+![Mockup US01 Login – Desktop](<../docs/mockups/jp/US01_ Login.png>){width=90%}
+
+![Mockup US01 Login – Mobile](<../docs/mockups/jp/US_ Login Mobile.png>){width=90%}
+
+#### US02 – Recuperar Contraseña
+
+![Mockup US02 Recuperar Contraseña](<../docs/mockups/jp/US02_ Recover password.png>){width=90%}
+
+#### US05 - Seguimiento de Orden Web
+
+![Mockup US05](<../docs/mockups/jp/US05P.png>){width=90%}
+
+#### US06 – Gestión de Perfil
+
+![Mockup US06 Gestión de Perfil – Desktop](<../docs/mockups/jp/US-06 DESKTOP.png>){width=90%}
+
+![Mockup US06 Gestión de Perfil – Mobile](<../docs/mockups/jp/US-06_ Gestión de perifl Mobile.png>){width=90%}
+
+#### US10 – Registro de Historia Clínica
+
+![Mockup US10 Nuevo Examen – Desktop](<../docs/mockups/jp/US_ nuevo examen.png>){width=90%}
+
+![Mockup US10 Nuevo Examen – Mobile](<../docs/mockups/jp/US_ Nuevo Examen Mobile.png>){width=90%}
+
+
+
+#### US18 – Cotización desde Receta
+
+![Mockup US18 Cotización desde Receta – Mobile](<../docs/mockups/jp/US-18_ Cotización desde Receta Mobile.png>){width=90%}
+
+#### US25 – Notificaciones a Clientes
+
+![Mockup US25 Notificaciones Clientes – Vista 1](<../docs/mockups/jp/US 25_ Notificaciones clientes.png>){width=90%}
+
+![Mockup US25 Notificaciones Clientes – Vista 2](<../docs/mockups/jp/US_ Notificaciones clientes.png>){width=90%}
+
+#### US37 – Control de Órdenes y Tablero Kanban
+
+![Mockup US37 Control de Órdenes – Desktop](<../docs/mockups/jp/US37_ Control de Órdenes y Tablero Kanban.png>){width=90%}
+
+![Mockup US37 Control de Órdenes – Mobile](<../docs/mockups/jp/US_ 37 MOBILE.png>){width=90%}
+
+#### Registro de Empleado
+
+![Mockup Registro de Empleado – Desktop](<../docs/mockups/jp/US_ Registro de empleado.png>){width=90%}
+
+![Mockup Registro de Empleado – Mobile](<../docs/mockups/jp/US_ Registro de empleado Mobile.png>){width=90%}
+
+#### US42 – Dashboard de Ventas
+
+![Mockup US42 Dashboard de Ventas – Desktop](<../docs/mockups/jp/US-42_ Dashboard de ventas.png>){width=90%}
+
+![Mockup US42 Dashboard de Ventas – Mobile](<../docs/mockups/jp/US-42_ Dashboard de ventas MOBILE.png>){width=90%}
+
+![Mockup Frame 76](<../docs/mockups/jp/Frame 76.png>){width=90%}
 
 ### Web Applications User Flow Diagrams
-[Diagramas de flujo de usuario que representan los caminos posibles dentro de la aplicación.]
+
+#### US01 – Login
+
+- **Happy Path:** El usuario ingresa credenciales válidas → el sistema autentica mediante JWT → se redirige al dashboard según el rol asignado.
+- **Unhappy Path:** Credenciales incorrectas → mensaje de error de autenticación → el usuario puede reintentar o acceder a la opción de recuperar contraseña.
+
+![User Flow US01 Login – Desktop](<../docs/userflows/jp/US01_ Login.png>){width=90%}
+
+![User Flow US01 Login – Mobile](<../docs/userflows/jp/US_ Login Mobile.png>){width=90%}
+
+#### US02 – Recuperar Contraseña
+
+- **Happy Path:** El usuario ingresa su correo registrado → recibe un enlace de restablecimiento → define una nueva contraseña → inicia sesión correctamente.
+- **Unhappy Path:** El correo ingresado no existe en el sistema → mensaje de error → el usuario es dirigido al soporte o al registro.
+
+![User Flow US02 Recuperar Contraseña](<../docs/userflows/jp/US02_ Recover password.png>){width=90%}
+
+#### US05 Seguimiento de orden web
+
+- **Happy Path:** El usuario completa el formulario con información válida → el sistema guarda los datos → confirmación exitosa mostrada en pantalla.
+- **Unhappy Path:** Datos incompletos o inválidos → el sistema muestra errores de validación por campo → el usuario corrige y reintenta el envío.
+
+![User Flow US05](<../docs/userflows/jp/US05P.png>){width=90%}
+
+#### US06 – Gestión de Perfil
+
+- **Happy Path:** El usuario accede a su perfil → edita los datos deseados → guarda los cambios → confirmación exitosa y perfil actualizado.
+- **Unhappy Path:** El usuario intenta guardar con campos obligatorios vacíos → la validación impide el guardado → el sistema resalta los campos incompletos.
+
+![User Flow US06 Gestión de Perfil – Desktop](<../docs/userflows/jp/US-06 DESKTOP.png>){width=90%}
+
+![User Flow US06 Gestión de Perfil – Mobile](<../docs/userflows/jp/US-06_ Gestión de perifl Mobile.png>){width=90%}
+
+#### US10 – Nuevo Examen
+
+- **Happy Path:** El optometrista selecciona al paciente → llena los campos de anamnesis y refracción → guarda el examen → el registro queda en la historia clínica del paciente.
+- **Unhappy Path:** Datos de refracción fuera de rango o paciente no encontrado → alertas de validación → el sistema impide guardar hasta corregir los valores ingresados.
+
+![User Flow US10 Nuevo Examen – Desktop](<../docs/userflows/jp/US_ nuevo examen.png>){width=90%}
+
+![User Flow US10 Nuevo Examen – Mobile](<../docs/userflows/jp/US_ Nuevo Examen Mobile.png>){width=90%}
+
+
+
+
+#### US18 – Cotización desde Receta
+
+![User Flow US18 Cotización desde Receta – Mobile](<../docs/userflows/jp/US-18_ Cotización desde Receta Mobile.png>){width=90%}
+- **Happy Path:** El asesor selecciona la receta del paciente → el sistema precalcula los productos recomendados → se genera la cotización y se envía al cliente.
+- **Unhappy Path:** Receta con información insuficiente o productos fuera de stock → el sistema notifica la inconsistencia → el asesor ajusta manualmente la cotización.
+
+
+#### US25 – Notificaciones a Clientes
+
+- **Happy Path:** El sistema detecta un evento (entrega lista, pago pendiente) → genera y envía la notificación por el canal configurado → el cliente la recibe correctamente.
+- **Unhappy Path:** Canal de contacto no registrado o número inválido → la notificación se marca como fallida → aparece en el panel de incidencias para seguimiento manual.
+
+![User Flow US25 Notificaciones Clientes – Vista 1](<../docs/userflows/jp/US 25_ Notificaciones clientes.png>){width=90%}
+
+![User Flow US25 Notificaciones Clientes – Vista 2](<../docs/userflows/jp/US_ Notificaciones clientes.png>){width=90%}
+
+#### US37 – Control de Órdenes y Tablero Kanban
+
+- **Happy Path:** El técnico mueve la orden entre columnas del Kanban (Pendiente → Biselado → Montaje → Control de Calidad → Listo) → cada cambio queda registrado en el historial.
+- **Unhappy Path:** La orden falla en Control de Calidad → se marca como "Rework" → regresa a la fase de procesamiento con una nota de rechazo visible en el tablero.
+
+![User Flow US37 Control de Órdenes – Desktop](<../docs/userflows/jp/US37_ Control de Órdenes y Tablero Kanban.png>){width=90%}
+
+![User Flow US37 Control de Órdenes – Mobile](<../docs/userflows/jp/US_ 37 MOBILE.png>){width=90%}
+
+#### Registro de Empleado
+
+- **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
+- **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
+
+![User Flow Registro de Empleado – Desktop](<../docs/userflows/jp/US_ Registro de empleado.png>){width=90%}
+
+![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=90%}
+
+#### US42 – Dashboard de Ventas
+
+- **Happy Path:** El gerente accede al dashboard → visualiza métricas de ventas, conversión y rendimiento en tiempo real → puede filtrar por período, área o asesor.
+- **Unhappy Path:** Sin datos suficientes para el período seleccionado → el dashboard muestra un estado vacío con indicaciones para ampliar el rango de fechas o verificar la fuente de datos.
+
+![User Flow US42 Dashboard de Ventas – Desktop](<../docs/userflows/jp/US-42_ Dashboard de ventas.png>){width=90%}
+
+![User Flow US42 Dashboard de Ventas – Mobile](<../docs/userflows/jp/US-42_ Dashboard de ventas MOBILE.png>){width=90%}
+
+#### Flujos de Navegación General
+
+![User Flow – Frame 76](<../docs/userflows/jp/Frame 76.png>){width=90%}
+
+![User Flow – Frame 79](<../docs/userflows/jp/Frame 79.png>){width=90%}
 
 ## Web Applications Prototyping
 [Descripción y enlace al prototipo interactivo de la aplicación web, con escenarios de prueba definidos.]
