@@ -433,6 +433,351 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 
 #### Aspect Leaders and Collaborators
 #### Sprint Backlog 2
+<table>
+  <thead>
+    <tr>
+      <th>Sprint #</th>
+      <th colspan="7">Sprint 2</th>
+    </tr>
+    <tr>
+      <th colspan="2">User Story</th>
+      <th colspan="6">Work-Item / Task</th>
+    </tr>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Estimation (Hours)</th>
+      <th>Assigned To</th>
+      <th>Status (To-do / In-Process / To-Review / Done)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>US-28P</td>
+      <td>Inicio de Sesión de Cliente con DNI</td>
+      <td>T01</td>
+      <td>Vista de Login del Cliente (DNI)</td>
+      <td>Desarrollar la vista de autenticación del portal del paciente con campo DNI y validación conectada al fake API.</td>
+      <td>3 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-05P</td>
+      <td>Seguimiento de Orden Web</td>
+      <td>T02</td>
+      <td>Componente de Seguimiento de Orden</td>
+      <td>Implementar la vista del portal que muestra el estado actual de la orden del cliente, consumiendo el fake API.</td>
+      <td>4 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-06P</td>
+      <td>Gestión de Perfil de Usuario</td>
+      <td>T03</td>
+      <td>Vista de Perfil del Cliente</td>
+      <td>Crear el formulario editable de datos de contacto del cliente (nombre, correo, teléfono) con actualización en fake API.</td>
+      <td>3 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-07P</td>
+      <td>Consulta de Saldo</td>
+      <td>T04</td>
+      <td>Vista de Consulta de Saldo Pendiente</td>
+      <td>Diseñar e implementar la vista que muestra el monto pendiente de la orden activa del cliente autenticado.</td>
+      <td>2 hrs</td>
+      <td>Mia</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-10G</td>
+      <td>Registro de Clientes</td>
+      <td>T05</td>
+      <td>Formulario de Registro de Cliente</td>
+      <td>Desarrollar el formulario con campos básicos (nombre, DNI, teléfono, correo) y guardado mediante POST al fake API.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-08G</td>
+      <td>Registro de Historia Clínica</td>
+      <td>T06</td>
+      <td>Formulario de Historia Clínica (Examen Visual)</td>
+      <td>Implementar el formulario de examen visual con campos de esfera, cilindro y eje para ambos ojos, guardado en fake API.</td>
+      <td>5 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-09G</td>
+      <td>Carga de Exámenes Externos</td>
+      <td>T07</td>
+      <td>Componente de Carga de PDF Médico</td>
+      <td>Crear el componente de upload de archivos PDF con vista previa del nombre de archivo vinculado al perfil del cliente.</td>
+      <td>3 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-36G</td>
+      <td>Vista de HCE del Cliente</td>
+      <td>T08</td>
+      <td>Vista del Expediente Clínico (HCE)</td>
+      <td>Implementar la vista que consolida los exámenes visuales anteriores y órdenes vinculadas al perfil del cliente.</td>
+      <td>3 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Fake API Development</td>
+      <td>T09</td>
+      <td>Configuración de json-server (db.json)</td>
+      <td>Configurar json-server con todos los recursos del sistema (clientes, órdenes, inventario, ventas, usuarios, roles) para ser consumidos por el frontend.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-01S</td>
+      <td>Autenticación de Usuarios</td>
+      <td>T10</td>
+      <td>Vista de Login de Empleado</td>
+      <td>Implementar la vista de inicio de sesión del sistema con campos de usuario/contraseña y redirección según rol asignado.</td>
+      <td>3 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-02S</td>
+      <td>Recuperación de Contraseña</td>
+      <td>T11</td>
+      <td>Vista de Recuperación de Contraseña</td>
+      <td>Crear la vista con campo de correo y flujo de confirmación de restablecimiento de contraseña conectado al fake API.</td>
+      <td>2 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-11F</td>
+      <td>Gestión de Ventas</td>
+      <td>T12</td>
+      <td>Vista de Registro de Nueva Venta</td>
+      <td>Desarrollar la vista principal de ventas con selección de cliente, productos y resumen del pedido, conectada al fake API.</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-14F</td>
+      <td>Pagos con Múltiples Métodos</td>
+      <td>T13</td>
+      <td>Componente de Método de Pago Mixto</td>
+      <td>Implementar el componente que permite dividir el monto entre efectivo y tarjeta, calculando automáticamente el vuelto.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-13F</td>
+      <td>Aplicación de Descuentos</td>
+      <td>T14</td>
+      <td>Componente de Código de Descuento</td>
+      <td>Crear el input de código de descuento con validación y recálculo automático del monto en la boleta de venta.</td>
+      <td>2 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-12F</td>
+      <td>Registro de Pago de Saldo</td>
+      <td>T15</td>
+      <td>Modal de Registro de Pago Pendiente</td>
+      <td>Implementar el modal de cobro de saldo al momento de la entrega del producto con actualización de estado en fake API.</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-15F</td>
+      <td>Devolución de Orden</td>
+      <td>T16</td>
+      <td>Flujo de Devolución de Venta</td>
+      <td>Desarrollar el flujo de reversión de venta desde la pantalla de ventas con motivo de devolución y actualización de estado.</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-16F</td>
+      <td>Notificaciones de Recojo</td>
+      <td>T17</td>
+      <td>Componente de Notificación de Orden Lista</td>
+      <td>Implementar el componente que muestra la alerta al cliente cuando su orden está lista para recoger en tienda.</td>
+      <td>2 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-17F</td>
+      <td>Encuestas de Satisfacción</td>
+      <td>T18</td>
+      <td>Vista de Encuesta de Satisfacción Post-Venta</td>
+      <td>Crear el formulario de calificación post-venta con escala de valoración y campo de comentario libre, guardado en fake API.</td>
+      <td>2 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-18L</td>
+      <td>Consulta de Inventario en Tiempo Real</td>
+      <td>T19</td>
+      <td>Dashboard de Inventario</td>
+      <td>Implementar la vista de consulta de stock con listado paginado de monturas y estado de disponibilidad desde fake API.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-20L</td>
+      <td>Registro de Nuevo Producto</td>
+      <td>T20</td>
+      <td>Formulario de Alta de Producto</td>
+      <td>Desarrollar el formulario de registro de nuevas monturas con campos de marca, modelo, precio y stock inicial.</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-22L</td>
+      <td>Búsqueda Avanzada</td>
+      <td>T21</td>
+      <td>Componente de Filtros Cruzados de Inventario</td>
+      <td>Implementar el panel de filtros múltiples (marca, tipo, precio, disponibilidad) sobre el listado de productos del catálogo.</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-19L</td>
+      <td>Alertas de Bajo Stock</td>
+      <td>T22</td>
+      <td>Componente de Alertas de Stock</td>
+      <td>Crear el componente de alerta visual que resalta productos por debajo del umbral mínimo configurado en el inventario.</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-21L</td>
+      <td>Gestión de Variantes</td>
+      <td>T23</td>
+      <td>Vista de Gestión de Variantes de Lunas</td>
+      <td>Implementar la vista de registro y edición de tipos de materiales de lunas (orgánico, fotocromático, antirreflejo, etc.).</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-23L</td>
+      <td>Control de Órdenes y Tablero Kanban</td>
+      <td>T24</td>
+      <td>Tablero Kanban de Laboratorio</td>
+      <td>Desarrollar el tablero Kanban interactivo con columnas (Pendiente, En Proceso, Listo, Entregado) y drag-and-drop de tarjetas de orden.</td>
+      <td>8 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-24L</td>
+      <td>Motivos de Retrabajo</td>
+      <td>T25</td>
+      <td>Modal de Registro de Motivo de Retrabajo</td>
+      <td>Crear el modal de tipificación de errores de fabricación con selector de causa raíz y actualización del estado de la orden.</td>
+      <td>2 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-25L</td>
+      <td>Gestión de Urgencias</td>
+      <td>T26</td>
+      <td>Componente de Marcado de Urgencia</td>
+      <td>Implementar el botón y lógica de priorización máxima de órdenes en el tablero Kanban con resaltado visual diferenciado.</td>
+      <td>2 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-26L</td>
+      <td>Control de Insumos</td>
+      <td>T27</td>
+      <td>Vista de Control de Insumos (Bloques)</td>
+      <td>Desarrollar la vista de seguimiento de materia prima con descuento automático de stock al registrar nuevas órdenes de laboratorio.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-27A</td>
+      <td>Dashboard de Ventas</td>
+      <td>T28</td>
+      <td>Dashboard de Métricas de Ventas</td>
+      <td>Implementar el panel centralizado con gráficos de ingresos, conversión y rendimiento del negocio consumiendo el fake API.</td>
+      <td>5 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-03A</td>
+      <td>Gestión de Roles</td>
+      <td>T29</td>
+      <td>Vista de Gestión de Roles y Permisos</td>
+      <td>Desarrollar la vista de asignación y edición de roles (admin, vendedor, técnico de laboratorio) con tabla de permisos por módulo.</td>
+      <td>5 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-04A</td>
+      <td>Auditoría de Inventario</td>
+      <td>T30</td>
+      <td>Vista de Registro de Auditoría</td>
+      <td>Crear la vista de historial de alteraciones de stock con filtros por fecha, producto y usuario responsable de cada cambio.</td>
+      <td>4 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-34S</td>
+      <td>Registro de Empleado</td>
+      <td>T31</td>
+      <td>Formulario de Alta de Empleado</td>
+      <td>Implementar el formulario de registro de nuevos empleados con campos de nombre, correo, rol asignado y contraseña inicial.</td>
+      <td>3 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td>US-35A</td>
+      <td>Configuración General del Sistema</td>
+      <td>T32</td>
+      <td>Vista de Configuración del Sistema</td>
+      <td>Desarrollar la vista de configuración con campos de información del negocio, política de contraseñas y opciones de copia de seguridad.</td>
+      <td>3 hrs</td>
+      <td>Mariana</td>
+      <td>To-Do</td>
+    </tr>
+  </tbody>
+</table>
+
 #### Development Evidence for Sprint Review
 #### Execution Evidence for Sprint Review
 #### Services Documentation Evidence for Sprint Review
