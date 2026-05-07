@@ -53,7 +53,17 @@ OptiFlow utiliza esquemas de organización lógica para manejar procesos complej
 | **Gerencia y BI** | Reportes de productividad, conversión de ventas y eficiencia. |
 | **Recursos Humanos** | Control de asistencia, planes de adiestramiento de personal y gestión de vacantes. |
 
+#### Organization Systems Employees
 
+![](../docs/information-arquitecture/Info%20architecture%20-%20Info%20Architecture%20employee.jpg){width=75%}
+![](../docs/information-arquitecture/Info%20architecture%20-%20Frame%201.jpg){width=75%}
+
+#### Organization Systems Clients
+![](../docs/information-arquitecture/Info%20architecture.jpg){width=75%}
+![](../docs/information-arquitecture/Info%20architecture%20-%20Info%20Architecture%20clients.jpg){width=75%}
+
+#### Miro Board
+https://miro.com/app/board/uXjVGgFWQtU=/?share_link_id=433726173598
 ### Labeling Systems
 Estandarización de etiquetas para alinear al equipo clínico, técnico y comercial:
 
