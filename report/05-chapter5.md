@@ -412,7 +412,34 @@ Landing page deployed: https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-L
 [Análisis de la colaboración del equipo: métricas de contribución, reuniones y herramientas utilizadas.]
 
 
-  ## Validation Interviews
+### Sprint 2
+
+#### Sprint Planning 2
+En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la segunda iteración del proyecto. El enfoque principal de este Sprint abarca la corrección de los errores identificados en el Sprint anterior y el desarrollo del frontend de la aplicación web. En base a la retrospectiva del Sprint 1, el equipo definió mejoras en la coordinación interna, la documentación y la calidad de los artefactos de diseño.
+
+| Aspect | Details |
+| :--- | :--- |
+| **Sprint #** | Sprint 2 |
+| **Date** | 2026-05-06 |
+| **Time** | 10:00 AM |
+| **Location** | Reunión Virtual (Discord / Microsoft Teams) |
+| **Prepared By** | Azama Fukuda, Juan Pablo |
+| **Attendees (to planning meeting)** | Atoche Gonzales, Nicolas Fernando / Azama Fukuda, Juan Pablo / Capillo Lema, Mía Valentina / Mechan Montenegro, Luciana Carolina / Morocho Pinedo, Mariana |
+| **Sprint n – 1 Review Summary** | Se avanzaron artefactos Lean UX y Needfinding, se recolectaron requisitos y se finalizó el Figma. No obstante, faltó diseñar los diagramas DDD en su complitud, desplegar el landing page y documentar correctamente el sprint. |
+| **Sprint n – 1 Retrospective Summary** | Errores identificados: el prototipo fue mal delegado y se ejecutó de forma descoordinada; se perdió tiempo por configuraciones de open source; los aportes tardaron en subirse al repositorio y se presentaron problemas con la conversión Pandoc. Mejoras acordadas: (1) Perfeccionar el Figma, (2) refinar diagramas C4 y Class Diagram del frontend, (3) revisión general del informe, (4) documentar Student Outcomes con commits, (5) leer el enunciado por inciso antes de trabajar, (6) reportar cada avance al grupo, (7) eliminar ramas no utilizadas del repositorio. |
+| **Sprint Goal** | Our focus is on fixing the mistakes and the frontend of the project. We believe it delivers satisfaction to the optics clients and administrators. This will be confirmed when the team tests the application and determines that its use is comfortable. |
+| **Sprint n Velocity** | 45 Story Points |
+| **Sum of Story Points** | 45 |
+
+#### Aspect Leaders and Collaborators
+#### Sprint Backlog 2
+#### Development Evidence for Sprint Review
+#### Execution Evidence for Sprint Review
+#### Services Documentation Evidence for Sprint Review
+#### Team Collaboration Insights during Sprint
+
+
+## Validation Interviews
 
 ### Diseño de Entrevistas
 [Guía de entrevistas de validación: objetivos, perfil de participantes y protocolo de ejecución.]
