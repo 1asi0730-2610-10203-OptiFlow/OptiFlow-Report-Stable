@@ -4,21 +4,6 @@ skinparam classAttributeIconSize 0
 skinparam packageStyle rectangle
 
 package "Shared Kernel" {
-class "CustomerId" <<ValueObject>> {
-- value : UUID
-}
-class "EmployeeId" <<ValueObject>> {
-- value : UUID
-}
-class "SaleId" <<ValueObject>> {
-- value : UUID
-}
-class "PrescriptionId" <<ValueObject>> {
-- value : UUID
-}
-class "FrameId" <<ValueObject>> {
-- value : UUID
-}
 class "DateTime" <<ValueObject>> {
 - value : Date
 }
@@ -26,8 +11,8 @@ class "Money" <<ValueObject>> {
 - amount : decimal
 - currency : Currency
 --
-+ add(other: Money)
-+ subtract(other: Money)
++ add(other: Money): Money
++ subtract(other: Money): Money
 }
 enum Currency {
 PEN
@@ -36,9 +21,7 @@ USD
 Money -- Currency
 }
 
-
 package "Analytics Context" {
-
 
 class "AnalyticsReportId" <<ValueObject>> {
 - value : UUID
@@ -47,43 +30,71 @@ class "AnalyticsReportId" <<ValueObject>> {
 class "AnalyticsReport" <<AggregateRoot>> {
 - id : AnalyticsReportId
 - generatedAt : DateTime
+- period : String
 --
-conversionRate : ConversionRate
-salesMetric : SalesMetric
-orderMetric : OrderMetric
+- conversionMetric : ConversionMetric
+- salesMetric : SalesMetric
+- labMetric : LabMetric
+- staffMetric : StaffMetric
+- pendingBalanceMetric : PendingBalanceMetric
 --
-+ calculateMetrics()
++ generateReport(): void
 }
 
-class "ConversionRate" <<ValueObject>> {
-- value : decimal
+class "ConversionMetric" <<ValueObject>> {
+- prescriptionsIssued : int
+- salesClosed : int
 --
-+ calculate(totalConversions: int, totalVisitors: int)
++ getConversionRate(): decimal
 }
 
 class "SalesMetric" <<ValueObject>> {
-- totalSales : Money
+- totalRevenue : Money
 - totalTransactions : int
+- revenueByCategory : String
 --
-+ calculateAverageSale(): Money
++ calculateAverageTicket(): Money
 }
 
-class "OrderMetric" <<ValueObject>> {
-- completedOrders : int
+class "LabMetric" <<ValueObject>> {
+- averageProductionDays : decimal
+- onTimeDeliveryRate : decimal
+- reworkRate : decimal
 - totalOrders : int
+- reworkCauses : String
 --
-+ calculateCompletionRate(): decimal
++ getOnTimeRate(): decimal
++ getReworkRate(): decimal
 }
 
-' Relaciones internas (correctas)
-AnalyticsReport *--> ConversionRate
-AnalyticsReport *--> SalesMetric
-AnalyticsReport *--> OrderMetric
+class "StaffMetric" <<ValueObject>> {
+- employeeName : String
+- quotationsIssued : int
+- salesClosed : int
+- totalRevenue : Money
+--
++ getConversionRate(): decimal
+}
 
-AnalyticsReport --> DateTime
-SalesMetric --> Money
+class "PendingBalanceMetric" <<ValueObject>> {
+- balanceZeroToSeven : Money
+- balanceEightToFifteen : Money
+- balanceSixteenToThirty : Money
+- balanceOverThirty : Money
+--
++ getTotalPending(): Money
+}
+
 AnalyticsReport --> AnalyticsReportId
-
+AnalyticsReport --> DateTime
+AnalyticsReport *--> "1" ConversionMetric
+AnalyticsReport *--> "1" SalesMetric
+AnalyticsReport *--> "1" LabMetric
+AnalyticsReport *--> "1..* " StaffMetric
+AnalyticsReport *--> "1" PendingBalanceMetric
+SalesMetric --> Money
+StaffMetric --> Money
+PendingBalanceMetric --> Money
 }
 
 @enduml

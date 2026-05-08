@@ -7,16 +7,16 @@ package "Shared Kernel" {
 class "CustomerId" <<ValueObject>> {
 - value : UUID
 }
-class "EmployeeId" <<ValueObject>> {
-- value : UUID
-}
 class "SaleId" <<ValueObject>> {
 - value : UUID
 }
 class "PrescriptionId" <<ValueObject>> {
 - value : UUID
 }
-class "ProductId" <<ValueObject>> {
+class "QuotationId" <<ValueObject>> {
+- value : UUID
+}
+class "WorkOrderId" <<ValueObject>> {
 - value : UUID
 }
 class "DateTime" <<ValueObject>> {
@@ -26,8 +26,8 @@ class "Money" <<ValueObject>> {
 - amount : decimal
 - currency : Currency
 --
-+ add(other: Money)
-+ subtract(other: Money)
++ add(other: Money): Money
++ subtract(other: Money): Money
 }
 enum Currency {
 PEN
@@ -37,104 +37,109 @@ Money -- Currency
 }
 
 package "Sales & Billing Context" {
-
 entity "Quotation" <<AggregateRoot>> {
-- id : UUID
+- id : QuotationId
 --
 customerId : CustomerId
 prescriptionId : PrescriptionId
 total : Money
 --
-+ calculateTotal(): Money
++ calculateTotal(): void
 }
-
 entity "Sale" <<AggregateRoot>> {
 - id : SaleId
 --
 customerId : CustomerId
-quotationId : UUID
+quotationId : QuotationId
+workOrderId : WorkOrderId
 status : SaleStatus
+createdAt : DateTime
 --
-+ registerDeposit(amount: Money)
-+ completePayment(amount: Money)
++ registerDeposit(amount: Money): void
++ completePayment(amount: Money): void
++ markAsDelivered(): void
++ processRefund(): void
 + calculateOutstandingBalance(): Money
-+ markAsDelivered()
++ isFullyPaid(): Boolean
 }
-
 class "Deposit" <<ValueObject>> {
 - amount : Money
 --
-+ isValid(minAmount: Money): Boolean
++ isValid(minPercentage: decimal, total: Money): Boolean
++ getAmount(): Money
 }
-
 class "OutstandingBalance" <<ValueObject>> {
 - amount : Money
 --
 + isZero(): Boolean
-+ reduce(amount: Money)
++ withReduction(payment: Money): OutstandingBalance
++ getAmount(): Money
 }
-
 enum SaleStatus {
-RECEIVED
-IN_PROGRESS
-QUALITY_CONTROL
-READY_FOR_DELIVERY
+PENDING
+PAID
 DELIVERED
+REFUNDED
 }
-
+Quotation --> QuotationId
 Quotation --> CustomerId
 Quotation --> PrescriptionId
 Quotation --> Money
-
 Sale --> SaleId
 Sale --> CustomerId
+Sale --> QuotationId
+Sale --> WorkOrderId
 Sale --> SaleStatus
-Sale --> Quotation
-
-Sale "1" *-- "0..1" Deposit
-Sale "1" *-- "0..1" OutstandingBalance
-
+Sale --> DateTime
+Sale *--> "1" Deposit
+Sale *--> "1" OutstandingBalance
 Deposit --> Money
 OutstandingBalance --> Money
 }
 
 package "Order Fulfillment Context" {
-
 entity "WorkOrder" <<AggregateRoot>> {
-- id : UUID
+- id : WorkOrderId
 --
 saleId : SaleId
 prescriptionId : PrescriptionId
 status : OrderStatus
+priority : OrderPriority
+isRework : Boolean
+estimatedDate : DateTime
 createdAt : DateTime
 --
-+ createFromSale(saleId: SaleId, prescriptionId: PrescriptionId)
-+ updateStatus(status: OrderStatus)
-+ validatePrescription(): Boolean
++ updateStatus(newStatus: OrderStatus): void
++ markAsRework(): void
++ escalatePriority(): void
++ validateTransition(to: OrderStatus): Boolean
++ isDelivered(): Boolean
 }
-
 class "KanbanFlow" <<DomainService>> {
-- currentStatus : OrderStatus
---
-+ moveNext()
-+ moveTo(status: OrderStatus)
++ moveTo(order: WorkOrder, newStatus: OrderStatus): WorkOrder
++ validateTransition(from: OrderStatus, to: OrderStatus): Boolean
++ isBackward(from: OrderStatus, to: OrderStatus): Boolean
 }
-
 enum OrderStatus {
-PENDING
+RECEIVED
 IN_PRODUCTION
 QUALITY_CONTROL
-READY
+READY_FOR_DELIVERY
 DELIVERED
 }
-
+enum OrderPriority {
+NORMAL
+HIGH
+URGENT
+}
+WorkOrder --> WorkOrderId
 WorkOrder --> SaleId
 WorkOrder --> PrescriptionId
 WorkOrder --> OrderStatus
+WorkOrder --> OrderPriority
 WorkOrder --> DateTime
-
+KanbanFlow ..> WorkOrder : uses
 KanbanFlow --> OrderStatus
-WorkOrder --> KanbanFlow
 }
 
 @enduml

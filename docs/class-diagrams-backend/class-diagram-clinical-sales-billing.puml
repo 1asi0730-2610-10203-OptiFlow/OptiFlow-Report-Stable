@@ -7,16 +7,16 @@ package "Shared Kernel" {
 class "CustomerId" <<ValueObject>> {
 - value : UUID
 }
-class "EmployeeId" <<ValueObject>> {
-- value : UUID
-}
 class "PrescriptionId" <<ValueObject>> {
 - value : UUID
 }
-class "ProductId" <<ValueObject>> {
+class "QuotationId" <<ValueObject>> {
 - value : UUID
 }
 class "SaleId" <<ValueObject>> {
+- value : UUID
+}
+class "WorkOrderId" <<ValueObject>> {
 - value : UUID
 }
 class "DateTime" <<ValueObject>> {
@@ -26,8 +26,8 @@ class "Money" <<ValueObject>> {
 - amount : decimal
 - currency : Currency
 --
-+ add(other: Money)
-+ subtract(other: Money)
++ add(other: Money): Money
++ subtract(other: Money): Money
 }
 enum Currency {
 PEN
@@ -37,26 +37,29 @@ Money -- Currency
 }
 
 package "Clinical Context" {
-
+class "ClinicalRecordId" <<ValueObject>> {
+- value : UUID
+}
 entity "Customer" <<AggregateRoot>> {
 - id : CustomerId
 --
 name : String
+email : String
+phone : String
+dni : String
+birthDate : DateTime
 --
-+ updateData(name: String)
++ updateContactInfo(name: String, email: String, phone: String): void
++ validateNoDuplicate(dni: String): Boolean
 }
-
 entity "ClinicalRecord" <<AggregateRoot>> {
-- id : UUID
+- id : ClinicalRecordId
 --
 customerId : CustomerId
 --
-+ addPrescription(p: Prescription)
++ addPrescription(p: Prescription): void
 + getLatestPrescription(): Prescription
 }
-
-
-
 entity "Prescription" <<Entity>> {
 - id : PrescriptionId
 --
@@ -64,74 +67,74 @@ sphere : float
 cylinder : float
 axis : int
 --
-+ updateValues(sphere: float, cylinder: float, axis: int)
++ updateValues(sphere: float, cylinder: float, axis: int): void
 + validate(): Boolean
 }
-
-
-
 Customer --> CustomerId
+Customer --> DateTime
+ClinicalRecord --> ClinicalRecordId
 ClinicalRecord --> CustomerId
-
 ClinicalRecord *--> "0..*" Prescription
 Prescription --> PrescriptionId
 }
 
 package "Sales & Billing Context" {
-
 entity "Quotation" <<AggregateRoot>> {
-- id : UUID
+- id : QuotationId
 --
 customerId : CustomerId
 prescriptionId : PrescriptionId
 total : Money
 --
-+ calculateTotal()
++ calculateTotal(): void
 }
-
 entity "Sale" <<AggregateRoot>> {
-- id : UUID
+- id : SaleId
 --
 customerId : CustomerId
-quotationId : UUID
+quotationId : QuotationId
+workOrderId : WorkOrderId
 status : SaleStatus
+createdAt : DateTime
 --
-+ registerDeposit(amount: Money)
-+ completePayment(amount: Money)
++ registerDeposit(amount: Money): void
++ completePayment(amount: Money): void
++ markAsDelivered(): void
++ processRefund(): void
 + calculateOutstandingBalance(): Money
++ isFullyPaid(): Boolean
 }
-
 class "Deposit" <<ValueObject>> {
 - amount : Money
 --
-+ isValid(minAmount: Money): Boolean
++ isValid(minPercentage: decimal, total: Money): Boolean
++ getAmount(): Money
 }
-
 class "OutstandingBalance" <<ValueObject>> {
 - amount : Money
 --
 + isZero(): Boolean
-+ reduce(amount: Money)
++ withReduction(payment: Money): OutstandingBalance
++ getAmount(): Money
 }
-
 enum SaleStatus {
 PENDING
-PARTIAL
 PAID
 DELIVERED
+REFUNDED
 }
-
+Quotation --> QuotationId
 Quotation --> CustomerId
 Quotation --> PrescriptionId
 Quotation --> Money
-
+Sale --> SaleId
 Sale --> CustomerId
+Sale --> QuotationId
+Sale --> WorkOrderId
 Sale --> SaleStatus
-Sale --> Quotation
-
-Sale *--> "0..1" Deposit
-Sale *--> "0..1" OutstandingBalance
-
+Sale --> DateTime
+Sale *--> "1" Deposit
+Sale *--> "1" OutstandingBalance
 Deposit --> Money
 OutstandingBalance --> Money
 }
