@@ -7,9 +7,6 @@ package "Shared Kernel" {
 class "CustomerId" <<ValueObject>> {
 - value : UUID
 }
-class "EmployeeId" <<ValueObject>> {
-- value : UUID
-}
 class "SaleId" <<ValueObject>> {
 - value : UUID
 }
@@ -19,6 +16,12 @@ class "PrescriptionId" <<ValueObject>> {
 class "ProductId" <<ValueObject>> {
 - value : UUID
 }
+class "QuotationId" <<ValueObject>> {
+- value : UUID
+}
+class "WorkOrderId" <<ValueObject>> {
+- value : UUID
+}
 class "DateTime" <<ValueObject>> {
 - value : Date
 }
@@ -26,8 +29,8 @@ class "Money" <<ValueObject>> {
 - amount : decimal
 - currency : Currency
 --
-+ add(other: Money)
-+ subtract(other: Money)
++ add(other: Money): Money
++ subtract(other: Money): Money
 }
 enum Currency {
 PEN
@@ -37,117 +40,114 @@ Money -- Currency
 }
 
 package "Inventory Context" {
-
 entity "Product" <<AggregateRoot>> {
-  - id : ProductId
-  --
-  name : String
-  type : ProductType
-  price : Money
-  stock : Stock
-  details : ProductDetails
-  --
-  + updateStock(qty: int)
-  + isAvailable(): Boolean
+- id : ProductId
+--
+sku : String
+name : String
+type : ProductType
+price : Money
+stock : Stock
+details : ProductDetails
+--
++ updateStock(qty: int): void
++ isAvailable(): Boolean
 }
-
-
 class "Stock" <<ValueObject>> {
-  - quantity : int
-  --
-  + increase(qty: int)
-  + decrease(qty: int)
-  + isAvailable(): Boolean
+- quantity : int
+- minimumStockThreshold : int
+--
++ withIncrease(qty: int): Stock
++ withDecrease(qty: int): Stock
++ isAvailable(): Boolean
++ isBelowMinimumThreshold(): Boolean
 }
-
-
-enum "ProductType" {
-  FRAME
-  LENS
-  CONTACT_LENS
-  CLEANING_KIT
-  SOLUTION
+enum ProductType {
+FRAME
+LENS
+CONTACT_LENS
+CLEANING_KIT
+SOLUTION
 }
-
 class "ProductDetails" <<ValueObject>> {
-  // flexible attributes depending on type
-  material : String
-  brand : String
-  color : String
-  lensType : String
-  expirationDate : Date
+- material : String
+- brand : String
+- color : String
+- lensType : String
+- expirationDate : DateTime
+- supplierName : String
+--
++ getDetails(): String
 }
-
 Product --> ProductId
-Product *-- Stock
-Product *-- ProductDetails
 Product --> ProductType
 Product --> Money
-Money -- Currency
-
+Product *--> "1" Stock
+Product *--> "1" ProductDetails
+Stock --> DateTime
 }
 
 package "Sales & Billing Context" {
-
 entity "Quotation" <<AggregateRoot>> {
-- id : UUID
+- id : QuotationId
 --
 customerId : CustomerId
 prescriptionId : PrescriptionId
 productId : ProductId
 total : Money
 --
-+ calculateTotal()
++ calculateTotal(): void
 }
-
 entity "Sale" <<AggregateRoot>> {
 - id : SaleId
 --
 customerId : CustomerId
-quotationId : UUID
+quotationId : QuotationId
+workOrderId : WorkOrderId
 status : SaleStatus
+createdAt : DateTime
 --
-+ registerDeposit(amount: Money)
-+ completePayment(amount: Money)
++ registerDeposit(amount: Money): void
++ completePayment(amount: Money): void
++ markAsDelivered(): void
++ processRefund(): void
 + calculateOutstandingBalance(): Money
-+ markAsDelivered()
++ isFullyPaid(): Boolean
 }
-
 class "Deposit" <<ValueObject>> {
 - amount : Money
 --
-+ isValid(minAmount: Money): Boolean
++ isValid(minPercentage: decimal, total: Money): Boolean
++ getAmount(): Money
 }
-
 class "OutstandingBalance" <<ValueObject>> {
 - amount : Money
 --
 + isZero(): Boolean
-+ reduce(amount: Money)
++ withReduction(payment: Money): OutstandingBalance
++ getAmount(): Money
 }
-
 enum SaleStatus {
 PENDING
-PARTIAL
 PAID
 DELIVERED
+REFUNDED
 }
-
+Quotation --> QuotationId
 Quotation --> CustomerId
 Quotation --> PrescriptionId
+Quotation --> ProductId
 Quotation --> Money
-
 Sale --> SaleId
 Sale --> CustomerId
+Sale --> QuotationId
+Sale --> WorkOrderId
 Sale --> SaleStatus
-Sale --> Quotation
-
-Sale *--> "0..1" Deposit
-Sale *--> "0..1" OutstandingBalance
-
+Sale --> DateTime
+Sale *--> "1" Deposit
+Sale *--> "1" OutstandingBalance
 Deposit --> Money
 OutstandingBalance --> Money
-
 }
 
 @enduml
