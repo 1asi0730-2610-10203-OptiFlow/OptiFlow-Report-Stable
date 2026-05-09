@@ -87,7 +87,7 @@
 | 20 | US-20L | Registro de Nuevo Producto | Como empleado de la óptica, quiero registrar nuevas monturas en el inventario para mantener el catálogo actualizado. | 2 |
 | 21 | US-21L | Gestión de Variantes | Como empleado de la óptica, quiero registrar diferentes tipos de materiales de lunas para ampliar las opciones del catálogo. | 3 |
 | 22 | US-22L | Búsqueda Avanzada | Como empleado de la óptica, quiero aplicar múltiples filtros cruzados para ubicar modelos específicos requeridos por el paciente. | 3 |
-| 23 | US-23L | Control de Órdenes y Tablero Kanban | Como empleado de la óptica, quiero gestionar el estado de las órdenes de laboratorio mediante un tablero Kanban para reflejar el progreso de fabricación en tiempo real y dar visibilidad a todo el equipo. | 8 |
+| 23 | US-23L | Control de Órdenes y Tablero Kanban | Como empleado de la óptica, quiero gestionar el estado de las órdenes de laboratorio mediante un tablero Kanban para reflejar el progreso de fabricación en tiempo real y dar visibilidad a todo el equipo. | 5 |
 | 24 | US-24L | Motivos de Retrabajo | Como empleado de la óptica, quiero tipificar los errores cuando un lente se malogra para medir las pérdidas del laboratorio. | 2 |
 | 25 | US-25L | Gestión de Urgencias | Como empleado de la óptica, quiero marcar un ticket como máxima prioridad para que los técnicos pausen otras labores. | 2 |
 | 26 | US-26L | Control de Insumos | Como empleado de la óptica, quiero que la creación de micas descuente materia prima base (bloques) para que compras sepa cuándo pedir más. | 5 |
