@@ -968,9 +968,48 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
   </tbody>
 </table>
 
+
 #### Development Evidence for Sprint Review
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+|------------|--------|-----------|----------------|---------------------|---------------------|
+| OptiFlow-Frontend | develop | 77403f2 | set api URL and merge pull request #11 | - | 2026-05-09 |
+| OptiFlow-Frontend | feature/change-api-URL | 7a3f27f | set api URL | - | 2026-05-09 |
+| OptiFlow-Frontend | develop | d33ab85 | ci: add Azure Static Web Apps workflow file | - | 2026-05-09 |
+| OptiFlow-Frontend | feature/inventory | defe034 | fix(inventory): correct inventory management module | - | 2026-05-06 |
+| OptiFlow-Frontend | feature/lab-order-management | 13dbedd | fix(lab-order): correct work order management behavior | - | 2026-05-06 |
+| OptiFlow-Frontend | feature/inventory | f2188e7 | feat(inventory): add inventory context | - | 2026-05-06 |
+| OptiFlow-Frontend | feature/sales-management | cec3af8 | fix: create sale + lab order button now working | - | 2026-05-05 |
+| OptiFlow-Frontend | feature/sales-management | db85c9a | feat(sales): add sales context | - | 2026-05-05 |
+| OptiFlow-API | main | 54eb8c6 | Add or update the Azure App Service build and deployment workflow config | - | 2026-05-09 |
+| OptiFlow-API | main | f724152 | Initial commit: API base structure | - | 2026-05-09 |
+
 #### Execution Evidence for Sprint Review
+Durante este segundo sprint, el proyecto evolucionó de una presencia estática a una arquitectura funcional distribuida. Se implementaron los módulos críticos de **Sales Management**, **Inventory Control** y **Lab Order Management**, permitiendo la trazabilidad de órdenes de trabajo desde la generación de la receta hasta la coordinación con el laboratorio. Esta integración técnica resuelve los silos de información identificados en el análisis competitivo, facilitando la gestión de *Work Orders* mediante estados dinámicos. En términos de infraestructura, se migró el ecosistema a Microsoft Azure, estableciendo un pipeline de despliegue continuo (CI/CD) que garantiza la disponibilidad de la Web App y la sincronización con el backend mediante la configuración de variables de entorno y endpoints de producción.
+
+[AQUÍ DEBE HABER UN VIDEO DEMOSTRANDO EL FLUJO DE VENTA Y DESPLIEGUE EN AZURE]
+
 #### Services Documentation Evidence for Sprint Review
+La API de OptiFlow ha sido desplegada y configurada para dar soporte a las operaciones de persistencia de datos. Se han expuesto los servicios necesarios para la gestión de productos (*Frames/Lenses*) y el seguimiento de pedidos.
+
+* **API Base URL (Azure):** https://opti-flow-apiv1.azurewebsites.net/
+* **Documentation:** La API cuenta con documentación autogenerada bajo el estándar OpenAPI (Swagger), facilitando la integración de nuevos módulos operativos en futuros sprints.
+
+#### Software Deployment Evidence for Sprint Review
+El despliegue de este sprint marca el paso a un entorno de producción cloud utilizando una arquitectura de servicios desacoplados en Azure.
+
+1.  **Frontend:** Desplegado mediante **Azure Static Web Apps**, aprovechando la integración nativa con GitHub Actions para despliegues automáticos desde la rama `develop`.
+2.  **Backend:** Implementado en **Azure App Service**, configurado con un workflow de compilación y despliegue para Node.js/Java (según corresponda).
+3.  **Base de Datos:** Conexión establecida y configurada dentro del App Service para garantizar la persistencia de las *Clinical Records* y ventas.
+
+![azure-resources.png](../assets/azure-resources.png)
+> Captura del Resource Group en Azure mostrando el App Service y la Static Web App operativos.
+
+![deployment-success](../assets/github-actions-success.png)
+> Evidencia de la ejecución exitosa de los workflows de GitHub Actions para el despliegue en Azure.
+
+**URLs de Producción:**
+**Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
+**API Service:** https://opti-flow-apiv1.azurewebsites.net/
 #### Team Collaboration Insights during Sprint
 
 
