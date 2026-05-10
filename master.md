@@ -54,7 +54,7 @@ El curso contribuye al cumplimiento del Student Outcome ABET:
 
 | Criterio Específico | Acciones Realizadas | Conclusiones |
 |---|---|---|
-| Trabaja en equipo para proporcionar liderazgo en forma conjunta | **TB1:** Juan Pablo lideró el di67a84cb071ec8seño frontend. Nicolas lideró la arquitectura de software. Luciana... *(completar)* | Todo el equipo ha asumido roles de liderazgo según su área de especialidad técnica... |
+| Trabaja en equipo para proporcionar liderazgo en forma conjunta | **TB1:** Juan Pablo lideró el diseño frontend y el despliegue del Landing Page. Nicolas lideró la arquitectura de software y el modelado del backend. Luciana lideró el diseño de la base de datos y los bounded contexts del DDD. Mía lideró el UX Research, el Style Guide y la arquitectura de información. Mariana lideró la planificación del Sprint y la documentación del backlog. | Todo el equipo ha asumido roles de liderazgo según su área de especialidad técnica, distribuyendo responsabilidades de forma equitativa y complementaria durante el TB1. |
 | Crea un entorno colaborativo e inclusivo, establece metas, planifica tareas y cumple objetivos | **TB1:** Se establecieron daily stand-ups y se planificó el Sprint 1 en base al Product Backlog... | La planificación estructurada permitió cumplir con el despliegue del Landing Page sin contratiempos... |
 
 \newpage
