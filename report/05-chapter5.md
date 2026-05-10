@@ -991,6 +991,21 @@ Durante este segundo sprint, el proyecto evolucionó de una presencia estática 
 #### Services Documentation Evidence for Sprint Review
 La API de OptiFlow ha sido desplegada y configurada para dar soporte a las operaciones de persistencia de datos. Se han expuesto los servicios necesarios para la gestión de productos (*Frames/Lenses*) y el seguimiento de pedidos.
 
+| Endpoint | Acción | Verbo HTTP | Sintaxis de Llamada | Ejemplo de Response | Explicación |
+|---|---|---|---|---|---|
+| `/employees` | Listar / Crear | `GET`, `POST` | `/api/v1/employees` | `{ "employee_id": 1, "name": "Carlos Mendoza", "role_id": 1, "status": "ACTIVE" }` | Gestión del personal de la óptica (Administradores, Optómetras, Ventas). |
+| `/patients` | Listar / Crear | `GET`, `POST` | `/api/v1/patients` | `{ "patient_id": 1, "first_name": "Ana", "last_name": "Torres", "dni": "71234567" }` | Registro y administración de datos personales de pacientes. |
+| `/clinical-records` | Listar / Crear | `GET`, `POST` | `/api/v1/clinical-records` | `{ "record_id": 1, "clinical_record_uuid": "record-001-uuid", "patient_id": 1 }` | Vinculación entre el paciente y su historial clínico acumulado. |
+| `/prescriptions` | Listar / Crear | `GET`, `POST` | `/api/v1/prescriptions` | `{ "prescription_id": 1, "od_sphere": -1.25, "od_cylinder": -0.50, "notes": "Mild myopia" }` | Registro de recetas ópticas (medidas de esfera, cilindro y eje). |
+| `/products` | Listar / Crear | `GET`, `POST` | `/api/v1/products` | `{ "product_id": 1, "sku": "FRM-1001", "name": "Classic Black Frame", "quantity": 20 }` | Control de inventario de monturas (frames), lunas y soluciones. |
+| `/quotations` | Listar / Crear | `GET`, `POST` | `/api/v1/quotations` | `{ "quotation_id": 1, "prescription_id": 1, "total": 370.00 }` | Gestión de presupuestos comerciales basados en recetas específicas. |
+| `/sales` | Listar / Crear | `GET`, `POST` | `/api/v1/sales` | `{ "sale_id": 1, "status": "PAID", "total_amount": 370.00, "outstanding_balance": 170.0 }` | Registro de transacciones, estados de pago y saldos pendientes. |
+| `/payments` | Listar / Crear | `GET`, `POST` | `/api/v1/payments` | `{ "payment_id": 1, "sale_id": 1, "amount_paid": 200.00, "method": "CARD" }` | Historial de abonos y métodos de pago utilizados por el cliente. |
+| `/work-orders` | Listar / Crear | `GET`, `POST` | `/api/v1/work-orders` | `{ "order_id": 1, "status": "IN_PRODUCTION", "laboratory_name": "LabVision", "priority": "NORMAL" }` | Seguimiento de la fabricación de lentes en el laboratorio (Sistema Kanban). |
+| `/notifications` | Listar / Crear | `GET`, `POST` | `/api/v1/notifications` | `{ "notification_id": 1, "work_order_id": 1, "message": "Your order is in production.", "status": "SENT" }` | Avisos automáticos enviados al paciente sobre el estado de su pedido. |
+| `/analytics-reports` | Listar | `GET` | `/api/v1/analytics-reports` | `{ "report_id": 1, "total_revenue": 12000.50, "conversion_rate": 72.5 }` | Métricas de negocio: ingresos, tasa de conversión y tiempos de entrega. |
+| `/staff-metrics` | Listar | `GET` | `/api/v1/staff-metrics` | `{ "staff_metric_id": 1, "employee_name": "Lucia Ramirez", "sales_closed": 10 }` | Evaluación del rendimiento del personal en ventas y cotizaciones. |
+
 * **API Base URL (Azure):** https://opti-flow-apiv1.azurewebsites.net/
 * **Documentation:** La API cuenta con documentación autogenerada bajo el estándar OpenAPI (Swagger), facilitando la integración de nuevos módulos operativos en futuros sprints.
 
@@ -1011,7 +1026,6 @@ El despliegue de este sprint marca el paso a un entorno de producción cloud uti
 **Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
 **API Service:** https://opti-flow-apiv1.azurewebsites.net/
 #### Team Collaboration Insights during Sprint
-
 
 ## Validation Interviews
 
