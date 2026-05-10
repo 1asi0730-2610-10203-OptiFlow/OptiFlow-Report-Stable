@@ -47,8 +47,9 @@ u202411521 - Morocho Pinedo, Mariana
 # Registro de Versiones del Informe {.unnumbered}
 
 | Versión | Fecha | Autor | Descripción de modificación |
-|--------|------|------|-----------------------------|
-| 1.0.0 |25/04/26 | u20241d317 - Atoche Gonzales, Nicolas Fernando u202411310 - Azama Fukuda, Juan Pablo  u20241c101 - Capillo Lema, Mía Valentina  u20241b843 - Mechan Montenegro, Luciana Carolina  u202411521 - Morocho Pinedo, Mariana  | Se desarrollaron los artefactos Lean UX, el DDD, el Needfinding, el prototipo del frontend, el despliegue del landing page y una retralimentación final en relación al sprint 1 |
+|---|---|---|---|
+| 1.0.0 | 25/04/26 | Atoche, Azama, Capillo, Mechan, Morocho | Primera versión (TB1): Implementación de Lean UX, DDD, Needfinding, Prototipos del frontend, Arquitectura de Software y despliegue inicial del Landing Page. |
+| 2.0.0 | 10/05/26 | Atoche, Azama, Capillo, Mechan, Morocho | Segunda versión (TB2): Corrección de observaciones del TB1; especificación formal de repositorios de Web App y Backend en Source Code Management; despliegue e implementación del Frontend Web App con integración a Fake RESTful API (json-server); documentación de Sprint 2 incluyendo Sprint Planning, Aspect Leaders, Sprint Backlog, Development Evidence, Execution Evidence, Services Documentation Evidence y Team Collaboration Insights; redacción de Validation Interviews (diseño, registro y evaluación heurística); adición de Video About-the-Product; y corrección de bugs estructurales del informe. |
 
 ***
 
