@@ -775,6 +775,196 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Mariana</td>
       <td>To-Do</td>
     </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T33</td>
+      <td>Corrección de bugs del informe (Cap. V)</td>
+      <td>Eliminar el texto `git` suelto dentro de celdas del Sprint Backlog 1, corregir la tabla Aspect Leaders Sprint 1 (nombres duplicados de Rodríguez Peña) y limpiar el texto corrupto con hash incrustado en el Student Outcome.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T34</td>
+      <td>Completar secciones preliminares del informe</td>
+      <td>Agregar entrada TB2 en el Registro de Versiones, rellenar el URL del repositorio del informe en Project Report Collaboration Insights e insertar la captura de commits del equipo.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T35</td>
+      <td>Redactar Software Deployment Configuration</td>
+      <td>Documentar la configuración de despliegue de la Landing Page: describir el pipeline de GitHub Actions, el archivo de workflow YAML, el entorno de GitHub Pages y cualquier variable de entorno utilizada.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T36</td>
+      <td>Grabar Execution Evidence Sprint 1 (Landing Page)</td>
+      <td>Grabar un video corto que evidencie el Landing Page desplegado y funcional, mostrando todas las secciones (Hero, Features, Pricing, Contact) en desktop y mobile. Embeber el enlace en la sección Execution Evidence Sprint 1.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T37</td>
+      <td>Landing Page Wireframe y Mock-up (Cap. IV)</td>
+      <td>Insertar las imágenes de los Wireframes y Mock-ups de la Landing Page en las secciones correspondientes del Capítulo IV (actualmente son placeholders vacíos).</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T38</td>
+      <td>Web Applications Prototyping — enlace Figma</td>
+      <td>Agregar el enlace al prototipo interactivo en Figma en la sección Web Applications Prototyping del Capítulo IV, junto con una descripción de los escenarios de prueba cubiertos.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T39</td>
+      <td>Development Evidence Sprint 2 (módulo ventas)</td>
+      <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App correspondientes a las tasks del módulo de ventas (T12–T18): registro de venta, pagos, descuentos, devoluciones y notificaciones.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T40</td>
+      <td>Execution Evidence Sprint 2 + Aspect Leaders S2 + Video About-the-Product</td>
+      <td>Agregar capturas o video de las vistas del módulo de ventas implementadas. Completar la tabla Aspect Leaders and Collaborators del Sprint 2. Redactar la sección Video About-the-Product con enlace al video del producto final.</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T41</td>
+      <td>Repositorios Web App y Backend en Source Code Management</td>
+      <td>Agregar en la sección Source Code Management los URLs formales de los repositorios de Frontend Web App y Backend/Server Side Software, incluyendo descripción de la estrategia de ramas GitFlow aplicada en cada uno.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T42</td>
+      <td>Services Documentation Evidence Sprint 1 y Sprint 2</td>
+      <td>Documentar el Fake API configurado con json-server: mostrar el db.json con todos los recursos, listar los endpoints disponibles (GET, POST, PUT, DELETE) con sus rutas y un ejemplo de respuesta JSON por cada uno. Si en Sprint 1 no hubo servicios, justificarlo explícitamente.</td>
+      <td>5 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T43</td>
+      <td>Development Evidence Sprint 2 (módulo clínico y autenticación)</td>
+      <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T05–T11: registro de clientes, historia clínica, carga de PDF, HCE, configuración del json-server, login de empleado y recuperación de contraseña.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T44</td>
+      <td>Execution Evidence Sprint 2 (módulo clínico y login)</td>
+      <td>Agregar capturas o video de las vistas implementadas: login con DNI, login de empleado, recuperación de contraseña, registro de clientes, formulario de historia clínica, carga de PDF y vista de HCE, evidenciando la integración con el json-server.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T45</td>
+      <td>Validation Interviews (Diseño, Registro y Heurísticas)</td>
+      <td>Redactar las tres subsecciones de Validation Interviews: (1) Diseño de Entrevistas con objetivos y guía de preguntas, (2) Registro de Entrevistas con resumen de sesiones realizadas con usuarios reales, y (3) Evaluaciones según Heurísticas de Nielsen aplicadas a las vistas implementadas.</td>
+      <td>6 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T46</td>
+      <td>Student Outcome — entrada de Nicolas</td>
+      <td>Completar la fila de Nicolas en la tabla Student Outcome con las acciones realizadas durante TB1 y TB2, especificando los commits asociados y la conclusión de su contribución al trabajo colaborativo del equipo.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T47</td>
+      <td>Evidencia de herramienta ágil (Product Backlog + evolución de estados)</td>
+      <td>Agregar capturas de pantalla de la herramienta de gestión ágil usada (Jira / Trello / GitHub Projects) mostrando: el Product Backlog con User Stories, el Sprint 1 Backlog con la evolución de tareas por estados (To Do → In Process → To Review → Done) y el Sprint 2 Backlog con el mismo seguimiento.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T48</td>
+      <td>Team Collaboration Insights Sprint 1</td>
+      <td>Completar la sección Team Collaboration Insights del Sprint 1: incluir métricas de contribución por integrante (commits, PRs aprobados), gráfica de actividad del repositorio, herramientas de comunicación usadas y resumen de reuniones realizadas.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T49</td>
+      <td>Development Evidence Sprint 2 (módulo inventario y laboratorio)</td>
+      <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T19–T27: dashboard de inventario, alertas de stock, registro de producto, variantes, búsqueda avanzada, tablero Kanban, motivos de retrabajo, urgencias y control de insumos.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T50</td>
+      <td>Execution Evidence Sprint 2 (módulo inventario y laboratorio)</td>
+      <td>Agregar capturas o video de las vistas implementadas: dashboard de inventario con alertas de bajo stock, formulario de nuevo producto, panel de filtros cruzados, tablero Kanban interactivo con drag-and-drop y vista de control de insumos, evidenciando integración con el json-server.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>T51</td>
+      <td>Team Collaboration Insights Sprint 2 + Student Outcome de Luciana</td>
+      <td>Completar la sección Team Collaboration Insights del Sprint 2 (métricas de commits, PRs, reuniones de retrospectiva). Completar la entrada de Luciana en la tabla Student Outcome del informe con sus acciones en TB1 y TB2 y la conclusión correspondiente.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-Do</td>
+    </tr>
   </tbody>
 </table>
 
