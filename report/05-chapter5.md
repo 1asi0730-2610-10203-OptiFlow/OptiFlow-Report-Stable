@@ -149,10 +149,10 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 | Team Member (Last Name, First Name) | GitHub Username | Aspect Name 1 Leader (L) / Collaborator (C) | Aspect Name 2 Leader (L) / Collaborator (C) | Aspect Name 3 Leader (L) / Collaborator (C) | Aspect Name 4 Leader (L) / Collaborator (C) |
 | :--- | :--- | :--- |  :--- | :--- | :--- |
 | Azama Fukuda, Juan Pablo | llummo | Landing page elaboration (L) | Bounded context development (C) | Prototyping (L) | Scrum Master Role(L) |
-| Atoche Gonzales, Nicolas Fernando | Japr91 | C | C | ... | L |
-| Capillo Lema, Mia Valentina | Miavcl | C | C | ... | L |
-| Rodríguez Peña, Jorge Andrés | Japr91 | C | C | ... | L |
-| Rodríguez Peña, Jorge Andrés | Japr91 | C | C | ... | L |
+| Atoche Gonzales, Nicolas Fernando | Japr91 | Backend architecture (L) | Bounded context development (C) | Frontend development (C) | Documentation (C) |
+| Capillo Lema, Mia Valentina | Miavcl | UX Research (L) | Style Guide & IA (L) | Lean UX Process (C) | Frontend development (C) |
+| Mechan Montenegro, Luciana Carolina | MehanLuciana | Backend architecture (C) | Bounded context development (L) | Database design (L) | Documentation (C) |
+| Morocho Pinedo, Mariana | MarianaMP | UX Research (C) | Sprint planning & Backlog (L) | Needfinding (C) | Documentation (L) |
 
 ### Sprint Backlog
 <table>
@@ -229,7 +229,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
     </tr>
     <tr>
       <td></td>
-      <td></td>git
+      <td></td>
       <td>T06</td>
       <td>Source Code Management & Styles</td>
       <td>Definir el Style Guide del código y parte del Information Architecture.</td>
@@ -239,7 +239,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
     </tr>
         <tr>
       <td></td>
-      <td></td>git
+      <td></td>
       <td>T07</td>
       <td>Segmento objetivo & Lean UX Process</td>
       <td>Definir segmento objetivo, Lean UX Canvas y User Task Matrix.</td>
@@ -489,7 +489,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>US-07P</td>
       <td>Consulta de Saldo</td>
       <td>T04</td>
-      <td>Vista de Consulta de Saldo Pendiente</td>
+      <td>Vista de Consulta de Saldo Pendiente</td> 
       <td>Diseñar e implementar la vista que muestra el monto pendiente de la orden activa del cliente autenticado.</td>
       <td>2 hrs</td>
       <td>Mia</td>
