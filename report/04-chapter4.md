@@ -47,8 +47,7 @@ OptiFlow utiliza esquemas de organización lógica para manejar procesos complej
 | Tópico | Definición |
 | :--- | :--- |
 | **Gestión de Pacientes** | Acceso centralizado a Historias Clínicas, consentimientos y deudas. |
-| **Laboratorio Kanban** | Visualización del progreso de fabricación (Biselado, Montaje, Calidad) y gestión de urgencias SOS. |
-| **Marketing y CRM** | Automatización de avisos WhatsApp, referidos y fidelización. |
+| **Laboratorio Kanban** | Visualización d avisos WhatsApp, referidos y fidelización. |
 | **Caja e Inventario** | Cierres de caja diarios, control de insumos y alertas de bajo stock. |
 | **Seguridad Técnica** | Autenticación JWT, gestión de roles y auditoría de logs. |
 | **Gerencia y BI** | Reportes de productividad, conversión de ventas y eficiencia. |
@@ -628,7 +627,10 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow – Frame 79](<../docs/userflows/jp/Frame 79.png>){width=90%}
 
 ## Web Applications Prototyping
-[Descripción y enlace al prototipo interactivo de la aplicación web, con escenarios de prueba definidos.]
+
+Figma link:
+https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-71985&t=t56540ubJEOL4jsl-1
+
 
 ## Domain-Driven Software Architecture
 
