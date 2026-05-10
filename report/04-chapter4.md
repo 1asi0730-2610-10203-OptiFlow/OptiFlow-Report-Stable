@@ -501,7 +501,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 
 ![](<../docs/userflows-new/jp/US-15F Devolución y cancelación de orden.png>){width=100%}
-![](<../docs/userflows-new/jp/US-15F Devolución y cancelación de orden-1.png>){width=100%}
+![](<../docs/userflows-new/jp/US-15F Devolución y cancelación de orden-1.png>){width=100%} s
 
 - **Happy Path (cancelación):** El asesor localiza la orden activa en la lista de ventas y selecciona la opción de cancelar → confirma la acción en el modal de "Confirmar Cancelación" → el sistema anula la orden y muestra la pantalla de confirmación "Producto devuelto".
 - **Happy Path (devolución):** El asesor localiza una orden con estado "Completada" y selecciona "Devolución" → el modal muestra los detalles del cliente y el monto a reembolsar → el asesor confirma → el sistema procesa la devolución y muestra "Devolución efectuada".
