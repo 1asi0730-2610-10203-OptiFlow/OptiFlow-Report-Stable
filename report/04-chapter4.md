@@ -109,10 +109,56 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ## Landing Page UI Design
 
 ### Landing Page Wireframe
-[Wireframes de baja fidelidad de la landing page, mostrando la disposición de secciones y elementos.]
+
+#### Hero
+
+![Landing Wireframe – Hero](../docs/wireframes/landing/hero.png){width=100%}
+
+#### Features
+
+![Landing Wireframe – Features](../docs/wireframes/landing/features.png){width=100%}
+
+#### Two Experiences
+
+![Landing Wireframe – Two Experiences](../docs/wireframes/landing/two-experiences.png){width=100%}
+
+#### About Us
+
+![Landing Wireframe – About Us](../docs/wireframes/landing/about-us.png){width=100%}
+
+#### Pricing
+
+![Landing Wireframe – Pricing](../docs/wireframes/landing/pricing.png){width=100%}
+
+#### Footer
+
+![Landing Wireframe – Footer](../docs/wireframes/landing/footer.png){width=100%}
 
 ### Landing Page Mock-up
-[Mock-ups de alta fidelidad de la landing page con diseño visual aplicado.]
+
+#### Hero
+
+![Landing Mockup – Hero](../docs/mockups/landing/Hero.png){width=100%}
+
+#### Features
+
+![Landing Mockup – Features](../docs/mockups/landing/features.png){width=100%}
+
+#### Two Experiences
+
+![Landing Mockup – Two Experiences](../docs/mockups/landing/Two-Experiences.png){width=100%}
+
+#### About Us
+
+![Landing Mockup – About Us](../docs/mockups/landing/About-Us.png){width=100%}
+
+#### Pricing
+
+![Landing Mockup – Pricing](../docs/mockups/landing/Pricing.png){width=100%}
+
+#### Footer
+
+![Landing Mockup – Footer](../docs/mockups/landing/footer.png){width=100%}
 
 ## Web Applications UX/UI Design
 
