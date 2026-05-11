@@ -1,42 +1,48 @@
 @startuml BC-01_IAM
 
+note as PlanningNote
+  ⚠ This bounded context is PLANNED / NOT IMPLEMENTED.
+  No src/iam/ directory exists in the codebase.
+  The classes below represent the intended design.
+  Authentication is currently bypassed (hardcoded user in Layout).
+end note
+
 package "iam.domain.model" {
   class User {
     + id: number
     + username: string
     + passwordHash: string
-    + role: UserRole
+    + role: string
     + constructor()
   }
-  enum UserRole {
-    ADMIN
-    EMPLOYEE
-    OPTOMETRIST
+  class UserRole <<object>> {
+    + ADMIN: string
+    + EMPLOYEE: string
+    + OPTOMETRIST: string
   }
 }
 
 package "iam.infrastructure" {
-  interface UserResource {
+  class UserResource {
     + user_id: number
     + username: string
     + password_hash: string
     + role_id: number
   }
-  interface RoleResource {
+  class RoleResource {
     + role_id: number
     + name: string
   }
-  interface AuthResponse {
+  class AuthResponse {
     + token: string
     + user: UserResource
   }
   class UserAssembler {
-    + toEntityFromResource(r: UserResource): User
+    + {static} toEntityFromResource(r: UserResource): User
   }
   class AuthApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
+    - endpoint: BaseEndpoint
+    + constructor()
     + login(username: string, password: string): Promise<AuthResponse>
     + register(username: string, password: string, roleId: number): Promise<AuthResponse>
   }
@@ -44,49 +50,39 @@ package "iam.infrastructure" {
 
 package "iam.application" {
   class AuthStore {
-    - currentUserRef: Ref<User | null>
-    - tokenRef: Ref<string | null>
-    - authApi: AuthApi
-    - userAssembler: UserAssembler
     + currentUser: ComputedRef<User | null>
     + token: ComputedRef<string | null>
     + isAuthenticated: ComputedRef<boolean>
     + isAdmin: ComputedRef<boolean>
-    + login(username: string, password: string): void
+    + login(username: string, password: string): Promise<void>
     + logout(): void
-    + register(username: string, password: string, roleId: number): void
+    + register(username: string, password: string, roleId: number): Promise<void>
   }
 }
 
 package "iam.presentation.components" {
   class LoginForm <<component>> {
-    + username: string (input)
-    + password: string (input)
-    + submitted: Function (output)
-    + emitSubmitted(): void
+    - username: Ref<string>
+    - password: Ref<string>
+    + emit submitted: (credentials: object)
   }
   class RegisterForm <<component>> {
-    + username: string (input)
-    + password: string (input)
-    + roleId: number (input)
-    + submitted: Function (output)
-    + emitSubmitted(): void
+    - username: Ref<string>
+    - password: Ref<string>
+    - roleId: Ref<number>
+    + emit submitted: (data: object)
   }
 }
 
+BaseApi <|-- AuthApi
+AuthApi --> BaseEndpoint : uses
 AuthApi ..> AuthResponse : returns
 AuthResponse *-- UserResource : contains
 AuthStore --> AuthApi : uses
 AuthStore --> UserAssembler : uses
 UserAssembler ..> UserResource : transforms
 UserAssembler --> User : creates
-LoginForm ..> Layout : emits
-RegisterForm ..> Layout : emits
-User --> UserRole
+User ..> UserRole : uses
 RoleResource --* UserResource
-
-note "Layout (shared) uses\nAuthStore and composes\nLoginForm, RegisterForm" as N1
-LoginForm .. N1
-RegisterForm .. N1
 
 @enduml
