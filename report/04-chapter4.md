@@ -227,31 +227,31 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![Wireframe US23 Control de Órdenes – Mobile](<../docs/wireframes/jp/US_ 37 MOBILE.png>){width=100%}
 
-#### US34 - Registro de Empleado
+#### US31 - Registro de Empleado
 
 ![Wireframe Registro de Empleado – Desktop](<../docs/wireframes/jp/US_ Registro de empleado.png>){width=100%}
 
 ![Wireframe Registro de Empleado – Mobile](<../docs/wireframes/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
-#### US27 – Dashboard de Ventas
+#### US24 – Dashboard de Ventas
 
 ![Wireframe US27 Dashboard de Ventas – Desktop](<../docs/wireframes/jp/US-42_ Dashboard de ventas.png>){width=100%}
 
 ![Wireframe US27 Dashboard de Ventas – Mobile](<../docs/wireframes/jp/US-42_ Dashboard de ventas MOBILE.png>){width=100%}
 
-#### US28 – Inicio de sesión con DNI
+#### US25 – Inicio de sesión con DNI
 
 ![Wireframe US28](<../docs/wireflows-mv/US 28-Inicio de Sesión con DNI-Web.png>){width=90%}
 
 ![Wireframe US28](<../docs/wireflows-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
 
-#### US36 – Probador Virtual
+#### US33 – Probador Virtual
 
 ![Wireframe US36](<../docs/wireflows-mv/US 36P-Probador Virtual-Web.png>){width=90%}
 
 ![Wireframe US36](<../docs/wireflows-mv/US 36P-Probador Virtual-App.png>){width=90%}
 
-#### US37 – Calculador de Grosor
+#### US34 – Calculador de Grosor
 
 ![Wireframe US37](<../docs/wireflows-mv/US 37P-Calculador de Grosor-Web.png>){width=90%}
 
@@ -387,7 +387,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows/jp/US_ 33 MOBILE.png>){width=100%}
 
-#### US-34G Registro de Empleado
+#### US-31G Registro de Empleado
 
 **Wireflow:**
 
@@ -395,7 +395,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
-#### US27 – Dashboard de Ventas
+#### US24 – Dashboard de Ventas
 
 **Wireflow:**
 
@@ -411,7 +411,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![US43-wfw.png](../docs/wireflows/nico/US43-wfw.png)
 
-#### US28 – Inicio de sesión con DNI
+#### US25 – Inicio de sesión con DNI
 
 **Taskflow:**
 
@@ -423,7 +423,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
 
-#### US36 – Probador Virtual
+#### US33 – Probador Virtual
 
 **Taskflow:**
 
@@ -435,7 +435,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows-mv/US 36P-Probador Virtual-App.png>){width=90%}
 
-#### US37 – Calculador de grosor
+#### US34 – Calculador de grosor
 
 **Taskflow:**
 
@@ -513,31 +513,31 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![Mockup US23 Control de Órdenes – Mobile](<../docs/mockups/jp/US_ 33 MOBILE.png>){width=100%}
 
-#### Registro de Empleado
+#### US31 – Registro de Empleado
 
 ![Mockup Registro de Empleado – Desktop](<../docs/mockups/jp/US_ Registro de empleado.png>){width=100%}
 
 ![Mockup Registro de Empleado – Mobile](<../docs/mockups/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
-#### US27 – Dashboard de Ventas
+#### US24 – Dashboard de Ventas
 
 ![Mockup US42 Dashboard de Ventas – Desktop](<../docs/mockups/jp/US-37_ Dashboard de ventas.png>){width=100%}
 
 ![Mockup US42 Dashboard de Ventas – Mobile](<../docs/mockups/jp/US-37_ Dashboard de ventas MOBILE.png>){width=100%}
 
-#### US28 – Inicio de sesión con DNI
+#### US25 – Inicio de sesión con DNI
 
 ![Mockup US28 Inicio de sesión con DNI – Desktop](<../docs/mockups-mv/US 28-Inicio de Sesión con DNI-Web.png>){width=90%}
 
 ![Mockup US28 Inicio de sesión con DNI – Mobile](<../docs/mockups-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
 
-#### US36 – Probador virtual
+#### US33 – Probador virtual
 
 ![Mockup US36 Probador virtual – Desktop](<../docs/mockups-mv/US 36P-Probador Virtual-Web.png>){width=90%}
 
 ![Mockup US36 Probador virtual – Mobile](<../docs/mockups-mv/US 36P-Probador Virtual-App.png>){width=90%}
 
-#### US37 – Calculador de grosor
+#### US34 – Calculador de grosor
 
 ![Mockup US37 Calculador de grosor – Desktop](<../docs/mockups-mv/US 37P-Calculador de Grosor-Web.png>){width=90%}
 
@@ -649,7 +649,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US23 Control de Órdenes – Mobile](<../docs/userflows/jp/US_ 33 MOBILE.png>){width=100%}
 
-#### US-34 Registro de Empleado
+#### US-31 Registro de Empleado
 
 - **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
 - **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
@@ -658,7 +658,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
-#### US27 – Dashboard de Ventas
+#### US24 – Dashboard de Ventas
 
 - **Happy Path:** El gerente accede al dashboard → visualiza métricas de ventas, conversión y rendimiento en tiempo real → puede filtrar por período, área o asesor.
 - **Unhappy Path:** Sin datos suficientes para el período seleccionado → el dashboard muestra un estado vacío con indicaciones para ampliar el rango de fechas o verificar la fuente de datos.
@@ -667,7 +667,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US42 Dashboard de Ventas – Mobile](<../docs/userflows/jp/US-37_ Dashboard de ventas MOBILE.png>){width=100%}
 
-#### US28 – Inicio de Sesión con DNI
+#### US25 – Inicio de Sesión con DNI
 
 - **Happy Path:** El cliente ingresa DNI registrado → sistema valida coincidencia → genera JWT y carga Dashboard.
 - **Unhappy Path:** El cliente ingresa DNI no registrado → sistema deniega acceso → resalta input en rojo y muestra "Documento no registrado".
@@ -676,7 +676,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US28 Inicio de Sesión con DNI – Mobile](<../docs/userflows-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
 
-#### US36 – Probador virtual
+#### US33 – Probador virtual
 
 - **Happy Path:** El cliente activa cámara en catálogo → sistema detecta puntos faciales → superpone modelo 3D de montura.
 - **Unhappy Path:** Cliente activa cámara en entorno oscuro → sistema no ubica coordenadas faciales → muestra alerta de iluminación insuficiente.
@@ -685,7 +685,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US36 Probador virtual – Mobile](<../docs/userflows-mv/US 36P-Probador Virtual-App.png>){width=90%}
 
-#### US37 – Calculador de grosor
+#### US34 – Calculador de grosor
 
 - **Happy Path:** Cliente ingresa miopía alta y material "Extra Delgado" → sistema procesa datos → renderiza gráfico de perfil fino.
 - **Unhappy Path:** Cliente elige medida > -6.00 con resina económica → sistema detecta grosor excesivo → muestra alerta disuasoria.
