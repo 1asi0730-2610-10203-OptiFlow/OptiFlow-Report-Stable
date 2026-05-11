@@ -220,12 +220,42 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![Wireframe US17 - Encuestas de satisfacción](<../docs/wireframes-new/jp/US17F_ Encuestas de satisfacción.png>){width=100%}
 ![Wireframe US17 - Encuestas de satisfacción](<../docs/wireframes-new/jp/US17F_ Encuestas de satisfacción-1.png>){width=100%}
 
+#### US18 – Consulta de Inventario en Tiempo Real
+
+![Wireframe US18 Consulta de Inventario en Tiempo Real – Desktop](<../assets/design/wireframe-18.png>){width=100%}
+
+![Wireframe US18 Consulta de Inventario en Tiempo Real – Mobile](<../assets/design/wireframe-18-m.png>){width=100%}
+
+#### US19 - Alertas de Bajo Stock
+
+![Wireframe US19 Alertas de Bajo Stock – Desktop](<../assets/design/wireframe-19.png>){width=100%}
+
+![Wireframe US19 Alertas de Bajo Stock – Mobile](<../assets/design/wireframe-19-m.png>){width=100%}
+
+#### US20 – Registro de Nuevo Producto
+
+![Wireframe US20 Registro de Nuevo Producto – Desktop](<../assets/design/wireframe-20.png>){width=100%}
+
+![Wireframe US20 Registro de Nuevo Producto – Mobile](<../assets/design/wireframe-20-m.png>){width=100%}
+
+#### US21 – Gestión de Variantes
+
+![Wireframe US21 Gestión de Variantes - Desktop](<../assets/design/wireframe-21.png>){width=100%}
+
+![Wireframe US21 Gestión de Variantes - Mobile](<../assets/design/wireframe-21-m.png>){width=100%}
+
+#### US22 – Búsqueda Avanzada
+
+![Wireframe US22 Búsqueda Avanzada - Desktop](<../assets/design/wireframe-22.png>){width=100%}
+
+![Wireframe US22 Búsqueda Avanzada - Mobile](<../assets/design/wireframe-22-m.png>){width=100%}
+
 
 #### US23 – Control de Órdenes y Tablero Kanban
 
-![Wireframe US23 Control de Órdenes – Desktop](<../docs/wireframes/jp/US37_ Control de Órdenes y Tablero Kanban.png>){width=100%}
+![Wireframe US23 Control de Órdenes – Desktop](<../assets/design/wireframe-23.png>){width=100%}
 
-![Wireframe US23 Control de Órdenes – Mobile](<../docs/wireframes/jp/US_ 37 MOBILE.png>){width=100%}
+![Wireframe US23 Control de Órdenes – Mobile](<../assets/design/wireframe-23-m.png>){width=100%}
 
 #### US31 - Registro de Empleado
 
@@ -695,7 +725,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow US37 Calculador de grosor – Mobile](<../docs/userflows-mv/US 37P-Calculador de Grosor-App.png>){width=90%}
 
 ## Web Applications Prototyping
-https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=53-157&t=t56540ubJEOL4jsl-1
+[Descripción y enlace al prototipo interactivo de la aplicación web, con escenarios de prueba definidos.]
 
 ## Domain-Driven Software Architecture
 
@@ -720,41 +750,10 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=53-15
 #### Lab Module
 ![context3.png](../assets/C4/context3.png)
 
-### C4 Architecture Diagrams (Frontend)
-
-Context diagram
-
-![L1 System Context](../docs/c4-diagrams-frontend/L1_SystemContext-dark.png){width=100%}
-
-Container diagrams
-
-![L2 Containers](../docs/c4-diagrams-frontend/L2_Containers-dark.png){width=100%}
-
-Copmponents diagrams
-
-![L3 Components](../docs/c4-diagrams-frontend/L3_Components-dark.png){width=100%}
-
-Clinical diagram
-
-
-![L4 Clinical](../docs/c4-diagrams-frontend/L4_Clinical-dark.png){width=100%}
-
-Fullmilment diagram
-
-![L4 Fulfillment](../docs/c4-diagrams-frontend/L4_Fulfillment-dark.png){width=100%}
-
-Inventory diagram
-
-![L4 Inventory](../docs/c4-diagrams-frontend/L4_Inventory-dark.png){width=100%}
-
-Sales diagram
-
-![L4 Sales](../docs/c4-diagrams-frontend/L4_Sales-dark.png){width=100%}
-
-
 ## Software Object-Oriented Design
 
 ### Class Diagrams
+[Diagramas de clases UML con atributos, métodos y relaciones entre entidades del dominio.]
 
 ## Frontend Class Diagrams
 ### IAM (Identity and Access Management)
