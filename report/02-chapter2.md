@@ -299,7 +299,14 @@ Cliente de la óptica: Adrian Geraldo Huamán Villacorta
 
 ## Big Picture Event Storming
 
-![Big.jpg](../assets/impactMap/Big.jpg){width=100%}
+### Paso 1
+![eve 1.jpg](../assets/eve%201.jpg)
+
+### Paso 2
+![eve 2.jpg](../assets/eve%202.jpg)
+
+### Paso 3
+![eve 3.jpg](../assets/eve%203.jpg)
 
 ## Ubiquitous Language
 
