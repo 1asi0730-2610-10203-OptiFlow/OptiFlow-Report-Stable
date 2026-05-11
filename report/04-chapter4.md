@@ -784,8 +784,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow US37 Calculador de grosor – Mobile](<../docs/userflows-mv/US 37P-Calculador de Grosor-App.png>){width=90%}
 
 ## Web Applications Prototyping
-[Descripción y enlace al prototipo interactivo de la aplicación web, con escenarios de prueba definidos.]
-
+https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-70640&t=l6s3p4jbdhVjfcsL-1
 ## Domain-Driven Software Architecture
 
 ### Design-Level Event Storming
