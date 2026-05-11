@@ -70,13 +70,77 @@ Framework de desarrollo para el lado del servidor que simplifica la creación de
 
 * **Documentación y descarga:** [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
 ### Source Code Management
-El proyecto utiliza **GitHub** como sistema de control de versiones mediante un repositorio público. Se adoptó una estrategia basada en **GitFlow**:
-* La rama `main` contiene versiones estables del sistema.
-* La rama `develop` funciona como entorno de integración.
-* Las nuevas funcionalidades se desarrollan en ramas `feature/*`.
-* En caso del repositorio de documentación, se utiliza `docs/*`.
 
-La integración de cambios se realiza mediante **Pull Requests** hacia la rama `develop`, asegurando un control previo antes de incorporar modificaciones. Se emplea una convención de commits semánticos (`feat`, `fix`).
+El equipo utiliza **GitHub** como plataforma y sistema de control de versiones, organizando todos los repositorios bajo la organización **1asi0730-2610-10203-OptiFlow**. A continuación se listan los repositorios individuales para cada producto de software que forma parte del alcance del proyecto:
+
+| Producto de Software | Repositorio | URL |
+|---|---|---|
+| **Landing Page** | OptiFlow-Landing-Page | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page |
+| **Frontend Web Application** | OptiFlow-Frontend | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend |
+| **Web Services (Backend API)** | OptiFlow-API | Not created yet |
+| **Fake RESTful API (Mock API)** | OptiFlow-Mock-Api | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api |
+| **Informe del Proyecto** | OptiFlow-Report-Stable | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable |
+
+
+#### Implementación de GitFlow
+
+El equipo adopta el workflow **GitFlow** (Vincent Driessen, "A successful Git branching model") como modelo de ramificación en todos los repositorios de código fuente. Este modelo define dos ramas de larga duración y tres tipos de ramas de soporte de vida corta:
+
+**Ramas principales (long-lived branches):**
+
+| Rama | Propósito |
+|---|---|
+| `main` | Contiene exclusivamente versiones estables y publicadas. Cada integración a esta rama corresponde a un Release oficial. Está protegida contra commits directos. |
+| `develop` | Rama de integración continua. Acumula los cambios completados de cada feature antes de conformar un release. Es el origen de las ramas de soporte. |
+
+**Ramas de soporte (short-lived branches):**
+
+| Tipo | Convención de nombre | Ejemplo | Descripción |
+|---|---|---|---|
+| **Feature** | `feature/<id-us>-<descripcion-corta>` | `feature/us01-login`, `feature/us18-inventory` | Una rama por cada User Story o funcionalidad. Se bifurcan desde `develop` y se integran de regreso a `develop` mediante Pull Request con revisión de pares. |
+| **Release** | `release/<major>.<minor>.<patch>` | `release/1.0.0`, `release/2.0.0` | Se crean desde `develop` cuando el scope del sprint está completo y listo para despliegue. Solo admiten correcciones de bugs menores. Al cerrar, se integran tanto a `main` como a `develop`. |
+| **Hotfix** | `hotfix/<major>.<minor>.<patch>` | `hotfix/1.0.1`, `hotfix/2.0.1` | Se bifurcan directamente desde `main` para corregir fallos críticos detectados en producción. Al cerrar, se integran a `main` y a `develop`. |
+
+#### Semantic Versioning
+
+Para el nombramiento de los Releases se aplica **Semantic Versioning 2.0.0**, bajo el formato `MAJOR.MINOR.PATCH`:
+
+- **MAJOR** — Se incrementa cuando se introducen cambios incompatibles con versiones anteriores de la API.
+- **MINOR** — Se incrementa al añadir nuevas funcionalidades de forma compatible con versiones anteriores.
+- **PATCH** — Se incrementa al realizar correcciones de errores compatibles con versiones anteriores.
+
+Ejemplos de progresión de versiones en el proyecto: `v1.0.0` (primer release del Landing Page) → `v1.0.1` (hotfix) → `v1.1.0` (nueva feature) → `v2.0.0` (release del Frontend Web App con cambios de arquitectura).
+
+#### Conventional Commits
+
+Para los mensajes de commit en todos los repositorios se aplica el estándar **Conventional Commits**, con la siguiente estructura:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+[optional footer]
+```
+
+Los tipos de commit permitidos en el proyecto son:
+
+| Tipo | Uso |
+|---|---|
+| `feat` | Introduce una nueva funcionalidad al producto. |
+| `fix` | Corrige un bug o comportamiento incorrecto. |
+| `docs` | Cambios exclusivamente en documentación o comentarios. |
+| `chore` | Cambios en el proceso de build, herramientas auxiliares o dependencias. |
+
+
+Ejemplos de commits aplicados en el proyecto:
+
+- `feat(hero): add hero section`
+- `fix(hero): fix hero background`
+- `feat(i18n): add i18n`
+- `feat(inventory): add inventory context`
+- `fix(lab-order): correct work order management behavior`
+- `docs(chapter-5): add sprint backlog`
+- `chore: configure dist folder`
 
 ### Source Code Style Guide & Conventions
 Para mantener la consistencia, legibilidad y escalabilidad del código fuente durante todo el ciclo de vida del proyecto, el equipo ha adoptado un conjunto estricto de convenciones de codificación. La regla transversal para todos los lenguajes y frameworks (HTML, CSS, JavaScript, Vue.js, C#) es el uso estricto del idioma **inglés** para la nomenclatura de variables, clases, métodos, archivos y comentarios.
@@ -154,7 +218,8 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 | Mechan Montenegro, Luciana Carolina | MehanLuciana | Backend architecture (C) | Bounded context development (L) | Database design (L) | Documentation (C) |
 | Morocho Pinedo, Mariana | MarianaMP | UX Research (C) | Sprint planning & Backlog (L) | Needfinding (C) | Documentation (L) |
 
-### Sprint Backlog
+#### Sprint Backlog 1
+
 <table>
   <thead>
     <tr>
@@ -195,7 +260,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Diseñar Wireframes, Mockups y User Flows de la web estática.</td>
       <td>5 hrs</td>
       <td>Mia / Juan Pablo / Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -205,7 +270,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Elaborar EventStorming, Bounded Contexts y Context Mapping.</td>
       <td>5 hrs</td>
       <td>Luciana / Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -215,7 +280,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD).</td>
       <td>5 hrs</td>
       <td>Luciana / Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -255,7 +320,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -265,7 +330,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe.</td>
       <td>2 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -275,7 +340,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution).</td>
       <td>2 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -285,7 +350,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Documentar el link de producción y métricas de colaboración (Team Collaboration Insights).</td>
       <td>2 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-46L</td>
@@ -295,7 +360,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-47L</td>
@@ -305,7 +370,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Programar la sección de módulos (Ventas, Laboratorio) de forma responsive.</td>
       <td>4 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-48L</td>
@@ -315,7 +380,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Maquetar la tabla de precios comparativa interactiva para la web.</td>
       <td>4 hrs</td>
       <td> </td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-49L</td>
@@ -325,7 +390,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Codificar el formulario de contacto y agregar validaciones de campos en JavaScript.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-50L</td>
@@ -335,10 +400,11 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Implementar la barra de navegación superior anclada y el botón de acceso al sistema.</td>
       <td>3 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
-  </tbody>
+    </tbody>
 </table>
+
 
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
@@ -468,7 +534,9 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 | **Sum of Story Points** | 45 |
 
 #### Aspect Leaders and Collaborators
+
 #### Sprint Backlog 2
+
 <table>
   <thead>
     <tr>
@@ -499,7 +567,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de autenticación del portal del paciente con campo DNI y validación conectada al fake API.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-05P</td>
@@ -509,7 +577,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista del portal que muestra el estado actual de la orden del cliente, consumiendo el fake API.</td>
       <td>4 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-06P</td>
@@ -519,7 +587,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el formulario editable de datos de contacto del cliente (nombre, correo, teléfono) con actualización en fake API.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-07P</td>
@@ -529,7 +597,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Diseñar e implementar la vista que muestra el monto pendiente de la orden activa del cliente autenticado.</td>
       <td>2 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-10G</td>
@@ -539,7 +607,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el formulario con campos básicos (nombre, DNI, teléfono, correo) y guardado mediante POST al fake API.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-08G</td>
@@ -549,7 +617,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el formulario de examen visual con campos de esfera, cilindro y eje para ambos ojos, guardado en fake API.</td>
       <td>5 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-09G</td>
@@ -559,7 +627,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el componente de upload de archivos PDF con vista previa del nombre de archivo vinculado al perfil del cliente.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-36G</td>
@@ -569,7 +637,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista que consolida los exámenes visuales anteriores y órdenes vinculadas al perfil del cliente.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -579,7 +647,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Configurar json-server con todos los recursos del sistema (clientes, órdenes, inventario, ventas, usuarios, roles) para ser consumidos por el frontend.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-01S</td>
@@ -589,7 +657,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de inicio de sesión del sistema con campos de usuario/contraseña y redirección según rol asignado.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-02S</td>
@@ -599,7 +667,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear la vista con campo de correo y flujo de confirmación de restablecimiento de contraseña conectado al fake API.</td>
       <td>2 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-11F</td>
@@ -609,7 +677,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista principal de ventas con selección de cliente, productos y resumen del pedido, conectada al fake API.</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-14F</td>
@@ -619,7 +687,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el componente que permite dividir el monto entre efectivo y tarjeta, calculando automáticamente el vuelto.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-13F</td>
@@ -629,7 +697,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el input de código de descuento con validación y recálculo automático del monto en la boleta de venta.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-12F</td>
@@ -639,7 +707,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el modal de cobro de saldo al momento de la entrega del producto con actualización de estado en fake API.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-15F</td>
@@ -649,7 +717,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el flujo de reversión de venta desde la pantalla de ventas con motivo de devolución y actualización de estado.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-16F</td>
@@ -659,7 +727,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el componente que muestra la alerta al cliente cuando su orden está lista para recoger en tienda.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-17F</td>
@@ -669,7 +737,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el formulario de calificación post-venta con escala de valoración y campo de comentario libre, guardado en fake API.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-18L</td>
@@ -679,7 +747,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de consulta de stock con listado paginado de monturas y estado de disponibilidad desde fake API.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-20L</td>
@@ -689,7 +757,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el formulario de registro de nuevas monturas con campos de marca, modelo, precio y stock inicial.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-22L</td>
@@ -699,7 +767,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el panel de filtros múltiples (marca, tipo, precio, disponibilidad) sobre el listado de productos del catálogo.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-19L</td>
@@ -709,7 +777,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el componente de alerta visual que resalta productos por debajo del umbral mínimo configurado en el inventario.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-21L</td>
@@ -719,7 +787,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de registro y edición de tipos de materiales de lunas (orgánico, fotocromático, antirreflejo, etc.).</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-23L</td>
@@ -729,7 +797,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el tablero Kanban interactivo con columnas (Pendiente, En Proceso, Listo, Entregado) y drag-and-drop de tarjetas de orden.</td>
       <td>8 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-24L</td>
@@ -739,7 +807,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el modal de tipificación de errores de fabricación con selector de causa raíz y actualización del estado de la orden.</td>
       <td>2 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-25L</td>
@@ -749,7 +817,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el botón y lógica de priorización máxima de órdenes en el tablero Kanban con resaltado visual diferenciado.</td>
       <td>2 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-26L</td>
@@ -759,7 +827,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de seguimiento de materia prima con descuento automático de stock al registrar nuevas órdenes de laboratorio.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-27A</td>
@@ -769,7 +837,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el panel centralizado con gráficos de ingresos, conversión y rendimiento del negocio consumiendo el fake API.</td>
       <td>5 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-03A</td>
@@ -779,7 +847,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de asignación y edición de roles (admin, vendedor, técnico de laboratorio) con tabla de permisos por módulo.</td>
       <td>5 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-04A</td>
@@ -789,7 +857,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear la vista de historial de alteraciones de stock con filtros por fecha, producto y usuario responsable de cada cambio.</td>
       <td>4 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-34S</td>
@@ -799,7 +867,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el formulario de registro de nuevos empleados con campos de nombre, correo, rol asignado y contraseña inicial.</td>
       <td>3 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-35A</td>
@@ -809,7 +877,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de configuración con campos de información del negocio, política de contraseñas y opciones de copia de seguridad.</td>
       <td>3 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -819,7 +887,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Eliminar el texto `git` suelto dentro de celdas del Sprint Backlog 1, corregir la tabla Aspect Leaders Sprint 1 (nombres duplicados de Rodríguez Peña) y limpiar el texto corrupto con hash incrustado en el Student Outcome.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -829,7 +897,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar entrada TB2 en el Registro de Versiones, rellenar el URL del repositorio del informe en Project Report Collaboration Insights e insertar la captura de commits del equipo.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -839,7 +907,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Documentar la configuración de despliegue de la Landing Page: describir el pipeline de GitHub Actions, el archivo de workflow YAML, el entorno de GitHub Pages y cualquier variable de entorno utilizada.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -849,7 +917,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Grabar un video corto que evidencie el Landing Page desplegado y funcional, mostrando todas las secciones (Hero, Features, Pricing, Contact) en desktop y mobile. Embeber el enlace en la sección Execution Evidence Sprint 1.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -859,7 +927,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Insertar las imágenes de los Wireframes y Mock-ups de la Landing Page en las secciones correspondientes del Capítulo IV (actualmente son placeholders vacíos).</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -869,7 +937,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar el enlace al prototipo interactivo en Figma en la sección Web Applications Prototyping del Capítulo IV, junto con una descripción de los escenarios de prueba cubiertos.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -879,7 +947,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App correspondientes a las tasks del módulo de ventas (T12–T18): registro de venta, pagos, descuentos, devoluciones y notificaciones.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -889,7 +957,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas del módulo de ventas implementadas. Completar la tabla Aspect Leaders and Collaborators del Sprint 2. Redactar la sección Video About-the-Product con enlace al video del producto final.</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -899,7 +967,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar en la sección Source Code Management los URLs formales de los repositorios de Frontend Web App y Backend/Server Side Software, incluyendo descripción de la estrategia de ramas GitFlow aplicada en cada uno.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -909,7 +977,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Documentar el Fake API configurado con json-server: mostrar el db.json con todos los recursos, listar los endpoints disponibles (GET, POST, PUT, DELETE) con sus rutas y un ejemplo de respuesta JSON por cada uno. Si en Sprint 1 no hubo servicios, justificarlo explícitamente.</td>
       <td>5 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -919,7 +987,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T05–T11: registro de clientes, historia clínica, carga de PDF, HCE, configuración del json-server, login de empleado y recuperación de contraseña.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -929,7 +997,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas implementadas: login con DNI, login de empleado, recuperación de contraseña, registro de clientes, formulario de historia clínica, carga de PDF y vista de HCE, evidenciando la integración con el json-server.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -939,7 +1007,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Redactar las tres subsecciones de Validation Interviews: (1) Diseño de Entrevistas con objetivos y guía de preguntas, (2) Registro de Entrevistas con resumen de sesiones realizadas con usuarios reales, y (3) Evaluaciones según Heurísticas de Nielsen aplicadas a las vistas implementadas.</td>
       <td>6 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -949,7 +1017,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la fila de Nicolas en la tabla Student Outcome con las acciones realizadas durante TB1 y TB2, especificando los commits asociados y la conclusión de su contribución al trabajo colaborativo del equipo.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -959,7 +1027,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas de pantalla de la herramienta de gestión ágil usada (Jira / Trello / GitHub Projects) mostrando: el Product Backlog con User Stories, el Sprint 1 Backlog con la evolución de tareas por estados (To Do → In Process → To Review → Done) y el Sprint 2 Backlog con el mismo seguimiento.</td>
       <td>5 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -969,7 +1037,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la sección Team Collaboration Insights del Sprint 1: incluir métricas de contribución por integrante (commits, PRs aprobados), gráfica de actividad del repositorio, herramientas de comunicación usadas y resumen de reuniones realizadas.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -979,7 +1047,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T19–T27: dashboard de inventario, alertas de stock, registro de producto, variantes, búsqueda avanzada, tablero Kanban, motivos de retrabajo, urgencias y control de insumos.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -989,7 +1057,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas implementadas: dashboard de inventario con alertas de bajo stock, formulario de nuevo producto, panel de filtros cruzados, tablero Kanban interactivo con drag-and-drop y vista de control de insumos, evidenciando integración con el json-server.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -999,11 +1067,10 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la sección Team Collaboration Insights del Sprint 2 (métricas de commits, PRs, reuniones de retrospectiva). Completar la entrada de Luciana en la tabla Student Outcome del informe con sus acciones en TB1 y TB2 y la conclusión correspondiente.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
-  </tbody>
+    </tbody>
 </table>
-
 
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
