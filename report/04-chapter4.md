@@ -794,7 +794,7 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 ![img.png](../assets/C4/img.png)
 
 ### Software Architecture Container Diagrams
-![components.png](../assets/C4/components.png)
+![components.png](../docs/c4-diagrams-frontend/L2_Containers-dark.png)
 
 ### Software Architecture Components Diagrams
 ![container.png](../assets/C4/container.png)
