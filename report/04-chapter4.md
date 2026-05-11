@@ -404,18 +404,77 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![](<../docs/wireflows-new/jp/US-17_ Encuestas de satisfacción-1.png>){width=100%}
 ![](<../docs/wireflows-new/jp/US-17_ Encuestas de satisfacción.png>){width=100%}
 
+#### US18 – Consulta de Inventario en Tiempo Real
+
+**Taskflow:**
+
+![](<../assets/design/taskflow-18.png>){width=100%}
+
+**Wireflow:**
+
+![](<../assets/design/wireflow-18.png>){width=100%}
+
+![](<../assets/design/wireflow-18-m.png>){width=100%}
+
+#### US19 – Alertas de Bajo Stock
+
+**Taskflow:**
+
+![](<../assets/design/taskflow-19.png>){width=100%}
+
+**Wireflow:**
+
+![](<../assets/design/wireflow-19.png>){width=100%}
+
+![](<../assets/design/wireflow-19-m.png>){width=100%}
+
+#### US20 – Registro de Nuevo Producto
+
+**Taskflow:**
+
+![](<../assets/design/taskflow-20.png>){width=100%}
+
+**Wireflow:**
+
+![](<../assets/design/wireflow-20.png>){width=100%}
+
+![](<../assets/design/wireflow-20-m.png>){width=100%}
+
+#### US21 – Gestión de Variantes
+
+**Taskflow:**
+
+![](<../assets/design/taskflow-21.png>){width=100%}
+
+**Wireflow:**
+
+![](<../assets/design/wireflow-21.png>){width=100%}
+
+![](<../assets/design/wireflow-21-m.png>){width=100%}
+
+#### US22 – Búsqueda Avanzada
+
+**Taskflow:**
+
+![](<../assets/design/taskflow-22.png>){width=100%}
+
+**Wireflow:**
+
+![](<../assets/design/wireflow-22.png>){width=100%}
+
+![](<../assets/design/wireflow-22-m.png>){width=100%}
 
 #### US23 – Control de Órdenes y Tablero Kanban
 
 **Taskflow:**
 
-![](<../docs/taskflows/jp/Task flows - US-33.jpg>){width=100%}
+![](<../assets/design/taskflow-23.png>){width=100%}
 
 **Wireflow:**
 
-![](<../docs/wireflows/jp/US33_ Control de Órdenes y Tablero Kanban.png>){width=100%}
+![](<../assets/design/wireflow-23.png>){width=100%}
 
-![](<../docs/wireflows/jp/US_ 33 MOBILE.png>){width=100%}
+![](<../assets/design/wireflow-23-m.png>){width=100%}
 
 #### US-31G Registro de Empleado
 
