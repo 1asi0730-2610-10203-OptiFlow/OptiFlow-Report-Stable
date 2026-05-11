@@ -28,6 +28,11 @@ Poseo experiencia en en el lenguaje C++ y Python, lo que me permite contribuir e
 
 Mi nombre es Nicolas Fernando Atoche Gonzales, actualmente estoy en el quinto ciclo de la carrera de ingeniería de software. Poseo un conocimiento básico/intermedio en programación con C++ y Lua. Además, cuento con conocimientos básicos en el desarrollo de videojuegos. Dentro del equipo, estoy encargado en el desarrollo de la interfaz de la aplicación del proyecto utilizando el entorno TypeScript. A su vez suelo orientarme por el conocimiento y el pensamiento lógico, con lo cual suelo buscar la solución más óptima y ágil dentro de un problema a través de pasos sencillos y definidos que construyan una base sólida donde pueda desarrollar respuestas claras y efectivas.
 
+![foto-Mariana-Morocho](../assets/imagen-mariana-morocho.jpg){width=45%}
+
+Soy Mariana Morocho Pinedo (u202411521), estudiante de la carrera de Ingeniería de Software de 5to ciclo. Elegí esta carrera por la libertad creativa que ofrece, ya que no existe una única forma de resolver un problema, y cada solución refleja la manera de pensar de la persona. Tengo conocimientos en C++ y lo básico en Python, lo que me permite aportar y brindar consejos, más en los trabajos en equipo. Disfruto mucho apoyar a mis compañeros, organizar tareas y asegurarme de que todo fluya de manera clara y ordenada. Dentro de la startup, me gusta desempeñar un rol con enfoque administrativo, ya que me gusta motivar a quienes me rodean y comunicarme de forma clara y empática. Además, me siento cómoda organizando, planificando y coordinando, y creo que mi perfil puede ayudar a crear un entorno ordenado y cómodo. Desde ese lugar, podría apoyar al equipo tanto en la gestión interna como en la comunicación y distribución eficiente del trabajo
+
+
 ## 1.2. Solution Profile
 
 ### 1.2.1. Antecedentes y problemática
