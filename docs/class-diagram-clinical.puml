@@ -3,137 +3,199 @@
 package "clinical.domain.model" {
   class Patient {
     + id: number
+    + customerUuid: string
     + firstName: string
     + lastName: string
     + dni: string
     + phone: string
     + email: string
+    + birthDate: string
+    + constructor()
+    + get fullName(): string
+    + get initials(): string
+    + get age(): number | null
+  }
+  class ClinicalRecord {
+    + id: number
+    + clinicalRecordUuid: string
+    + patientId: number
     + constructor()
   }
   class Prescription {
     + id: number
-    + patientId: number
+    + prescriptionUuid: string
+    + clinicalRecordId: number
     + odSphere: number
     + odCylinder: number
     + odAxis: number
     + oiSphere: number
     + oiCylinder: number
     + oiAxis: number
+    + addition: number | null
     + notes: string
+    + createdAt: string
+    + doctorName: string
     + constructor()
+    + get formattedDate(): string
+    + formatValue(val): string
   }
 }
 
 package "clinical.infrastructure" {
-  interface PatientResource {
+  class PatientResource {
     + patient_id: number
+    + customer_uuid: string
     + first_name: string
     + last_name: string
     + dni: string
     + phone: string
     + email: string
+    + birth_date: string
   }
-  interface PrescriptionResource {
-    + recipe_id: number
+  class ClinicalRecordResource {
+    + id: number
+    + clinical_record_uuid: string
     + patient_id: number
+  }
+  class PrescriptionResource {
+    + prescription_id: number
+    + prescription_uuid: string
+    + clinical_record_id: number
     + od_sphere: number
     + od_cylinder: number
     + od_axis: number
     + oi_sphere: number
     + oi_cylinder: number
     + oi_axis: number
+    + addition: number | null
     + notes: string
+    + created_at: string
+    + doctor_name: string
   }
   class PatientAssembler {
-    + toEntityFromResource(r: PatientResource): Patient
-    + toEntitiesFromResponse(r: PatientResource[]): Patient[]
-    + toResourceFromEntity(p: Patient): PatientResource
+    + {static} toEntityFromResource(r: PatientResource): Patient
+    + {static} toEntitiesFromResponse(r: PatientResource[]): Patient[]
+    + {static} toResourceFromEntity(p: Patient): PatientResource
   }
   class PrescriptionAssembler {
-    + toEntityFromResource(r: PrescriptionResource): Prescription
-    + toEntitiesFromResponse(r: PrescriptionResource[]): Prescription[]
-    + toResourceFromEntity(p: Prescription): PrescriptionResource
+    + {static} toEntityFromResource(r: PrescriptionResource): Prescription
+    + {static} toEntitiesFromResponse(r: PrescriptionResource[]): Prescription[]
+    + {static} toResourceFromEntity(p: Prescription): PrescriptionResource
   }
   class PatientApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
-    + getPatients(): Promise<Patient[]>
-    + getPatientById(id: number): Promise<Patient>
-    + createPatient(p: Patient): Promise<Patient>
-    + updatePatient(p: Patient): Promise<Patient>
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getPatients(): Promise<PatientResource[]>
+    + getPatientById(id: number): Promise<PatientResource>
+    + createPatient(r: PatientResource): Promise<PatientResource>
+    + updatePatient(r: PatientResource): Promise<PatientResource>
+    + deletePatient(id: number): Promise<void>
+  }
+  class ClinicalRecordApi {
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getClinicalRecords(): Promise<ClinicalRecordResource[]>
+    + getByPatientId(patientId: number): Promise<ClinicalRecordResource[]>
+    + createClinicalRecord(r: object): Promise<ClinicalRecordResource>
   }
   class PrescriptionApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
-    + getPrescriptionsByPatientId(patientId: number): Promise<Prescription[]>
-    + createPrescription(p: Prescription): Promise<Prescription>
-    + updatePrescription(p: Prescription): Promise<Prescription>
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getPrescriptions(): Promise<PrescriptionResource[]>
+    + getPrescriptionsByRecordId(recordId: number): Promise<PrescriptionResource[]>
+    + createPrescription(r: PrescriptionResource): Promise<PrescriptionResource>
   }
 }
 
 package "clinical.application" {
   class ClinicalStore {
-    - patientsRef: Ref<Patient[]>
-    - prescriptionsRef: Ref<Prescription[]>
-    - patientApi: PatientApi
-    - prescriptionApi: PrescriptionApi
-    - patientAssembler: PatientAssembler
-    - prescriptionAssembler: PrescriptionAssembler
     + patients: ComputedRef<Patient[]>
     + prescriptions: ComputedRef<Prescription[]>
-    + loadPatients(): void
-    + loadPrescriptionsByPatient(patientId: number): void
-    + createPatient(p: Patient): void
-    + updatePatient(p: Patient): void
-    + createPrescription(p: Prescription): void
-    + updatePrescription(p: Prescription): void
+    + clinicalRecords: ComputedRef<object[]>
+    + loading: Ref<boolean>
+    + errors: Ref<string[]>
+    + loadPatients(): Promise<void>
+    + createPatient(data: Patient): Promise<Patient>
+    + loadClinicalRecords(): Promise<void>
+    + getRecordForPatient(patientId: number): object | null
+    + loadPrescriptions(): Promise<void>
+    + loadPrescriptionsByRecord(recordId: number): Promise<Prescription[]>
+    + createPrescription(data: Prescription): Promise<Prescription>
+    + getPrescriptionsForRecord(recordId: number): Prescription[]
+  }
+}
+
+package "clinical.presentation.views" {
+  class PatientListView <<view>> {
+    - searchQuery: Ref<string>
+    - showAddPatient: Ref<boolean>
+    - showSuccess: Ref<boolean>
+    - successMsg: Ref<string>
+    - selectedPatient: Ref<Patient | null>
+    - currentPage: Ref<number>
+    - filteredPatients: ComputedRef<Patient[]>
+    - pagedPatients: ComputedRef<Patient[]>
+    - stats: ComputedRef<object[]>
+    + onAddPatient(data: Patient): Promise<void>
+    + onSuccessNext(): void
+    + openHce(patient: Patient): void
+    + latestPrescriptionFor(patient: Patient): Prescription | null
+    + formatVal(val): string
   }
 }
 
 package "clinical.presentation.components" {
-  class PatientList <<component>> {
-    + patients: Patient[] (input)
-    + patientSelected: Patient (output)
-    + emitPatientSelected(p: Patient): void
+  class ModalAddPatient <<component>> {
+    + emit save: (data: object)
+    + emit close: void
   }
-  class PatientItem <<component>> {
-    + patient: Patient (input)
-    + patientSelected: Patient (output)
-    + emitPatientSelected(): void
+  class ModalHce <<component>> {
+    + patient: Patient (prop)
+    + emit close: void
   }
-  class PrescriptionList <<component>> {
-    + prescriptions: Prescription[] (input)
-    + prescriptionSelected: Prescription (output)
-    + emitPrescriptionSelected(p: Prescription): void
+  class ModalSuccess <<component>> {
+    + message: string (prop)
+    + emit next: void
   }
-  class PrescriptionItem <<component>> {
-    + prescription: Prescription (input)
-    + prescriptionSelected: Prescription (output)
-    + emitPrescriptionSelected(): void
+  class ModalNewExam <<component>> {
+    + emit save: void
+    + emit close: void
   }
 }
 
-PatientApi ..> PatientResource : uses
+BaseApi <|-- PatientApi
+BaseApi <|-- ClinicalRecordApi
+BaseApi <|-- PrescriptionApi
+PatientApi --> BaseEndpoint : uses
+ClinicalRecordApi --> BaseEndpoint : uses
+PrescriptionApi --> BaseEndpoint : uses
+
 PatientAssembler ..> PatientResource : transforms
 PatientAssembler --> Patient : creates
-PrescriptionApi ..> PrescriptionResource : uses
 PrescriptionAssembler ..> PrescriptionResource : transforms
 PrescriptionAssembler --> Prescription : creates
+
 ClinicalStore --> PatientApi : uses
+ClinicalStore --> ClinicalRecordApi : uses
 ClinicalStore --> PrescriptionApi : uses
 ClinicalStore --> PatientAssembler : uses
 ClinicalStore --> PrescriptionAssembler : uses
-PatientList *-- PatientItem : composes
-PrescriptionList *-- PrescriptionItem : composes
-PatientList ..> Layout : emits
-PrescriptionList ..> Layout : emits
-PatientItem --> Patient : input
-PrescriptionItem --> Prescription : input
 
-note "Layout (shared) uses\nClinicalStore and composes\nPatientList, PrescriptionList" as N1
-PatientList .. N1
-PrescriptionList .. N1
+PatientListView --> ClinicalStore : uses
+PatientListView *-- ModalAddPatient : contains
+PatientListView *-- ModalHce : contains
+PatientListView *-- ModalSuccess : contains
+
+note right of ClinicalRecord
+  ClinicalRecord entity exists in domain model.
+  The store saves raw API response objects
+  (not assembled via entity) in clinicalRecords.
+  getRecordForPatient matches on r.patient_id.
+end note
+
+note right of ClinicalStore
+  createPatient also auto-creates a linked
+  ClinicalRecord via ClinicalRecordApi.
+end note
 
 @enduml

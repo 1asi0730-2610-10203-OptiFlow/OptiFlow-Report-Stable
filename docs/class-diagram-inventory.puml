@@ -9,6 +9,12 @@ package "inventory.domain.model" {
     + model: string
     + price: number
     + stock: number
+    + name: string
+    + category: string
+    + sku: string
+    + minimumStockThreshold: number
+    + supplierName: string
+    + lastRestockDate: string
     + constructor()
   }
   class Category {
@@ -27,7 +33,7 @@ package "inventory.domain.model" {
 }
 
 package "inventory.infrastructure" {
-  interface ProductResource {
+  class ProductResource {
     + product_id: number
     + category_id: number
     + supplier_id: number
@@ -35,12 +41,18 @@ package "inventory.infrastructure" {
     + model: string
     + price: number
     + stock: number
+    + name: string
+    + category: string
+    + sku: string
+    + minimum_stock_threshold: number
+    + supplier_name: string
+    + last_restock_date: string
   }
-  interface CategoryResource {
+  class CategoryResource {
     + category_id: number
     + name: string
   }
-  interface SupplierResource {
+  class SupplierResource {
     + supplier_id: number
     + name: string
     + contact_person: string
@@ -48,113 +60,129 @@ package "inventory.infrastructure" {
     + email: string
   }
   class ProductAssembler {
-    + toEntityFromResource(r: ProductResource): Product
-    + toEntitiesFromResponse(r: ProductResource[]): Product[]
-    + toResourceFromEntity(p: Product): ProductResource
+    + {static} toEntityFromResource(r: ProductResource): Product
+    + {static} toEntitiesFromResponse(r: ProductResource[]): Product[]
+    + {static} toResourceFromEntity(p: Product): ProductResource
   }
   class CategoryAssembler {
-    + toEntityFromResource(r: CategoryResource): Category
-    + toEntitiesFromResponse(r: CategoryResource[]): Category[]
+    + {static} toEntityFromResource(r: CategoryResource): Category
+    + {static} toEntitiesFromResponse(r: CategoryResource[]): Category[]
   }
   class SupplierAssembler {
-    + toEntityFromResource(r: SupplierResource): Supplier
-    + toEntitiesFromResponse(r: SupplierResource[]): Supplier[]
-    + toResourceFromEntity(s: Supplier): SupplierResource
+    + {static} toEntityFromResource(r: SupplierResource): Supplier
+    + {static} toEntitiesFromResponse(r: SupplierResource[]): Supplier[]
+    + {static} toResourceFromEntity(s: Supplier): SupplierResource
   }
   class ProductApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
-    + getProducts(): Promise<Product[]>
-    + createProduct(p: Product): Promise<Product>
-    + updateProduct(p: Product): Promise<Product>
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getProducts(): Promise<ProductResource[]>
+    + createProduct(r: ProductResource): Promise<ProductResource>
+    + updateProduct(r: ProductResource): Promise<ProductResource>
     + deleteProduct(id: number): Promise<void>
   }
   class CategoryApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
-    + getCategories(): Promise<Category[]>
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getCategories(): Promise<CategoryResource[]>
   }
   class SupplierApi {
-    - http: AxiosInstance
-    - baseUrl: string
-    - endpoint: string
-    + getSuppliers(): Promise<Supplier[]>
-    + createSupplier(s: Supplier): Promise<Supplier>
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getSuppliers(): Promise<SupplierResource[]>
+    + createSupplier(r: SupplierResource): Promise<SupplierResource>
   }
 }
 
 package "inventory.application" {
   class InventoryStore {
-    - productsRef: Ref<Product[]>
-    - categoriesRef: Ref<Category[]>
-    - suppliersRef: Ref<Supplier[]>
-    - productApi: ProductApi
-    - categoryApi: CategoryApi
-    - supplierApi: SupplierApi
-    - productAssembler: ProductAssembler
-    - categoryAssembler: CategoryAssembler
-    - supplierAssembler: SupplierAssembler
     + products: ComputedRef<Product[]>
     + categories: ComputedRef<Category[]>
     + suppliers: ComputedRef<Supplier[]>
     + lowStockProducts: ComputedRef<Product[]>
-    + loadProducts(): void
-    + loadCategories(): void
-    + loadSuppliers(): void
-    + createProduct(p: Product): void
-    + updateProduct(p: Product): void
-    + deleteProduct(id: number): void
+    + loading: Ref<boolean>
+    + errors: Ref<string[]>
+    + loadProducts(): Promise<void>
+    + loadCategories(): Promise<void>
+    + loadSuppliers(): Promise<void>
+    + createProduct(p: Product): Promise<void>
+    + updateProduct(p: Product): Promise<void>
+    + deleteProduct(id: number): Promise<void>
+  }
+}
+
+package "inventory.presentation.views" {
+  class InventoryListView <<view>> {
+    - searchQuery: Ref<string>
+    - categoryFilter: Ref<string>
+    - stockLevelFilter: Ref<string>
+    - showAddProduct: Ref<boolean>
+    - selectedProductRestock: Ref<Product | null>
+    - showBulkRestock: Ref<boolean>
+    - showAuditLog: Ref<boolean>
+    - summary: ComputedRef<object[]>
+    + getStockStatus(stock, threshold): object
   }
 }
 
 package "inventory.presentation.components" {
-  class ProductList <<component>> {
-    + products: Product[] (input)
-    + productSelected: Product (output)
-    + emitProductSelected(p: Product): void
+  class ModalAddProduct <<component>> {
+    + categories: Category[] (prop)
+    + suppliers: Supplier[] (prop)
+    + emit save: (product: Product)
+    + emit close: void
   }
-  class ProductItem <<component>> {
-    + product: Product (input)
-    + productSelected: Product (output)
-    + emitProductSelected(): void
+  class ModalRestock <<component>> {
+    + product: Product (prop)
+    + emit save: (product: Product)
+    + emit close: void
   }
-  class SupplierList <<component>> {
-    + suppliers: Supplier[] (input)
-    + supplierSelected: Supplier (output)
-    + emitSupplierSelected(s: Supplier): void
+  class ModalBulkRestock <<component>> {
+    + products: Product[] (prop)
+    + emit save: void
+    + emit close: void
   }
-  class SupplierItem <<component>> {
-    + supplier: Supplier (input)
-    + supplierSelected: Supplier (output)
-    + emitSupplierSelected(): void
+  class ModalAuditLog <<component>> {
+    + logs: object[] (prop)
+    + emit close: void
   }
 }
 
-ProductApi ..> ProductResource : uses
+BaseApi <|-- ProductApi
+BaseApi <|-- CategoryApi
+BaseApi <|-- SupplierApi
+ProductApi --> BaseEndpoint : uses
+CategoryApi --> BaseEndpoint : uses
+SupplierApi --> BaseEndpoint : uses
+
 ProductAssembler ..> ProductResource : transforms
 ProductAssembler --> Product : creates
-CategoryApi ..> CategoryResource : uses
 CategoryAssembler ..> CategoryResource : transforms
 CategoryAssembler --> Category : creates
-SupplierApi ..> SupplierResource : uses
 SupplierAssembler ..> SupplierResource : transforms
 SupplierAssembler --> Supplier : creates
+
 InventoryStore --> ProductApi : uses
 InventoryStore --> CategoryApi : uses
 InventoryStore --> SupplierApi : uses
 InventoryStore --> ProductAssembler : uses
 InventoryStore --> CategoryAssembler : uses
 InventoryStore --> SupplierAssembler : uses
-ProductList *-- ProductItem : composes
-SupplierList *-- SupplierItem : composes
-ProductList ..> Layout : emits
-SupplierList ..> Layout : emits
-ProductItem --> Product : input
-SupplierItem --> Supplier : input
 
-note "Layout (shared) uses\nInventoryStore and composes\nProductList, SupplierList" as N1
-ProductList .. N1
+InventoryListView --> InventoryStore : uses
+InventoryListView *-- ModalAddProduct : contains
+InventoryListView *-- ModalRestock : contains
+InventoryListView *-- ModalBulkRestock : contains
+InventoryListView *-- ModalAuditLog : contains
+
+note right of InventoryStore
+  lowStockProducts filters products
+  where stock <= 3 (hard-coded threshold).
+end note
+
+note right of ProductApi
+  updateProduct uses PUT with
+  product_id as the URL path segment.
+end note
 
 @enduml
