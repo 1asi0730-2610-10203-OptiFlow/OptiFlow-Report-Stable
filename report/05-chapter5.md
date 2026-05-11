@@ -408,9 +408,45 @@ En este primer sprint se desplegó la primera versión del landing page utilizan
 
 Landing page deployed: https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
 ![landing-page](../assets/landing-page.png){width=100%}
-#### Team Collaboration Insights during Sprint
-[Análisis de la colaboración del equipo: métricas de contribución, reuniones y herramientas utilizadas.]
 
+#### Team Collaboration Insights during Sprint
+Team Collaboration Insights durante el Sprint 1
+Durante el Sprint 1, el equipo coordinó las actividades de desarrollo principalmente a través de Discord y Google Meet para reuniones síncronas, y GitHub como plataforma central de control de versiones, revisión de código e integración mediante Pull Requests. Todas las contribuciones fueron gestionadas bajo la estrategia GitFlow, utilizando ramas feature/* que se integraron a develop a través de Pull Requests con revisión de pares previa a su incorporación.
+
+### Resumen de colaboración:
+El equipo realizó sesiones virtuales de planificación y revisión alineadas al cronograma del Sprint 1. La comunicación se mantuvo de forma asíncrona a través de canales de Discord dedicados a cada bounded context, permitiendo a los integrantes reportar avances y bloqueos sin interrumpir los flujos de trabajo paralelos.
+
+Las siguientes métricas fueron extraídas del panel GitHub Insights del repositorio OptiFlow-Report-Stable durante el período del Sprint 1:
+
+| Integrante                           | Usuario GitHub | Commits |
+|--------------------------------------|----------------|----------|
+| Azama Fukuda, Juan Pablo             | Llummo         | 37       |
+| Capillo Lema, Mía Valentina          | Miavcl         | 15       |
+| Mechan Montenegro, Luciana Carolina  | luuu62         | 15        |
+| Atoche Gonzales, Nicolas Fernando    | THECOMAX       | 14       |
+| Morocho Pinedo, Mariana              | Patto04        | 3        |
+
+Se realizaron los Pull Requests mergeados por 5 integrantes contribuyentes durante este período. No se registraron issues en el repositorio durante este ciclo.
+
+**Vista general de GitHub Insights — Pulse:**
+
+![report-pulse](../assets/github-details-OF-1.png)
+
+**Gráfica de Top Committers:**
+
+![report-committers](../assets/github-commits-OF.png)
+
+**Pull Requests mergeados recientes:**
+
+![report-prs](../assets/github-pull-request-OF.png)
+
+**Actividad del repositorio — OptiFlow Landing Page**
+
+El repositorio de la Landing Page registró la participación de **5 autores** con un total de **22 commits** distribuidos en todas las ramas y **22 Pull Requests mergeados** sin issues abiertos durante el período del sprint.
+
+**Vista general de GitHub Insights — Landing Page:**
+
+![landing-pulse](../assets/github-landing-commits.png)
 
 ### Sprint 2
 
