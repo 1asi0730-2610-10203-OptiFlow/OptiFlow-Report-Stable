@@ -1067,6 +1067,28 @@ El despliegue de este sprint marca el paso a un entorno de producción cloud uti
 ![deployment-success](../assets/github-actions-success.png)
 > Evidencia de la ejecución exitosa de los workflows de GitHub Actions para el despliegue en Azure.
 
+
+**Vistas implementadas e integración con Fake API**
+
+Las siguientes capturas evidencian la ejecución de los módulos implementados durante el Sprint 2, consumiendo datos desde el Fake API configurado . Los datos mostrados se expone los endpoints `/products`, `/categories`, `/suppliers`, `/work_orders`, `/laboratories`, entre otros, replicando el comportamiento de una API REST real mientras el backend de producción se encuentra en desarrollo.
+
+**Módulo de Inventario — Dashboard con alertas de bajo stock:**
+Los artículos con stock por debajo del nivel mínimo configurado son marcados visualmente con el ícono y barra de progreso en rojo, permitiendo al administrador identificar productos críticos de forma inmediata. Los datos de todos los artículos con un valor total de S/ 14,499 son consumidos en tiempo real desde el endpoint `/products`.
+
+![inventory-dashboard](../assets/inventory-dashboard.png)
+
+**Módulo de Inventario — Formulario de registro de nuevo producto:**
+
+El modal de alta de productos permite registrar nombre, categoría, SKU autogenerado, stock inicial, nivel de reorden, precio unitario, proveedor y fecha de recepción. Al confirmar, se realiza un `POST` al endpoint `/products` del Fake API persistiendo el nuevo registro.
+
+![add-product-modal](../assets/add-product-modal.png)
+
+**Módulo de Lab Orders — Tablero Kanban:**
+
+El tablero Kanban muestra las órdenes de laboratorio distribuidas en cinco columnas por etapa del proceso: Received, In Production, Quality Control, Ready for Delivery y Delivered. Cada tarjeta incluye prioridad (URGENT / HIGH), laboratorio asignado, montura, fecha de entrega estimada y saldo pendiente, consumidos desde el endpoint `/work_orders`.
+
+![kanban-board](../assets/kanban-board.png)
+
 **URLs de Producción:**
 **Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
 **API Service:** https://opti-flow-apiv1.azurewebsites.net/
