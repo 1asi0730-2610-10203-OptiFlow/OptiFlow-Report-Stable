@@ -1070,7 +1070,48 @@ El despliegue de este sprint marca el paso a un entorno de producción cloud uti
 **URLs de Producción:**
 **Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
 **API Service:** https://opti-flow-apiv1.azurewebsites.net/
-#### Team Collaboration Insights during Sprint
+
+#### Team Collaboration Insights durante el Sprint 2
+
+Durante el Sprint 2, el equipo mantuvo la misma dinámica de coordinación establecida en el sprint anterior, utilizando **Discord** y **Google Meet** para las reuniones síncronas de planificación, revisión y retrospectiva. **GitHub** continuó siendo la plataforma central de control de versiones e integración, gestionando el trabajo bajo la estrategia GitFlow con ramas `feature/*` mergeadas a `develop` mediante Pull Requests revisados por pares.
+
+**Resumen de colaboración:**
+
+El foco de este sprint fue el desarrollo e implementación de los primeros bounded contexts del frontend de la Web Application. El equipo se organizó en subequipos especializados por módulo, lo que permitió avanzar en paralelo sin generar conflictos de integración. Las reuniones de sincronización se realizaron de forma regular para coordinar la integración de los módulos con el Fake API configurado en json-server y el posterior despliegue en Azure Static Web Apps.
+
+**Actividad del repositorio:**
+
+Las siguientes métricas fueron extraídas del panel GitHub Insights del repositorio `OptiFlow-Report-Stable` durante el período del Sprint 2:
+
+| Integrante | Usuario GitHub | Commits |
+|---|---|---|
+| Azama Fukuda, Juan Pablo | Llummo | 67 |
+| Capillo Lema, Mía Valentina | Miavcl | 25 |
+| Mechan Montenegro, Luciana Carolina | luuu6 | 23 |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | 17 |
+| Morocho Pinedo, Mariana | Patto04 | 11 |
+
+Se realizaron un total de **91 Pull Requests mergeados** por **5 integrantes contribuyentes** durante este período. No se registraron issues en el repositorio durante este ciclo.
+
+**Vista general de GitHub Insights — Pulse:**
+
+![report-pulse-s2](../assets/github-details-OF-2.png)
+
+**Gráfica de Top Committers:**
+
+![report-committers-s2](../assets/github-commits-OF.png)
+
+**Pull Requests mergeados recientes:**
+
+![report-prs-s2](../assets/github-pull-request-OF.png)
+
+**Actividad del repositorio:**
+
+El repositorio de la Landing Page registró la participación de **5 autores** con un total de **22 commits** distribuidos en todas las ramas y **22 Pull Requests mergeados** sin issues abiertos durante el período del sprint.
+
+**Vista general de GitHub Insights — Landing Page:**
+
+![landing-pulse-s2](../assets/github-landing-commits.png)
 
 ## Validation Interviews
 
