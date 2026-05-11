@@ -53,11 +53,82 @@ El objetivo es comparar OptiFlow con soluciones existentes para identificar en q
 
 Preguntas generales:
 
-1.       Datos de perfil: ¿Podrías indicarme tu nombre,  edad, estado civil y ocupación exacta?
+1.  Datos de perfil: ¿Podrías indicarme tu nombre,  edad, estado civil y ocupación exacta?
+&emsp;
+2.  Contexto personal: ¿En qué distrito resides y cuáles dirías que son tus principales objetivos profesionales este año?
+&emsp;
+3.  Entorno digital: ¿Qué dispositivos (móvil, tablet, laptop) usas más en tu vida diaria y cuáles son tus canales digitales o marcas preferidas para informarte sobre el sector?
 
-2.       Contexto personal: ¿En qué distrito resides y cuáles dirías que son tus principales objetivos profesionales este año? (dudo sobre esta ultima pregunta)
+**PRIMER SEGMENTO OBJETIVO: *Usuarios internos del centro óptico*** 
 
-3.       Entorno digital: ¿Qué dispositivos (móvil, tablet, laptop) usas más en tu vida diaria y cuáles son tus canales digitales o marcas preferidas para informarte sobre el sector?
+4.  ¿Cómo describirías el funcionamiento general de tu óptica en el día a día?
+&emsp;
+5.  ¿Cuáles son las principales responsabilidades que tienes como administrador/a y cuánto tiempo te quita la parte operativa?( Agendamiento, historial médico,etc)
+&emsp;
+6.  ¿Qué es lo que más valoras en la gestión de una óptica para considerar que el negocio es realmente "eficiente"?
+&emsp;
+7.  ¿Cómo es actualmente el proceso desde que el cliente elige una montura hasta que el pedido llega al laboratorio?
+&emsp;
+8.  ¿Qué mecanismos de comunicación usas con el laboratorio para rastrear el estado de los trabajos y evitar retrasos?
+&emsp;
+9.  En cuanto a los historiales médicos, ¿cómo aseguras que la información de la consulta esté disponible inmediatamente para la venta comercial?
+&emsp;
+10.  ¿Cómo gestionas el inventario para saber exactamente qué tienes en stock y cuándo necesitas reponer sin tener que contar piezas manualmente?
+&emsp;
+11.  ¿Qué tipo de herramientas o sistemas utilizas hoy para centralizar las ventas, la clínica y la administración?¿Cuáles son?
+&emsp;
+12.  ¿Qué tan fácil te resulta hoy obtener un reporte de rentabilidad o de productos más vendidos al final del mes?
+&emsp;
+13.  ¿Qué retos enfrentas con mayor frecuencia al intentar coordinar la información entre el equipo de ventas y el área de salud visual?
+&emsp;
+14.  ¿Cómo es la relación con tus clientes y qué procesos sigues para recordarles que deben volver para un ajuste o una nueva revisión?
+&emsp;
+15.  Cuando un cliente llama para preguntar por el estado de su pedido, ¿qué tan rápido puede tu equipo darle una respuesta precisa?
+&emsp;
+16.  ¿Cómo manejas la competencia y qué aspectos consideras que hacen que un cliente prefiera tu servicio frente a una gran cadena?
+&emsp;
+17.  ¿Qué mejoras o procesos te gustaría automatizar en el futuro para que tú y tu equipo puedan enfocarse más en el paciente y menos en el papeleo?
+&emsp;
+18.  ¿Cómo imaginas que debería evolucionar una óptica para adaptarse a un mercado donde el cliente espera rapidez y acceso digital a su información
+
+**SEGUNDO SEGMENTO OBJETIVO: *Clientes de la óptica***
+
+1.   Cuando ingresas a una óptica para buscar lentes nuevos, ¿cómo describes el proceso desde que te reciben hasta que pasas al consultorio para medirte la vista?
+&emsp;
+2.   Cuéntame cómo es tu experiencia al momento de elegir la montura. ¿Sientes que el proceso es ágil o qué factores hacen que te demores más de lo esperado?
+&emsp;
+3.   Una vez que dejás la orden solicitada, ¿cómo describirías el proceso de espera durante los días en que fabrican tus lentes?
+&emsp;
+4.   Durante esa espera, ¿la óptica suele mantenerte informado del avance o eres tú quien tiene que estar llamando o escribiendo para preguntar si ya están listos?
+&emsp;
+5.   ¿Alguna vez tu pedido se retrasó o no estuvo listo cuando te dijeron? Cuéntame qué pasó.
+&emsp;
+6.   ¿Cómo te enteraste de ese retraso?
+&emsp;
+7.   ¿Qué hizo la óptica en ese caso?
+&emsp;
+8.   Cuando ocurren estas demoras en la entrega de tus lentes, ¿de qué manera impacta esto directamente en tu rutina diaria, trabajo o estudios?
+&emsp;
+9.   ¿Alguna vez te han entregado unos lentes y notaste que la medida estaba mal, el material era incorrecto o la montura tenía algún defecto? Cuéntame cómo fue ese momento.
+&emsp;
+10.   En caso de haber experimentado un error en tus lentes, ¿cómo describirías la actitud y la velocidad de respuesta de la óptica para solucionarte el problema?
+&emsp;
+11.   Mientras estás en la óptica, ¿hay cosas que te hacen sentir que el lugar está bien organizado o desordenado?
+&emsp;
+12.   ¿Qué te hace pensar eso?
+&emsp;
+13.   Si tuvieras que elegir el método ideal para que una óptica te actualice sobre el estado de tu pedido (desde que entra al taller hasta que llega a la tienda), ¿cuál sería y con qué frecuencia te gustaría recibir los avisos?
+&emsp;
+14.   Basado en tus experiencias pasadas, ¿cuál es el error o la actitud imperdonable que haría que no vuelvas a pisar una óptica en particular?
+&emsp;
+15.   Después de comprar tus lentes, ¿la óptica volvió a contactarte alguna vez? (Por ejemplo, ¿te contactan para recordar tu control anual o mantenimientos?)¿Cómo fue esa experiencia?
+&emsp;
+16. Si has regresado a una misma óptica después de un par de años, ¿cómo fue la experiencia de recuperar tu información anterior? ¿Sentiste que tenían tu historial listo o tuvieron que registrarte como si fuera la primera vez?, O en caso no te haya ocurrido, ¿haz visto algún caso así?
+
+
+
+
+
 
 ### Registro de entrevistas
 
@@ -75,7 +146,7 @@ Datos del entrevistado
 - **Distrito:** Tarapoto
 - **Inicio:** 00:00
 - **Duración:** 13:22
-- **Link de la entrevista individual:** https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQBXLLgufdLNR4wlRKUybGTaAT9_nKNDnHk8RC6EUQi7FB4?e=UPxDWc&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+- **Link de la entrevista individual:** [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQBXLLgufdLNR4wlRKUybGTaAT9_nKNDnHk8RC6EUQi7FB4?e=UPxDWc&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
 ![](../assets\entrevista-op1.png) 
   
@@ -104,7 +175,7 @@ Datos del entrevistado
 - **Distrito:** Lambayeque
 - **Inicio:** 00:00
 - **Duración:** 15:17
-- **Link de la entrevista individual:** https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQA_o5xWsuv7S64CxdxlRuxAATN3jH0bNCNtNslhofYA-TY?e=DTSMx8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+- **Link de la entrevista individual:** [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQA_o5xWsuv7S64CxdxlRuxAATN3jH0bNCNtNslhofYA-TY?e=DTSMx8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
   
 ![](../assets/entrevista-op2.png "Entrevista óptica 2")
 
@@ -132,15 +203,19 @@ Datos del entrevistado
 - **Distrito:** Tarapoto
 - **Inicio:** 00:00
 - **Duración:** 45:00
-- **Link de la entrevista individual:** https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQCQotJFa40lRYgoZDHd8J7YAX1rOEMI58vA1Df2vhpqixQ?e=ZJP0PV&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+- **Link de la entrevista individual:** [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQCQotJFa40lRYgoZDHd8J7YAX1rOEMI58vA1Df2vhpqixQ?e=ZJP0PV&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
 ![](../assets/entrevista-op3.png "Entrevista óptica 3")
   
   **Resumen descriptivo:**
 
-Adan Ruiz es un optómetra con experiencia que dice que la atención al cliente lo es todo.
-Nos comenta que tiene problemas con los laboratorios al elaborar monturas más especiales.
-Dice que la IA puede ser un complemento, mas no un sustituto.
+La entrevista realizada a Adán Ruiz Jova permitió conocer la percepción que tiene sobre la digitalización en el sector. Durante la conversación, comentó que el dispositivo que más utiliza en su jornada laboral es el celular, ya que le facilita la comunicación con los pacientes, el uso de aplicaciones de pago como Yape, Plin y Visa, así como el acceso a plataformas de capacitación relacionadas con el rubro óptico. La computadora, en cambio, la utiliza principalmente para tareas administrativas y contables.
+
+Asimismo, señaló que el crecimiento del negocio se ha visto afectado por la fuerte competencia y por la situación económica y política del país, lo que ha reducido el flujo de clientes. Además, mencionó que los lentes no son considerados por muchas personas como una necesidad inmediata, por lo que suelen postergar su compra.
+
+En cuanto a sus responsabilidades, indicó que su principal función es administrar el negocio y mantener un equilibrio económico adecuado. También comentó que actualmente existen historias clínicas digitales y equipos tecnológicos avanzados para realizar mediciones visuales, aunque considera que la digitalización total no es adecuada para la atención médica.
+
+Además, expresó que si bien las ópticas deben adaptarse al mercado actual mediante publicidad, espacios atractivos y ciertas herramientas digitales, la interacción humana sigue siendo fundamental. Según su opinión, la atención personalizada y el criterio profesional del especialista no pueden ser reemplazados completamente por máquinas o sistemas automatizados, ya que cada paciente tiene necesidades visuales, emocionales y personales diferentes.
 
 **SEGUNDO SEGMENTO OBJETIVO**
 
@@ -180,7 +255,7 @@ Datos del entrevistado
 - **Distrito:** La Molina
 - **Inicio:** 01:24:15
 - **Duración:** 00:11:44
-- **Link de la entrevista individual:** [Ver grabación aquí] (https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241c101_upc_edu_pe/IQD6_x6LnGFrRI1oRJKsXr-0AX0ZlYAGWkN-V3deJtd0eJw?e=VoLxyX) 
+- **Link de la entrevista individual:** [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241c101_upc_edu_pe/IQD6_x6LnGFrRI1oRJKsXr-0AX0ZlYAGWkN-V3deJtd0eJw?e=VoLxyX) 
 
 ![](../assets/Entrevista-Mia.png){width=75%}
   
@@ -204,7 +279,7 @@ Datos del entrevistado
 - **Distrito:** Santiago de Surco
 - **Inicio:** 01:36:00
 - **Duración:**  12:05
-- **Link de la entrevista individual:** [Ver grabación aquí] (https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQDlX7mUq1RlTYbdQ23FI-W-AXmVTCt_OM-xCDBmMeOrfkc?e=m175qg&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) 
+- **Link de la entrevista individual:** [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQDlX7mUq1RlTYbdQ23FI-W-AXmVTCt_OM-xCDBmMeOrfkc?e=m175qg&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) 
 
 ![](../assets/Entrevista-JuanPablo.png){width=75%}
   
