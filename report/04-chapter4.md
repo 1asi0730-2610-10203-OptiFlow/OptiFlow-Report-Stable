@@ -695,7 +695,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow US37 Calculador de grosor – Mobile](<../docs/userflows-mv/US 37P-Calculador de Grosor-App.png>){width=90%}
 
 ## Web Applications Prototyping
-[Descripción y enlace al prototipo interactivo de la aplicación web, con escenarios de prueba definidos.]
+https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=53-157&t=t56540ubJEOL4jsl-1
 
 ## Domain-Driven Software Architecture
 
@@ -720,10 +720,41 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 #### Lab Module
 ![context3.png](../assets/C4/context3.png)
 
+### C4 Architecture Diagrams (Frontend)
+
+Context diagram
+
+![L1 System Context](../docs/c4-diagrams-frontend/L1_SystemContext-dark.png){width=100%}
+
+Container diagrams
+
+![L2 Containers](../docs/c4-diagrams-frontend/L2_Containers-dark.png){width=100%}
+
+Copmponents diagrams
+
+![L3 Components](../docs/c4-diagrams-frontend/L3_Components-dark.png){width=100%}
+
+Clinical diagram
+
+
+![L4 Clinical](../docs/c4-diagrams-frontend/L4_Clinical-dark.png){width=100%}
+
+Fullmilment diagram
+
+![L4 Fulfillment](../docs/c4-diagrams-frontend/L4_Fulfillment-dark.png){width=100%}
+
+Inventory diagram
+
+![L4 Inventory](../docs/c4-diagrams-frontend/L4_Inventory-dark.png){width=100%}
+
+Sales diagram
+
+![L4 Sales](../docs/c4-diagrams-frontend/L4_Sales-dark.png){width=100%}
+
+
 ## Software Object-Oriented Design
 
 ### Class Diagrams
-[Diagramas de clases UML con atributos, métodos y relaciones entre entidades del dominio.]
 
 ## Frontend Class Diagrams
 ### IAM (Identity and Access Management)
