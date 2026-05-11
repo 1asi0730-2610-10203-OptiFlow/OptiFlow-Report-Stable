@@ -1077,6 +1077,15 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
     </tbody>
 </table>
 
+#### Sprint Backlog y seguimiento de tareas mediante tablero en Trello
+![sprint-backlog-1](../assets/sprint-backlog-2.png)
+
+**Enlace del tablero Trello:**  
+https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23cdf51f144c3C1DA6E6/optiflow
+
+#### Gestión colaborativa y seguimiento de incidencias mediante Jira
+![sprint-backlog-1](../assets/optiflow-jira.png)
+
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 |------------|--------|-----------|----------------|---------------------|---------------------|
