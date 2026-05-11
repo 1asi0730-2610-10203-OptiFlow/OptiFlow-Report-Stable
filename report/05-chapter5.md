@@ -983,6 +983,15 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 | OptiFlow-API | main | 54eb8c6 | Add or update the Azure App Service build and deployment workflow config | - | 2026-05-09 |
 | OptiFlow-API | main | f724152 | Initial commit: API base structure | - | 2026-05-09 |
 
+Frontend repository:
+https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend.git
+
+Mock API repository:
+https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api.git
+
+Landing Page repository: 
+https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page.git
+
 #### Execution Evidence for Sprint Review
 Durante este segundo sprint, el proyecto evolucionó de una presencia estática a una arquitectura funcional distribuida. Se implementaron los módulos críticos de **Sales Management**, **Inventory Control** y **Lab Order Management**, permitiendo la trazabilidad de órdenes de trabajo desde la generación de la receta hasta la coordinación con el laboratorio. Esta integración técnica resuelve los silos de información identificados en el análisis competitivo, facilitando la gestión de *Work Orders* mediante estados dinámicos. En términos de infraestructura, se migró el ecosistema a Microsoft Azure, estableciendo un pipeline de despliegue continuo (CI/CD) que garantiza la disponibilidad de la Web App y la sincronización con el backend mediante la configuración de variables de entorno y endpoints de producción.
 
