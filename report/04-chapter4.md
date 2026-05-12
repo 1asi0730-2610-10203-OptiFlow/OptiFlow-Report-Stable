@@ -787,6 +787,10 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ## Web Applications Prototyping
 https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-70640&t=l6s3p4jbdhVjfcsL-1
+
+Administrator Web Prototype Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQA7Wi05JBC3QLQFp0AQyDNjAbWFNatgH26-dGnPBTHb9l4?e=0H1foZ&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
+
 ## Domain-Driven Software Architecture
 
 ### Design-Level Event Storming

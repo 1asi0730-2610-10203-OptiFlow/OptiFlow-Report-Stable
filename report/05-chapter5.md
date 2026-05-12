@@ -466,7 +466,8 @@ https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23c
 #### Execution Evidence for Sprint Review
 Durante la iteración inicial del proyecto OptiFlow, se consolidó el diseño estratégico del sistema mediante la elaboración de artefactos de Domain-Driven Design y el modelado estructural de la base de datos, estableciendo una arquitectura técnica escalable que fue complementada por una exhaustiva investigación de Experiencia de Usuario (UX/UI) y prototipado de alta fidelidad basado en la elicitación de requerimientos de los segmentos objetivo; sobre esta integración teórico-práctica, se ejecutó exitosamente la codificación frontend y el despliegue en entorno cloud de la Landing Page comercial para la captación de prospectos (historias US-46L a US-50L), operando de manera transversal dentro de un entorno de desarrollo colaborativo estrictamente gestionado bajo la estrategia GitFlow para garantizar la integridad, control de versiones y trazabilidad de los aportes del equipo.
 
-[AQUI DEBE HABER UN VIDEO, GRABARLO MAÑANA]
+Execution Evidence Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQDRb9C8iIC4QZsZvLTlRB7pAZ6ojywom_jWhlEpYqPo-A4?e=lHQO2L
+
 
 #### Services Documentation Evidence for Sprint Review
 [Documentación de los servicios o APIs desarrolladas durante el sprint.]
