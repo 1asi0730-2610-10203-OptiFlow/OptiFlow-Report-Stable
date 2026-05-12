@@ -788,7 +788,7 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 ## Domain-Driven Software Architecture
 
 ### Design-Level Event Storming
-![level.jpg](../assets/impactMap/level.jpg)
+![design level.jpg](../assets/design%20level.jpg)
 
 ### Software Architecture Context Diagram
 ![context.png](../assets/C4/context.png)
