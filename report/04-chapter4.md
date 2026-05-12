@@ -558,7 +558,7 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![Mockup US01 Login – Desktop](<../docs/mockups/jp/US01_ Login.png>){width=100%}
 
-![Mockup US01 Login – Mobile](<../docs/mockups-new/jp/US03-mockup-movil.png>){width=100%}
+![Mockup US01 Login – Mobile](<../docs/mockups/jp/US_ Login Mobile.png>){width=100%}
 
 #### US02 – Recuperar Contraseña
 
