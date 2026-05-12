@@ -2,11 +2,11 @@
 
 <img src="assets/upc-logo.png" alt="UPC Logo" width="150"/>
 
-# Universidad Peruana de Ciencias Aplicadas {.unnumbered}
+# Universidad Peruana de Ciencias Aplicadas 
 
-## Facultad de Ingeniería {.unnumbered}
+## Facultad de Ingeniería 
 
-## Programa Académico de Ingeniería de Software {.unnumbered}
+## Programa Académico de Ingeniería de Software 
 
 **Ciclo:** 2026-10  
 
@@ -20,7 +20,7 @@
 
 ***
 
-# Informe de Trabajo Final {.unnumbered}
+# Informe de Trabajo Final 
 
 **Nombre de la Startup:**  
 
@@ -28,7 +28,7 @@
 
 ***
 
-## Integrantes {.unnumbered}
+## Integrantes 
 
 u20241d317 - Atoche Gonzales, Nicolas Fernando  
 u202411310 - Azama Fukuda, Juan Pablo  
@@ -44,7 +44,7 @@ u202411521 - Morocho Pinedo, Mariana
 
 ***
 
-# Registro de Versiones del Informe {.unnumbered}
+# Registro de Versiones del Informe 
 
 | Versión | Fecha | Autor | Descripción de modificación |
 |---|---|---|---|
@@ -53,14 +53,14 @@ u202411521 - Morocho Pinedo, Mariana
 
 ***
 
-# Project Report Collaboration Insights {.unnumbered}
+# Project Report Collaboration Insights 
 https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable.git
 
 ***
 
-# Contenido {.unnumbered}
+# Contenido 
 
-## Tabla de Contenidos {.unnumbered}
+## Tabla de Contenidos 
 
 - [Student Outcome](#student-outcome)
 - [Capítulo I: Introducción](#capítulo-i-introducción)
@@ -130,7 +130,7 @@ https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable.git
 
 ***
 
-# Student Outcome {.unnumbered}
+# Student Outcome 
 
 El curso contribuye al cumplimiento del Student Outcome ABET:
 
