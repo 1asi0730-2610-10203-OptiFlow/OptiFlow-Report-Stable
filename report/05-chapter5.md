@@ -540,6 +540,15 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 | **Sum of Story Points** | 45 |
 
 #### Aspect Leaders and Collaborators
+En el sprint el enfoque principal fue el desarrollo del frontend de la aplicación web y la corrección de los errores identificados en el sprint anterior. El equipo mantuvo la especialización por módulos establecida en la retrospectiva: cada integrante lideró un conjunto de vistas específico, evitando el solapamiento de responsabilidades y garantizando un avance continuo por área. Adicionalmente, se distribuyeron tareas de documentación y evidencia entre todos los miembros para mantener el informe actualizado en paralelo al desarrollo.
+
+| Team Member (Last Name, First Name) | GitHub Username | Aspect Name 1 Leader (L) / Collaborator (C) | Aspect Name 2 Leader (L) / Collaborator (C) | Aspect Name 3 Leader (L) / Collaborator (C) | Aspect Name 4 Leader (L) / Collaborator (C) |
+| :--- | :--- | :--- |  :--- | :--- | :--- |
+| Azama Fukuda, Juan Pablo | Llummo | Sales module frontend development (L) | Report corrections & documentation (L) | Software deployment configuration (L) | Scrum Master Role (L) |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | Clinical & authentication module frontend (L) | Fake API configuration (L) | Services documentation evidence (L) | Validation interviews (L) |
+| Capillo Lema, Mia Valentina | Miavcl | Customer portal frontend development (L) | Frontend development (C) | Report documentation (C) | UX implementation (C) |
+| Mechan Montenegro, Luciana Carolina |luuu6 | Inventory & lab module frontend (L) | Development evidence documentation (L) | Team collaboration insights (L) | Agile tool management (L) |
+| Morocho Pinedo, Mariana | Patto04 | Analytics & admin module frontend (L) | Sprint planning & Backlog (C) | Frontend development (C) | Report documentation (C) |
 
 #### Sprint Backlog 2
 
