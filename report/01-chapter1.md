@@ -239,35 +239,13 @@ Sabremos que funcionó cuando las llamadas o mensajes de pacientes consultando *
 ![](../assets/lean-UX-Canvas.png){width=75%}
 
 ## 1.3. Segmentos objetivo
-Nuestra propuesta aborda dos grupos clave dentro del ecosistema del servicio óptico, diferenciando entre los usuarios internos que interactúan directamente con el sistema y los clientes finales que se ven impactados por la eficiencia de los procesos operativos.
 
-**Usuarios internos del centro óptico (Administración y personal operativo)**
-* Aspectos demográficos:
-    * Sexo: Masculino o femenino.
-    * Edad: 22 – 55 años.
-    * Nivel socioeconómico: B y C (media y media-alta).
-    * Ocupación: Administradores de sede, gerentes de operaciones, optómetras, personal de ventas y atención al cliente.
-* Aspectos geográficos:
-    * Nacionalidad: Peruana o extranjera.
-    * Zona geográfica: Urbana.
-    * Departamento: Lima Metropolitana y principales ciudades del país con presencia de centros ópticos.
-* Aspectos psicográficos:
-    * Son responsables de ejecutar y supervisar los procesos clave del negocio, incluyendo la atención clínica, la gestión de ventas, el control de inventario y el seguimiento de órdenes de trabajo.
-    * Experimentan frustración al trabajar con sistemas fragmentados o procesos manuales que requieren duplicidad de registros y dificultan la coordinación entre áreas.
-    * Valoran herramientas tecnológicas que les permitan centralizar la información, reducir errores operativos, optimizar tiempos de atención y mejorar la trazabilidad de los procesos.
-    * Buscan operar con mayor eficiencia y contar con información confiable en tiempo real para la toma de decisiones y la correcta ejecución de sus funciones.
+### Segmento 1: Usuarios internos del centro óptico (Administración y personal operativo)
 
-**Clientes de la óptica (Pacientes)**
-* Aspectos demográficos:
-    * Sexo: Masculino o femenino.
-    * Edad: 18 – 60+ años.
-    * Nivel socioeconómico: Transversal (A, B, C y D), dependiendo del tipo de cadena óptica.
-    * Ocupación: Estudiantes, trabajadores dependientes, profesionales y adultos mayores que requieren servicios de evaluación y corrección visual.
-* Aspectos geográficos:
-    * Nacionalidad: Peruana o extranjera.
-    * Zona geográfica: Urbana.
-    * Departamento: Zonas con acceso a centros ópticos y servicios de salud visual.
-* Aspectos psicográficos:
-    * Cuentan con agendas ajustadas, por lo que valoran una atención ágil y sin interrupciones durante su experiencia en la óptica.
-    * Experimentan frustración ante demoras en la atención, pérdida de información clínica, falta de coordinación entre áreas o retrasos en la entrega de productos.
-    * Asocian una atención fluida, organizada y sin errores con un servicio de mayor calidad y confianza.
+El segmento primario de OptiFlow está compuesto por el personal que opera directamente dentro del establecimiento óptico: administradores de sede, gerentes de operaciones, optómetras, asesores de ventas y técnicos de laboratorio. Se trata de profesionales de entre 22 y 55 años, de nivel socioeconómico B y C, ubicados principalmente en zonas urbanas de Lima Metropolitana y otras ciudades con alta concentración comercial como Arequipa, Trujillo y Piura.
+En cuanto al tamaño del mercado, el sector óptico en Perú alcanzó un volumen aproximado de USD 295,05 millones en 2025 y se proyecta que llegará a USD 403,93 millones en 2035, con una tasa de crecimiento anual compuesta del 3,60% (Informes de Expertos, 2026). Este crecimiento sostenido implica un aumento proporcional en el número de establecimientos ópticos que necesitan herramientas de gestión más sofisticadas. El mercado peruano se caracteriza por su alta fragmentación, con una marcada división entre un grupo de grandes cadenas que controla una sola compañía y un vasto sector de ópticos independientes, donde la gran mayoría opera entre una y diez tiendas (Infomercado, 2026). Este segundo grupo representa el principal mercado objetivo de OptiFlow, ya que son precisamente estos negocios los que carecen de estructura tecnológica para escalar sus operaciones.
+En términos de comportamiento, el entorno es altamente atomizado con un crecimiento del consumo estimado en torno al 10% anual (Modaengafas, 2026). Esto genera una presión operativa creciente sobre el personal, que debe atender más pacientes con los mismos recursos humanos y herramientas deficientes. Los usuarios de este segmento experimentan frustración ante sistemas fragmentados que obligan a duplicar registros entre consultorio, ventas y laboratorio, y valoran herramientas que centralicen la información, reduzcan errores operativos y mejoren la trazabilidad de las órdenes de trabajo en tiempo real.
+
+### Segmento 2: Clientes de la óptica (Pacientes)
+El segmento secundario está conformado por los pacientes que reciben servicios en las ópticas donde se implemente OptiFlow. Son personas de entre 18 y 60 años o más, de nivel socioeconómico transversal (A, B, C y D), residentes en zonas urbanas con acceso a centros ópticos. Según datos de 2024, el 80,4% de la población peruana vive en áreas urbanas, con una edad media de 29,8 años (Informes de Expertos, 2026), lo que define un mercado potencial amplio y con creciente necesidad de corrección visual, impulsada por el uso intensivo de dispositivos digitales.
+El comportamiento de este segmento está marcado por agendas ajustadas y altas expectativas de servicio. La prevalencia de problemas visuales va en aumento: el uso de lentes crece debido a la masificación de dispositivos tecnológicos que afectan la salud visual, y la demanda de lentes progresivos ha crecido significativamente, representando el 80% del mercado global (Gestión, 2025). Los pacientes de este segmento experimentan frustración ante demoras en la entrega, falta de comunicación sobre el estado de sus pedidos y errores en la fabricación. Aunque no interactúan directamente con el sistema, son los principales beneficiarios de la eficiencia operativa que OptiFlow genera: reciben notificaciones automatizadas, entregas puntuales y atención sin reprocesos.
