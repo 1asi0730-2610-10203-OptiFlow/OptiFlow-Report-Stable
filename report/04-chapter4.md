@@ -738,14 +738,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US23 Control de Órdenes – Mobile](<../docs/userflows/jp/US_ 33 MOBILE.png>){width=100%}
 
-#### US-31 Registro de Empleado
-
-- **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
-- **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
-
-![User Flow Registro de Empleado – Desktop](<../docs/userflows/jp/US_ Registro de empleado.png>){width=100%}
-
-![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
 #### US24 – Dashboard de Ventas
 
@@ -764,6 +756,16 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow US28 Inicio de Sesión con DNI – Desktop](<../docs/userflows-mv/US 28-Inicio de Sesión con DNI-Web.png>){width=90%}
 
 ![User Flow US28 Inicio de Sesión con DNI – Mobile](<../docs/userflows-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
+
+
+#### US-31 Registro de Empleado
+
+- **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
+- **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
+
+![User Flow Registro de Empleado – Desktop](<../docs/userflows/jp/US_ Registro de empleado.png>){width=100%}
+
+![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
 #### US33 – Probador virtual
 
@@ -802,7 +804,6 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 ## Software Object-Oriented Design
 
 ### Class Diagrams
-[Diagramas de clases UML con atributos, métodos y relaciones entre entidades del dominio.]
 
 ## Frontend Class Diagrams
 ### IAM (Identity and Access Management)
