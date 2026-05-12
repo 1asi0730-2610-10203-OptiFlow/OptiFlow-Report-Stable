@@ -791,22 +791,13 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 ![level.jpg](../assets/impactMap/level.jpg)
 
 ### Software Architecture Context Diagram
-![img.png](../assets/C4/img.png)
+![context.png](../assets/C4/context.png)
 
 ### Software Architecture Container Diagrams
-![components.png](../docs/c4-diagrams-frontend/L2_Containers-dark.png)
-
-### Software Architecture Components Diagrams
 ![container.png](../assets/C4/container.png)
 
-#### Clinica Module
-![context1.png](../assets/C4/context1.png)
-
-#### Retail Module
-![context2.png](../assets/C4/context2.png)
-
-#### Lab Module
-![context3.png](../assets/C4/context3.png)
+### Software Architecture Components Diagrams
+![component.png](../assets/C4/component.png)
 
 ## Software Object-Oriented Design
 
