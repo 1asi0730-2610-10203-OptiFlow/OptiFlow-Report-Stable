@@ -1,6 +1,6 @@
 # Capítulo IV: Product Design
 
-## Style Gu
+## Style Guidelines
 idelines
 Esta sección constituye el pilar visual de OptiFlow, diseñado para proyectar una imagen de innovación tecnológica y precisión médica. El objetivo es estandarizar la interfaz para que tanto el personal de la óptica como el cliente externo perciban una plataforma robusta y profesional.
 
