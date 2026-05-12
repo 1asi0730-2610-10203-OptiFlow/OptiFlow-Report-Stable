@@ -1233,13 +1233,25 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ### Conclusiones y recomendaciones
 ### Bibliografía
-Gestión. (2025, enero 12). Nuevo competidor del mercado de lentes llega a Perú: triplicará inversión para 2025. Diario Gestión. https://gestion.pe/economia/empresas/nuevo-competidor-del-mercado-de-lentes-llega-a-peru-triplicara-inversion-para-2025-opticas-miopia-noticia/
 
+DelveInsight. (2025). *Healthcare asset management: Optimizing resources for better patient care*. https://www.delveinsight.com/blog/healthcare-asset-management-for-better-patient-care
 
-Informes de Expertos. (2026). Mercado de gafas en Perú: Tamaño de la industria, participación, crecimiento, informe, análisis 2026–2035. https://www.informesdeexpertos.com/informes/mercado-de-gafas-en-peru
+GE HealthCare. (s.f.). *Asset management in hospitals: The positive impact of tracking and keeping your monitor fleet up-to-date*. https://clinicalview.gehealthcare.com/article/asset-management-hospitals-positive-impact-tracking-and-keeping-your-monitor-fleet-date
 
+Glasson. (2025). *Why some eye care pros still use paper records*. Glasson.app. https://www.glasson.app/blog/why-do-some-eye-care-professionals-still-hold-onto-paper-records-and-the-surprising-reasons-behind-it/
 
-Infomercado. (2026, marzo 23). Opticalia llega a Lima y proyecta sumar 300 asociados para competir en el retail óptico. https://infomercado.pe/opticalia-llega-a-lima-y-proyecta-sumar-300-asociados-para-competir-en-el-retail-optico/
+Glasson. (2026). *Why optometry software matters: Transforming your practice in 2026*. Glasson.app. https://www.glasson.app/blog/why-optometry-software-matters-transforming-your-practice-in-2026/
 
+Gestión. (2025, enero 12). *Nuevo competidor del mercado de lentes llega a Perú: Triplicará inversión para 2025*. Diario Gestión. https://gestion.pe/economia/empresas/nuevo-competidor-del-mercado-de-lentes-llega-a-peru-triplicara-inversion-para-2025-opticas-miopia-noticia/
 
-Modaengafas. (2026). Opticalia fija en 50 ópticas su objetivo en Perú para 2026. https://modaengafas.com/opticalia-fija-en-50-opticas-su-objetivo-en-peru-para-2026
+Infomercado. (2026, marzo 23). *Opticalia llega a Lima y proyecta sumar 300 asociados para competir en el retail óptico*. https://infomercado.pe/opticalia-llega-a-lima-y-proyecta-sumar-300-asociados-para-competir-en-el-retail-optico/
+
+Informes de Expertos. (2026). *Mercado de gafas en Perú: Tamaño de la industria, participación, crecimiento, informe, análisis 2026–2035*. https://www.informesdeexpertos.com/informes/mercado-de-gafas-en-peru
+
+Kivicare. (2024). *Medical error reduction: The role of electronic health records (EHRs)*. https://laravel.kivicare.io/the-impact-of-ehrs-on-reducing-medical-errors/
+
+MedLaunch. (2026). *10 key patient wait time statistics clinics can't ignore*. https://medlaunch.health/blogs/medical-insights/patient-wait-time-statistics/
+
+Modaengafas. (2026). *Opticalia fija en 50 ópticas su objetivo en Perú para 2026*. https://modaengafas.com/opticalia-fija-en-50-opticas-su-objetivo-en-peru-para-2026
+
+The HIPAA Journal. (2025). *HIPAA compliance for optometrists and ophthalmology practices*. The HIPAA Journal. https://www.hipaajournal.com/hipaa-compliance-for-optometrists/
