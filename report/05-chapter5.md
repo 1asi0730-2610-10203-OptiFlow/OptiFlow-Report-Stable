@@ -379,7 +379,7 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
       <td>Desarrollo: Pricing Table</td>
       <td>Maquetar la tabla de precios comparativa interactiva para la web.</td>
       <td>4 hrs</td>
-      <td> </td>
+      <td></td>
       <td>Done</td>
     </tr>
     <tr>
