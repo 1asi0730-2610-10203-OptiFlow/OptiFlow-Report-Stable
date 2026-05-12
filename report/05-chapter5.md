@@ -1219,16 +1219,17 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ![landing-pulse-s2](../assets/github-landing-commits.png)
 
-## Validation Interviews
+## Conclusiones 
 
-### Diseño de Entrevistas
-[Guía de entrevistas de validación: objetivos, perfil de participantes y protocolo de ejecución.]
+### Conclusiones y recomendaciones
+### Bibliografía
+Gestión. (2025, enero 12). Nuevo competidor del mercado de lentes llega a Perú: triplicará inversión para 2025. Diario Gestión. https://gestion.pe/economia/empresas/nuevo-competidor-del-mercado-de-lentes-llega-a-peru-triplicara-inversion-para-2025-opticas-miopia-noticia/
 
-### Registro de Entrevistas
-[Registro de las entrevistas de validación realizadas con usuarios reales del producto.]
 
-### Evaluaciones según heurísticas
-[Evaluación heurística de la interfaz basada en los principios de Nielsen u otro marco de referencia adoptado.]
+Informes de Expertos. (2026). Mercado de gafas en Perú: Tamaño de la industria, participación, crecimiento, informe, análisis 2026–2035. https://www.informesdeexpertos.com/informes/mercado-de-gafas-en-peru
 
-## Video About-the-Product
-[Enlace y descripción del video de presentación del producto, destacando sus principales funcionalidades.]
+
+Infomercado. (2026, marzo 23). Opticalia llega a Lima y proyecta sumar 300 asociados para competir en el retail óptico. https://infomercado.pe/opticalia-llega-a-lima-y-proyecta-sumar-300-asociados-para-competir-en-el-retail-optico/
+
+
+Modaengafas. (2026). Opticalia fija en 50 ópticas su objetivo en Perú para 2026. https://modaengafas.com/opticalia-fija-en-50-opticas-su-objetivo-en-peru-para-2026
