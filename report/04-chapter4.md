@@ -175,6 +175,11 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![Wireframe US01 Login – Desktop](<../docs/wireframes-new/jp/US02_ Recover password.png>){width=100%}
 ![Wireframe US01 Login – Desktop](<../docs/wireframes-new/jp/US02_ Recover password-1.png>){width=100%}
 
+#### US03 – Gestión de Roles
+
+![Wireframe US03 Gestión Roles – Desktop](<../docs/wireframes-new/jp/US03-gestion-de-roles-web.png>){width=100%}
+![Wireframe US03 Gestión Role – movil](<../docs/wireframes-new/jp/US03-gestion-de-roles-movil.png>){width=100%}
+
 #### US05 -
 
 ![Wireframe US05](<../docs/wireframes/jp/US05P.png>){width=100%}
@@ -312,6 +317,17 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows-new/jp/US02_ Recover password-1.png>){width=100%}
 ![](<../docs/wireflows-new/jp/US02_ Recover password.png>){width=100%}
+
+#### US03 – Gestión de Roles
+
+**Taskflow:**
+
+![](<../docs/taskflows-mv/US03-gestion-roles.png>){width=100%}
+
+**Wireflow:**
+
+![](<../docs/wireflows-new/jp/US03-wireflow-movil.png>){width=100%}
+![](<../docs/wireflows-new/jp/US03-wireflow-web.png>){width=100%}
 
 #### US05
 
@@ -542,12 +558,17 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![Mockup US01 Login – Desktop](<../docs/mockups/jp/US01_ Login.png>){width=100%}
 
-![Mockup US01 Login – Mobile](<../docs/mockups/jp/US_ Login Mobile.png>){width=100%}
+![Mockup US01 Login – Mobile](<../docs/mockups-new/jp/US03-mockup-movil.png>){width=100%}
 
 #### US02 – Recuperar Contraseña
 
 ![Mockup US02 Recuperar Contraseña](<../docs/mockups/jp/US02_ Recover password.png>){width=100%}
 ![Mockup US02 Recuperar Contraseña](<../docs/mockups/jp/US02_ Recover password-1.png>){width=100%}
+
+#### US03 – Gestión de Roles
+
+![Mockup US03 Gestion de Roles](<../docs/mockups-new/jp/US03-mockup-web.png>){width=100%}
+![Mockup US03 Gestion de Roles](<../docs/mockups/jp/US02_ Recover password-1.png>){width=100%}
 
 #### US05 - Seguimiento de Orden Web
 
@@ -650,6 +671,15 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 - **Unhappy Path:** El correo ingresado no existe en el sistema → mensaje de error → el usuario es dirigido al soporte o al registro.
 
 ![User Flow US02 Recuperar Contraseña](<../docs/userflows/jp/US02_ Recover password.png>){width=100%}
+
+#### US03 – Gestión de Roles
+
+- **Happy Path:** El usuario tiene el permiso de administrador  → asigna un rol a un empleado → cambios guardados correctamente
+- **Unhappy Path:** El usuario no tiene el permisos de administrador  → El sistema impide ingresar a la sección de 
+
+![User Flow US03 Gestión de Roles](<../docs/userflows-new/jp/US03-userflow-movil.png>){width=100%}
+
+![User Flow US03 Gestión de Roles](<../docs/userflows-new/jp/US03-userflow-web.png>){width=100%}
 
 #### US05 Seguimiento de orden web
 
