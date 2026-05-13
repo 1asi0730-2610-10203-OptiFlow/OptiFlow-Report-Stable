@@ -490,7 +490,7 @@ En el sprint el enfoque principal fue el desarrollo del frontend de la aplicaci�
       <td>Formulario de Registro de Cliente</td>
       <td>Desarrollar el formulario con campos básicos (nombre, DNI, teléfono, correo) y guardado mediante POST al fake API.</td>
       <td>4 hrs</td>
-      <td>Nicolas</td>
+      <td>Nicolas</td>  
       <td>Done</td>
     </tr>
     <tr>
