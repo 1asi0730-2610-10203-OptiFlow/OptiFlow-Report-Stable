@@ -967,17 +967,122 @@ https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23c
 
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
-|------------|--------|-----------|----------------|---------------------|---------------------|
-| OptiFlow-Frontend | develop | 77403f2 | set api URL and merge pull request #11 | - | 2026-05-09 |
-| OptiFlow-Frontend | feature/change-api-URL | 7a3f27f | set api URL | - | 2026-05-09 |
-| OptiFlow-Frontend | develop | d33ab85 | ci: add Azure Static Web Apps workflow file | - | 2026-05-09 |
-| OptiFlow-Frontend | feature/inventory | defe034 | fix(inventory): correct inventory management module | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/lab-order-management | 13dbedd | fix(lab-order): correct work order management behavior | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/inventory | f2188e7 | feat(inventory): add inventory context | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/sales-management | cec3af8 | fix: create sale + lab order button now working | - | 2026-05-05 |
-| OptiFlow-Frontend | feature/sales-management | db85c9a | feat(sales): add sales context | - | 2026-05-05 |
-| OptiFlow-API | main | 54eb8c6 | Add or update the Azure App Service build and deployment workflow config | - | 2026-05-09 |
-| OptiFlow-API | main | f724152 | Initial commit: API base structure | - | 2026-05-09 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| OptiFlow-Frontend | main | 0103d1e | release: v1.0.0 | | 13/05/2026 |
+| OptiFlow-Frontend | | fd80e14 | Delete | | 13/05/2026 |
+| OptiFlow-Frontend | | f05ce8f | release: v1.0.0 | | 13/05/2026 |
+| OptiFlow-Frontend | develop | 62fc899 | Merge pull request #46 | feature/setting | 13/05/2026 |
+| OptiFlow-Frontend | | 7a3d75c | fix: new rol in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | d2bab69 | fix: role in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | c74d491 | fix: style in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | b2b2087 | Merge pull request #45 | feature/inventory-edit | 13/05/2026 |
+| OptiFlow-Frontend | | 69c8e81 | fix(inventory-edit-button) | fix inventory edit button | 13/05/2026 |
+| OptiFlow-Frontend | | d438531 | Merge pull request #44 | fix/clients | 13/05/2026 |
+| OptiFlow-Frontend | | 8e19383 | fix: client profile | add fill in fields scenarios | 13/05/2026 |
+| OptiFlow-Frontend | | f143b65 | feat: add setting | add setting in the app | 13/05/2026 |
+| OptiFlow-Frontend | | bf7bce6 | Merge pull request #43 | fix/scenarios | 13/05/2026 |
+| OptiFlow-Frontend | | c841286 | fix: scenarios | fix scenarios in sales and inventory | 13/05/2026 |
+| OptiFlow-Frontend | | 4b462ef | Merge pull request #42 | feature/inventory-correction | 13/05/2026 |
+| OptiFlow-Frontend | | 569560f | fix(audit) | fix audit endpoint | 13/05/2026 |
+| OptiFlow-Frontend | | 8ed0a76 | Merge pull request #41 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | 841bb64 | fix: status code 500 | error when collecting remaining bills | 13/05/2026 |
+| OptiFlow-Frontend | | 7ebb94c | fix: add exam | fix hard-coded employee | 13/05/2026 |
+| OptiFlow-Frontend | | 97dc5c6 | Merge pull request #40 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | 169a59e | fix: patients and exams | not getting added correctly | 13/05/2026 |
+| OptiFlow-Frontend | | 419d8f3 | Merge pull request #39 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | eb91c25 | fix: patient record | add patient and clinical record fix | 13/05/2026 |
+| OptiFlow-Frontend | | 5de606c | Merge pull request #38 | fix/i18n | 13/05/2026 |
+| OptiFlow-Frontend | | 57899b3 | fix: i18n | fix patient center i18n | 13/05/2026 |
+| OptiFlow-Frontend | | bae3af0 | Merge pull request #37 | fix/i18n | 13/05/2026 |
+| OptiFlow-Frontend | | 517bd4a | fix: dictionaries | fix curly braces in dictionaries | 13/05/2026 |
+| OptiFlow-Frontend | | 1459711 | Merge pull request #36 | feature/report | 13/05/2026 |
+| OptiFlow-Frontend | | b8ecc33 | Merge branch develop | into feature/report | 13/05/2026 |
+| OptiFlow-Frontend | | 9bd8380 | feat(report) | implement dashboard with svg charts | 13/05/2026 |
+| OptiFlow-Frontend | | 568253d | feat(report) | register routes and translations | 13/05/2026 |
+| OptiFlow-Frontend | | 447d917 | feat(report) | implement domain, store and api | 13/05/2026 |
+| OptiFlow-Frontend | | 3e18672 | Merge pull request #35 | feature/patients | 13/05/2026 |
+| OptiFlow-Frontend | | 714b93e | feat: patients | complete patient section | 13/05/2026 |
+| OptiFlow-Frontend | | 6a7303d | Merge pull request #34 | fix/patient-section | 13/05/2026 |
+| OptiFlow-Frontend | | 125ae9b | fix: view patient | | 13/05/2026 |
+| OptiFlow-Frontend | | 1eba8de | Merge pull request #33 | fix/patients | 13/05/2026 |
+| OptiFlow-Frontend | | 437060a | feat: mobile topbar | add topbar for mobile app version | 13/05/2026 |
+| OptiFlow-Frontend | | ec34791 | feat: mobile topbar | add topbar for mobile app version | 13/05/2026 |
+| OptiFlow-Frontend | | f3b9b4b | fix: add patient button | | 13/05/2026 |
+| OptiFlow-Frontend | | aeb9306 | Merge pull request #31 | feature/inventory-update | 13/05/2026 |
+| OptiFlow-Frontend | | 8d127d1 | Merge branch develop | into feature/inventory-update | 13/05/2026 |
+| OptiFlow-Frontend | | e3dd3d5 | fix(inventory) | update endpoint paths | 13/05/2026 |
+| OptiFlow-Frontend | | 6f0c8d3 | Merge pull request #30 | feature/analytical | 13/05/2026 |
+| OptiFlow-Frontend | | fb5c289 | Merge branch develop | into feature/analytical | 12/05/2026 |
+| OptiFlow-Frontend | | f12a2cc | feat: staff | add staff in the app | 12/05/2026 |
+| OptiFlow-Frontend | | 35d8e89 | Merge pull request #29 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | e043c60 | fix: sales display | patient names not displaying | 12/05/2026 |
+| OptiFlow-Frontend | | 7029209 | Merge pull request #28 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | 8811528 | fix: sales form | fix patients in sales form modal | 12/05/2026 |
+| OptiFlow-Frontend | | 151bbb4 | Merge pull request #27 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | 60a269d | fix: api endpoint | work orders api endpoint fix | 12/05/2026 |
+| OptiFlow-Frontend | | af693c0 | Merge pull request #26 | fix/api | 12/05/2026 |
+| OptiFlow-Frontend | | 78f5df9 | fix: environment | use production api | 12/05/2026 |
+| OptiFlow-Frontend | | 04b1c32 | Merge pull request #25 | fix/local-host | 12/05/2026 |
+| OptiFlow-Frontend | | e829f33 | fix: dictionaries | updated dictionaries | 12/05/2026 |
+| OptiFlow-Frontend | | 7faa798 | fix: sales modal | modified sales-form-modal | 12/05/2026 |
+| OptiFlow-Frontend | | a98ec8b | Merge pull request #24 | fix/client-app | 12/05/2026 |
+| OptiFlow-Frontend | | cb7e2b7 | feat: auth | add login screen and divided client app | 12/05/2026 |
+| OptiFlow-Frontend | | be78075 | Merge pull request #23 | fix/dashboard | 12/05/2026 |
+| OptiFlow-Frontend | | 751b909 | fix: corrections | additional corrections | 12/05/2026 |
+| OptiFlow-Frontend | | 3cbf7cc | feat: dashboard | set dashboard | 12/05/2026 |
+| OptiFlow-Frontend | | ac073b3 | Merge pull request #22 | fix/sales-responsiveness | 12/05/2026 |
+| OptiFlow-Frontend | | 1fc85ce | feat: UI | add responsiveness to the sidebar | 12/05/2026 |
+| OptiFlow-Frontend | | 39bf2ae | Merge pull request #21 | fix/add-i18n-in-patients | 12/05/2026 |
+| OptiFlow-Frontend | | ada5ee9 | feat: i18n | add i18n in patients section | 12/05/2026 |
+| OptiFlow-Frontend | | 6d9387d | fix: components | separate sidebar to individual component | 12/05/2026 |
+| OptiFlow-Frontend | | c671976 | Merge pull request #20 | feature/patient-panel | 11/05/2026 |
+| OptiFlow-Frontend | | d13ab80 | feat: patient panel | Panel de paciente añadido | 11/05/2026 |
+| OptiFlow-Frontend | | 0f061cd | Merge pull request #19 | feature/dashboard | 11/05/2026 |
+| OptiFlow-Frontend | | 91eb97d | feat: dashboard | add dashboard | 11/05/2026 |
+| OptiFlow-Frontend | | f35f0e1 | Merge pull request #18 | feature/subscription | 10/05/2026 |
+| OptiFlow-Frontend | | dc94f3b | refactor: billing | remove subscription bounded context | 10/05/2026 |
+| OptiFlow-Frontend | | 4dc6da6 | Merge pull request #17 | fix/url-endpoint | 10/05/2026 |
+| OptiFlow-Frontend | | 1b3decf | fix: urls | fix urls | 10/05/2026 |
+| OptiFlow-Frontend | | 031ca06 | Merge pull request #16 | fix/env | 10/05/2026 |
+| OptiFlow-Frontend | | 923ca59 | Merge branch develop | into fix/env | 10/05/2026 |
+| OptiFlow-Frontend | | 985ec2b | fix: production env | production environment variable added | 10/05/2026 |
+| OptiFlow-Frontend | | 80cc77f | Merge pull request #15 | feature/correction-URL-api | 10/05/2026 |
+| OptiFlow-Frontend | | fa693ba | fix: api url | correction url api | 10/05/2026 |
+| OptiFlow-Frontend | | 887aa47 | Merge pull request #14 | feature/correction | 10/05/2026 |
+| OptiFlow-Frontend | | 6f9d070 | fix: corrections | add corrections | 10/05/2026 |
+| OptiFlow-Frontend | | c253911 | Merge pull request #13 | feature/patients | 10/05/2026 |
+| OptiFlow-Frontend | | 2929583 | Merge branch develop | into feature/patients | 10/05/2026 |
+| OptiFlow-Frontend | | fdcc254 | fix: patients | set corrections patients | 10/05/2026 |
+| OptiFlow-Frontend | | 728a9b9 | feat: patients | add patients section | 10/05/2026 |
+| OptiFlow-Frontend | | 2dbda99 | Merge pull request #12 | feature/subscription | 10/05/2026 |
+| OptiFlow-Frontend | | 12b8c5e | feat: subscription | Stripe sandbox integration | 10/05/2026 |
+| OptiFlow-Frontend | | 77403f2 | Merge pull request #11 | feature/change-api-URL | 09/05/2026 |
+| OptiFlow-Frontend | | 7a3f27f | fix: api url | set api URL | 09/05/2026 |
+| OptiFlow-Frontend | | d33ab85 | ci: devops | add Azure Static Web Apps workflow | 09/05/2026 |
+| OptiFlow-Frontend | | defe034 | Merge pull request #10 | feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | b93f645 | Merge branch develop | into feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | e7923d7 | fix(lab-order) | correct fulfillment store behavior | 06/05/2026 |
+| OptiFlow-Frontend | | 1ef8b00 | Merge pull request #9 | feature/lab-order-management | 06/05/2026 |
+| OptiFlow-Frontend | | 13dbedd | fix(lab-order) | correct work order management behavior | 06/05/2026 |
+| OptiFlow-Frontend | | aed85ac | Merge pull request #8 | docs/class-diagrams | 06/05/2026 |
+| OptiFlow-Frontend | | 03facb0 | docs: diagrams | updated sales and app class diagrams | 06/05/2026 |
+| OptiFlow-Frontend | | 89dc15a | Merge pull request #7 | feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | f2188e7 | feat(inventory) | add inventory context | 06/05/2026 |
+| OptiFlow-Frontend | | 25c181a | Merge pull request #6 | feature/lab-order-management | 06/05/2026 |
+| OptiFlow-Frontend | | 835a30b | feat(lab-order) | initial implementation | 06/05/2026 |
+| OptiFlow-Frontend | | f76e950 | Merge pull request #5 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | cec3af8 | fix: sales | create sale + lab order button working | 05/05/2026 |
+| OptiFlow-Frontend | | 45899a0 | Merge pull request #4 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | fa4d205 | fix: sales | fix InputNumber not registering prices | 05/05/2026 |
+| OptiFlow-Frontend | | c87d94c | Merge pull request #3 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | 3f29e82 | fix: git | update gitignore | 05/05/2026 |
+| OptiFlow-Frontend | | 6a7ec36 | Merge pull request #2 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | 24ffe09 | feat(sales) | fixed color palette | 05/05/2026 |
+| OptiFlow-Frontend | | db85c9a | feat(sales) | add sales context | 05/05/2026 |
+| OptiFlow-Frontend | | b0bc49f | docs: diagrams | add frontend class diagrams | 05/05/2026 |
+| OptiFlow-Frontend | | 7904bae | Merge pull request #1 | chore/project-setup | 05/05/2026 |
+| OptiFlow-Frontend | | 6dcd9b0 | chore: setup | project setup | 05/05/2026 |
+| OptiFlow-Frontend | | 746959f | Initial commit | | 07/04/2026 |
 
 Frontend repository:
 https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend.git
