@@ -178,10 +178,40 @@ El desarrollo de la RESTful API se rige por las "C# Coding Conventions" y las "M
 
 ### Software Deployment Configuration
 
-[Descripción de la configuración de despliegue: entornos, pipelines CI/CD y servicios en la nube utilizados.]
+El proyecto OptiFlow gestiona el despliegue de tres productos de software de forma independiente, cada uno con su propio entorno y pipeline de integración continua.
+
+#### Landing Page — GitHub Pages
+
+La Landing Page estática se despliega automáticamente en **GitHub Pages** mediante un workflow de **GitHub Actions** definido en `.github/workflows/static.yml`. Ante cada push a `main`, el pipeline ejecuta el build del proyecto y publica el artefacto en el entorno de Pages sin intervención manual.
+
+![static](../assets/static-yaml-evidence.png){width=100%}
+![base](../assets/base-config-evidence.png){width=100%}
+![jobs](../assets/jobs-evidences.png){width=100%}
+
+**URL de producción:** https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
+
+#### Frontend Web Application (SPA) — Azure Static Web Apps
+
+El frontend Vue.js se despliega en **Azure Static Web Apps** con integración nativa a GitHub Actions. Ante cada push a `develop`, el workflow compila la aplicación y la publica automáticamente en Azure. Las variables de entorno (URL del API) se configuran directamente en el App Service de Azure.
+
+![azure-resources.png](../assets/azure-resources.png)
+![github-actions-success.png](../assets/github-actions-success.png)
+
+**URL de producción:** https://proud-sea-096db2110.7.azurestaticapps.net
+
+#### Fake RESTful API (Mock API) — Repositorio local / json-server
+
+El Fake API se basa en **json-server** con un archivo `db.json` que expone todos los recursos del sistema (clientes, órdenes, inventario, ventas, roles, etc.) como endpoints REST. Se ejecuta localmente durante el desarrollo del frontend y se referencia desde el repositorio `OptiFlow-Mock-Api`.
+
+**Repositorio:** https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api
+
+| Producto | Plataforma | Pipeline | URL de Producción |
+|:---|:---|:---|:---|
+| Landing Page | GitHub Pages | GitHub Actions | https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/ |
+| Frontend SPA | Azure Static Web Apps | GitHub Actions | https://proud-sea-096db2110.7.azurestaticapps.net |
+| Fake API | json-server (local) | — | http://localhost:3000 |
 
 ## Landing Page, Services & Applications Implementation
-
 
 
 ### Sprint 1
@@ -991,8 +1021,7 @@ La API de OptiFlow ha sido desplegada y configurada para dar soporte a las opera
 El despliegue de este sprint marca el paso a un entorno de producción cloud utilizando una arquitectura de servicios desacoplados en Azure.
 
 1.  **Frontend:** Desplegado mediante **Azure Static Web Apps**, aprovechando la integración nativa con GitHub Actions para despliegues automáticos desde la rama `develop`.
-2.  **Backend:** Implementado en **Azure App Service**, configurado con un workflow de compilación y despliegue para Node.js/Java (según corresponda).
-3.  **Base de Datos:** Conexión establecida y configurada dentro del App Service para garantizar la persistencia de las *Clinical Records* y ventas.
+2.  **Fake Api:** Implementado en **Azure App Service**, configurado con un workflow de compilación y despliegue para Node.js/Java (según corresponda).
 
 ![azure-resources.png](../assets/azure-resources.png)
 > Captura del Resource Group en Azure mostrando el App Service y la Static Web App operativos.
