@@ -738,14 +738,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![User Flow US23 Control de Órdenes – Mobile](<../docs/userflows/jp/US_ 33 MOBILE.png>){width=100%}
 
-#### US-31 Registro de Empleado
-
-- **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
-- **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
-
-![User Flow Registro de Empleado – Desktop](<../docs/userflows/jp/US_ Registro de empleado.png>){width=100%}
-
-![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
 #### US24 – Dashboard de Ventas
 
@@ -764,6 +756,16 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![User Flow US28 Inicio de Sesión con DNI – Desktop](<../docs/userflows-mv/US 28-Inicio de Sesión con DNI-Web.png>){width=90%}
 
 ![User Flow US28 Inicio de Sesión con DNI – Mobile](<../docs/userflows-mv/US 28-Inicio de Sesión con DNI-App.png>){width=90%}
+
+
+#### US-31 Registro de Empleado
+
+- **Happy Path:** El administrador completa el formulario de registro → asigna roles y permisos → el sistema crea la cuenta y envía las credenciales al empleado por correo.
+- **Unhappy Path:** DNI o correo ya registrado en el sistema → error de duplicado → el administrador verifica y corrige los datos antes de reintentar.
+
+![User Flow Registro de Empleado – Desktop](<../docs/userflows/jp/US_ Registro de empleado.png>){width=100%}
+
+![User Flow Registro de Empleado – Mobile](<../docs/userflows/jp/US_ Registro de empleado Mobile.png>){width=100%}
 
 #### US33 – Probador virtual
 
@@ -785,33 +787,28 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ## Web Applications Prototyping
 https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-70640&t=l6s3p4jbdhVjfcsL-1
+
+Administrator Web Prototype Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQA7Wi05JBC3QLQFp0AQyDNjAbWFNatgH26-dGnPBTHb9l4?e=0H1foZ&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
+
+
 ## Domain-Driven Software Architecture
 
 ### Design-Level Event Storming
 ![level.jpg](../assets/impactMap/level.jpg)
 
 ### Software Architecture Context Diagram
-![img.png](../assets/C4/img.png)
+![context.png](../assets/C4/context.png)
 
 ### Software Architecture Container Diagrams
-![components.png](../assets/C4/components.png)
-
-### Software Architecture Components Diagrams
 ![container.png](../assets/C4/container.png)
 
-#### Clinica Module
-![context1.png](../assets/C4/context1.png)
-
-#### Retail Module
-![context2.png](../assets/C4/context2.png)
-
-#### Lab Module
-![context3.png](../assets/C4/context3.png)
+### Software Architecture Components Diagrams
+![component.png](../assets/C4/component.png)
 
 ## Software Object-Oriented Design
 
 ### Class Diagrams
-[Diagramas de clases UML con atributos, métodos y relaciones entre entidades del dominio.]
 
 ## Frontend Class Diagrams
 ### IAM (Identity and Access Management)
@@ -838,26 +835,26 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 
 ## Backend Class Diagrams
 
-### Analytics & Shared
-![Analytics Shared](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-analytics-shared.puml)
+### Analytics
+![Analytics Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-analytics.puml)
 
-### Clinical, Sales & Billing
-![Clinical Sales Billing](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-clinical-sales-billing.puml)
+### Clinical
+![Clinical Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-clinical.puml)
 
-### IAM & Clinical
-![IAM Clinical](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-iam-clinical.puml)
+### IAM
+![IAM Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-iam.puml)
 
-### Inventory & Sales
-![Inventory Sales](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-inventory-sales.puml)
+### Inventory
+![Inventory Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-inventory.puml)
 
-### Order Fulfillment & CRM
-![Order Fulfillment CRM](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-order-fulfillment-crm.puml)
+### Order Fulfillment
+![Order Fulfillment Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-order-fulfillment.puml)
 
-### Sales & Order Fulfillment
-![Sales Order Fulfillment](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-sales-order-fulfillment.puml)
+### Sales
+![Sales Context](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagrams-backend/class-diagram-sales.puml)
 
 ## Database Design
 
 ### Database Diagrams
 
-![DataBase-diagram.png](../assets/DataBase-diagram.png)
+![DataBase-diagram.png](../assets/optiflow-db.png)

@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9ef746e3-d36e-49e1-94c0-9f9b905b91bc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,9 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "feature/document-api-frondend",
+    "git-widget-placeholder": "develop",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
@@ -54,6 +57,10 @@
       <workItem from="1776984955739" duration="10288000" />
       <workItem from="1777001852810" duration="2000" />
       <workItem from="1777152771303" duration="884000" />
+      <workItem from="1778461344221" duration="1000000" />
+      <workItem from="1778564745713" duration="477000" />
+      <workItem from="1778621221194" duration="730000" />
+      <workItem from="1778657720321" duration="864000" />
     </task>
     <servers />
   </component>

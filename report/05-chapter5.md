@@ -70,13 +70,77 @@ Framework de desarrollo para el lado del servidor que simplifica la creación de
 
 * **Documentación y descarga:** [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
 ### Source Code Management
-El proyecto utiliza **GitHub** como sistema de control de versiones mediante un repositorio público. Se adoptó una estrategia basada en **GitFlow**:
-* La rama `main` contiene versiones estables del sistema.
-* La rama `develop` funciona como entorno de integración.
-* Las nuevas funcionalidades se desarrollan en ramas `feature/*`.
-* En caso del repositorio de documentación, se utiliza `docs/*`.
 
-La integración de cambios se realiza mediante **Pull Requests** hacia la rama `develop`, asegurando un control previo antes de incorporar modificaciones. Se emplea una convención de commits semánticos (`feat`, `fix`).
+El equipo utiliza **GitHub** como plataforma y sistema de control de versiones, organizando todos los repositorios bajo la organización **1asi0730-2610-10203-OptiFlow**. A continuación se listan los repositorios individuales para cada producto de software que forma parte del alcance del proyecto:
+
+| Producto de Software | Repositorio | URL |
+|---|---|---|
+| **Landing Page** | OptiFlow-Landing-Page | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page |
+| **Frontend Web Application** | OptiFlow-Frontend | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend |
+| **Web Services (Backend API)** | OptiFlow-API | Not created yet |
+| **Fake RESTful API (Mock API)** | OptiFlow-Mock-Api | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api |
+| **Informe del Proyecto** | OptiFlow-Report-Stable | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable |
+
+
+#### Implementación de GitFlow
+
+El equipo adopta el workflow **GitFlow** (Vincent Driessen, "A successful Git branching model") como modelo de ramificación en todos los repositorios de código fuente. Este modelo define dos ramas de larga duración y tres tipos de ramas de soporte de vida corta:
+
+**Ramas principales (long-lived branches):**
+
+| Rama | Propósito |
+|---|---|
+| `main` | Contiene exclusivamente versiones estables y publicadas. Cada integración a esta rama corresponde a un Release oficial. Está protegida contra commits directos. |
+| `develop` | Rama de integración continua. Acumula los cambios completados de cada feature antes de conformar un release. Es el origen de las ramas de soporte. |
+
+**Ramas de soporte (short-lived branches):**
+
+| Tipo | Convención de nombre | Ejemplo | Descripción |
+|---|---|---|---|
+| **Feature** | `feature/<id-us>-<descripcion-corta>` | `feature/us01-login`, `feature/us18-inventory` | Una rama por cada User Story o funcionalidad. Se bifurcan desde `develop` y se integran de regreso a `develop` mediante Pull Request con revisión de pares. |
+| **Release** | `release/<major>.<minor>.<patch>` | `release/1.0.0`, `release/2.0.0` | Se crean desde `develop` cuando el scope del sprint está completo y listo para despliegue. Solo admiten correcciones de bugs menores. Al cerrar, se integran tanto a `main` como a `develop`. |
+| **Hotfix** | `hotfix/<major>.<minor>.<patch>` | `hotfix/1.0.1`, `hotfix/2.0.1` | Se bifurcan directamente desde `main` para corregir fallos críticos detectados en producción. Al cerrar, se integran a `main` y a `develop`. |
+
+#### Semantic Versioning
+
+Para el nombramiento de los Releases se aplica **Semantic Versioning 2.0.0**, bajo el formato `MAJOR.MINOR.PATCH`:
+
+- **MAJOR** — Se incrementa cuando se introducen cambios incompatibles con versiones anteriores de la API.
+- **MINOR** — Se incrementa al añadir nuevas funcionalidades de forma compatible con versiones anteriores.
+- **PATCH** — Se incrementa al realizar correcciones de errores compatibles con versiones anteriores.
+
+Ejemplos de progresión de versiones en el proyecto: `v1.0.0` (primer release del Landing Page) → `v1.0.1` (hotfix) → `v1.1.0` (nueva feature) → `v2.0.0` (release del Frontend Web App con cambios de arquitectura).
+
+#### Conventional Commits
+
+Para los mensajes de commit en todos los repositorios se aplica el estándar **Conventional Commits**, con la siguiente estructura:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+[optional footer]
+```
+
+Los tipos de commit permitidos en el proyecto son:
+
+| Tipo | Uso |
+|---|---|
+| `feat` | Introduce una nueva funcionalidad al producto. |
+| `fix` | Corrige un bug o comportamiento incorrecto. |
+| `docs` | Cambios exclusivamente en documentación o comentarios. |
+| `chore` | Cambios en el proceso de build, herramientas auxiliares o dependencias. |
+
+
+Ejemplos de commits aplicados en el proyecto:
+
+- `feat(hero): add hero section`
+- `fix(hero): fix hero background`
+- `feat(i18n): add i18n`
+- `feat(inventory): add inventory context`
+- `fix(lab-order): correct work order management behavior`
+- `docs(chapter-5): add sprint backlog`
+- `chore: configure dist folder`
 
 ### Source Code Style Guide & Conventions
 Para mantener la consistencia, legibilidad y escalabilidad del código fuente durante todo el ciclo de vida del proyecto, el equipo ha adoptado un conjunto estricto de convenciones de codificación. La regla transversal para todos los lenguajes y frameworks (HTML, CSS, JavaScript, Vue.js, C#) es el uso estricto del idioma **inglés** para la nomenclatura de variables, clases, métodos, archivos y comentarios.
@@ -114,10 +178,40 @@ El desarrollo de la RESTful API se rige por las "C# Coding Conventions" y las "M
 
 ### Software Deployment Configuration
 
-[Descripción de la configuración de despliegue: entornos, pipelines CI/CD y servicios en la nube utilizados.]
+El proyecto OptiFlow gestiona el despliegue de tres productos de software de forma independiente, cada uno con su propio entorno y pipeline de integración continua.
+
+#### Landing Page — GitHub Pages
+
+La Landing Page estática se despliega automáticamente en **GitHub Pages** mediante un workflow de **GitHub Actions** definido en `.github/workflows/static.yml`. Ante cada push a `main`, el pipeline ejecuta el build del proyecto y publica el artefacto en el entorno de Pages sin intervención manual.
+
+![static](../assets/static-yaml-evidence.png){width=100%}
+![base](../assets/base-config-evidence.png){width=100%}
+![jobs](../assets/jobs-evidences.png){width=100%}
+
+**URL de producción:** https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
+
+#### Frontend Web Application (SPA) — Azure Static Web Apps
+
+El frontend Vue.js se despliega en **Azure Static Web Apps** con integración nativa a GitHub Actions. Ante cada push a `develop`, el workflow compila la aplicación y la publica automáticamente en Azure. Las variables de entorno (URL del API) se configuran directamente en el App Service de Azure.
+
+![azure-resources.png](../assets/azure-resources.png)
+![github-actions-success.png](../assets/github-actions-success.png)
+
+**URL de producción:** https://proud-sea-096db2110.7.azurestaticapps.net
+
+#### Fake RESTful API (Mock API) — Repositorio local / json-server
+
+El Fake API se basa en **json-server** con un archivo `db.json` que expone todos los recursos del sistema (clientes, órdenes, inventario, ventas, roles, etc.) como endpoints REST. Se ejecuta localmente durante el desarrollo del frontend y se referencia desde el repositorio `OptiFlow-Mock-Api`.
+
+**Repositorio:** https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api
+
+| Producto | Plataforma | Pipeline | URL de Producción |
+|:---|:---|:---|:---|
+| Landing Page | GitHub Pages | GitHub Actions | https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/ |
+| Frontend SPA | Azure Static Web Apps | GitHub Actions | https://proud-sea-096db2110.7.azurestaticapps.net |
+| Fake API | json-server (local) | — | http://localhost:3000 |
 
 ## Landing Page, Services & Applications Implementation
-
 
 
 ### Sprint 1
@@ -154,191 +248,35 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 | Mechan Montenegro, Luciana Carolina | MehanLuciana | Backend architecture (C) | Bounded context development (L) | Database design (L) | Documentation (C) |
 | Morocho Pinedo, Mariana | MarianaMP | UX Research (C) | Sprint planning & Backlog (L) | Needfinding (C) | Documentation (L) |
 
-### Sprint Backlog
-<table>
-  <thead>
-    <tr>
-      <th>Sprint #</th>
-      <th colspan="7">Sprint 1</th>
-    </tr>
-    <tr>
-      <th colspan="2">User Story</th>
-      <th colspan="6">Work-Item / Task</th>
-    </tr>
-    <tr>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Estimation (Hours)</th>
-      <th>Assigned To</th>
-      <th>Status (To-do / In-Process / To-Review / Done)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T01</td>
-      <td>UX Research & Entrevistas</td>
-      <td>Realizar entrevistas a admins y clientes; crear User Personas y Empathy Maps.</td>
-      <td>6 hrs</td>
-      <td>Mariana / Mia / Juan Pablo / Luciana</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T02</td>
-      <td>Diseño UX/UI de Landing Page</td>
-      <td>Diseñar Wireframes, Mockups y User Flows de la web estática.</td>
-      <td>5 hrs</td>
-      <td>Mia / Juan Pablo / Mariana</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T03</td>
-      <td>Domain-Driven Design Artifacts</td>
-      <td>Elaborar EventStorming, Bounded Contexts y Context Mapping.</td>
-      <td>5 hrs</td>
-      <td>Luciana / Nicolas</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T04</td>
-      <td>Database & Class Diagram</td>
-      <td>Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD).</td>
-      <td>5 hrs</td>
-      <td>Luciana / Nicolas</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T05</td>
-      <td>Software Development Environment</td>
-      <td>Configurar el entorno de desarrollo y dependencias locales del framework frontend.</td>
-      <td>2 hrs</td>
-      <td>Juan Pablo</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T06</td>
-      <td>Source Code Management & Styles</td>
-      <td>Definir el Style Guide del código y parte del Information Architecture.</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-        <tr>
-      <td></td>
-      <td></td>
-      <td>T07</td>
-      <td>Segmento objetivo & Lean UX Process</td>
-      <td>Definir segmento objetivo, Lean UX Canvas y User Task Matrix.</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T08</td>
-      <td>Software Deployment Configuration</td>
-      <td>Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing.</td>
-      <td>3 hrs</td>
-      <td>Juan Pablo</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T09</td>
-      <td>Sprint 1 Planning & Backlog</td>
-      <td>Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe.</td>
-      <td>2 hrs</td>
-      <td>Mariana</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T10</td>
-      <td>Development & Execution Evidence</td>
-      <td>Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution).</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T11</td>
-      <td>Deployment & Services Evidence</td>
-      <td>Documentar el link de producción y métricas de colaboración (Team Collaboration Insights).</td>
-      <td>2 hrs</td>
-      <td>Luciana</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td>US-46L</td>
-      <td>Propuesta de Valor (Hero Section)</td>
-      <td>T12</td>
-      <td>Desarrollo: Hero Section</td>
-      <td>Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA.</td>
-      <td>4 hrs</td>
-      <td>Juan Pablo</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td>US-47L</td>
-      <td>Catálogo de Características</td>
-      <td>T13</td>
-      <td>Desarrollo: Módulos del Sistema</td>
-      <td>Programar la sección de módulos (Ventas, Laboratorio) de forma responsive.</td>
-      <td>4 hrs</td>
-      <td>Mia</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td>US-48L</td>
-      <td>Consulta de Planes y Precios</td>
-      <td>T14</td>
-      <td>Desarrollo: Pricing Table</td>
-      <td>Maquetar la tabla de precios comparativa interactiva para la web.</td>
-      <td>4 hrs</td>
-      <td> </td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td>US-49L</td>
-      <td>Formulario de Contacto General</td>
-      <td>T15</td>
-      <td>Desarrollo: Formulario & Validaciones</td>
-      <td>Codificar el formulario de contacto y agregar validaciones de campos en JavaScript.</td>
-      <td>4 hrs</td>
-      <td>Nicolas</td>
-      <td>To-Do</td>
-    </tr>
-    <tr>
-      <td>US-50L</td>
-      <td>Redirección a Login</td>
-      <td>T16</td>
-      <td>Desarrollo: Navbar & Footer</td>
-      <td>Implementar la barra de navegación superior anclada y el botón de acceso al sistema.</td>
-      <td>3 hrs</td>
-      <td>Mariana</td>
-      <td>To-Do</td>
-    </tr>
-  </tbody>
-</table>
+#### Sprint Backlog 1
+
+
+| Sprint # | Sprint 1 |||||||
+|:---:|:---|:---:|:---|:---|:---:|:---|:---:|
+| **User Story** || **Work-Item / Task** ||||||
+| **US Id** | **US Title** | **Task Id** | **Task Title** | **Description** | **Estimation (hours)** | **Assigned To** | **Status (To-Do / In-Process/ To-Review / Done)** |
+| | | T01 | UX Research & Entrevistas | Realizar entrevistas a admins y clientes; crear User Personas y Empathy Maps. | 6 hrs | Mariana / Mia / Juan Pablo / Luciana | Done |
+| | | T02 | Diseño UX/UI de Landing Page | Diseñar Wireframes, Mockups y User Flows de la web estática. | 5 hrs | Mia / Juan Pablo / Mariana | Done |
+| | | T03 | Domain-Driven Design Artifacts | Elaborar EventStorming, Bounded Contexts y Context Mapping. | 5 hrs | Luciana / Nicolas | Done |
+| | | T04 | Database & Class Diagram | Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD). | 5 hrs | Luciana / Nicolas | Done |
+| | | T05 | Software Development Environment | Configurar el entorno de desarrollo y dependencias locales del framework frontend. | 2 hrs | Juan Pablo | Done |
+| | | T06 | Source Code Management & Styles | Definir el Style Guide del código y parte del Information Architecture. | 2 hrs | Mia | Done |
+| | | T07 | Segmento objetivo & Lean UX Process | Definir segmento objetivo, Lean UX Canvas y User Task Matrix. | 2 hrs | Mia | Done |
+| | | T08 | Software Deployment Configuration | Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing. | 3 hrs | Juan Pablo | Done |
+| | | T09 | Sprint 1 Planning & Backlog | Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe. | 2 hrs | Mariana | Done |
+| | | T10 | Development & Execution Evidence | Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution). | 2 hrs | Mia | Done |
+| | | T11 | Deployment & Services Evidence | Documentar el link de producción y métricas de colaboración (Team Collaboration Insights). | 2 hrs | Luciana | Done |
+| US-46L | Propuesta de Valor (Hero Section) | T12 | Desarrollo: Hero Section | Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA. | 4 hrs | Juan Pablo | Done |
+| US-47L | Catálogo de Características | T13 | Desarrollo: Módulos del Sistema | Programar la sección de módulos (Ventas, Laboratorio) de forma responsive. | 4 hrs | Mia | Done |
+| US-48L | Consulta de Planes y Precios | T14 | Desarrollo: Pricing Table | Maquetar la tabla de precios comparativa interactiva para la web. | 4 hrs | | Done |
+| US-49L | Formulario de Contacto General | T15 | Desarrollo: Formulario & Validaciones | Codificar el formulario de contacto y agregar validaciones de campos en JavaScript. | 4 hrs | Nicolas | Done |
+| US-50L | Redirección a Login | T16 | Desarrollo: Navbar & Footer | Implementar la barra de navegación superior anclada y el botón de acceso al sistema. | 3 hrs | Mariana | Done |
+
+#### Sprint Backlog y seguimiento de tareas mediante tablero en Trello
+![sprint-backlog-1](../assets/sprint-backlog-1.png)
+
+**Enlace del tablero Trello:**  
+https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23cdf51f144c3C1DA6E6/optiflow
 
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
@@ -395,10 +333,13 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 #### Execution Evidence for Sprint Review
 Durante la iteración inicial del proyecto OptiFlow, se consolidó el diseño estratégico del sistema mediante la elaboración de artefactos de Domain-Driven Design y el modelado estructural de la base de datos, estableciendo una arquitectura técnica escalable que fue complementada por una exhaustiva investigación de Experiencia de Usuario (UX/UI) y prototipado de alta fidelidad basado en la elicitación de requerimientos de los segmentos objetivo; sobre esta integración teórico-práctica, se ejecutó exitosamente la codificación frontend y el despliegue en entorno cloud de la Landing Page comercial para la captación de prospectos (historias US-46L a US-50L), operando de manera transversal dentro de un entorno de desarrollo colaborativo estrictamente gestionado bajo la estrategia GitFlow para garantizar la integridad, control de versiones y trazabilidad de los aportes del equipo.
 
-[AQUI DEBE HABER UN VIDEO, GRABARLO MAÑANA]
+Execution Evidence Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQDRb9C8iIC4QZsZvLTlRB7pAZ6ojywom_jWhlEpYqPo-A4?e=lHQO2L
+
 
 #### Services Documentation Evidence for Sprint Review
-[Documentación de los servicios o APIs desarrolladas durante el sprint.]
+
+Los servicios todavía no han sido implementados en este sprint, todos fueron implementados y documentados a partir del sprint 2
+
 
 #### Software Deployment Evidence for Sprint Review
 En este primer sprint se desplegó la primera versión del landing page utilizando github pages.
@@ -468,26 +409,37 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 | **Sum of Story Points** | 45 |
 
 #### Aspect Leaders and Collaborators
+En el sprint el enfoque principal fue el desarrollo del frontend de la aplicación web y la corrección de los errores identificados en el sprint anterior. El equipo mantuvo la especialización por módulos establecida en la retrospectiva: cada integrante lideró un conjunto de vistas específico, evitando el solapamiento de responsabilidades y garantizando un avance continuo por área. Adicionalmente, se distribuyeron tareas de documentación y evidencia entre todos los miembros para mantener el informe actualizado en paralelo al desarrollo.
+
+| Team Member (Last Name, First Name) | GitHub Username | Aspect Name 1 Leader (L) / Collaborator (C) | Aspect Name 2 Leader (L) / Collaborator (C) | Aspect Name 3 Leader (L) / Collaborator (C) | Aspect Name 4 Leader (L) / Collaborator (C) |
+| :--- | :--- | :--- |  :--- | :--- | :--- |
+| Azama Fukuda, Juan Pablo | Llummo | Sales module frontend development (L) | Report corrections & documentation (L) | Software deployment configuration (L) | Scrum Master Role (L) |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | Clinical & authentication module frontend (L) | Fake API configuration (L) | Services documentation evidence (L) | Validation interviews (L) |
+| Capillo Lema, Mia Valentina | Miavcl | Customer portal frontend development (L) | Frontend development (C) | Report documentation (C) | UX implementation (C) |
+| Mechan Montenegro, Luciana Carolina |luuu6 | Inventory & lab module frontend (L) | Development evidence documentation (L) | Team collaboration insights (L) | Agile tool management (L) |
+| Morocho Pinedo, Mariana | Patto04 | Analytics & admin module frontend (L) | Sprint planning & Backlog (C) | Frontend development (C) | Report documentation (C) |
+
 #### Sprint Backlog 2
+
 <table>
-  <thead>
+<thead>
     <tr>
-      <th>Sprint #</th>
-      <th colspan="7">Sprint 2</th>
+      <th style="text-align: left;">Sprint #</th>
+      <th colspan="7" style="text-align: left;">Sprint 2</th>
     </tr>
     <tr>
-      <th colspan="2">User Story</th>
-      <th colspan="6">Work-Item / Task</th>
+      <th colspan="2" style="text-align: left;">User Story</th>
+      <th colspan="6" style="text-align: left;">Work-Item / Task</th>
     </tr>
     <tr>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Estimation (Hours)</th>
-      <th>Assigned To</th>
-      <th>Status (To-do / In-Process / To-Review / Done)</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Description</th>
+      <th style="text-align: left;">Estimation (Hours)</th>
+      <th style="text-align: left;">Assigned To</th>
+      <th style="text-align: left;">Status (To-do / In-Process / To-Review / Done)</th>
     </tr>
   </thead>
   <tbody>
@@ -499,7 +451,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de autenticación del portal del paciente con campo DNI y validación conectada al fake API.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-05P</td>
@@ -509,7 +461,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista del portal que muestra el estado actual de la orden del cliente, consumiendo el fake API.</td>
       <td>4 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-06P</td>
@@ -519,7 +471,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el formulario editable de datos de contacto del cliente (nombre, correo, teléfono) con actualización en fake API.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-07P</td>
@@ -529,7 +481,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Diseñar e implementar la vista que muestra el monto pendiente de la orden activa del cliente autenticado.</td>
       <td>2 hrs</td>
       <td>Mia</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-10G</td>
@@ -538,8 +490,8 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Formulario de Registro de Cliente</td>
       <td>Desarrollar el formulario con campos básicos (nombre, DNI, teléfono, correo) y guardado mediante POST al fake API.</td>
       <td>4 hrs</td>
-      <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Nicolas</td>  
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-08G</td>
@@ -549,7 +501,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el formulario de examen visual con campos de esfera, cilindro y eje para ambos ojos, guardado en fake API.</td>
       <td>5 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-09G</td>
@@ -559,7 +511,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el componente de upload de archivos PDF con vista previa del nombre de archivo vinculado al perfil del cliente.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-36G</td>
@@ -569,7 +521,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista que consolida los exámenes visuales anteriores y órdenes vinculadas al perfil del cliente.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -579,7 +531,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Configurar json-server con todos los recursos del sistema (clientes, órdenes, inventario, ventas, usuarios, roles) para ser consumidos por el frontend.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-01S</td>
@@ -589,7 +541,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de inicio de sesión del sistema con campos de usuario/contraseña y redirección según rol asignado.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-02S</td>
@@ -599,7 +551,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear la vista con campo de correo y flujo de confirmación de restablecimiento de contraseña conectado al fake API.</td>
       <td>2 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-11F</td>
@@ -609,7 +561,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista principal de ventas con selección de cliente, productos y resumen del pedido, conectada al fake API.</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-14F</td>
@@ -619,7 +571,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el componente que permite dividir el monto entre efectivo y tarjeta, calculando automáticamente el vuelto.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-13F</td>
@@ -629,7 +581,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el input de código de descuento con validación y recálculo automático del monto en la boleta de venta.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-12F</td>
@@ -639,7 +591,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el modal de cobro de saldo al momento de la entrega del producto con actualización de estado en fake API.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-15F</td>
@@ -649,7 +601,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el flujo de reversión de venta desde la pantalla de ventas con motivo de devolución y actualización de estado.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-16F</td>
@@ -659,7 +611,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el componente que muestra la alerta al cliente cuando su orden está lista para recoger en tienda.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-17F</td>
@@ -669,7 +621,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el formulario de calificación post-venta con escala de valoración y campo de comentario libre, guardado en fake API.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-18L</td>
@@ -679,7 +631,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de consulta de stock con listado paginado de monturas y estado de disponibilidad desde fake API.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-20L</td>
@@ -689,7 +641,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el formulario de registro de nuevas monturas con campos de marca, modelo, precio y stock inicial.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-22L</td>
@@ -699,7 +651,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el panel de filtros múltiples (marca, tipo, precio, disponibilidad) sobre el listado de productos del catálogo.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-19L</td>
@@ -709,7 +661,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el componente de alerta visual que resalta productos por debajo del umbral mínimo configurado en el inventario.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-21L</td>
@@ -719,7 +671,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar la vista de registro y edición de tipos de materiales de lunas (orgánico, fotocromático, antirreflejo, etc.).</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-23L</td>
@@ -729,7 +681,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar el tablero Kanban interactivo con columnas (Pendiente, En Proceso, Listo, Entregado) y drag-and-drop de tarjetas de orden.</td>
       <td>8 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-24L</td>
@@ -739,7 +691,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear el modal de tipificación de errores de fabricación con selector de causa raíz y actualización del estado de la orden.</td>
       <td>2 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-25L</td>
@@ -749,7 +701,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el botón y lógica de priorización máxima de órdenes en el tablero Kanban con resaltado visual diferenciado.</td>
       <td>2 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-26L</td>
@@ -759,7 +711,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de seguimiento de materia prima con descuento automático de stock al registrar nuevas órdenes de laboratorio.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-27A</td>
@@ -769,7 +721,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el panel centralizado con gráficos de ingresos, conversión y rendimiento del negocio consumiendo el fake API.</td>
       <td>5 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-03A</td>
@@ -779,7 +731,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de asignación y edición de roles (admin, vendedor, técnico de laboratorio) con tabla de permisos por módulo.</td>
       <td>5 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-04A</td>
@@ -789,7 +741,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Crear la vista de historial de alteraciones de stock con filtros por fecha, producto y usuario responsable de cada cambio.</td>
       <td>4 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-34S</td>
@@ -799,7 +751,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Implementar el formulario de registro de nuevos empleados con campos de nombre, correo, rol asignado y contraseña inicial.</td>
       <td>3 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>US-35A</td>
@@ -809,7 +761,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Desarrollar la vista de configuración con campos de información del negocio, política de contraseñas y opciones de copia de seguridad.</td>
       <td>3 hrs</td>
       <td>Mariana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -819,7 +771,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Eliminar el texto `git` suelto dentro de celdas del Sprint Backlog 1, corregir la tabla Aspect Leaders Sprint 1 (nombres duplicados de Rodríguez Peña) y limpiar el texto corrupto con hash incrustado en el Student Outcome.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -829,7 +781,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar entrada TB2 en el Registro de Versiones, rellenar el URL del repositorio del informe en Project Report Collaboration Insights e insertar la captura de commits del equipo.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -839,7 +791,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Documentar la configuración de despliegue de la Landing Page: describir el pipeline de GitHub Actions, el archivo de workflow YAML, el entorno de GitHub Pages y cualquier variable de entorno utilizada.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -849,7 +801,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Grabar un video corto que evidencie el Landing Page desplegado y funcional, mostrando todas las secciones (Hero, Features, Pricing, Contact) en desktop y mobile. Embeber el enlace en la sección Execution Evidence Sprint 1.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -859,7 +811,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Insertar las imágenes de los Wireframes y Mock-ups de la Landing Page en las secciones correspondientes del Capítulo IV (actualmente son placeholders vacíos).</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -869,7 +821,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar el enlace al prototipo interactivo en Figma en la sección Web Applications Prototyping del Capítulo IV, junto con una descripción de los escenarios de prueba cubiertos.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -879,7 +831,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App correspondientes a las tasks del módulo de ventas (T12–T18): registro de venta, pagos, descuentos, devoluciones y notificaciones.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -889,7 +841,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas del módulo de ventas implementadas. Completar la tabla Aspect Leaders and Collaborators del Sprint 2. Redactar la sección Video About-the-Product con enlace al video del producto final.</td>
       <td>5 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -899,7 +851,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar en la sección Source Code Management los URLs formales de los repositorios de Frontend Web App y Backend/Server Side Software, incluyendo descripción de la estrategia de ramas GitFlow aplicada en cada uno.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -909,7 +861,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Documentar el Fake API configurado con json-server: mostrar el db.json con todos los recursos, listar los endpoints disponibles (GET, POST, PUT, DELETE) con sus rutas y un ejemplo de respuesta JSON por cada uno. Si en Sprint 1 no hubo servicios, justificarlo explícitamente.</td>
       <td>5 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -919,7 +871,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T05–T11: registro de clientes, historia clínica, carga de PDF, HCE, configuración del json-server, login de empleado y recuperación de contraseña.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -929,7 +881,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas implementadas: login con DNI, login de empleado, recuperación de contraseña, registro de clientes, formulario de historia clínica, carga de PDF y vista de HCE, evidenciando la integración con el json-server.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -939,7 +891,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Redactar las tres subsecciones de Validation Interviews: (1) Diseño de Entrevistas con objetivos y guía de preguntas, (2) Registro de Entrevistas con resumen de sesiones realizadas con usuarios reales, y (3) Evaluaciones según Heurísticas de Nielsen aplicadas a las vistas implementadas.</td>
       <td>6 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -949,7 +901,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la fila de Nicolas en la tabla Student Outcome con las acciones realizadas durante TB1 y TB2, especificando los commits asociados y la conclusión de su contribución al trabajo colaborativo del equipo.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -959,7 +911,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas de pantalla de la herramienta de gestión ágil usada (Jira / Trello / GitHub Projects) mostrando: el Product Backlog con User Stories, el Sprint 1 Backlog con la evolución de tareas por estados (To Do → In Process → To Review → Done) y el Sprint 2 Backlog con el mismo seguimiento.</td>
       <td>5 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -969,7 +921,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la sección Team Collaboration Insights del Sprint 1: incluir métricas de contribución por integrante (commits, PRs aprobados), gráfica de actividad del repositorio, herramientas de comunicación usadas y resumen de reuniones realizadas.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -979,7 +931,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la tabla Development Evidence del Sprint 2 con los commits del repositorio de la Web App para las tasks T19–T27: dashboard de inventario, alertas de stock, registro de producto, variantes, búsqueda avanzada, tablero Kanban, motivos de retrabajo, urgencias y control de insumos.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -989,7 +941,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Agregar capturas o video de las vistas implementadas: dashboard de inventario con alertas de bajo stock, formulario de nuevo producto, panel de filtros cruzados, tablero Kanban interactivo con drag-and-drop y vista de control de insumos, evidenciando integración con el json-server.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -999,25 +951,154 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
       <td>Completar la sección Team Collaboration Insights del Sprint 2 (métricas de commits, PRs, reuniones de retrospectiva). Completar la entrada de Luciana en la tabla Student Outcome del informe con sus acciones en TB1 y TB2 y la conclusión correspondiente.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-Do</td>
+      <td>Done</td>
     </tr>
-  </tbody>
+    </tbody>
 </table>
 
+#### Sprint Backlog y seguimiento de tareas mediante tablero en Trello
+![sprint-backlog-1](../assets/sprint-backlog-2.png)
+
+**Enlace del tablero Trello:**  
+https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23cdf51f144c3C1DA6E6/optiflow
+
+#### Gestión colaborativa y seguimiento de incidencias mediante Jira
+![sprint-backlog-1](../assets/optiflow-jira.png)
 
 #### Development Evidence for Sprint Review
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
-|------------|--------|-----------|----------------|---------------------|---------------------|
-| OptiFlow-Frontend | develop | 77403f2 | set api URL and merge pull request #11 | - | 2026-05-09 |
-| OptiFlow-Frontend | feature/change-api-URL | 7a3f27f | set api URL | - | 2026-05-09 |
-| OptiFlow-Frontend | develop | d33ab85 | ci: add Azure Static Web Apps workflow file | - | 2026-05-09 |
-| OptiFlow-Frontend | feature/inventory | defe034 | fix(inventory): correct inventory management module | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/lab-order-management | 13dbedd | fix(lab-order): correct work order management behavior | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/inventory | f2188e7 | feat(inventory): add inventory context | - | 2026-05-06 |
-| OptiFlow-Frontend | feature/sales-management | cec3af8 | fix: create sale + lab order button now working | - | 2026-05-05 |
-| OptiFlow-Frontend | feature/sales-management | db85c9a | feat(sales): add sales context | - | 2026-05-05 |
-| OptiFlow-API | main | 54eb8c6 | Add or update the Azure App Service build and deployment workflow config | - | 2026-05-09 |
-| OptiFlow-API | main | f724152 | Initial commit: API base structure | - | 2026-05-09 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| OptiFlow-Frontend | main | 0103d1e | release: v1.0.0 | | 13/05/2026 |
+| OptiFlow-Frontend | | fd80e14 | Delete | | 13/05/2026 |
+| OptiFlow-Frontend | | f05ce8f | release: v1.0.0 | | 13/05/2026 |
+| OptiFlow-Frontend | develop | 62fc899 | Merge pull request #46 | feature/setting | 13/05/2026 |
+| OptiFlow-Frontend | | 7a3d75c | fix: new rol in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | d2bab69 | fix: role in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | c74d491 | fix: style in setting. | | 13/05/2026 |
+| OptiFlow-Frontend | | b2b2087 | Merge pull request #45 | feature/inventory-edit | 13/05/2026 |
+| OptiFlow-Frontend | | 69c8e81 | fix(inventory-edit-button) | fix inventory edit button | 13/05/2026 |
+| OptiFlow-Frontend | | d438531 | Merge pull request #44 | fix/clients | 13/05/2026 |
+| OptiFlow-Frontend | | 8e19383 | fix: client profile | add fill in fields scenarios | 13/05/2026 |
+| OptiFlow-Frontend | | f143b65 | feat: add setting | add setting in the app | 13/05/2026 |
+| OptiFlow-Frontend | | bf7bce6 | Merge pull request #43 | fix/scenarios | 13/05/2026 |
+| OptiFlow-Frontend | | c841286 | fix: scenarios | fix scenarios in sales and inventory | 13/05/2026 |
+| OptiFlow-Frontend | | 4b462ef | Merge pull request #42 | feature/inventory-correction | 13/05/2026 |
+| OptiFlow-Frontend | | 569560f | fix(audit) | fix audit endpoint | 13/05/2026 |
+| OptiFlow-Frontend | | 8ed0a76 | Merge pull request #41 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | 841bb64 | fix: status code 500 | error when collecting remaining bills | 13/05/2026 |
+| OptiFlow-Frontend | | 7ebb94c | fix: add exam | fix hard-coded employee | 13/05/2026 |
+| OptiFlow-Frontend | | 97dc5c6 | Merge pull request #40 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | 169a59e | fix: patients and exams | not getting added correctly | 13/05/2026 |
+| OptiFlow-Frontend | | 419d8f3 | Merge pull request #39 | fix/patients-admin | 13/05/2026 |
+| OptiFlow-Frontend | | eb91c25 | fix: patient record | add patient and clinical record fix | 13/05/2026 |
+| OptiFlow-Frontend | | 5de606c | Merge pull request #38 | fix/i18n | 13/05/2026 |
+| OptiFlow-Frontend | | 57899b3 | fix: i18n | fix patient center i18n | 13/05/2026 |
+| OptiFlow-Frontend | | bae3af0 | Merge pull request #37 | fix/i18n | 13/05/2026 |
+| OptiFlow-Frontend | | 517bd4a | fix: dictionaries | fix curly braces in dictionaries | 13/05/2026 |
+| OptiFlow-Frontend | | 1459711 | Merge pull request #36 | feature/report | 13/05/2026 |
+| OptiFlow-Frontend | | b8ecc33 | Merge branch develop | into feature/report | 13/05/2026 |
+| OptiFlow-Frontend | | 9bd8380 | feat(report) | implement dashboard with svg charts | 13/05/2026 |
+| OptiFlow-Frontend | | 568253d | feat(report) | register routes and translations | 13/05/2026 |
+| OptiFlow-Frontend | | 447d917 | feat(report) | implement domain, store and api | 13/05/2026 |
+| OptiFlow-Frontend | | 3e18672 | Merge pull request #35 | feature/patients | 13/05/2026 |
+| OptiFlow-Frontend | | 714b93e | feat: patients | complete patient section | 13/05/2026 |
+| OptiFlow-Frontend | | 6a7303d | Merge pull request #34 | fix/patient-section | 13/05/2026 |
+| OptiFlow-Frontend | | 125ae9b | fix: view patient | | 13/05/2026 |
+| OptiFlow-Frontend | | 1eba8de | Merge pull request #33 | fix/patients | 13/05/2026 |
+| OptiFlow-Frontend | | 437060a | feat: mobile topbar | add topbar for mobile app version | 13/05/2026 |
+| OptiFlow-Frontend | | ec34791 | feat: mobile topbar | add topbar for mobile app version | 13/05/2026 |
+| OptiFlow-Frontend | | f3b9b4b | fix: add patient button | | 13/05/2026 |
+| OptiFlow-Frontend | | aeb9306 | Merge pull request #31 | feature/inventory-update | 13/05/2026 |
+| OptiFlow-Frontend | | 8d127d1 | Merge branch develop | into feature/inventory-update | 13/05/2026 |
+| OptiFlow-Frontend | | e3dd3d5 | fix(inventory) | update endpoint paths | 13/05/2026 |
+| OptiFlow-Frontend | | 6f0c8d3 | Merge pull request #30 | feature/analytical | 13/05/2026 |
+| OptiFlow-Frontend | | fb5c289 | Merge branch develop | into feature/analytical | 12/05/2026 |
+| OptiFlow-Frontend | | f12a2cc | feat: staff | add staff in the app | 12/05/2026 |
+| OptiFlow-Frontend | | 35d8e89 | Merge pull request #29 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | e043c60 | fix: sales display | patient names not displaying | 12/05/2026 |
+| OptiFlow-Frontend | | 7029209 | Merge pull request #28 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | 8811528 | fix: sales form | fix patients in sales form modal | 12/05/2026 |
+| OptiFlow-Frontend | | 151bbb4 | Merge pull request #27 | fix/sales | 12/05/2026 |
+| OptiFlow-Frontend | | 60a269d | fix: api endpoint | work orders api endpoint fix | 12/05/2026 |
+| OptiFlow-Frontend | | af693c0 | Merge pull request #26 | fix/api | 12/05/2026 |
+| OptiFlow-Frontend | | 78f5df9 | fix: environment | use production api | 12/05/2026 |
+| OptiFlow-Frontend | | 04b1c32 | Merge pull request #25 | fix/local-host | 12/05/2026 |
+| OptiFlow-Frontend | | e829f33 | fix: dictionaries | updated dictionaries | 12/05/2026 |
+| OptiFlow-Frontend | | 7faa798 | fix: sales modal | modified sales-form-modal | 12/05/2026 |
+| OptiFlow-Frontend | | a98ec8b | Merge pull request #24 | fix/client-app | 12/05/2026 |
+| OptiFlow-Frontend | | cb7e2b7 | feat: auth | add login screen and divided client app | 12/05/2026 |
+| OptiFlow-Frontend | | be78075 | Merge pull request #23 | fix/dashboard | 12/05/2026 |
+| OptiFlow-Frontend | | 751b909 | fix: corrections | additional corrections | 12/05/2026 |
+| OptiFlow-Frontend | | 3cbf7cc | feat: dashboard | set dashboard | 12/05/2026 |
+| OptiFlow-Frontend | | ac073b3 | Merge pull request #22 | fix/sales-responsiveness | 12/05/2026 |
+| OptiFlow-Frontend | | 1fc85ce | feat: UI | add responsiveness to the sidebar | 12/05/2026 |
+| OptiFlow-Frontend | | 39bf2ae | Merge pull request #21 | fix/add-i18n-in-patients | 12/05/2026 |
+| OptiFlow-Frontend | | ada5ee9 | feat: i18n | add i18n in patients section | 12/05/2026 |
+| OptiFlow-Frontend | | 6d9387d | fix: components | separate sidebar to individual component | 12/05/2026 |
+| OptiFlow-Frontend | | c671976 | Merge pull request #20 | feature/patient-panel | 11/05/2026 |
+| OptiFlow-Frontend | | d13ab80 | feat: patient panel | Panel de paciente añadido | 11/05/2026 |
+| OptiFlow-Frontend | | 0f061cd | Merge pull request #19 | feature/dashboard | 11/05/2026 |
+| OptiFlow-Frontend | | 91eb97d | feat: dashboard | add dashboard | 11/05/2026 |
+| OptiFlow-Frontend | | f35f0e1 | Merge pull request #18 | feature/subscription | 10/05/2026 |
+| OptiFlow-Frontend | | dc94f3b | refactor: billing | remove subscription bounded context | 10/05/2026 |
+| OptiFlow-Frontend | | 4dc6da6 | Merge pull request #17 | fix/url-endpoint | 10/05/2026 |
+| OptiFlow-Frontend | | 1b3decf | fix: urls | fix urls | 10/05/2026 |
+| OptiFlow-Frontend | | 031ca06 | Merge pull request #16 | fix/env | 10/05/2026 |
+| OptiFlow-Frontend | | 923ca59 | Merge branch develop | into fix/env | 10/05/2026 |
+| OptiFlow-Frontend | | 985ec2b | fix: production env | production environment variable added | 10/05/2026 |
+| OptiFlow-Frontend | | 80cc77f | Merge pull request #15 | feature/correction-URL-api | 10/05/2026 |
+| OptiFlow-Frontend | | fa693ba | fix: api url | correction url api | 10/05/2026 |
+| OptiFlow-Frontend | | 887aa47 | Merge pull request #14 | feature/correction | 10/05/2026 |
+| OptiFlow-Frontend | | 6f9d070 | fix: corrections | add corrections | 10/05/2026 |
+| OptiFlow-Frontend | | c253911 | Merge pull request #13 | feature/patients | 10/05/2026 |
+| OptiFlow-Frontend | | 2929583 | Merge branch develop | into feature/patients | 10/05/2026 |
+| OptiFlow-Frontend | | fdcc254 | fix: patients | set corrections patients | 10/05/2026 |
+| OptiFlow-Frontend | | 728a9b9 | feat: patients | add patients section | 10/05/2026 |
+| OptiFlow-Frontend | | 2dbda99 | Merge pull request #12 | feature/subscription | 10/05/2026 |
+| OptiFlow-Frontend | | 12b8c5e | feat: subscription | Stripe sandbox integration | 10/05/2026 |
+| OptiFlow-Frontend | | 77403f2 | Merge pull request #11 | feature/change-api-URL | 09/05/2026 |
+| OptiFlow-Frontend | | 7a3f27f | fix: api url | set api URL | 09/05/2026 |
+| OptiFlow-Frontend | | d33ab85 | ci: devops | add Azure Static Web Apps workflow | 09/05/2026 |
+| OptiFlow-Frontend | | defe034 | Merge pull request #10 | feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | b93f645 | Merge branch develop | into feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | e7923d7 | fix(lab-order) | correct fulfillment store behavior | 06/05/2026 |
+| OptiFlow-Frontend | | 1ef8b00 | Merge pull request #9 | feature/lab-order-management | 06/05/2026 |
+| OptiFlow-Frontend | | 13dbedd | fix(lab-order) | correct work order management behavior | 06/05/2026 |
+| OptiFlow-Frontend | | aed85ac | Merge pull request #8 | docs/class-diagrams | 06/05/2026 |
+| OptiFlow-Frontend | | 03facb0 | docs: diagrams | updated sales and app class diagrams | 06/05/2026 |
+| OptiFlow-Frontend | | 89dc15a | Merge pull request #7 | feature/inventory | 06/05/2026 |
+| OptiFlow-Frontend | | f2188e7 | feat(inventory) | add inventory context | 06/05/2026 |
+| OptiFlow-Frontend | | 25c181a | Merge pull request #6 | feature/lab-order-management | 06/05/2026 |
+| OptiFlow-Frontend | | 835a30b | feat(lab-order) | initial implementation | 06/05/2026 |
+| OptiFlow-Frontend | | f76e950 | Merge pull request #5 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | cec3af8 | fix: sales | create sale + lab order button working | 05/05/2026 |
+| OptiFlow-Frontend | | 45899a0 | Merge pull request #4 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | fa4d205 | fix: sales | fix InputNumber not registering prices | 05/05/2026 |
+| OptiFlow-Frontend | | c87d94c | Merge pull request #3 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | 3f29e82 | fix: git | update gitignore | 05/05/2026 |
+| OptiFlow-Frontend | | 6a7ec36 | Merge pull request #2 | feature/sales-management | 05/05/2026 |
+| OptiFlow-Frontend | | 24ffe09 | feat(sales) | fixed color palette | 05/05/2026 |
+| OptiFlow-Frontend | | db85c9a | feat(sales) | add sales context | 05/05/2026 |
+| OptiFlow-Frontend | | b0bc49f | docs: diagrams | add frontend class diagrams | 05/05/2026 |
+| OptiFlow-Frontend | | 7904bae | Merge pull request #1 | chore/project-setup | 05/05/2026 |
+| OptiFlow-Frontend | | 6dcd9b0 | chore: setup | project setup | 05/05/2026 |
+| OptiFlow-Frontend | | 746959f | Initial commit | | 07/04/2026 |
+| OptiFlow-Landing-Page | main | 6a47f3d | Merge pull request #24 | fix/general-fixes | 13/05/2026 |
+| OptiFlow-Landing-Page | | 418ffb9 | fix: final landing page tweaks added | | 13/05/2026 |
+| OptiFlow-Landing-Page | | a9b09a1 | Merge pull request #23 | feature/footer-update | 11/05/2026 |
+| OptiFlow-Landing-Page | | cd300a2 | feat(footer): add footer links | | 11/05/2026 |
+| OptiFlow-Landing-Page | | d27d3dd | Merge pull request #22 | feature/new-pricing | 10/05/2026 |
+| OptiFlow-Landing-Page | | 8d87a81 | merge develop into feature/new-pricing | | 10/05/2026 |
+| OptiFlow-Landing-Page | | a51b954 | merge develop into feature/new-pricing | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 5d2ebd4 | feat: update landing pricing section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 1232c7f | Merge pull request #21 | feature/about-us | 10/05/2026 |
+| OptiFlow-Landing-Page | | 80022f2 | fix: fix responsiveness in header and hero section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 902c161 | feat: add about us section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 6837eda | Merge pull request #20 | fix/header | 10/05/2026 |
+| OptiFlow-Landing-Page | | 676aeda | fix: header labels now redirect to each landing page section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 49978b9 | Merge pull request #19 | fix/footer | 10/05/2026 |
+| OptiFlow-Landing-Page | | 76cd71e | fix: removed unreachble links for the footer | | 10/05/2026 |
+
 
 Frontend repository:
 https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend.git
@@ -1031,23 +1112,26 @@ https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page.git
 #### Execution Evidence for Sprint Review
 Durante este segundo sprint, el proyecto evolucionó de una presencia estática a una arquitectura funcional distribuida. Se implementaron los módulos críticos de **Sales Management**, **Inventory Control** y **Lab Order Management**, permitiendo la trazabilidad de órdenes de trabajo desde la generación de la receta hasta la coordinación con el laboratorio. Esta integración técnica resuelve los silos de información identificados en el análisis competitivo, facilitando la gestión de *Work Orders* mediante estados dinámicos. En términos de infraestructura, se migró el ecosistema a Microsoft Azure, estableciendo un pipeline de despliegue continuo (CI/CD) que garantiza la disponibilidad de la Web App y la sincronización con el backend mediante la configuración de variables de entorno y endpoints de producción.
 
-[AQUÍ DEBE HABER UN VIDEO DEMOSTRANDO EL FLUJO DE VENTA Y DESPLIEGUE EN AZURE]
+Execution Evidence Sprint Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQB1YeYyMUdORq1xsth-MkzuAUhgs6PjqkCqjhdgJQbWhyU?e=yV07Jj&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 #### Services Documentation Evidence for Sprint Review
 La API de OptiFlow ha sido desplegada y configurada para dar soporte a las operaciones de persistencia de datos. Se han expuesto los servicios necesarios para la gestión de productos (*Frames/Lenses*) y el seguimiento de pedidos.
 
 | Endpoint | Acción | Verbo HTTP | Sintaxis de Llamada | Ejemplo de Response | Explicación |
 |---|---|---|---|---|---|
+| `/roles` | Listar / Crear | `GET`, `POST` | `/api/v1/roles` | `{ "role_id": 1, "name": "ADMIN" }` | Gestión de roles y permisos del sistema (Administrador, Ventas, Optómetra, etc.). |
 | `/employees` | Listar / Crear | `GET`, `POST` | `/api/v1/employees` | `{ "employee_id": 1, "name": "Carlos Mendoza", "role_id": 1, "status": "ACTIVE" }` | Gestión del personal de la óptica (Administradores, Optómetras, Ventas). |
-| `/patients` | Listar / Crear | `GET`, `POST` | `/api/v1/patients` | `{ "patient_id": 1, "first_name": "Ana", "last_name": "Torres", "dni": "71234567" }` | Registro y administración de datos personales de pacientes. |
+| `/sessions` | Listar / Crear | `GET`, `POST` | `/api/v1/sessions` | `{ "session_id": 1, "employee_id": 1, "token": "token_admin_123", "expires_at": "2026-06-01T12:00:00" }` | Administración de sesiones activas y autenticación de usuarios del sistema. |
+| `/patients` | Listar / Crear | `GET`, `POST` | `/api/v1/patients` | `{ "patient_id": 1, "first_name": "Sarah", "last_name": "Johnson", "dni": "12345678" }` | Registro y administración de datos personales de pacientes. |
 | `/clinical-records` | Listar / Crear | `GET`, `POST` | `/api/v1/clinical-records` | `{ "record_id": 1, "clinical_record_uuid": "record-001-uuid", "patient_id": 1 }` | Vinculación entre el paciente y su historial clínico acumulado. |
-| `/prescriptions` | Listar / Crear | `GET`, `POST` | `/api/v1/prescriptions` | `{ "prescription_id": 1, "od_sphere": -1.25, "od_cylinder": -0.50, "notes": "Mild myopia" }` | Registro de recetas ópticas (medidas de esfera, cilindro y eje). |
-| `/products` | Listar / Crear | `GET`, `POST` | `/api/v1/products` | `{ "product_id": 1, "sku": "FRM-1001", "name": "Classic Black Frame", "quantity": 20 }` | Control de inventario de monturas (frames), lunas y soluciones. |
+| `/prescriptions` | Listar / Crear | `GET`, `POST` | `/api/v1/prescriptions` | `{ "prescription_id": 1, "od_sphere": -2.5, "od_cylinder": -0.75, "notes": "Paciente reporta mayor tiempo frente a pantallas." }` | Registro de recetas ópticas (medidas de esfera, cilindro, eje y observaciones médicas). |
+| `/products` | Listar / Crear | `GET`, `POST` | `/api/v1/products` | `{ "product_id": 1, "sku": "FRM-1001", "name": "Classic Black Frame", "quantity": 20 }` | Control de inventario de monturas, lunas y accesorios ópticos. |
 | `/quotations` | Listar / Crear | `GET`, `POST` | `/api/v1/quotations` | `{ "quotation_id": 1, "prescription_id": 1, "total": 370.00 }` | Gestión de presupuestos comerciales basados en recetas específicas. |
+| `/quotation-items` | Listar / Crear | `GET`, `POST` | `/api/v1/quotation-items` | `{ "item_id": 1, "quotation_id": 1, "product_id": 1, "quantity": 1, "unit_price": 150.00 }` | Detalle de productos incluidos dentro de una cotización. |
 | `/sales` | Listar / Crear | `GET`, `POST` | `/api/v1/sales` | `{ "sale_id": 1, "status": "PAID", "total_amount": 370.00, "outstanding_balance": 170.0 }` | Registro de transacciones, estados de pago y saldos pendientes. |
 | `/payments` | Listar / Crear | `GET`, `POST` | `/api/v1/payments` | `{ "payment_id": 1, "sale_id": 1, "amount_paid": 200.00, "method": "CARD" }` | Historial de abonos y métodos de pago utilizados por el cliente. |
-| `/work-orders` | Listar / Crear | `GET`, `POST` | `/api/v1/work-orders` | `{ "order_id": 1, "status": "IN_PRODUCTION", "laboratory_name": "LabVision", "priority": "NORMAL" }` | Seguimiento de la fabricación de lentes en el laboratorio (Sistema Kanban). |
-| `/notifications` | Listar / Crear | `GET`, `POST` | `/api/v1/notifications` | `{ "notification_id": 1, "work_order_id": 1, "message": "Your order is in production.", "status": "SENT" }` | Avisos automáticos enviados al paciente sobre el estado de su pedido. |
+| `/work-orders` | Listar / Crear | `GET`, `POST` | `/api/v1/work-orders` | `{ "order_id": 1, "status": "IN_PRODUCTION", "laboratory_name": "LabVision", "priority": "NORMAL" }` | Seguimiento de la fabricación de lentes en laboratorio mediante flujo Kanban. |
+| `/notifications` | Listar / Crear | `GET`, `POST` | `/api/v1/notifications` | `{ "notification_id": 1, "work_order_id": 1, "message": "Your order is currently in production.", "status": "SENT" }` | Avisos automáticos enviados al paciente sobre el estado de su pedido. |
 | `/analytics-reports` | Listar | `GET` | `/api/v1/analytics-reports` | `{ "report_id": 1, "total_revenue": 12000.50, "conversion_rate": 72.5 }` | Métricas de negocio: ingresos, tasa de conversión y tiempos de entrega. |
 | `/staff-metrics` | Listar | `GET` | `/api/v1/staff-metrics` | `{ "staff_metric_id": 1, "employee_name": "Lucia Ramirez", "sales_closed": 10 }` | Evaluación del rendimiento del personal en ventas y cotizaciones. |
 
@@ -1058,13 +1142,12 @@ La API de OptiFlow ha sido desplegada y configurada para dar soporte a las opera
 El despliegue de este sprint marca el paso a un entorno de producción cloud utilizando una arquitectura de servicios desacoplados en Azure.
 
 1.  **Frontend:** Desplegado mediante **Azure Static Web Apps**, aprovechando la integración nativa con GitHub Actions para despliegues automáticos desde la rama `develop`.
-2.  **Backend:** Implementado en **Azure App Service**, configurado con un workflow de compilación y despliegue para Node.js/Java (según corresponda).
-3.  **Base de Datos:** Conexión establecida y configurada dentro del App Service para garantizar la persistencia de las *Clinical Records* y ventas.
+2.  **Fake Api:** Implementado en **Azure App Service**, configurado con un workflow de compilación y despliegue para Node.js/Java (según corresponda).
 
 ![azure-resources.png](../assets/azure-resources.png)
 > Captura del Resource Group en Azure mostrando el App Service y la Static Web App operativos.
 
-![deployment-success](../assets/github-actions-success.png)
+![github-actions-success.png](../assets/github-actions-success.png)
 > Evidencia de la ejecución exitosa de los workflows de GitHub Actions para el despliegue en Azure.
 
 
@@ -1135,16 +1218,34 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ![landing-pulse-s2](../assets/github-landing-commits.png)
 
-## Validation Interviews
+## Conclusiones 
 
-### Diseño de Entrevistas
-[Guía de entrevistas de validación: objetivos, perfil de participantes y protocolo de ejecución.]
+### Conclusiones y recomendaciones
 
-### Registro de Entrevistas
-[Registro de las entrevistas de validación realizadas con usuarios reales del producto.]
+La evaluación empírica de OptiFlow demuestra que centralizar la gestión clínica, logística y comercial elimina los silos de información y la pérdida de trazabilidad que saturan a las ópticas. Las entrevistas validaron las hipótesis del modelo Lean UX: la automatización del flujo de trabajo y de las notificaciones erradica la dependencia de canales informales, lo cual reduce drásticamente los costos por refabricación y mitiga la insatisfacción del paciente frente a las demoras. En conclusión, la plataforma resuelve la latencia sistémica y mejora significativamente la capacidad operativa y de conversión del negocio.
 
-### Evaluaciones según heurísticas
-[Evaluación heurística de la interfaz basada en los principios de Nielsen u otro marco de referencia adoptado.]
+Como recomendaciones para el roadmap digital, se debe priorizar la transición hacia una arquitectura backend consolidada, migrando la persistencia de datos a SQL Server en Azure para garantizar integridad transaccional. A nivel de producto, es imperativo desplegar el portal de autoservicio web (Épica 01), enfocándose en el probador virtual y la consulta de estados mediante DNI. Finalmente, se sugiere integrar el módulo de inteligencia de negocios para proporcionar a la gerencia un acceso automatizado a las métricas de rendimiento y productividad en tiempo real.
 
-## Video About-the-Product
-[Enlace y descripción del video de presentación del producto, destacando sus principales funcionalidades.]
+### Bibliografía
+
+DelveInsight. (2025). *Healthcare asset management: Optimizing resources for better patient care*. https://www.delveinsight.com/blog/healthcare-asset-management-for-better-patient-care
+
+GE HealthCare. (s.f.). *Asset management in hospitals: The positive impact of tracking and keeping your monitor fleet up-to-date*. https://clinicalview.gehealthcare.com/article/asset-management-hospitals-positive-impact-tracking-and-keeping-your-monitor-fleet-date
+
+Glasson. (2025). *Why some eye care pros still use paper records*. Glasson.app. https://www.glasson.app/blog/why-do-some-eye-care-professionals-still-hold-onto-paper-records-and-the-surprising-reasons-behind-it/
+
+Glasson. (2026). *Why optometry software matters: Transforming your practice in 2026*. Glasson.app. https://www.glasson.app/blog/why-optometry-software-matters-transforming-your-practice-in-2026/
+
+Gestión. (2025, enero 12). *Nuevo competidor del mercado de lentes llega a Perú: Triplicará inversión para 2025*. Diario Gestión. https://gestion.pe/economia/empresas/nuevo-competidor-del-mercado-de-lentes-llega-a-peru-triplicara-inversion-para-2025-opticas-miopia-noticia/
+
+Infomercado. (2026, marzo 23). *Opticalia llega a Lima y proyecta sumar 300 asociados para competir en el retail óptico*. https://infomercado.pe/opticalia-llega-a-lima-y-proyecta-sumar-300-asociados-para-competir-en-el-retail-optico/
+
+Informes de Expertos. (2026). *Mercado de gafas en Perú: Tamaño de la industria, participación, crecimiento, informe, análisis 2026–2035*. https://www.informesdeexpertos.com/informes/mercado-de-gafas-en-peru
+
+Kivicare. (2024). *Medical error reduction: The role of electronic health records (EHRs)*. https://laravel.kivicare.io/the-impact-of-ehrs-on-reducing-medical-errors/
+
+MedLaunch. (2026). *10 key patient wait time statistics clinics can't ignore*. https://medlaunch.health/blogs/medical-insights/patient-wait-time-statistics/
+
+Modaengafas. (2026). *Opticalia fija en 50 ópticas su objetivo en Perú para 2026*. https://modaengafas.com/opticalia-fija-en-50-opticas-su-objetivo-en-peru-para-2026
+
+The HIPAA Journal. (2025). *HIPAA compliance for optometrists and ophthalmology practices*. The HIPAA Journal. https://www.hipaajournal.com/hipaa-compliance-for-optometrists/

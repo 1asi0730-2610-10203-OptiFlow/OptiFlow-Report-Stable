@@ -2,11 +2,11 @@
 
 <img src="assets/upc-logo.png" alt="UPC Logo" width="150"/>
 
-# Universidad Peruana de Ciencias Aplicadas {.unnumbered}
+# Universidad Peruana de Ciencias Aplicadas 
 
-## Facultad de Ingeniería {.unnumbered}
+## Facultad de Ingeniería 
 
-## Programa Académico de Ingeniería de Software {.unnumbered}
+## Programa Académico de Ingeniería de Software 
 
 **Ciclo:** 2026-10  
 
@@ -20,7 +20,7 @@
 
 ***
 
-# Informe de Trabajo Final {.unnumbered}
+# Informe de Trabajo Final 
 
 **Nombre de la Startup:**  
 
@@ -28,7 +28,7 @@
 
 ***
 
-## Integrantes {.unnumbered}
+## Integrantes 
 
 u20241d317 - Atoche Gonzales, Nicolas Fernando  
 u202411310 - Azama Fukuda, Juan Pablo  
@@ -44,7 +44,7 @@ u202411521 - Morocho Pinedo, Mariana
 
 ***
 
-# Registro de Versiones del Informe {.unnumbered}
+# Registro de Versiones del Informe 
 
 | Versión | Fecha | Autor | Descripción de modificación |
 |---|---|---|---|
@@ -53,14 +53,14 @@ u202411521 - Morocho Pinedo, Mariana
 
 ***
 
-# Project Report Collaboration Insights {.unnumbered}
+# Project Report Collaboration Insights 
 https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable.git
 
 ***
 
-# Contenido {.unnumbered}
+# Contenido 
 
-## Tabla de Contenidos {.unnumbered}
+## Tabla de Contenidos 
 
 - [Student Outcome](#student-outcome)
 - [Capítulo I: Introducción](#capítulo-i-introducción)
@@ -101,16 +101,37 @@ https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable.git
   - [4.1. Style Guidelines](#41-style-guidelines)
     - [4.1.1. General Style Guidelines](#411-general-style-guidelines)
     - [4.1.2. Web Style Guidelines](#412-web-style-guidelines)
+
   - [4.2. Information Architecture](#42-information-architecture)
     - [4.2.1. Organization Systems](#421-organization-systems)
     - [4.2.2. Labeling Systems](#422-labeling-systems)
     - [4.2.3. SEO Tags and Meta Tags](#423-seo-tags-and-meta-tags)
     - [4.2.4. Searching Systems](#424-searching-systems)
     - [4.2.5. Navigation Systems](#425-navigation-systems)
+
   - [4.3. Landing Page UI Design](#43-landing-page-ui-design)
     - [4.3.1. Landing Page Wireframe](#431-landing-page-wireframe)
     - [4.3.2. Landing Page Mock-up](#432-landing-page-mock-up)
-    - 
+
+  - [4.4. Web Applications UX/UI Design](#44-web-applications-uxui-design)
+    - [4.4.1. Web Applications Wireframes](#441-web-applications-wireframes)
+    - [4.4.2. Web Applications Wireflow Diagrams](#442-web-applications-wireflow-diagrams)
+    - [4.4.3. Web Applications Mock-ups](#443-web-applications-mock-ups)
+    - [4.4.4. Web Applications User Flow Diagrams](#444-web-applications-user-flow-diagrams)
+
+  - [4.5. Web Applications Prototyping](#45-web-applications-prototyping)
+
+  - [4.6. Domain-Driven Software Architecture](#46-domain-driven-software-architecture)
+    - [4.6.1. Design-Level EventStorming](#461-design-level-eventstorming)
+    - [4.6.2. Software Architecture Context Diagram](#462-software-architecture-context-diagram)
+    - [4.6.3. Software Architecture Container Diagrams](#463-software-architecture-container-diagrams)
+    - [4.6.4. Software Architecture Components Diagrams](#464-software-architecture-components-diagrams)
+
+  - [4.7. Software Object-Oriented Design](#47-software-object-oriented-design)
+    - [4.7.1. Class Diagrams](#471-class-diagrams)
+
+  - [4.8. Database Design](#48-database-design)
+
 - [Capítulo V: Product Implementation, Validation & Deployment](#capítulo-v-product-implementation-validation--deployment)
     - [5.1. Software Configuration Management](#51-software-configuration-management)
         - [5.1.1. Software Development Environment Configuration](#511-software-development-environment-configuration)
@@ -130,7 +151,7 @@ https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable.git
 
 ***
 
-# Student Outcome {.unnumbered}
+# Student Outcome 
 
 El curso contribuye al cumplimiento del Student Outcome ABET:
 
@@ -140,5 +161,5 @@ El curso contribuye al cumplimiento del Student Outcome ABET:
 *La capacidad de funcionar efectivamente en un equipo cuyos miembros juntos proporcionan liderazgo, crean un entorno de colaboración e inclusivo, establecen objetivos, planifican tareas y cumplen objetivos.*
 | Criterio específico | Acciones realizadas | Conclusiones |
 |---------------------|---------------------|--------------|
-| **Trabaja en equipo para proporcionar liderazgo en forma conjunta** | Atoche Gonzales, Nicolas Fernando <br> **AV1** <br> … <br><br> Azama Fukuda, Juan Pablo <br> **AV1** <br> Desempeñé el rol de Scrum Master del equipo, asumiendo la dirección y facilitación de las reuniones de coordinación y ceremonias ágiles. Organicé y dirigí cada reunión estableciendo agendas estructuradas, distribuyendo la participación de forma equitativa y orientando las decisiones del equipo hacia los objetivos del Sprint. Mantuve una supervisión constante sobre el avance individual de cada integrante, consultando de forma periódica el estado de sus tareas y detectando bloqueos de manera temprana. Para los miembros que lo requirieron, apliqué un acompañamiento de microgestión personalizado, brindando orientación específica sobre sus tareas y apoyando la resolución de impedimentos puntuales. Estas acciones fomentaron la autogestión progresiva del equipo y aseguraron que las responsabilidades compartidas se cumplieran dentro de los plazos establecidos. <br><br> **TB1** <br> Continué desempeñando el rol de Scrum Master durante el TB1, manteniendo la facilitación de las reuniones de coordinación y garantizando el cumplimiento de las ceremonias ágiles del equipo. Implementé un tablero de Jira para el seguimiento formal de las tareas del Sprint, lo que permitió mayor visibilidad y trazabilidad del avance individual de cada integrante. Realicé seguimiento periódico del estado de los ítems en Jira, identificando bloqueos con anticipación y redirigiendo esfuerzos según las prioridades del equipo. Este liderazgo continuo contribuyó a que el equipo mantuviera un ritmo de trabajo sostenido y orientado al cumplimiento de los objetivos del entregable. <br><br> Capillo Lema, Mía Valentina <br> **AV1** <br> … <br><br> Mechan Montenegro, Luciana Carolina <br> **AV1** <br> … <br><br> Morocho Pinedo, Mariana <br> **AV1** <br> Desempeñé el rol de recolectar información del segmento de las ópticas, para ver sus preocupaciones y hallar las soluciones. También, participé con el equipo en el desarrollo de los wireframes y mockups. <br><br> **TB1**<br> Me enfoqué en el rol de desarrollo de wireframes y mockups, para que sea una plataforma clara y agradable. | **AV1** <br> Asumir la facilitación del marco de trabajo y la dirección de las reuniones permitió mantener un flujo de comunicación constante y efectivo. Se concluye que la supervisión activa y el liderazgo compartido son fundamentales para identificar bloqueos de forma temprana y guiar al equipo hacia la toma de decisiones conjuntas. <br><br> **TB1** <br> La adopción de Jira como herramienta de seguimiento demostró que formalizar la gestión del tablero ágil mejora la trazabilidad y reduce los tiempos de respuesta ante bloqueos. Se concluye que la continuidad en el rol de Scrum Master, combinada con herramientas digitales especializadas, potencia la capacidad del equipo para cumplir sus compromisos de forma autónoma y ordenada. |
-| **Crea un entorno colaborativo e inclusivo, establece metas, planifica tareas y cumple objetivos** | Atoche Gonzales, Nicolas Fernando <br> **AV1** <br> … <br><br> Azama Fukuda, Juan Pablo <br> **AV1** <br> Lideré la planificación operativa del equipo mediante el desarrollo de una matriz de control en Excel, en la cual se estructuraron las tareas del Sprint asignando responsables, fechas límite específicas y criterios de cumplimiento para cada actividad. Establecí estimaciones de tiempo semanales por tarea, permitiendo al equipo visualizar la carga de trabajo esperada y ajustar el ritmo de avance de forma proactiva. Realicé consultas periódicas de progreso a cada integrante, validando el cumplimiento de los plazos definidos y replanificando cuando fue necesario. Adicionalmente, preparé y dicté una capacitación interna sobre GitFlow, asegurando que todos los miembros contaran con las mismas herramientas y conocimientos para contribuir en el repositorio de código de forma estandarizada y segura. <br><br> **TB1** <br> En el TB1, fortalecí la planificación estructurada del equipo incorporando Jira como herramienta central para la gestión del Sprint Backlog, registrando cada tarea con su responsable, criterios de aceptación y estimación en story points. Esto permitió que todos los integrantes tuvieran visibilidad en tiempo real del avance colectivo y de sus compromisos individuales, promoviendo un entorno de trabajo más transparente e inclusivo. Realicé revisiones periódicas del tablero para actualizar estados, replanificar tareas rezagadas y garantizar el cumplimiento de los objetivos dentro de los plazos establecidos, complementando la gestión iniciada con la matriz de Excel del ciclo anterior. <br><br> Capillo Lema, Mía Valentina <br> **AV1** <br> … <br><br> Mechan Montenegro, Luciana Carolina <br> **AV1** <br> … <br><br> Morocho Pinedo, Mariana <br> **AV1** <br> Se creó un ambiente colaborativo para hacer las entrevistas, establecimos tiempos y metas para poder hallar lo que necesitaban nuestros segmentos objetivos.<br><br> **TB1**<br>En la elaboración del wireframe y mockups, se creó un ambiente colaborativo. Además, establecimos tiempos para entregar todo lo que queríamos transmitir. | **AV1** <br> La correcta estimación de tiempos y la delegación transparente de tareas garantizaron el cumplimiento de los objetivos dentro de los plazos establecidos. Asimismo, se concluye que capacitar al equipo en prácticas clave como GitFlow fomenta un entorno verdaderamente inclusivo, ya que empodera a todos los miembros para aportar código de manera estandarizada y segura, elevando la productividad general. <br><br> **TB1** <br> La incorporación de Jira como herramienta central del Sprint Backlog consolidó un entorno de planificación más inclusivo y transparente, permitiendo que cada integrante tuviera visibilidad total de sus responsabilidades y del avance colectivo. Se concluye que migrar la gestión de tareas hacia plataformas ágiles especializadas eleva la calidad de la planificación y facilita el cumplimiento de objetivos de forma sostenida. |
+| **Trabaja en equipo para proporcionar liderazgo en forma conjunta** | Atoche Gonzales, Nicolas Fernando <br> **AV1** <br>Participé activamente en las reuniones de coordinación del equipo, aportando ideas y tomando decisiones técnicas en conjunto con los demás integrantes respecto al diseño y estructura del producto. Contribuí al análisis de los segmentos objetivo y a la definición del perfil de la startup, asegurando que el equipo contara con una base conceptual sólida y compartida desde el inicio del proyecto. Mi participación en estas actividades fomentó un liderazgo distribuido donde cada integrante asumió responsabilidad sobre áreas clave del desarrollo.<br>**TB1**<br>Durante el TB1 asumí un rol activo en la toma de decisiones relacionadas con el diseño del sistema y la especificación de requerimientos, colaborando con el equipo en la elaboración del Product Backlog y en la definición de User Stories. Participé en las revisiones del avance del Sprint, aportando retroalimentación constructiva y contribuyendo a mantener la alineación entre los objetivos del entregable y las tareas desarrolladas por cada integrante.<br> Azama Fukuda, Juan Pablo <br> **AV1** <br> Desempeñé el rol de Scrum Master del equipo, asumiendo la dirección y facilitación de las reuniones de coordinación y ceremonias ágiles. Organicé y dirigí cada reunión estableciendo agendas estructuradas, distribuyendo la participación de forma equitativa y orientando las decisiones del equipo hacia los objetivos del Sprint. Mantuve una supervisión constante sobre el avance individual de cada integrante, consultando de forma periódica el estado de sus tareas y detectando bloqueos de manera temprana. Para los miembros que lo requirieron, apliqué un acompañamiento de microgestión personalizado, brindando orientación específica sobre sus tareas y apoyando la resolución de impedimentos puntuales. Estas acciones fomentaron la autogestión progresiva del equipo y aseguraron que las responsabilidades compartidas se cumplieran dentro de los plazos establecidos. <br><br> **TB1** <br> Continué desempeñando el rol de Scrum Master durante el TB1, manteniendo la facilitación de las reuniones de coordinación y garantizando el cumplimiento de las ceremonias ágiles del equipo. Implementé un tablero de Jira para el seguimiento formal de las tareas del Sprint, lo que permitió mayor visibilidad y trazabilidad del avance individual de cada integrante. Realicé seguimiento periódico del estado de los ítems en Jira, identificando bloqueos con anticipación y redirigiendo esfuerzos según las prioridades del equipo. Este liderazgo continuo contribuyó a que el equipo mantuviera un ritmo de trabajo sostenido y orientado al cumplimiento de los objetivos del entregable. <br><br> Capillo Lema, Mía Valentina <br> **AV1** <br> … <br><br> Mechan Montenegro, Luciana Carolina <br> **AV1** <br> Participé en la coordinación de decisiones técnicas relacionadas con la arquitectura backend del sistema, colaborando con el equipo en la definición de bounded contexts y en la organización de las relaciones principales entre módulos. Asimismo, apoyé en la validación conjunta de estructuras y diagramas para mantener coherencia entre los distintos componentes del sistema, contribuyendo a que el equipo trabajara bajo una misma visión técnica durante el desarrollo inicial del proyecto.<br><br> **TB1** <br> Participé en la coordinación de decisiones técnicas relacionadas con la arquitectura backend del sistema, colaborando con el equipo en la definición de bounded contexts y en la organización de las relaciones principales entre módulos. Asimismo, apoyé en la validación conjunta de estructuras y diagramas para mantener coherencia entre los distintos componentes del sistema, contribuyendo a que el equipo trabajara bajo una misma visión técnica durante el desarrollo inicial del proyecto.<br><br> Morocho Pinedo, Mariana <br> **AV1** <br> … | **AV1** <br> Asumir la facilitación del marco de trabajo y la dirección de las reuniones permitió mantener un flujo de comunicación constante y efectivo. Se concluye que la supervisión activa y el liderazgo compartido son fundamentales para identificar bloqueos de forma temprana y guiar al equipo hacia la toma de decisiones conjuntas. <br><br> **TB1** <br> La adopción de Jira como herramienta de seguimiento demostró que formalizar la gestión del tablero ágil mejora la trazabilidad y reduce los tiempos de respuesta ante bloqueos. Se concluye que la continuidad en el rol de Scrum Master, combinada con herramientas digitales especializadas, potencia la capacidad del equipo para cumplir sus compromisos de forma autónoma y ordenada. |
+| **Crea un entorno colaborativo e inclusivo, establece metas, planifica tareas y cumple objetivos** | Atoche Gonzales, Nicolas Fernando <br> **AV1** <br> Contribuí a la planificación inicial del proyecto participando en la identificación de antecedentes, problemáticas y en el desarrollo del proceso Lean UX junto al equipo. Apoyé en la estructuración del Sprint Backlog distribuyendo tareas según las fortalezas de cada integrante, promoviendo así un entorno donde todos pudieran aportar desde sus capacidades. Esta organización colaborativa permitió que el equipo avanzara de forma coordinada hacia los objetivos del entregable. <br> **TB1** <br> Contribuí al cumplimiento de los objetivos del Sprint mediante la elaboración y validación de artefactos de diseño como wireframes, mockups y diagramas de flujo de usuario, asegurando que estos se alinearan con los criterios de aceptación definidos en el backlog. Participé en revisiones conjuntas con el equipo para verificar la coherencia visual y funcional del producto, facilitando un proceso de trabajo ordenado e inclusivo donde las observaciones de cada miembro fueron consideradas en las iteraciones del diseño. <br> Azama Fukuda, Juan Pablo <br> **AV1** <br> Lideré la planificación operativa del equipo mediante el desarrollo de una matriz de control en Excel, en la cual se estructuraron las tareas del Sprint asignando responsables, fechas límite específicas y criterios de cumplimiento para cada actividad. Establecí estimaciones de tiempo semanales por tarea, permitiendo al equipo visualizar la carga de trabajo esperada y ajustar el ritmo de avance de forma proactiva. Realicé consultas periódicas de progreso a cada integrante, validando el cumplimiento de los plazos definidos y replanificando cuando fue necesario. Adicionalmente, preparé y dicté una capacitación interna sobre GitFlow, asegurando que todos los miembros contaran con las mismas herramientas y conocimientos para contribuir en el repositorio de código de forma estandarizada y segura. <br><br> **TB1** <br> En el TB1, fortalecí la planificación estructurada del equipo incorporando Jira como herramienta central para la gestión del Sprint Backlog, registrando cada tarea con su responsable, criterios de aceptación y estimación en story points. Esto permitió que todos los integrantes tuvieran visibilidad en tiempo real del avance colectivo y de sus compromisos individuales, promoviendo un entorno de trabajo más transparente e inclusivo. Realicé revisiones periódicas del tablero para actualizar estados, replanificar tareas rezagadas y garantizar el cumplimiento de los objetivos dentro de los plazos establecidos, complementando la gestión iniciada con la matriz de Excel del ciclo anterior. <br><br> Capillo Lema, Mía Valentina <br> **AV1** <br> … <br><br> Mechan Montenegro, Luciana Carolina <br> **AV1** <br> Contribuí a generar un entorno de trabajo más organizado mediante la definición de lineamientos compartidos para el manejo del repositorio y la estructuración del backend, facilitando que los integrantes trabajaran bajo criterios comunes. Asimismo, apoyé en la organización del Sprint Backlog en Trello, clasificando tareas según estados de avance como To Do, In Progress, In Review y Done, lo que permitió una mejor visibilidad del progreso colectivo y de las responsabilidades de cada integrante.  <br> **TB1** <br> Durante el TB1 participé en la actualización y validación de diagramas técnicos relacionados con la arquitectura backend y el modelo de datos, permitiendo que el equipo contara con referencias claras para continuar el desarrollo del sistema. Además, colaboré en la organización y monitoreo de los Sprint Backlogs en Trello, facilitando el seguimiento del avance de tareas y la planificación coordinada del trabajo durante el Sprint.<br><br> Morocho Pinedo, Mariana <br> **AV1** <br> … | **AV1** <br> La correcta estimación de tiempos y la delegación transparente de tareas garantizaron el cumplimiento de los objetivos dentro de los plazos establecidos. Asimismo, se concluye que capacitar al equipo en prácticas clave como GitFlow fomenta un entorno verdaderamente inclusivo, ya que empodera a todos los miembros para aportar código de manera estandarizada y segura, elevando la productividad general. <br><br> **TB1** <br> La incorporación de Jira como herramienta central del Sprint Backlog consolidó un entorno de planificación más inclusivo y transparente, permitiendo que cada integrante tuviera visibilidad total de sus responsabilidades y del avance colectivo. Se concluye que migrar la gestión de tareas hacia plataformas ágiles especializadas eleva la calidad de la planificación y facilita el cumplimiento de objetivos de forma sostenida. |
