@@ -1232,6 +1232,11 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 ## Conclusiones 
 
 ### Conclusiones y recomendaciones
+
+La evaluación empírica de OptiFlow demuestra que centralizar la gestión clínica, logística y comercial elimina los silos de información y la pérdida de trazabilidad que saturan a las ópticas. Las entrevistas validaron las hipótesis del modelo Lean UX: la automatización del flujo de trabajo y de las notificaciones erradica la dependencia de canales informales, lo cual reduce drásticamente los costos por refabricación y mitiga la insatisfacción del paciente frente a las demoras. En conclusión, la plataforma resuelve la latencia sistémica y mejora significativamente la capacidad operativa y de conversión del negocio.
+
+Como recomendaciones para el roadmap digital, se debe priorizar la transición hacia una arquitectura backend consolidada, migrando la persistencia de datos a SQL Server en Azure para garantizar integridad transaccional. A nivel de producto, es imperativo desplegar el portal de autoservicio web (Épica 01), enfocándose en el probador virtual y la consulta de estados mediante DNI. Finalmente, se sugiere integrar el módulo de inteligencia de negocios para proporcionar a la gerencia un acceso automatizado a las métricas de rendimiento y productividad en tiempo real.
+
 ### Bibliografía
 
 DelveInsight. (2025). *Healthcare asset management: Optimizing resources for better patient care*. https://www.delveinsight.com/blog/healthcare-asset-management-for-better-patient-care
