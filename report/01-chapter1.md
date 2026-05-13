@@ -19,6 +19,7 @@ Alcance de la aplicación:
 El alcance de OptiFlow está enfocado en la gestión operativa interna (Intranet) y la comunicación con laboratorios. La plataforma abarcará desde la creación de la historia clínica electrónica,la gestión de inventarios, ventas de órdenes y la trazabilidad de ordenes de trabajo mediante un tablero Kanban. Asimismo, se piensa tener una aplicación de tamaño menor para los clientes, de tal forma que puedan estar pendientes de sus órdenes.
 
 
+
 ### 1.1.2. Perfiles de integrantes del equipo
 
 ![foto-juan-pablo-azama](../assets/foto-juan-pablo-azama.png){width=40%}
