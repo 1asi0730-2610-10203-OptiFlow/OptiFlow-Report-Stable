@@ -1,6 +1,6 @@
 # Capítulo IV: Product Design
 
-## Style Guidelines
+## Style Gu
 idelines
 Esta sección constituye el pilar visual de OptiFlow, diseñado para proyectar una imagen de innovación tecnológica y precisión médica. El objetivo es estandarizar la interfaz para que tanto el personal de la óptica como el cliente externo perciban una plataforma robusta y profesional.
 
@@ -175,11 +175,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![Wireframe US01 Login – Desktop](<../docs/wireframes-new/jp/US02_ Recover password.png>){width=100%}
 ![Wireframe US01 Login – Desktop](<../docs/wireframes-new/jp/US02_ Recover password-1.png>){width=100%}
 
-#### US03 – Gestión de Roles
-
-![Wireframe US03 Gestión Roles – Desktop](<../docs/wireframes-new/jp/US03-gestion-de-roles-web.png>){width=100%}
-![Wireframe US03 Gestión Role – movil](<../docs/wireframes-new/jp/US03-gestion-de-roles-movil.png>){width=100%}
-
 #### US05 -
 
 ![Wireframe US05](<../docs/wireframes/jp/US05P.png>){width=100%}
@@ -317,17 +312,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 ![](<../docs/wireflows-new/jp/US02_ Recover password-1.png>){width=100%}
 ![](<../docs/wireflows-new/jp/US02_ Recover password.png>){width=100%}
-
-#### US03 – Gestión de Roles
-
-**Taskflow:**
-
-![](<../docs/taskflows-mv/US03-gestion-roles.png>){width=100%}
-
-**Wireflow:**
-
-![](<../docs/wireflows-new/jp/US03-wireflow-movil.png>){width=100%}
-![](<../docs/wireflows-new/jp/US03-wireflow-web.png>){width=100%}
 
 #### US05
 
@@ -565,11 +549,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 ![Mockup US02 Recuperar Contraseña](<../docs/mockups/jp/US02_ Recover password.png>){width=100%}
 ![Mockup US02 Recuperar Contraseña](<../docs/mockups/jp/US02_ Recover password-1.png>){width=100%}
 
-#### US03 – Gestión de Roles
-
-![Mockup US03 Gestion de Roles](<../docs/mockups-new/jp/US03-mockup-web.png>){width=100%}
-![Mockup US03 Gestion de Roles](<../docs/mockups/jp/US02_ Recover password-1.png>){width=100%}
-
 #### US05 - Seguimiento de Orden Web
 
 ![Mockup US05](<../docs/mockups/jp/US05P.png>){width=100%}
@@ -671,15 +650,6 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 - **Unhappy Path:** El correo ingresado no existe en el sistema → mensaje de error → el usuario es dirigido al soporte o al registro.
 
 ![User Flow US02 Recuperar Contraseña](<../docs/userflows/jp/US02_ Recover password.png>){width=100%}
-
-#### US03 – Gestión de Roles
-
-- **Happy Path:** El usuario tiene el permiso de administrador  → asigna un rol a un empleado → cambios guardados correctamente
-- **Unhappy Path:** El usuario no tiene el permisos de administrador  → El sistema impide ingresar a la sección de 
-
-![User Flow US03 Gestión de Roles](<../docs/userflows-new/jp/US03-userflow-movil.png>){width=100%}
-
-![User Flow US03 Gestión de Roles](<../docs/userflows-new/jp/US03-userflow-web.png>){width=100%}
 
 #### US05 Seguimiento de orden web
 
@@ -821,10 +791,11 @@ https://www.figma.com/design/Pa0pYLdGRk2dqT8JHkb6Sw/OptiFlow-Figma?node-id=513-7
 Administrator Web Prototype Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQA7Wi05JBC3QLQFp0AQyDNjAbWFNatgH26-dGnPBTHb9l4?e=0H1foZ&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 
+
 ## Domain-Driven Software Architecture
 
 ### Design-Level Event Storming
-![design level.jpg](../assets/design%20level.jpg)
+![level.jpg](../assets/impactMap/level.jpg)
 
 ### Software Architecture Context Diagram
 ![context.png](../assets/C4/context.png)
