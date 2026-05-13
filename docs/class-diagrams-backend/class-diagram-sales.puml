@@ -1,0 +1,459 @@
+@startuml BC_SalesBilling
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+left to right direction
+
+package "Sales & Billing Context" {
+
+  ' =========================================================
+  ' INTERFACES LAYER
+  ' =========================================================
+
+  package "Interfaces.REST" {
+
+    class QuotationsController {
+      -quotationCommandService: IQuotationCommandService
+      -quotationQueryService: IQuotationQueryService
+      +CreateQuotation(resource: CreateQuotationResource): Task<IActionResult>
+      +GetQuotationById(id: int): Task<IActionResult>
+      +GetAllQuotations(): Task<IActionResult>
+      +GetQuotationsByCustomerId(customerId: int): Task<IActionResult>
+    }
+
+    class SalesController {
+      -saleCommandService: ISaleCommandService
+      -saleQueryService: ISaleQueryService
+      +CreateSale(resource: CreateSaleResource): Task<IActionResult>
+      +RegisterDeposit(id: int, resource: RegisterDepositResource): Task<IActionResult>
+      +CompletePayment(id: int, resource: CompletePaymentResource): Task<IActionResult>
+      +MarkAsDelivered(id: int): Task<IActionResult>
+      +ProcessRefund(id: int): Task<IActionResult>
+      +GetSaleById(id: int): Task<IActionResult>
+      +GetAllSales(): Task<IActionResult>
+      +GetSalesByCustomerId(customerId: int): Task<IActionResult>
+    }
+
+    package "Interfaces.REST.Resources" {
+
+      class CreateQuotationResource <<record>> {
+        +CustomerId: int
+        +PrescriptionId: int
+        +Items: IEnumerable<QuotationItemResource>
+      }
+
+      class QuotationItemResource <<record>> {
+        +Description: string
+        +UnitPrice: decimal
+        +Quantity: int
+      }
+
+      class QuotationResource <<record>> {
+        +Id: int
+        +CustomerId: int
+        +PrescriptionId: int
+        +Total: decimal
+        +Currency: string
+        +Status: string
+      }
+
+      class CreateSaleResource <<record>> {
+        +CustomerId: int
+        +QuotationId: int
+        +WorkOrderId: int
+      }
+
+      class RegisterDepositResource <<record>> {
+        +Amount: decimal
+        +Currency: string
+      }
+
+      class CompletePaymentResource <<record>> {
+        +Amount: decimal
+        +Currency: string
+      }
+
+      class SaleResource <<record>> {
+        +Id: int
+        +CustomerId: int
+        +QuotationId: int
+        +WorkOrderId: int
+        +Status: string
+        +DepositAmount: decimal
+        +OutstandingBalance: decimal
+        +CreatedAt: DateTime
+      }
+    }
+
+    package "Interfaces.REST.Transform" {
+
+      class CreateQuotationCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: CreateQuotationResource): CreateQuotationCommand
+      }
+
+      class QuotationResourceFromEntityAssembler <<static>> {
+        +ToResourceFromEntity(quotation: Quotation): QuotationResource
+      }
+
+      class CreateSaleCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: CreateSaleResource): CreateSaleCommand
+      }
+
+      class RegisterDepositCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: RegisterDepositResource, saleId: int): RegisterDepositCommand
+      }
+
+      class CompletePaymentCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: CompletePaymentResource, saleId: int): CompletePaymentCommand
+      }
+
+      class SaleResourceFromEntityAssembler <<static>> {
+        +ToResourceFromEntity(sale: Sale): SaleResource
+      }
+    }
+  }
+
+  package "Interfaces.ACL" {
+
+    interface ISalesBillingContextFacade {
+      +FetchSaleIdByQuotationId(quotationId: int): Task<int>
+    }
+
+    class SalesBillingContextFacade {
+      -saleQueryService: ISaleQueryService
+      +FetchSaleIdByQuotationId(quotationId: int): Task<int>
+    }
+  }
+
+  ' =========================================================
+  ' APPLICATION LAYER
+  ' =========================================================
+
+  package "Application.Internal.CommandServices" {
+
+    class QuotationCommandService {
+      -quotationRepository: IQuotationRepository
+      -unitOfWork: IUnitOfWork
+      +Handle(command: CreateQuotationCommand): Task<Quotation?>
+    }
+
+    class SaleCommandService {
+      -saleRepository: ISaleRepository
+      -quotationRepository: IQuotationRepository
+      -unitOfWork: IUnitOfWork
+      +Handle(command: CreateSaleCommand): Task<Sale?>
+      +Handle(command: RegisterDepositCommand): Task<Sale?>
+      +Handle(command: CompletePaymentCommand): Task<Sale?>
+      +Handle(command: MarkAsDeliveredCommand): Task<Sale?>
+      +Handle(command: ProcessRefundCommand): Task<Sale?>
+    }
+  }
+
+  package "Application.Internal.QueryServices" {
+
+    class QuotationQueryService {
+      -quotationRepository: IQuotationRepository
+      +Handle(query: GetQuotationByIdQuery): Task<Quotation?>
+      +Handle(query: GetAllQuotationsQuery): Task<IEnumerable<Quotation>>
+      +Handle(query: GetQuotationsByCustomerIdQuery): Task<IEnumerable<Quotation>>
+    }
+
+    class SaleQueryService {
+      -saleRepository: ISaleRepository
+      +Handle(query: GetSaleByIdQuery): Task<Sale?>
+      +Handle(query: GetAllSalesQuery): Task<IEnumerable<Sale>>
+      +Handle(query: GetSalesByCustomerIdQuery): Task<IEnumerable<Sale>>
+      +Handle(query: GetSaleByQuotationIdQuery): Task<Sale?>
+    }
+  }
+
+  ' =========================================================
+  ' DOMAIN LAYER
+  ' =========================================================
+
+  package "Domain.Model.Aggregates" {
+
+    class Quotation <<AggregateRoot>> {
+      +Id: int
+      +CustomerId: int
+      +PrescriptionId: int
+      +Total: Money
+      +Status: QuotationStatus
+      +Items: ICollection<QuotationItem>
+      +Quotation(command: CreateQuotationCommand)
+      +AddItem(description: string, unitPrice: Money, quantity: int): void
+      +CalculateTotal(): void
+    }
+
+    class Sale <<AggregateRoot>> {
+      +Id: int
+      +CustomerId: int
+      +QuotationId: int
+      +WorkOrderId: int
+      +Status: SaleStatus
+      +CreatedAt: DateTime
+      +Deposit: Deposit
+      +OutstandingBalance: OutstandingBalance
+      +Sale(command: CreateSaleCommand)
+      +RegisterDeposit(amount: Money): void
+      +CompletePayment(amount: Money): void
+      +MarkAsDelivered(): void
+      +ProcessRefund(): void
+      +CalculateOutstandingBalance(): Money
+      +IsFullyPaid(): bool
+    }
+  }
+
+  package "Domain.Model.Entities" {
+
+    class QuotationItem <<Entity>> {
+      +Id: int
+      +QuotationId: int
+      +Description: string
+      +UnitPrice: Money
+      +Quantity: int
+      +QuotationItem(description: string, unitPrice: Money, quantity: int)
+      +GetSubtotal(): Money
+    }
+  }
+
+  package "Domain.Model.ValueObjects" {
+
+    class Money <<ValueObject>> {
+      +Amount: decimal
+      +Currency: Currency
+      +Money(amount: decimal, currency: Currency)
+      +Add(other: Money): Money
+      +Subtract(other: Money): Money
+    }
+
+    class Deposit <<ValueObject>> {
+      +Amount: Money
+      +Deposit(amount: Money)
+      +IsValid(minPercentage: decimal, total: Money): bool
+      +GetAmount(): Money
+    }
+
+    class OutstandingBalance <<ValueObject>> {
+      +Amount: Money
+      +OutstandingBalance(amount: Money)
+      +IsZero(): bool
+      +WithReduction(payment: Money): OutstandingBalance
+      +GetAmount(): Money
+    }
+
+    enum Currency {
+      PEN
+      USD
+    }
+
+    enum SaleStatus {
+      PENDING
+      PAID
+      DELIVERED
+      REFUNDED
+    }
+
+    enum QuotationStatus {
+      DRAFT
+      CONFIRMED
+      CANCELLED
+    }
+  }
+
+  package "Domain.Model.Commands" {
+
+    class CreateQuotationCommand <<record>> {
+      +CustomerId: int
+      +PrescriptionId: int
+      +Items: IEnumerable<(string Description, decimal UnitPrice, int Quantity)>
+    }
+
+    class CreateSaleCommand <<record>> {
+      +CustomerId: int
+      +QuotationId: int
+      +WorkOrderId: int
+    }
+
+    class RegisterDepositCommand <<record>> {
+      +SaleId: int
+      +Amount: decimal
+      +Currency: string
+    }
+
+    class CompletePaymentCommand <<record>> {
+      +SaleId: int
+      +Amount: decimal
+      +Currency: string
+    }
+
+    class MarkAsDeliveredCommand <<record>> {
+      +SaleId: int
+    }
+
+    class ProcessRefundCommand <<record>> {
+      +SaleId: int
+    }
+  }
+
+  package "Domain.Model.Queries" {
+
+    class GetQuotationByIdQuery <<record>> {
+      +Id: int
+    }
+
+    class GetAllQuotationsQuery <<record>>
+
+    class GetQuotationsByCustomerIdQuery <<record>> {
+      +CustomerId: int
+    }
+
+    class GetSaleByIdQuery <<record>> {
+      +Id: int
+    }
+
+    class GetAllSalesQuery <<record>>
+
+    class GetSalesByCustomerIdQuery <<record>> {
+      +CustomerId: int
+    }
+
+    class GetSaleByQuotationIdQuery <<record>> {
+      +QuotationId: int
+    }
+  }
+
+  package "Domain.Repositories" {
+
+    interface IQuotationRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<IEnumerable<Quotation>>
+      +FindByIdAsync(id: int): Task<Quotation?>
+      +ListAsync(): Task<IEnumerable<Quotation>>
+      +AddAsync(quotation: Quotation): Task
+      +Update(quotation: Quotation): void
+      +Remove(quotation: Quotation): void
+    }
+
+    interface ISaleRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<IEnumerable<Sale>>
+      +FindByQuotationIdAsync(quotationId: int): Task<Sale?>
+      +FindByIdAsync(id: int): Task<Sale?>
+      +ListAsync(): Task<IEnumerable<Sale>>
+      +AddAsync(sale: Sale): Task
+      +Update(sale: Sale): void
+    }
+  }
+
+  package "Domain.Services" {
+
+    interface IQuotationCommandService {
+      +Handle(command: CreateQuotationCommand): Task<Quotation?>
+    }
+
+    interface IQuotationQueryService {
+      +Handle(query: GetQuotationByIdQuery): Task<Quotation?>
+      +Handle(query: GetAllQuotationsQuery): Task<IEnumerable<Quotation>>
+      +Handle(query: GetQuotationsByCustomerIdQuery): Task<IEnumerable<Quotation>>
+    }
+
+    interface ISaleCommandService {
+      +Handle(command: CreateSaleCommand): Task<Sale?>
+      +Handle(command: RegisterDepositCommand): Task<Sale?>
+      +Handle(command: CompletePaymentCommand): Task<Sale?>
+      +Handle(command: MarkAsDeliveredCommand): Task<Sale?>
+      +Handle(command: ProcessRefundCommand): Task<Sale?>
+    }
+
+    interface ISaleQueryService {
+      +Handle(query: GetSaleByIdQuery): Task<Sale?>
+      +Handle(query: GetAllSalesQuery): Task<IEnumerable<Sale>>
+      +Handle(query: GetSalesByCustomerIdQuery): Task<IEnumerable<Sale>>
+      +Handle(query: GetSaleByQuotationIdQuery): Task<Sale?>
+    }
+  }
+
+  ' =========================================================
+  ' INFRASTRUCTURE LAYER
+  ' =========================================================
+
+  package "Infrastructure.Persistence.EFC.Repositories" {
+
+    class QuotationRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<IEnumerable<Quotation>>
+    }
+
+    class SaleRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<IEnumerable<Sale>>
+      +FindByQuotationIdAsync(quotationId: int): Task<Sale?>
+    }
+  }
+
+  ' =========================================================
+  ' RELATIONSHIPS
+  ' =========================================================
+
+  ' Controllers -> Services
+  QuotationsController --> IQuotationCommandService : uses
+  QuotationsController --> IQuotationQueryService : uses
+  SalesController --> ISaleCommandService : uses
+  SalesController --> ISaleQueryService : uses
+
+  ' Controllers -> Queries
+  QuotationsController --> GetQuotationByIdQuery : creates
+  QuotationsController --> GetAllQuotationsQuery : creates
+  QuotationsController --> GetQuotationsByCustomerIdQuery : creates
+  SalesController --> GetSaleByIdQuery : creates
+  SalesController --> GetAllSalesQuery : creates
+  SalesController --> GetSalesByCustomerIdQuery : creates
+
+  ' Assemblers
+  CreateQuotationCommandFromResourceAssembler ..> CreateQuotationResource : reads
+  CreateQuotationCommandFromResourceAssembler --> CreateQuotationCommand : produces
+  QuotationResourceFromEntityAssembler ..> Quotation : reads
+  QuotationResourceFromEntityAssembler --> QuotationResource : produces
+
+  CreateSaleCommandFromResourceAssembler ..> CreateSaleResource : reads
+  CreateSaleCommandFromResourceAssembler --> CreateSaleCommand : produces
+  RegisterDepositCommandFromResourceAssembler ..> RegisterDepositResource : reads
+  RegisterDepositCommandFromResourceAssembler --> RegisterDepositCommand : produces
+  CompletePaymentCommandFromResourceAssembler ..> CompletePaymentResource : reads
+  CompletePaymentCommandFromResourceAssembler --> CompletePaymentCommand : produces
+  SaleResourceFromEntityAssembler ..> Sale : reads
+  SaleResourceFromEntityAssembler --> SaleResource : produces
+
+  ' ACL Facade
+  SalesBillingContextFacade ..|> ISalesBillingContextFacade
+  SalesBillingContextFacade --> ISaleQueryService : uses
+  SalesBillingContextFacade --> GetSaleByQuotationIdQuery : creates
+
+  ' Service Implementations
+  QuotationCommandService ..|> IQuotationCommandService
+  QuotationQueryService ..|> IQuotationQueryService
+  SaleCommandService ..|> ISaleCommandService
+  SaleQueryService ..|> ISaleQueryService
+
+  ' Command/Query Services -> Repositories
+  QuotationCommandService --> IQuotationRepository : uses
+  QuotationQueryService --> IQuotationRepository : uses
+  SaleCommandService --> ISaleRepository : uses
+  SaleCommandService --> IQuotationRepository : uses
+  SaleQueryService --> ISaleRepository : uses
+
+  ' Domain relationships
+  Quotation *--> "1..*" QuotationItem : contains
+  Quotation --> Money : uses
+  Quotation --> QuotationStatus : uses
+  Sale --> Deposit : has
+  Sale --> OutstandingBalance : has
+  Sale --> SaleStatus : uses
+  Sale --> Money : uses
+  Deposit --> Money : wraps
+  OutstandingBalance --> Money : wraps
+  Money --> Currency : uses
+  QuotationItem --> Money : uses
+
+  ' Infrastructure implementations
+  QuotationRepository ..|> IQuotationRepository
+  SaleRepository ..|> ISaleRepository
+}
+
+@enduml

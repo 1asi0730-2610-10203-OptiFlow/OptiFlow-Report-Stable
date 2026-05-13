@@ -1,0 +1,384 @@
+@startuml BC_Clinical
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+left to right direction
+
+package "Clinical Context" {
+
+  ' =========================================================
+  ' INTERFACES LAYER
+  ' =========================================================
+
+  package "Interfaces.REST" {
+
+    class CustomersController {
+      -customerCommandService: ICustomerCommandService
+      -customerQueryService: ICustomerQueryService
+      +CreateCustomer(resource: CreateCustomerResource): Task<IActionResult>
+      +UpdateCustomer(id: int, resource: UpdateCustomerResource): Task<IActionResult>
+      +GetCustomerById(id: int): Task<IActionResult>
+      +GetAllCustomers(): Task<IActionResult>
+      +GetCustomerByDni(dni: string): Task<IActionResult>
+    }
+
+    class ClinicalRecordsController {
+      -clinicalRecordCommandService: IClinicalRecordCommandService
+      -clinicalRecordQueryService: IClinicalRecordQueryService
+      +CreateClinicalRecord(resource: CreateClinicalRecordResource): Task<IActionResult>
+      +AddPrescription(id: int, resource: AddPrescriptionResource): Task<IActionResult>
+      +GetClinicalRecordByCustomerId(customerId: int): Task<IActionResult>
+      +GetPrescriptionsByRecordId(recordId: int): Task<IActionResult>
+    }
+
+    package "Resources" {
+
+      class CreateCustomerResource <<record>> {
+        +Name: string
+        +Email: string
+        +Phone: string
+        +Dni: string
+        +BirthDate: DateTime
+      }
+
+      class UpdateCustomerResource <<record>> {
+        +Name: string
+        +Email: string
+        +Phone: string
+      }
+
+      class CustomerResource <<record>> {
+        +Id: int
+        +Name: string
+        +Email: string
+        +Phone: string
+        +Dni: string
+        +BirthDate: DateTime
+      }
+
+      class CreateClinicalRecordResource <<record>> {
+        +CustomerId: int
+      }
+
+      class AddPrescriptionResource <<record>> {
+        +Sphere: float
+        +Cylinder: float
+        +Axis: int
+      }
+
+      class ClinicalRecordResource <<record>> {
+        +Id: int
+        +CustomerId: int
+      }
+
+      class PrescriptionResource <<record>> {
+        +Id: int
+        +ClinicalRecordId: int
+        +Sphere: float
+        +Cylinder: float
+        +Axis: int
+        +CreatedAt: DateTime
+      }
+    }
+
+    package "Transform" {
+
+      class CreateCustomerCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: CreateCustomerResource): CreateCustomerCommand
+      }
+
+      class UpdateCustomerCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: UpdateCustomerResource, customerId: int): UpdateCustomerCommand
+      }
+
+      class CustomerResourceFromEntityAssembler <<static>> {
+        +ToResourceFromEntity(customer: Customer): CustomerResource
+      }
+
+      class CreateClinicalRecordCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: CreateClinicalRecordResource): CreateClinicalRecordCommand
+      }
+
+      class AddPrescriptionCommandFromResourceAssembler <<static>> {
+        +ToCommandFromResource(resource: AddPrescriptionResource, clinicalRecordId: int): AddPrescriptionCommand
+      }
+
+      class ClinicalRecordResourceFromEntityAssembler <<static>> {
+        +ToResourceFromEntity(record: ClinicalRecord): ClinicalRecordResource
+      }
+
+      class PrescriptionResourceFromEntityAssembler <<static>> {
+        +ToResourceFromEntity(prescription: Prescription): PrescriptionResource
+      }
+    }
+  }
+
+  package "Interfaces.ACL" {
+
+    interface IClinicalContextFacade {
+      +FetchCustomerIdByDni(dni: string): Task<int>
+      +FetchLatestPrescriptionIdByCustomerId(customerId: int): Task<int>
+    }
+
+    class ClinicalContextFacade {
+      -customerQueryService: ICustomerQueryService
+      -clinicalRecordQueryService: IClinicalRecordQueryService
+      +FetchCustomerIdByDni(dni: string): Task<int>
+      +FetchLatestPrescriptionIdByCustomerId(customerId: int): Task<int>
+    }
+  }
+
+  ' =========================================================
+  ' APPLICATION LAYER
+  ' =========================================================
+
+  package "Application.Internal.CommandServices" {
+
+    class CustomerCommandService {
+      -customerRepository: ICustomerRepository
+      -unitOfWork: IUnitOfWork
+      +Handle(command: CreateCustomerCommand): Task<Customer?>
+      +Handle(command: UpdateCustomerCommand): Task<Customer?>
+    }
+
+    class ClinicalRecordCommandService {
+      -clinicalRecordRepository: IClinicalRecordRepository
+      -customerRepository: ICustomerRepository
+      -unitOfWork: IUnitOfWork
+      +Handle(command: CreateClinicalRecordCommand): Task<ClinicalRecord?>
+      +Handle(command: AddPrescriptionCommand): Task<ClinicalRecord?>
+    }
+  }
+
+  package "Application.Internal.QueryServices" {
+
+    class CustomerQueryService {
+      -customerRepository: ICustomerRepository
+      +Handle(query: GetCustomerByIdQuery): Task<Customer?>
+      +Handle(query: GetAllCustomersQuery): Task<IEnumerable<Customer>>
+      +Handle(query: GetCustomerByDniQuery): Task<Customer?>
+    }
+
+    class ClinicalRecordQueryService {
+      -clinicalRecordRepository: IClinicalRecordRepository
+      +Handle(query: GetClinicalRecordByCustomerIdQuery): Task<ClinicalRecord?>
+      +Handle(query: GetPrescriptionsByRecordIdQuery): Task<IEnumerable<Prescription>>
+    }
+  }
+
+  ' =========================================================
+  ' DOMAIN LAYER
+  ' =========================================================
+
+  package "Domain.Model.Aggregates" {
+
+    class Customer <<AggregateRoot>> {
+      +Id: int
+      +Name: string
+      +Email: string
+      +Phone: string
+      +Dni: string
+      +BirthDate: DateTime
+      +Customer(command: CreateCustomerCommand)
+      +UpdateContactInfo(command: UpdateCustomerCommand): Customer
+      +ValidateNoDuplicate(dni: string): bool
+    }
+
+    class ClinicalRecord <<AggregateRoot>> {
+      +Id: int
+      +CustomerId: int
+      +Prescriptions: ICollection<Prescription>
+      +ClinicalRecord(command: CreateClinicalRecordCommand)
+      +AddPrescription(command: AddPrescriptionCommand): Prescription
+      +GetLatestPrescription(): Prescription?
+    }
+  }
+
+  package "Domain.Model.Entities" {
+
+    class Prescription <<Entity>> {
+      +Id: int
+      +ClinicalRecordId: int
+      +Sphere: float
+      +Cylinder: float
+      +Axis: int
+      +CreatedAt: DateTime
+      +Prescription(command: AddPrescriptionCommand)
+      +UpdateValues(sphere: float, cylinder: float, axis: int): void
+      +Validate(): bool
+    }
+  }
+
+  package "Domain.Model.Commands" {
+
+    class CreateCustomerCommand <<record>> {
+      +Name: string
+      +Email: string
+      +Phone: string
+      +Dni: string
+      +BirthDate: DateTime
+    }
+
+    class UpdateCustomerCommand <<record>> {
+      +CustomerId: int
+      +Name: string
+      +Email: string
+      +Phone: string
+    }
+
+    class CreateClinicalRecordCommand <<record>> {
+      +CustomerId: int
+    }
+
+    class AddPrescriptionCommand <<record>> {
+      +ClinicalRecordId: int
+      +Sphere: float
+      +Cylinder: float
+      +Axis: int
+    }
+  }
+
+  package "Domain.Model.Queries" {
+
+    class GetCustomerByIdQuery <<record>> {
+      +Id: int
+    }
+
+    class GetAllCustomersQuery <<record>>
+
+    class GetCustomerByDniQuery <<record>> {
+      +Dni: string
+    }
+
+    class GetClinicalRecordByCustomerIdQuery <<record>> {
+      +CustomerId: int
+    }
+
+    class GetPrescriptionsByRecordIdQuery <<record>> {
+      +ClinicalRecordId: int
+    }
+  }
+
+  package "Domain.Services" {
+
+    interface ICustomerCommandService {
+      +Handle(command: CreateCustomerCommand): Task<Customer?>
+      +Handle(command: UpdateCustomerCommand): Task<Customer?>
+    }
+
+    interface ICustomerQueryService {
+      +Handle(query: GetCustomerByIdQuery): Task<Customer?>
+      +Handle(query: GetAllCustomersQuery): Task<IEnumerable<Customer>>
+      +Handle(query: GetCustomerByDniQuery): Task<Customer?>
+    }
+
+    interface IClinicalRecordCommandService {
+      +Handle(command: CreateClinicalRecordCommand): Task<ClinicalRecord?>
+      +Handle(command: AddPrescriptionCommand): Task<ClinicalRecord?>
+    }
+
+    interface IClinicalRecordQueryService {
+      +Handle(query: GetClinicalRecordByCustomerIdQuery): Task<ClinicalRecord?>
+      +Handle(query: GetPrescriptionsByRecordIdQuery): Task<IEnumerable<Prescription>>
+    }
+  }
+
+  package "Domain.Repositories" {
+
+    interface ICustomerRepository {
+      +FindByDniAsync(dni: string): Task<Customer?>
+      +ExistsByDniAsync(dni: string): Task<bool>
+      +FindByIdAsync(id: int): Task<Customer?>
+      +ListAsync(): Task<IEnumerable<Customer>>
+      +AddAsync(customer: Customer): Task
+      +Update(customer: Customer): void
+      +Remove(customer: Customer): void
+    }
+
+    interface IClinicalRecordRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<ClinicalRecord?>
+      +FindByIdAsync(id: int): Task<ClinicalRecord?>
+      +ListAsync(): Task<IEnumerable<ClinicalRecord>>
+      +AddAsync(record: ClinicalRecord): Task
+      +Update(record: ClinicalRecord): void
+    }
+  }
+
+  ' =========================================================
+  ' INFRASTRUCTURE LAYER
+  ' =========================================================
+
+  package "Infrastructure.Persistence.EFC.Repositories" {
+
+    class CustomerRepository {
+      +FindByDniAsync(dni: string): Task<Customer?>
+      +ExistsByDniAsync(dni: string): Task<bool>
+    }
+
+    class ClinicalRecordRepository {
+      +FindByCustomerIdAsync(customerId: int): Task<ClinicalRecord?>
+    }
+  }
+
+  ' =========================================================
+  ' RELATIONSHIPS
+  ' =========================================================
+
+  ' Controllers -> Services
+  CustomersController --> ICustomerCommandService : uses
+  CustomersController --> ICustomerQueryService : uses
+  ClinicalRecordsController --> IClinicalRecordCommandService : uses
+  ClinicalRecordsController --> IClinicalRecordQueryService : uses
+
+  ' Controllers -> Queries
+  CustomersController --> GetCustomerByIdQuery : creates
+  CustomersController --> GetAllCustomersQuery : creates
+  CustomersController --> GetCustomerByDniQuery : creates
+  ClinicalRecordsController --> GetClinicalRecordByCustomerIdQuery : creates
+  ClinicalRecordsController --> GetPrescriptionsByRecordIdQuery : creates
+
+  ' Assemblers
+  CreateCustomerCommandFromResourceAssembler ..> CreateCustomerResource : reads
+  CreateCustomerCommandFromResourceAssembler --> CreateCustomerCommand : produces
+  UpdateCustomerCommandFromResourceAssembler ..> UpdateCustomerResource : reads
+  UpdateCustomerCommandFromResourceAssembler --> UpdateCustomerCommand : produces
+  CustomerResourceFromEntityAssembler ..> Customer : reads
+  CustomerResourceFromEntityAssembler --> CustomerResource : produces
+  CreateClinicalRecordCommandFromResourceAssembler ..> CreateClinicalRecordResource : reads
+  CreateClinicalRecordCommandFromResourceAssembler --> CreateClinicalRecordCommand : produces
+  AddPrescriptionCommandFromResourceAssembler ..> AddPrescriptionResource : reads
+  AddPrescriptionCommandFromResourceAssembler --> AddPrescriptionCommand : produces
+  ClinicalRecordResourceFromEntityAssembler ..> ClinicalRecord : reads
+  ClinicalRecordResourceFromEntityAssembler --> ClinicalRecordResource : produces
+  PrescriptionResourceFromEntityAssembler ..> Prescription : reads
+  PrescriptionResourceFromEntityAssembler --> PrescriptionResource : produces
+
+  ' ACL Facade
+  ClinicalContextFacade ..|> IClinicalContextFacade
+  ClinicalContextFacade --> ICustomerQueryService : uses
+  ClinicalContextFacade --> IClinicalRecordQueryService : uses
+  ClinicalContextFacade --> GetCustomerByDniQuery : creates
+  ClinicalContextFacade --> GetClinicalRecordByCustomerIdQuery : creates
+
+  ' Service Implementations
+  CustomerCommandService ..|> ICustomerCommandService
+  CustomerQueryService ..|> ICustomerQueryService
+  ClinicalRecordCommandService ..|> IClinicalRecordCommandService
+  ClinicalRecordQueryService ..|> IClinicalRecordQueryService
+
+  ' Command/Query Services -> Repositories
+  CustomerCommandService --> ICustomerRepository : uses
+  CustomerQueryService --> ICustomerRepository : uses
+  ClinicalRecordCommandService --> IClinicalRecordRepository : uses
+  ClinicalRecordCommandService --> ICustomerRepository : uses
+  ClinicalRecordQueryService --> IClinicalRecordRepository : uses
+
+  ' Domain relationships
+  ClinicalRecord *--> "0..*" Prescription : contains
+  Prescription --> AddPrescriptionCommand : constructed by
+
+  ' Infrastructure implementations
+  CustomerRepository ..|> ICustomerRepository
+  ClinicalRecordRepository ..|> IClinicalRecordRepository
+}
+
+@enduml
