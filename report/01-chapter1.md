@@ -8,6 +8,16 @@
 Descripción general:
 OptiFlow nace para cerrar la brecha entre la gestión oftalmológica empírica y la innovación tecnológica. Somos una startup comprometida con la unificación de los procesos clínicos, comerciales y de producción en establecimientos ópticos, asegurando que la toma de decisiones basada en datos reemplace a la intuición, maximizando la conversión de ventas, la retención de clientes y la trazabilidad de los pedidos.
 
+Misión:
+La misión de OptiFlow es ofrecer un software integral tipo ERP/CRM orientado a ópticas, optimizando sus flujos de trabajo administrativos. Buscamos transformar la gestión manual de historiales médicos, inventarios comerciales y órdenes de laboratorio en datos accionables y centralizados en la nube, garantizando operaciones comerciales eficientes y rentables.
+
+
+Visión:
+Nuestra visión es consolidarnos como la plataforma líder en gestión operativa y comercial para el sector oftalmológico, promoviendo una administración moderna y predictiva que elimine los silos de información entre el consultorio, el piso de ventas y el laboratorio, impulsando a las ópticas hacia una transformación digital absoluta.
+
+Alcance de la aplicación:
+El alcance de OptiFlow está enfocado en la gestión operativa interna (Intranet) y la comunicación con laboratorios. La plataforma abarcará desde la creación de la historia clínica electrónica,la gestión de inventarios, ventas de órdenes y la trazabilidad de ordenes de trabajo mediante un tablero Kanban. Asimismo, se piensa tener una aplicación de tamaño menor para los clientes, de tal forma que puedan estar pendientes de sus órdenes.
+
 
 ### 1.1.2. Perfiles de integrantes del equipo
 
