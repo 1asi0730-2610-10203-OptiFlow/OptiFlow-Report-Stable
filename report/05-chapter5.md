@@ -1083,6 +1083,22 @@ https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23c
 | OptiFlow-Frontend | | 7904bae | Merge pull request #1 | chore/project-setup | 05/05/2026 |
 | OptiFlow-Frontend | | 6dcd9b0 | chore: setup | project setup | 05/05/2026 |
 | OptiFlow-Frontend | | 746959f | Initial commit | | 07/04/2026 |
+| OptiFlow-Landing-Page | main | 6a47f3d | Merge pull request #24 | fix/general-fixes | 13/05/2026 |
+| OptiFlow-Landing-Page | | 418ffb9 | fix: final landing page tweaks added | | 13/05/2026 |
+| OptiFlow-Landing-Page | | a9b09a1 | Merge pull request #23 | feature/footer-update | 11/05/2026 |
+| OptiFlow-Landing-Page | | cd300a2 | feat(footer): add footer links | | 11/05/2026 |
+| OptiFlow-Landing-Page | | d27d3dd | Merge pull request #22 | feature/new-pricing | 10/05/2026 |
+| OptiFlow-Landing-Page | | 8d87a81 | merge develop into feature/new-pricing | | 10/05/2026 |
+| OptiFlow-Landing-Page | | a51b954 | merge develop into feature/new-pricing | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 5d2ebd4 | feat: update landing pricing section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 1232c7f | Merge pull request #21 | feature/about-us | 10/05/2026 |
+| OptiFlow-Landing-Page | | 80022f2 | fix: fix responsiveness in header and hero section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 902c161 | feat: add about us section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 6837eda | Merge pull request #20 | fix/header | 10/05/2026 |
+| OptiFlow-Landing-Page | | 676aeda | fix: header labels now redirect to each landing page section | | 10/05/2026 |
+| OptiFlow-Landing-Page | | 49978b9 | Merge pull request #19 | fix/footer | 10/05/2026 |
+| OptiFlow-Landing-Page | | 76cd71e | fix: removed unreachble links for the footer | | 10/05/2026 |
+
 
 Frontend repository:
 https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend.git
