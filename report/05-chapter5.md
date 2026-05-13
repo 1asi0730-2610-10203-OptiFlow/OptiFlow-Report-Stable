@@ -220,190 +220,27 @@ micro tareas extensa que ocasionarían que los participantes no tengan hilación
 
 #### Sprint Backlog 1
 
-<table>
-  <thead>
-    <tr>
-      <th>Sprint #</th>
-      <th colspan="7">Sprint 1</th>
-    </tr>
-    <tr>
-      <th colspan="2">User Story</th>
-      <th colspan="6">Work-Item / Task</th>
-    </tr>
-    <tr>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Estimation (Hours)</th>
-      <th>Assigned To</th>
-      <th>Status (To-do / In-Process / To-Review / Done)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T01</td>
-      <td>UX Research & Entrevistas</td>
-      <td>Realizar entrevistas a admins y clientes; crear User Personas y Empathy Maps.</td>
-      <td>6 hrs</td>
-      <td>Mariana / Mia / Juan Pablo / Luciana</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T02</td>
-      <td>Diseño UX/UI de Landing Page</td>
-      <td>Diseñar Wireframes, Mockups y User Flows de la web estática.</td>
-      <td>5 hrs</td>
-      <td>Mia / Juan Pablo / Mariana</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T03</td>
-      <td>Domain-Driven Design Artifacts</td>
-      <td>Elaborar EventStorming, Bounded Contexts y Context Mapping.</td>
-      <td>5 hrs</td>
-      <td>Luciana / Nicolas</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T04</td>
-      <td>Database & Class Diagram</td>
-      <td>Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD).</td>
-      <td>5 hrs</td>
-      <td>Luciana / Nicolas</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T05</td>
-      <td>Software Development Environment</td>
-      <td>Configurar el entorno de desarrollo y dependencias locales del framework frontend.</td>
-      <td>2 hrs</td>
-      <td>Juan Pablo</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T06</td>
-      <td>Source Code Management & Styles</td>
-      <td>Definir el Style Guide del código y parte del Information Architecture.</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-        <tr>
-      <td></td>
-      <td></td>
-      <td>T07</td>
-      <td>Segmento objetivo & Lean UX Process</td>
-      <td>Definir segmento objetivo, Lean UX Canvas y User Task Matrix.</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T08</td>
-      <td>Software Deployment Configuration</td>
-      <td>Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing.</td>
-      <td>3 hrs</td>
-      <td>Juan Pablo</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T09</td>
-      <td>Sprint 1 Planning & Backlog</td>
-      <td>Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe.</td>
-      <td>2 hrs</td>
-      <td>Mariana</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T10</td>
-      <td>Development & Execution Evidence</td>
-      <td>Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution).</td>
-      <td>2 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td>T11</td>
-      <td>Deployment & Services Evidence</td>
-      <td>Documentar el link de producción y métricas de colaboración (Team Collaboration Insights).</td>
-      <td>2 hrs</td>
-      <td>Luciana</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td>US-46L</td>
-      <td>Propuesta de Valor (Hero Section)</td>
-      <td>T12</td>
-      <td>Desarrollo: Hero Section</td>
-      <td>Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA.</td>
-      <td>4 hrs</td>
-      <td>Juan Pablo</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td>US-47L</td>
-      <td>Catálogo de Características</td>
-      <td>T13</td>
-      <td>Desarrollo: Módulos del Sistema</td>
-      <td>Programar la sección de módulos (Ventas, Laboratorio) de forma responsive.</td>
-      <td>4 hrs</td>
-      <td>Mia</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td>US-48L</td>
-      <td>Consulta de Planes y Precios</td>
-      <td>T14</td>
-      <td>Desarrollo: Pricing Table</td>
-      <td>Maquetar la tabla de precios comparativa interactiva para la web.</td>
-      <td>4 hrs</td>
-      <td></td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td>US-49L</td>
-      <td>Formulario de Contacto General</td>
-      <td>T15</td>
-      <td>Desarrollo: Formulario & Validaciones</td>
-      <td>Codificar el formulario de contacto y agregar validaciones de campos en JavaScript.</td>
-      <td>4 hrs</td>
-      <td>Nicolas</td>
-      <td>Done</td>
-    </tr>
-    <tr>
-      <td>US-50L</td>
-      <td>Redirección a Login</td>
-      <td>T16</td>
-      <td>Desarrollo: Navbar & Footer</td>
-      <td>Implementar la barra de navegación superior anclada y el botón de acceso al sistema.</td>
-      <td>3 hrs</td>
-      <td>Mariana</td>
-      <td>Done</td>
-    </tr>
-    </tbody>
-</table>
+
+| Sprint # | Sprint 1 |||||||
+|:---:|:---|:---:|:---|:---|:---:|:---|:---:|
+| **User Story** || **Work-Item / Task** ||||||
+| **US Id** | **US Title** | **Task Id** | **Task Title** | **Description** | **Estimation (hours)** | **Assigned To** | **Status (To-Do / In-Process/ To-Review / Done)** |
+| | | T01 | UX Research & Entrevistas | Realizar entrevistas a admins y clientes; crear User Personas y Empathy Maps. | 6 hrs | Mariana / Mia / Juan Pablo / Luciana | Done |
+| | | T02 | Diseño UX/UI de Landing Page | Diseñar Wireframes, Mockups y User Flows de la web estática. | 5 hrs | Mia / Juan Pablo / Mariana | Done |
+| | | T03 | Domain-Driven Design Artifacts | Elaborar EventStorming, Bounded Contexts y Context Mapping. | 5 hrs | Luciana / Nicolas | Done |
+| | | T04 | Database & Class Diagram | Diseñar el Diagrama de Clases (UML) y el Diagrama Entidad-Relación (ERD). | 5 hrs | Luciana / Nicolas | Done |
+| | | T05 | Software Development Environment | Configurar el entorno de desarrollo y dependencias locales del framework frontend. | 2 hrs | Juan Pablo | Done |
+| | | T06 | Source Code Management & Styles | Definir el Style Guide del código y parte del Information Architecture. | 2 hrs | Mia | Done |
+| | | T07 | Segmento objetivo & Lean UX Process | Definir segmento objetivo, Lean UX Canvas y User Task Matrix. | 2 hrs | Mia | Done |
+| | | T08 | Software Deployment Configuration | Configurar el servicio de hosting cloud estático (ej. Vercel/Netlify) para la Landing. | 3 hrs | Juan Pablo | Done |
+| | | T09 | Sprint 1 Planning & Backlog | Redactar el Sprint Planning, Aspect Leaders, y este Sprint Backlog en el informe. | 2 hrs | Mariana | Done |
+| | | T10 | Development & Execution Evidence | Recolectar capturas de commits (Development) y video/capturas de ejecución (Execution). | 2 hrs | Mia | Done |
+| | | T11 | Deployment & Services Evidence | Documentar el link de producción y métricas de colaboración (Team Collaboration Insights). | 2 hrs | Luciana | Done |
+| US-46L | Propuesta de Valor (Hero Section) | T12 | Desarrollo: Hero Section | Maquetar en HTML/CSS/JS la cabecera principal, textos persuasivos y botones CTA. | 4 hrs | Juan Pablo | Done |
+| US-47L | Catálogo de Características | T13 | Desarrollo: Módulos del Sistema | Programar la sección de módulos (Ventas, Laboratorio) de forma responsive. | 4 hrs | Mia | Done |
+| US-48L | Consulta de Planes y Precios | T14 | Desarrollo: Pricing Table | Maquetar la tabla de precios comparativa interactiva para la web. | 4 hrs | | Done |
+| US-49L | Formulario de Contacto General | T15 | Desarrollo: Formulario & Validaciones | Codificar el formulario de contacto y agregar validaciones de campos en JavaScript. | 4 hrs | Nicolas | Done |
+| US-50L | Redirección a Login | T16 | Desarrollo: Navbar & Footer | Implementar la barra de navegación superior anclada y el botón de acceso al sistema. | 3 hrs | Mariana | Done |
 
 #### Sprint Backlog y seguimiento de tareas mediante tablero en Trello
 ![sprint-backlog-1](../assets/sprint-backlog-1.png)
@@ -470,7 +307,9 @@ Execution Evidence Video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202
 
 
 #### Services Documentation Evidence for Sprint Review
-[Documentación de los servicios o APIs desarrolladas durante el sprint.]
+
+Los servicios todavía no han sido implementados en este sprint, todos fueron implementados y documentados a partir del sprint 2
+
 
 #### Software Deployment Evidence for Sprint Review
 En este primer sprint se desplegó la primera versión del landing page utilizando github pages.
@@ -553,24 +392,24 @@ En el sprint el enfoque principal fue el desarrollo del frontend de la aplicaci�
 #### Sprint Backlog 2
 
 <table>
-  <thead>
+<thead>
     <tr>
-      <th>Sprint #</th>
-      <th colspan="7">Sprint 2</th>
+      <th style="text-align: left;">Sprint #</th>
+      <th colspan="7" style="text-align: left;">Sprint 2</th>
     </tr>
     <tr>
-      <th colspan="2">User Story</th>
-      <th colspan="6">Work-Item / Task</th>
+      <th colspan="2" style="text-align: left;">User Story</th>
+      <th colspan="6" style="text-align: left;">Work-Item / Task</th>
     </tr>
     <tr>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Id</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Estimation (Hours)</th>
-      <th>Assigned To</th>
-      <th>Status (To-do / In-Process / To-Review / Done)</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Description</th>
+      <th style="text-align: left;">Estimation (Hours)</th>
+      <th style="text-align: left;">Assigned To</th>
+      <th style="text-align: left;">Status (To-do / In-Process / To-Review / Done)</th>
     </tr>
   </thead>
   <tbody>
