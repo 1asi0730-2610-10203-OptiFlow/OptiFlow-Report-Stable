@@ -715,13 +715,13 @@ Estructura de navegación diseñada para guiar al usuario hacia la resolución d
 
 #### US16 – Notificaciones a Clientes
 
-
 ![User Flow US16 Notificaciones Clientes – Vista 1](<../docs/userflows/jp/US 22_ Notificaciones clientes.png>){width=100%}
 
 ![User Flow US16 Notificaciones Clientes – Vista 2](<../docs/userflows/jp/US_ Notificaciones clientes.png>){width=100%}
 
 - **Happy Path:** El sistema detecta un evento (entrega lista, pago pendiente) → genera y envía la notificación por el canal configurado → el cliente la recibe correctamente.
 - **Unhappy Path:** Canal de contacto no registrado o número inválido → la notificación se marca como fallida → aparece en el panel de incidencias para seguimiento manual.
+
 
 #### US17 - Encuestas de satisfacción
 ![](<../docs/userflows-new/jp/US17_ Encuestas de satisfacción.png>){width=100%}

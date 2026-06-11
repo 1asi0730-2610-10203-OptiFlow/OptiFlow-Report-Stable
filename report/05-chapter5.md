@@ -1218,6 +1218,23 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ![landing-pulse-s2](../assets/github-landing-commits.png)
 
+## Validation Interviews
+
+### Diseño de Entrevistas
+
+Para las entrevistas se considerarán los siguientes factores. En primer lugar, el landing page será mostrado brevemente a ambos segmentos objetivos. En segundo lugar, se separarán los userflows que se usarán por segmento. En este caso, a los clientes/pacientes de ópticas se le mostrarán los userflows principales relacionados a el centro de pacientes al que pueden acceder. Por otro lado, al segmento de administradores de las ópticas, se les mostrará las funcionalidades más importantes que tiene la aplicación (Lab Orders, Sales and inventory). 
+
+Para los clientes: US16, US36, US37, US33
+
+
+### Registro de Entrevistas
+
+### Evaluaciones según heurísticas
+
+## Video about the product
+
+
+
 ## Conclusiones 
 
 ### Conclusiones y recomendaciones
