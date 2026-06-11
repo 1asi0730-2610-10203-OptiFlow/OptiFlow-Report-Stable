@@ -1218,6 +1218,30 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ![landing-pulse-s2](../assets/github-landing-commits.png)
 
+
+
+### Sprint 3
+
+#### Sprint Planning
+
+#### Sprint Planning 2
+En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la segunda iteración del proyecto. El enfoque principal de este Sprint abarca la corrección de los errores identificados en el Sprint anterior y el desarrollo del frontend de la aplicación web. En base a la retrospectiva del Sprint 1, el equipo definió mejoras en la coordinación interna, la documentación y la calidad de los artefactos de diseño.
+
+| Aspect | Details |
+| :--- | :--- |
+| **Sprint #** | Sprint 3 |
+| **Date** | 2026-05-06 |
+| **Time** | 10:00 AM |
+| **Location** | Reunión Virtual (Discord / Microsoft Teams) |
+| **Prepared By** | Azama Fukuda, Juan Pablo |
+| **Attendees (to planning meeting)** | Atoche Gonzales, Nicolas Fernando / Azama Fukuda, Juan Pablo / Capillo Lema, Mía Valentina / Mechan Montenegro, Luciana Carolina / Morocho Pinedo, Mariana |
+| **Sprint 2 Review Summary** | Se realizaron correcciones del sprint 1 y se hizo el primer despliegue del frontend de la aplicación |
+| **Sprint 2 Retrospective Summary** | Pudo haber mejor comunicación en el equipo con respecto a algunos miembros, algunas delegaciones se percibieron como demasiado pesadas,  lo que derivó al incumplimiento de ciertas tareas. Finalmente, un integrante no llegó a contribuir mucho en el avance del frontend for factores externos. |
+| **Sprint Goal** | Our focus is on enabling optic administrators to manage their optic operations and optic clients to track their orders through a fully connected webplatform. We believe it delivers a seamless end-to-end experience — from account management to order tracking — to both optic administrators and optic clients. This will be confirmed when validation interview participants from both segments can successfully complete their core tasks in the deployed application without critical blockers. |
+| **Sprint n Velocity** | 45 Story Points |
+| **Sum of Story Points** | 45 |
+
+
 ## Validation Interviews
 
 ### Diseño de Entrevistas
