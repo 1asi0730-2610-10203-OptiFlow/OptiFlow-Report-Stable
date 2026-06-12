@@ -1248,7 +1248,7 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 
 Para las entrevistas se considerarán los siguientes factores. En primer lugar, el landing page será mostrado brevemente a ambos segmentos objetivos. En segundo lugar, se separarán los userflows que se usarán por segmento. En este caso, a los clientes/pacientes de ópticas se le mostrarán los userflows principales relacionados a el centro de pacientes al que pueden acceder. Por otro lado, al segmento de administradores de las ópticas, se les mostrará las funcionalidades más importantes que tiene la aplicación (Lab Orders, Sales and inventory). 
 
-Para los clientes: US16, US36, US37, US33
+Para los clientes: US16, US34, US33
 
 
 ### Registro de Entrevistas
