@@ -1251,9 +1251,84 @@ Para las entrevistas se considerarán los siguientes factores. En primer lugar, 
 Para los clientes: US16, US34, US33
 
 
-### Registro de Entrevistas
+## Registro de Entrevistas
 
-### Evaluaciones según heurísticas
+## Evaluaciones según heurísticas
+Carrera: Ingeniería de Software <br>
+Curso:  Aplicaciones Web  
+Sección: 10203  
+Profesores:  
+Auditor: BuildingFex <br>
+CLIENTE(S):
+
+#### Site o App a evaluar: OptiFlow
+
+#### Nombre de App: OptiFlow
+
+### Tareas a evaluar
+El alcance de esta evaluación incluye la revisión de la usabilidad de las siguientes tareas:
+
+1. Visualización del Dashboard principal con gráficos de gestión
+2. Acceso al portal del paciente - Mis Lentes
+3. Acceso al portal del paciente - Calculadora de grosor
+
+No están incluidas en esta versión de la evaluación las siguientes tareas:
+
+
+### ESCALA DE SEVERIDAD
+
+Los errores serán puntuados tomando en cuenta la siguiente escala de severidad:
+
+| Nivel | Descripción |
+|---|---|
+| 1 | Problema superficial: puede ser fácilmente superado por el usuario u ocurre con muy poca frecuencia. No necesita ser arreglado a no ser que exista disponibilidad de tiempo. |
+| 2 | Problema menor: puede ocurrir un poco más frecuentemente o es un poco más difícil de superar para el usuario. Se le debería asignar una prioridad baja resolverlo de cara al siguiente release. |
+| 3 | Problema mayor: ocurre frecuentemente o los usuarios no son capaces de resolverlos. Es importante que sean corregidos y se les debe asignar una prioridad alta. |
+| 4 | Problema muy grave: un error de gran impacto que impide al usuario continuar con el uso de la herramienta. Es imperativo que sea corregido antes del lanzamiento. |
+
+### TABLA RESUMEN
+
+| # | Problema | Heurística/Principio violada(o) | Escala de Severidad |
+|---|---|---|---|
+| 1 | El modal de Control de Calidad no comunica al usuario por qué el botón "Aprobar" permanece deshabilitado | Usability: Visibilidad del estado del sistema | 2 |
+| 2 | Los campos de la Calculadora usan terminología clínica sin contexto para el paciente, y el label del selector de material incluye texto técnico de desarrollo | Usability: Relación entre el sistema y el mundo real | 2 |
+| 3 | La fecha de entrega estimada vencida no genera ninguna alerta visual para el paciente | Usability: Visibilidad del estado del sistema / Information Architecture: Is it credible? | 3 |
+
+#### PROBLEMA #1: El modal de Control de Calidad no comunica al usuario por qué el botón "Aprobar" permanece deshabilitado
+
+Severidad: 2
+Heurística violada: Usabilidad — Visibilidad del estado del sistema
+
+Problema: En el modal de Control de Calidad (QA), que se abre al intentar avanzar una orden de laboratorio de "Control de Calidad" a "Listo", el botón "Aprobar" permanece deshabilitado hasta que los 9 ítems del checklist hayan sido marcados como completos. No existe ningún texto de ayuda, tooltip, mensaje de progreso ni indicador que explique al usuario que debe completar todos los ítems del checklist para habilitar la acción.
+Esto viola la heurística de Visibilidad del estado del sistema, que establece que la aplicación debe mantener siempre informado al usuario de lo que está ocurriendo. Si un usuario abre el modal y ve el botón gris sin instrucción clara, puede creer que hay un error del sistema o que no tiene permisos para aprobar, cuando en realidad simplemente falta completar los puntos del formulario.
+
+![quality-assurance-form](../assets/quality-assurance-form.png)
+
+Recomendación: Agregar junto al botón "Aprobar" un indicador de progreso, por ejemplo "X de 9 ítems completados", que se actualice en tiempo real a medida que el usuario marca los checks. Adicionalmente, un tooltip sobre el botón deshabilitado que diga "Completa todos los ítems para aprobar" mejoraría significativamente la visibilidad del estado del sistema para el usuario.
+
+#### PROBLEMA #2: Los campos de la Calculadora usan terminología clínica sin contexto para el paciente, y el label del selector de material incluye texto técnico de desarrollo
+
+Severidad: 2
+
+Heurística violada: Usabilidad — Relación entre el sistema y el mundo real
+
+Problema: En la pantalla Calculadora del portal del paciente, los campos de entrada del formulario están etiquetados como "Sphere (Diopters)" y "Cylinder (Diopters)". Estos son términos de óptica clínica que el paciente promedio no reconoce de forma inmediata sin tener su receta a la mano. La sección explicativa ubicada al final de la pantalla ("What do the indices mean?") únicamente describe las diferencias entre los índices de material (1.50, 1.60, 1.67, 1.74) pero no incluye ninguna explicación de qué significa "esfera" ni dónde encontrar ese valor en la receta del paciente.
+
+![calculator-form](../assets/calculator-view.png)
+
+Recomendación: Agregar un texto de ayuda breve debajo de cada campo de prescripción, por ejemplo: "Encuéntralo en tu receta óptica. Ejemplo: -2.50"
+
+#### PROBLEMA #3: La fecha de entrega estimada vencida no genera ninguna alerta visual para el paciente
+
+Severidad: 3
+
+Heurística violada: Usabilidad — Visibilidad del estado del sistema / Information Architecture: Is it credible?
+
+Problema: En la pantalla My Lenses, el campo de fecha estimada de entrega se muestra siempre con el mismo estilo y el mismo ícono de reloj, sin importar si la fecha ya pasó. En el caso de LAB-0001, la fecha estimada es 2026-05-10 y la sesión de evaluación se realizó el 13 de junio de 2026, por lo que el pedido acumula más de un mes de retraso; sin embargo, la interfaz no ofrece ninguna señal visual de alerta: ni cambio de color, ni badge de "retrasado", ni mensaje al paciente. El código no realiza ninguna comparación entre order.estimatedDate y la fecha actual. Esto priva al paciente de información crítica sobre el estado real de su pedido y puede generar confusión o pérdida de confianza en el sistema.
+
+![my-lenses-view](../assets/my-lenses-view.png)
+
+Recomendación: Mostrar el campo en rojo con un ícono de advertencia y un texto como "Delayed — estimated date has passed" si la fecha ya pasó y el pedido no está en estado DELIVERED. Esto también aplica a la heurística de IA "Is it credible?", que cuestiona si el contenido está actualizado y es confiable para el usuario.
 
 ## Video about the product
 
