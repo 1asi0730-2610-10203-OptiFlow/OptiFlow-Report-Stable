@@ -1667,13 +1667,106 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
     </tr>
   </tbody>
 </table>
+
 #### Development Evidence for Sprint Review  
+
+##### Commits frontend
+
 
 #### Execution Evidence for Sprint Review
 
-#### Services Documentation Evidence for Sprint Review. 
+#### Services Documentation Evidence for Sprint Review
+
+Durante el Sprint 3 se documentaron mediante OpenAPI (vía Swagger/Swashbuckle) los endpoints de los seis bounded contexts implementados en el backend de Web Services: Inventory, Sales, Lab and Orders, Clinical, Subscription y Analytics. Cada controlador incluye anotaciones `SwaggerOperation` y `SwaggerResponse` que documentan el propósito de cada acción, los códigos de respuesta posibles y el esquema de los recursos de entrada y salida, generando así una especificación interactiva accesible desde `/swagger`. Como el despliegue de Web Services aún no se ha publicado en un proveedor cloud, la documentación se exploró localmente en `http://localhost:5238/swagger`. A continuación se detalla, para cada endpoint relevante al alcance del Sprint, el verbo HTTP, la sintaxis de la llamada, los parámetros esperados y un ejemplo de respuesta.
+
+**Repositorio de Web Services:** [https://github.com/1asi0730-2610-10203-OptiFlow/optiflow-platform](https://github.com/1asi0730-2610-10203-OptiFlow/optiflow-platform)
+
+| Endpoint | Verbo HTTP | Sintaxis de llamada | Parámetros | URL de documentación |
+|---|---|---|---|---|
+| registrar producto | POST | `/products` | Body: `categoryId`, `category`, `supplierId`, `supplierName`, `sku`, `name`, `brand`, `model`, `price`, `stock`, `minimumStockThreshold` | http://localhost:5238/swagger/index.html#/products/RegisterProduct |
+| reabastecer producto | POST | `/products/{id}/restock` | Path: `id` (int). Body: `quantity`, `author` | http://localhost:5238/swagger/index.html#/products/RestockProduct |
+| consultar productos con bajo stock | GET | `/products/low-stock` | Ninguno | http://localhost:5238/swagger/index.html#/products/GetLowStockProducts |
+| crear venta | POST | `/sales` | Body: `invoiceNumber`, `labOrderNumber`, `patientId`, `patientName`, `userId`, `userName`, `totalAmount`, `advance`, `discountCode`, `discountAmount`, `paymentMethod`, `createdAt`, `deliveredAt`, `notes` | http://localhost:5238/swagger/index.html#/sales/CreateSale |
+| aplicar descuento promocional | POST | `/sales/{id}/apply-discount` | Path: `id` (int). Body: detalle del descuento a aplicar | http://localhost:5238/swagger/index.html#/sales/ApplyPromotionalDiscount |
+| pagar saldo pendiente | POST | `/payments/{saleId}/pay` | Path: `saleId` (int). Body: monto del pago | http://localhost:5238/swagger/index.html#/payments/PayOutstandingBalance |
+| cancelar venta | POST | `/sales/{id}/cancel` | Path: `id` (int). Body: motivo de cancelación | http://localhost:5238/swagger/index.html#/sales/CancelSale |
+| registrar laboratorio | POST | `/laboratories` | Body: `name`, `phone`, `email` | http://localhost:5238/swagger/index.html#/laboratories/RegisterLaboratory |
+| crear orden de trabajo | POST | `/work-orders` | Body: `saleId`, `recipeId`, `labId`, `priority`, `patientName`, `lensType`, `frame`, `prescriptionDetails`, `deposit`, `total` | http://localhost:5238/swagger/index.html#/work-orders/CreateWorkOrder |
+| actualizar estado de orden de trabajo | PATCH | `/work-orders/{id}/status` | Path: `id` (int). Body: `newStatus` | http://localhost:5238/swagger/index.html#/work-orders/UpdateWorkOrderStatus |
+| registrar paciente | POST | `/api/v1/patients` | Body: `firstName`, `lastName`, `dni`, `phone`, `email`, `birthDate` | http://localhost:5238/swagger/index.html#/patients/CreatePatient |
+| crear prescripción | POST | `/api/v1/prescriptions` | Body: `clinicalRecordId`, `odSphere`, `odCylinder`, `odAxis`, `oiSphere`, `oiCylinder`, `oiAxis`, `addition`, `doctorName`, `notes` | http://localhost:5238/swagger/index.html#/prescriptions/CreatePrescription |
+| crear suscripción | POST | `/api/v1/subscriptions` | Body: `adminId`, `planId`, `tier`, `amount`, `paymentMethod` | http://localhost:5238/swagger/index.html#/subscriptions/SelectSubscriptionPlan |
+| activar suscripción | POST | `/api/v1/subscriptions/{id}/activate` | Path: `id` (int) | http://localhost:5238/swagger/index.html#/subscriptions/ActivateSubscription |
+| procesar pago de suscripción | POST | `/api/v1/subscription-payments/subscriptions/{subscriptionId}` | Path: `subscriptionId` (int). Body: detalle del pago | http://localhost:5238/swagger/index.html#/subscription-payments/ProcessSubscriptionPayment |
+| consultar reportes analíticos | GET | `/api/v1/analytics-reports` | Ninguno | http://localhost:5238/swagger/index.html#/analytics-reports/GetAllAnalyticsReports |
+| consultar métricas de personal | GET | `/api/v1/staff-metrics/by-report/{reportId}` | Path: `reportId` (int) | http://localhost:5238/swagger/index.html#/staff-metrics/GetStaffMetricsByReportId |
+
+**Ejemplo y explicación del response — Registrar producto (POST /products):**
+
+Ante una petición válida, el API responde `201 Created` y retorna el recurso del producto registrado:
+
+```json
+{
+  "id": 12,
+  "categoryId": 3,
+  "category": "Monturas",
+  "supplierId": 2,
+  "supplierName": "OptiSupply S.A.",
+  "sku": "MNT-0098",
+  "name": "Montura Aviador",
+  "brand": "RayBan",
+  "model": "RB3025",
+  "price": 320.00,
+  "stock": 15,
+  "minimumStockThreshold": 5,
+  "lastRestockDate": "2026-06-10"
+}
+```
+
+Si el `sku` ya existe, el sistema responde `409 Conflict` indicando que el producto ya está registrado; si el payload tiene campos inválidos (por ejemplo, un `categoryId` ausente), responde `400 Bad Request` describiendo el error de validación.
+
+**Ejemplo y explicación del response — Activar suscripción (POST /api/v1/subscriptions/{id}/activate):**
+
+Ante una suscripción en estado `PENDING_PAYMENT`, el API responde `200 OK` con la suscripción actualizada:
+
+```json
+{
+  "id": 4,
+  "adminId": 1,
+  "planId": 2,
+  "tier": "STANDARD",
+  "amount": 149.90,
+  "paymentMethod": "CREDIT_CARD",
+  "status": "ACTIVE",
+  "startDate": "2026-06-10",
+  "endDate": "2026-07-10"
+}
+```
+
+Si la suscripción ya se encuentra activa, el sistema responde `409 Conflict`; si el identificador no existe, responde `404 Not Found`.
+
+**Capturas de la interacción con la documentación:**
+
+*(Insertar aquí las capturas de pantalla de la interfaz de Swagger UI en `http://localhost:5238/swagger`, mostrando: (1) la lista completa de controladores agrupados por tag — Products, Sales, Payments, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics —, y (2) la ejecución de "Try it out" sobre el endpoint POST /products con datos de muestra y su respuesta 201 Created.)*
+
+**Commits relacionados con Documentación para este Sprint:**
+
+| Commit Id | Mensaje | Fecha |
+|---|---|---|
+| 41127c6 | feat(inventory): add interfaces layer | 07/06/2026 |
+| 9b26141 | feat(lab-and-orders): add interfaces layer - REST controllers and assemblers | 04/06/2026 |
+| 303867c | add clinical bounded context | 05/06/2026 |
+| 0308f3e | add analytics section | 05/06/2026 |
+| 650408f | feat: added sales bounded context | 07/06/2026 |
+| 35f107d | feet(subscription): add controllers | 08/06/2026 |
+| 3362c8a | feat(subscription): add queries documentation | 08/06/2026 |
+| 29f6db1 | fix: swagger error api not defined fix | 08/06/2026 |
+ 
 
 #### Software Deployment Evidence for Sprint Review. 
+
+
+
 #### Team Collaboration Insights for Sprint Review 
 
 
