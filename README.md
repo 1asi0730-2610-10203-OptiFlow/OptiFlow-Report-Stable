@@ -38,7 +38,7 @@ u202411521 - Morocho Pinedo, Mariana
 
 ***
 
-*Abril, 2026*
+*Junio, 2026*
 
 </div>
 
@@ -50,6 +50,7 @@ u202411521 - Morocho Pinedo, Mariana
 |---|---|---|---|
 | 1.0.0 | 25/04/26 | Atoche, Azama, Capillo, Mechan, Morocho | Primera versión (TB1): Implementación de Lean UX, DDD, Needfinding, Prototipos del frontend, Arquitectura de Software y despliegue inicial del Landing Page. |
 | 2.0.0 | 10/05/26 | Atoche, Azama, Capillo, Mechan, Morocho | Segunda versión (TB2): Corrección de observaciones del TB1; especificación formal de repositorios de Web App y Backend en Source Code Management; despliegue e implementación del Frontend Web App con integración a Fake RESTful API (json-server); documentación de Sprint 2 incluyendo Sprint Planning, Aspect Leaders, Sprint Backlog, Development Evidence, Execution Evidence, Services Documentation Evidence y Team Collaboration Insights; redacción de Validation Interviews (diseño, registro y evaluación heurística); adición de Video About-the-Product; y corrección de bugs estructurales del informe. |
+| 3.0.0 | 17/06/26 | Atoche, Azama, Capillo, Mechan, Morocho | Tercera versión (TB3): Corrección de observaciones del TB2; diseño e implementación del esquema de base de datos relacional con SQL Server; desarrollo del backend Web Services en ASP.NET Core cubriendo los bounded contexts de Inventory, Sales, Lab & Orders, Clinical, Subscription y Analytics; documentación de Sprint 3 incluyendo Sprint Planning, Aspect Leaders, Sprint Backlog, Development Evidence, Execution Evidence y Services Documentation Evidence con especificación OpenAPI/Swagger de los endpoints implementados; actualización de Validation Interviews con registro de entrevistas y evaluación heurística de la aplicación web (5 problemas identificados y documentados); y actualización de Team Collaboration Insights con métricas de contribución del equipo. |
 
 ***
 
