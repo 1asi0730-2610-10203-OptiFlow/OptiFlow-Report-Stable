@@ -1242,7 +1242,6 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 #### Aspect Leaders and Collaborators
 En el sprint principalmente se tomó enfoque en el desarrollo de la parte del backend, además de actualizar las versiones del landing page y del frontend webb app.
 
-
 | Team Member | GitHub | Sales module frontend (L)/(C) | Clinical & auth frontend (L)/(C) | Customer portal frontend (L)/(C) | Inventory & lab frontend (L)/(C) | Analytics & admin frontend (L)/(C) | Report corrections & doc (L)/(C) | Fake API config (L)/(C) | Frontend development (L)/(C) | Dev evidence doc (L)/(C) | Sprint planning & Backlog (L)/(C) | Software deployment config (L)/(C) | Services doc evidence (L)/(C) | Team collab insights (L)/(C) | Report documentation (L)/(C) | Scrum Master Role (L)/(C) | Validation interviews (L)/(C) | UX implementation (L)/(C) | Agile tool management (L)/(C) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Azama Fukuda, Juan Pablo | Llummo | L | | | | | L | | | | | L | | | | L | | | |
@@ -1250,6 +1249,435 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
 | Capillo Lema, Mia | Miavcl | | | L | | | | | C | | | | | | C | | | C | |
 | Mechan Montenegro, Luciana | luuu6 | | | | L | | | | | L | | | | L | | | | | L |
 | Morocho Pinedo, Mariana | Patto04 | | | | | L | | | C | | C | | | | C | | | | |
+
+
+#### Sprint Backlog 3
+
+<table>
+<thead>
+    <tr>
+      <th style="text-align: left;">Sprint #</th>
+      <th colspan="7" style="text-align: left;">Sprint 3</th>
+    </tr>
+    <tr>
+      <th colspan="2" style="text-align: left;">User Story</th>
+      <th colspan="6" style="text-align: left;">Work-Item / Task</th>
+    </tr>
+    <tr>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Description</th>
+      <th style="text-align: left;">Estimation (Hours)</th>
+      <th style="text-align: left;">Assigned To</th>
+      <th style="text-align: left;">Status (To-do / In-Process / To-Review / Done)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td>Database Design & Setup</td>
+      <td>T33</td>
+      <td>Solidify Data Base Design (Meeting)</td>
+      <td>Sesión de equipo para finalizar el diseño de la base de datos relacional a partir de los bounded contexts identificados en el Design-Level EventStorming.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Database Design & Setup</td>
+      <td>T34</td>
+      <td>Implementación del Esquema de Base de Datos</td>
+      <td>Crear las tablas, relaciones y constraints de la base de datos relacional que soportará la persistencia de los bounded contexts de Web Services.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-INV-001</td>
+      <td>Register a Product</td>
+      <td>T35</td>
+      <td>Endpoint de Registro de Producto</td>
+      <td>Implementar el endpoint POST /api/v1/products con validación de atributos, detección de SKU duplicado y respuesta mediante ProductResource.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-INV-002</td>
+      <td>Restock a Product</td>
+      <td>T36</td>
+      <td>Endpoint de Reabastecimiento de Producto</td>
+      <td>Implementar el endpoint POST /api/v1/products/{id}/restock con validación de cantidad, manejo de producto no encontrado y actualización del stock.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-INV-003</td>
+      <td>Get Low-Stock Products</td>
+      <td>T37</td>
+      <td>Endpoint de Consulta de Productos con Bajo Stock</td>
+      <td>Implementar el endpoint GET /api/v1/products/low-stock que retorna los productos cuyo stock está en o por debajo del umbral mínimo.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SAL-001</td>
+      <td>Create a Sale</td>
+      <td>T38</td>
+      <td>Endpoint de Registro de Venta</td>
+      <td>Implementar el endpoint POST /sales con validación de atributos y persistencia de la venta, retornando el SaleResource creado.</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SAL-002</td>
+      <td>Apply a Promotional Discount</td>
+      <td>T39</td>
+      <td>Endpoint de Aplicación de Descuento</td>
+      <td>Implementar el endpoint POST /sales/{id}/discount con validación de estado de la venta y recálculo del monto pendiente.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SAL-003</td>
+      <td>Pay Outstanding Balance</td>
+      <td>T40</td>
+      <td>Endpoint de Pago de Saldo Pendiente</td>
+      <td>Implementar el endpoint POST /sales/{id}/pay-outstanding con lógica de pago total/parcial y transición de estado de la venta.</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SAL-004</td>
+      <td>Cancel a Sale</td>
+      <td>T41</td>
+      <td>Endpoint de Cancelación de Venta</td>
+      <td>Implementar el endpoint POST /sales/{id}/cancel con validación del estado cancelable y actualización a estado CANCELLED.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-LAB-001</td>
+      <td>Register a Laboratory</td>
+      <td>T42</td>
+      <td>Endpoint de Registro de Laboratorio</td>
+      <td>Implementar el endpoint POST /api/v1/laboratories con validación de nombre duplicado y formato de email.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-LAB-002</td>
+      <td>Create a Work Order</td>
+      <td>T43</td>
+      <td>Endpoint de Creación de Orden de Trabajo</td>
+      <td>Implementar el endpoint POST /api/v1/work-orders con validación de campos requeridos y persistencia del WorkOrderResource.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-LAB-003</td>
+      <td>Update Work Order Status</td>
+      <td>T44</td>
+      <td>Endpoint de Actualización de Estado de Orden</td>
+      <td>Implementar el endpoint PATCH /api/v1/work-orders/{id}/status con validación de transición de estado del flujo Kanban de laboratorio.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-CLI-001</td>
+      <td>Register a Patient</td>
+      <td>T45</td>
+      <td>Endpoint de Registro de Paciente</td>
+      <td>Implementar el endpoint POST /api/v1/patients con validación de DNI duplicado y creación automática del registro clínico asociado.</td>
+      <td>5 hrs</td>
+      <td>Nicolas</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-CLI-002</td>
+      <td>Create a Prescription</td>
+      <td>T46</td>
+      <td>Endpoint de Creación de Prescripción</td>
+      <td>Implementar el endpoint POST /api/v1/prescriptions con validación de campos ópticos y vinculación al registro clínico del paciente.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-001</td>
+      <td>Select a Subscription Plan</td>
+      <td>T47</td>
+      <td>Endpoint de Creación de Suscripción</td>
+      <td>Implementar el endpoint POST /api/v1/subscriptions con validación de plan y persistencia del SubscriptionResource.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-002</td>
+      <td>Activate a Subscription</td>
+      <td>T48</td>
+      <td>Endpoint de Activación de Suscripción</td>
+      <td>Implementar el endpoint POST /api/v1/subscriptions/{id}/activate con validación de estado PENDING_PAYMENT y cálculo de fechas de vigencia.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-003</td>
+      <td>Process a Subscription Payment</td>
+      <td>T49</td>
+      <td>Endpoint de Procesamiento de Pago de Suscripción</td>
+      <td>Implementar el endpoint POST /api/v1/payments con validación de monto y vinculación al ciclo de facturación de la suscripción.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-ANA-001</td>
+      <td>Retrieve Analytics Reports</td>
+      <td>T50</td>
+      <td>Endpoint de Consulta de Reportes Analíticos</td>
+      <td>Implementar los endpoints GET /api/v1/analytics-reports y GET /api/v1/analytics-reports/{id} retornando AnalyticsReportResource.</td>
+      <td>5 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-ANA-002</td>
+      <td>Retrieve Staff Metrics</td>
+      <td>T51</td>
+      <td>Endpoint de Consulta de Métricas de Personal</td>
+      <td>Implementar el endpoint GET /api/v1/staff-metrics retornando una lista de StaffMetricResource con KPIs por empleado.</td>
+      <td>4 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>IAM Module</td>
+      <td>T52</td>
+      <td>Endpoints de Identity and Access Management</td>
+      <td>Implementar los endpoints de autenticación y autorización del bounded context IAM para Web Services.</td>
+      <td>5 hrs</td>
+      <td>Mariana</td>
+      <td>In-Process</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Patient-center Module</td>
+      <td>T53</td>
+      <td>Endpoints de Portal del Paciente</td>
+      <td>Implementar los endpoints del bounded context Patient-center que exponen los datos consumidos por el portal del paciente.</td>
+      <td>5 hrs</td>
+      <td>Mia</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T54</td>
+      <td>Crear el Repositorio Público del Curso</td>
+      <td>Crear el repositorio público con la nomenclatura exigida (webdev-course-[nombre del equipo]) para alojar el contenido del curso de HTML.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T55</td>
+      <td>Redacción del README.md</td>
+      <td>Redactar el README.md con las instrucciones de configuración del repositorio del curso.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T56</td>
+      <td>Estructura de Carpetas Base</td>
+      <td>Crear y estructurar las carpetas base del repositorio (/starter-files, /completed-examples, /scripts).</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T57</td>
+      <td>Código de Ejemplo para las Clases</td>
+      <td>Desarrollar el código de los ejemplos para las clases del curso (Estructura HTML, CSS simple, página de perfil).</td>
+      <td>5 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T58</td>
+      <td>Enlaces Precargados para Descripciones</td>
+      <td>Generar los enlaces directos precargados que se incluirán en la descripción de los videos del curso.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59</td>
+      <td>Redacción de Guiones por Lección</td>
+      <td>Cada miembro redacta el guion de la lección del curso que le fue asignada.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-2</td>
+      <td>Redacción de Guion — Introducción al desarrollo web</td>
+      <td>Redactar el guion de la lección "Introducción al desarrollo web (qué es un sitio web?)".</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-3</td>
+      <td>Redacción de Guion — Estructura HTML básica</td>
+      <td>Redactar el guion de la lección "Estructura HTML básica (etiquetas, elementos, atributos)".</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-4</td>
+      <td>Redacción de Guion — Elementos HTML comunes</td>
+      <td>Redactar el guion de la lección "Elementos HTML comunes (encabezados, párrafos, listas, imágenes, enlaces)".</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-5</td>
+      <td>Redacción de Guion — Introducción a CSS</td>
+      <td>Redactar el guion de la lección "Introducción a CSS (selectores, propiedades como color, fuente, diseño)".</td>
+      <td>4 hrs</td>
+      <td>Mia</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-6</td>
+      <td>Redacción de Guion — Estilo simple</td>
+      <td>Redactar el guion de la lección "Estilo simple (p.ej., centrar contenido, añadir colores y borders)".</td>
+      <td>4 hrs</td>
+      <td>Mariana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-7</td>
+      <td>Redacción de Guion — Creación de página web básica</td>
+      <td>Redactar el guion de la lección final "Creación de una página web básica (ej. Una página de perfil o una entrada de un blog)".</td>
+      <td>4 hrs</td>
+      <td></td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T59-8</td>
+      <td>Redacción de Guion — Recomendaciones y errores comunes</td>
+      <td>Redactar el guion de la lección "Recomendaciones y errores comunes para principiantes".</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T60</td>
+      <td>Grabación de Voz por Lección</td>
+      <td>Cada miembro grava la voz en off de la lección del curso que le fue asignada.</td>
+      <td>4 hrs</td>
+      <td></td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T61</td>
+      <td>Validación de Ausencia de Branding</td>
+      <td>Garantizar que no haya branding ni referencias personales de los integrantes durante la grabación de los videos del curso.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T62</td>
+      <td>Edición de Video por Lección</td>
+      <td>Cada miembro edita el video de la lección del curso que le fue asignada.</td>
+      <td>4 hrs</td>
+      <td></td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T63</td>
+      <td>Subida de Videos a YouTube</td>
+      <td>Subir todos los videos del curso a YouTube con la configuración de privacidad en "No listado".</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>HTML Course</td>
+      <td>T64</td>
+      <td>Descripciones Finales de Videos en YouTube</td>
+      <td>Armar las descripciones finales de los videos en YouTube, incluyendo los enlaces directos precargados a los editores de código.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+  </tbody>
+</table>
+#### Development Evidence for Sprint Review  
+
+#### Execution Evidence for Sprint Review
+
+#### Services Documentation Evidence for Sprint Review. 
+
+#### Software Deployment Evidence for Sprint Review. 
+#### Team Collaboration Insights for Sprint Review 
+
+
+
 ## Validation Interviews
 
 ### Diseño de Entrevistas
@@ -1257,7 +1685,6 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
 Para las entrevistas se considerarán los siguientes factores. En primer lugar, el landing page será mostrado brevemente a ambos segmentos objetivos. En segundo lugar, se separarán los userflows que se usarán por segmento. En este caso, a los clientes/pacientes de ópticas se le mostrarán los userflows principales relacionados a el centro de pacientes al que pueden acceder. Por otro lado, al segmento de administradores de las ópticas, se les mostrará las funcionalidades más importantes que tiene la aplicación (Lab Orders, Sales and inventory). 
 
 Para los clientes: US16, US34, US33
-
 
 ## Registro de Entrevistas
 
