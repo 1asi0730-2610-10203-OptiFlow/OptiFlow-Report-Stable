@@ -1668,6 +1668,10 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
   </tbody>
 </table>
 
+#### Gestión colaborativa y seguimiento de incidencias mediante Jira
+![jira-screenshot](../assets/jira-screenshot.png)
+![jira-screenshot-2](../assets/jira-screenshot-2.png)
+
 #### Development Evidence for Sprint Review  
 
 ##### Commits frontend
