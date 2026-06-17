@@ -1268,9 +1268,13 @@ CLIENTE(S):
 ### Tareas a evaluar
 El alcance de esta evaluación incluye la revisión de la usabilidad de las siguientes tareas:
 
-1. Visualización del Dashboard principal con gráficos de gestión
-2. Acceso al portal del paciente - Mis Lentes
-3. Acceso al portal del paciente - Calculadora de grosor
+1. Aprobación de una orden de laboratorio mediante el flujo de Control de 
+   Calidad (QA)
+2. Acceso al portal del paciente — Mis Lentes
+3. Acceso al portal del paciente — Calculadora de grosor de lentes
+4. Avance del estado de una orden de laboratorio en el tablero Kanban
+5. Visualización del Dashboard principal con gráficos de gestión
+6. Revisión de reportes de gestión (ventas, laboratorio y desempeño del personal) 
 
 No están incluidas en esta versión de la evaluación las siguientes tareas:
 
@@ -1329,6 +1333,77 @@ Problema: En la pantalla My Lenses, el campo de fecha estimada de entrega se mue
 ![my-lenses-view](../assets/my-lenses-view.png)
 
 Recomendación: Mostrar el campo en rojo con un ícono de advertencia y un texto como "Delayed — estimated date has passed" si la fecha ya pasó y el pedido no está en estado DELIVERED. Esto también aplica a la heurística de IA "Is it credible?", que cuestiona si el contenido está actualizado y es confiable para el usuario.
+
+### PROBLEMA #4: El botón de avance de estado en el tablero Kanban no es 
+visible hasta que el usuario pasa el cursor sobre la tarjeta
+
+**Severidad:** 3
+
+**Heurística violada:** Usabilidad — Reconocer antes que recordar
+
+**Problema:** En el tablero Kanban del módulo de Órdenes de Laboratorio, cada 
+tarjeta de trabajo contiene una acción para avanzar el pedido al siguiente estado 
+del flujo (por ejemplo, de "En Producción" a "Control de Calidad"). Sin embargo, 
+esta acción no es visible en ningún momento mientras el usuario navega el tablero: 
+solo aparece cuando el cursor se posiciona directamente sobre la tarjeta. Un usuario 
+que ingrese por primera vez al módulo no tiene ninguna pista visual de que esa acción 
+existe, lo que lo obliga a explorar la interfaz por ensayo y error para descubrirla.
+
+Esto viola directamente la heurística de Reconocer antes que recordar, que establece 
+que las acciones y opciones deben estar visibles en el momento apropiado para que el 
+usuario no tenga que recordar información entre distintas partes de la aplicación. 
+En un sistema ERP utilizado por múltiples empleados con distintos niveles de 
+experiencia, ocultar la acción principal de una tarjeta genera fricción especialmente 
+para usuarios nuevos, quienes no saben que deben "buscar" interacciones pasando el 
+cursor. La frecuencia de uso de esta acción es alta, ya que avanzar el estado de los 
+pedidos es la tarea central del módulo, lo que eleva la severidad del problema.
+
+![kanban-view](../assets/kanban-view.png)
+
+**Recomendación:** Mostrar el botón de avance de estado con visibilidad permanente 
+dentro de la tarjeta, utilizando una opacidad reducida en reposo que aumente al hacer 
+hover, o bien reubicando la acción como un elemento siempre visible en la parte 
+inferior de la tarjeta. Otra alternativa es incluir la acción de avance dentro del 
+modal de detalle de la orden, donde el flujo de estados ya está expuesto de forma 
+explícita al usuario.
+
+
+### PROBLEMA #5: Los gráficos del Dashboard no cuentan con ninguna 
+alternativa de texto accesible para usuarios con discapacidad visual
+
+**Severidad:** 3
+
+**Heurística violada:** Inclusive Design — Proporciona experiencias comparables / 
+Information Architecture: Is it accessible?
+
+**Problema:** El Dashboard principal de OptiFlow presenta la información de gestión 
+más crítica del sistema —tasa de conversión de los últimos meses e ingresos 
+semanales— de forma exclusiva a través de visualizaciones gráficas: un gráfico de 
+líneas y un gráfico de barras. No existe ninguna tabla de datos, resumen numérico 
+ni descripción textual que acompañe a estas visualizaciones. Para un usuario que 
+utilice lector de pantalla, o que presente algún tipo de discapacidad visual como 
+visión disminuida o daltonismo, estos gráficos son completamente inaccesibles como 
+fuentes de información, ya que su contenido no puede ser interpretado por tecnologías 
+de asistencia.
+
+Según el principio de Inclusive Design de Proporcionar experiencias comparables, la 
+interfaz debe asegurar que todos los usuarios puedan realizar las mismas tareas de 
+manera conveniente, sin pérdida de calidad en el contenido. Que la información de 
+ingresos y conversión —datos críticos para la toma de decisiones del administrador— 
+sea inaccesible para un segmento de usuarios constituye una brecha significativa. 
+Esto también viola la heurística de IA "Is it accessible?", que cuestiona si el 
+contenido puede consumirse en todos los canales y dispositivos esperados, incluyendo 
+tecnologías de asistencia. Según la OMS (2016), el 20% de la población vive con 
+algún tipo de condición especial, lo que hace relevante considerar este escenario 
+incluso en un sistema ERP interno.
+
+![dashboard-view](../assets/dashboard-view.png)
+
+**Recomendación:** Agregar debajo de cada gráfico una sección con los valores 
+numéricos principales presentados en formato de texto o tabla compacta, de modo 
+que la información sea legible sin depender de la visualización. Esto beneficia 
+tanto a usuarios con tecnologías de asistencia como a aquellos que prefieren 
+leer cifras exactas en lugar de estimarlas visualmente en un gráfico.
 
 ## Video about the product
 
