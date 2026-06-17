@@ -420,7 +420,6 @@ En el sprint el enfoque principal fue el desarrollo del frontend de la aplicaci�
 | Morocho Pinedo, Mariana | Patto04 | Analytics & admin module frontend (L) | Sprint planning & Backlog (C) | Frontend development (C) | Report documentation (C) |
 
 #### Sprint Backlog 2
-
 <table>
 <thead>
     <tr>
@@ -1222,9 +1221,7 @@ El repositorio de la Landing Page registró la participación de **5 autores** c
 
 ### Sprint 3
 
-#### Sprint Planning
-
-#### Sprint Planning 2
+#### Sprint Planning 3
 En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la segunda iteración del proyecto. El enfoque principal de este Sprint abarca la corrección de los errores identificados en el Sprint anterior y el desarrollo del frontend de la aplicación web. En base a la retrospectiva del Sprint 1, el equipo definió mejoras en la coordinación interna, la documentación y la calidad de los artefactos de diseño.
 
 | Aspect | Details |
@@ -1242,6 +1239,17 @@ En esta sección se especifican los aspectos principales del Sprint Planning Mee
 | **Sum of Story Points** | 45 |
 
 
+#### Aspect Leaders and Collaborators
+En el sprint principalmente se tomó enfoque en el desarrollo de la parte del backend, además de actualizar las versiones del landing page y del frontend webb app.
+
+
+| Team Member | GitHub | Sales module frontend (L)/(C) | Clinical & auth frontend (L)/(C) | Customer portal frontend (L)/(C) | Inventory & lab frontend (L)/(C) | Analytics & admin frontend (L)/(C) | Report corrections & doc (L)/(C) | Fake API config (L)/(C) | Frontend development (L)/(C) | Dev evidence doc (L)/(C) | Sprint planning & Backlog (L)/(C) | Software deployment config (L)/(C) | Services doc evidence (L)/(C) | Team collab insights (L)/(C) | Report documentation (L)/(C) | Scrum Master Role (L)/(C) | Validation interviews (L)/(C) | UX implementation (L)/(C) | Agile tool management (L)/(C) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Azama Fukuda, Juan Pablo | Llummo | L | | | | | L | | | | | L | | | | L | | | |
+| Atoche Gonzales, Nicolas | THECOMAX | | L | | | | | L | | | | | L | | | | L | | |
+| Capillo Lema, Mia | Miavcl | | | L | | | | | C | | | | | | C | | | C | |
+| Mechan Montenegro, Luciana | luuu6 | | | | L | | | | | L | | | | L | | | | | L |
+| Morocho Pinedo, Mariana | Patto04 | | | | | L | | | C | | C | | | | C | | | | |
 ## Validation Interviews
 
 ### Diseño de Entrevistas
