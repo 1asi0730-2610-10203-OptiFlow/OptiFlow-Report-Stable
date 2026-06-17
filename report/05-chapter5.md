@@ -1668,9 +1668,16 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
   </tbody>
 </table>
 
+Si bien es cierto el enunciado solicita la utilización de la herramienta de Trello, nosotros optamos por utilizar Jira como nuestra herramienta de desarrollo ágil. Aún así, mostramos una captura con delegaciones en el trello solo para poder cumplir con el requisito del enucniado, además de mostrar las capturas del Jira.
+
 #### Gestión colaborativa y seguimiento de incidencias mediante Jira
 ![jira-screenshot](../assets/jira-screenshot.png)
 ![jira-screenshot-2](../assets/jira-screenshot-2.png)
+
+
+#### Gestión colaborativa y seguimiento de incidencias mediante Trello
+![trello-screenshot](../assets/trello-screenshot.png)
+
 
 #### Development Evidence for Sprint Review  
 
