@@ -1792,6 +1792,108 @@ Para los clientes: US16, US34, US33
 
 ## Registro de Entrevistas
 
+### Primer segmento: 
+## Entrevista 1: 
+Entrevistador: 
+Datos del entrevistado
+- Nombre: 
+- Apellidos: 
+- Edad:
+- Distrito: 
+- Duración: 
+
+
+Resumen descriptivo: 
+
+
+## Entrevista 2: 
+Entrevistador: 
+Datos del entrevistado
+- Nombre: 
+- Apellidos: 
+- Edad:
+- Distrito: 
+- Duración: 
+
+Resumen descriptivo: 
+
+## Entrevista 3: 
+Entrevistador: Luciana Mechan
+
+Datos del entrevistado
+- Nombre: Carla
+- Apellidos: Gallardo Morales
+- Edad: 19 años
+- Distrito: La Molina
+- Duración: 13:44
+- Link de la entrevista individual:  [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241b843_upc_edu_pe/IQBLol40bDVYSr61kfRjDim4AdscP3hXfd_PKZw4FLNTK8w?e=wptacT&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) 
+
+![entrevista-carla](../assets/entrevista-carla.png)
+
+#### Resumen descriptivo: 
+La participante exploró la landing page de forma autónoma, comprendiendo con claridad 
+el propósito del producto a través de las secciones de características y beneficios. 
+Identificó correctamente que OptiFlow es un sistema de gestión para ópticas con un 
+portal orientado al cliente, y reconoció sin dificultad los beneficios que tendría 
+como usuaria: evitar filas innecesarias y consultar el estado de sus lentes de forma 
+remota. La sección de contacto le resultó intuitiva y fácil de localizar.
+
+Al explorar el módulo de Mis Lentes, la participante navegó hacia la sección de forma 
+inmediata y logró interpretar el tracker de estados, asociando los íconos en color 
+turquesa con pedidos listos y los grises con pedidos en proceso. Sin embargo, señaló 
+que la combinación del seguimiento del pedido y el estado de pago en una misma vista 
+le generó confusión inicial, sugiriendo que ambas secciones deberían estar separadas. 
+Adicionalmente, indicó que esperaría encontrar en el resumen de pago un detalle 
+itemizado de los productos, similar a una boleta, con la descripción y el costo 
+individual de cada componente del pedido. En cuanto al Virtual Try-On, comprendió 
+correctamente el funcionamiento esperado de la herramienta, aunque señaló la ausencia 
+de imágenes de referencia de los modelos de montura como una limitación, ya que no 
+contaba con una referencia visual concreta del producto antes de activar la cámara.
+
+En la tarea de la Calculadora de grosor, la participante localizó la sección sin 
+inconvenientes, pero manifestó no comprender los términos "esfera" y "cilindro" al 
+verlos sin contexto, indicando que necesitaría una explicación junto a cada campo 
+para poder utilizarlos correctamente. Valoró positivamente la visualización de 
+precios por material, reconociendo que es información relevante para ajustarse a un 
+presupuesto. Finalmente, expresó interés en contar con una comparación visual del 
+grosor entre materiales, más allá de los valores numéricos, para facilitar la 
+comprensión de las diferencias entre opciones.
+
+### Segundo segmento
+
+## Entrevista 1: 
+Entrevistador: 
+Datos del entrevistado
+- Nombre: 
+- Apellidos: 
+- Edad:
+- Distrito: 
+- Duración: 
+
+Resumen descriptivo:
+
+## Entrevista 2: 
+Entrevistador: 
+Datos del entrevistado
+- Nombre: 
+- Apellidos: 
+- Edad:
+- Distrito: 
+- Duración: 
+
+Resumen descriptivo:
+
+## Entrevista 3: 
+Entrevistador: 
+Datos del entrevistado
+- Nombre: 
+- Apellidos: 
+- Edad:
+- Distrito: 
+- Duración: 
+
+Resumen descriptivo:
+
 ## Evaluaciones según heurísticas
 Carrera: Ingeniería de Software <br>
 Curso:  Aplicaciones Web  
