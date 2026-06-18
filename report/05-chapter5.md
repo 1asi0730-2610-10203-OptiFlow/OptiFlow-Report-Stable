@@ -1794,6 +1794,69 @@ Para los clientes: US16, US34, US33
 
 ### Primer segmento: 
 ## Entrevista 1: 
+Entrevistador: Mariana Morocho
+
+Datos del entrevistado
+- Nombre: Nicole
+- Apellidos: Ortiz Salcedo
+- Edad:29 años
+- Distrito: Lima 
+- Duración: 15:25
+- Link de grabación: [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQA2qWPjEv2fQ7jILC7LFXr_AWjcIse-NVqcwtASKwxt4-o?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=1vV1zt)
+![entrevista Nicole](../assets/validacion_optica_1.png)
+#### Resumen descriptivo: 
+
+Durante la entrevista realizada a una profesional con experiencia en gestión de ventas dentro del sector óptico, se obtuvo una valoración positiva de la plataforma OptiFlow. La participante destacó que la solución presenta una estructura organizada y funcionalidades que facilitan la administración de pacientes, ventas, inventario y productividad del personal. Asimismo, resaltó como aspectos especialmente útiles la visualización del historial de pacientes, el registro de exámenes, la gestión de promociones y descuentos, el control de inventario y los indicadores de desempeño del personal, ya que permiten optimizar los procesos operativos y mejorar la toma de decisiones.
+
+Por otro lado, la entrevistada sugirió algunas mejoras orientadas al análisis y gestión estratégica de la óptica. Entre ellas, recomendó incorporar un módulo de seguimiento de metas e indicadores de desempeño empresarial, un ranking de trabajadores con mejor rendimiento, reportes de ventas por categorías de productos para identificar tendencias de consumo y herramientas de filtrado más avanzadas para consultar información por meses específicos. Además, propuso una mejor organización de los comprobantes de pago, separando de forma más clara las boletas y facturas.
+
+
+## Entrevista 2: 
+Entrevistador: Mariana Morocho
+Datos del entrevistado
+- Nombre: Marcos
+- Apellidos: Ruiz
+- Edad: 52 años
+- Distrito: Pimentel 
+- Duración: 13:03
+- Link de la entrevista: [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQAMKl_uYoheTJuU7tB8N9SUAScnQWQXCDOMC87CQkeAV5A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=UeW3aJ)
+
+![entrevista Marcos](../assets/validacion_optica_2.png)
+
+#### Resumen descriptivo: 
+
+Durante la entrevista realizada a un optometrista, se obtuvo una evaluación favorable de la plataforma OptiFlow.Destacó que la presentación de la página es atractiva, los precios son accesibles en relación con las funcionalidades ofrecidas y la estructura general del sistema resulta adecuada para la gestión de una óptica. Asimismo, señaló que los módulos más relevantes para su labor diaria son pacientes, órdenes de laboratorio, inventario y ventas, considerando que la plataforma cubre de manera satisfactoria estos procesos.
+
+En relación con el módulo de pacientes, el entrevistado indicó que la información mostrada es completa; sin embargo, recomendó incorporar una visualización más rápida de las refracciones o exámenes anteriores junto con los nuevos registros, ya que estos datos sirven como referencia importante durante la atención. Además, sugirió incluir un apartado específico para el historial clínico del paciente, donde se puedan registrar antecedentes relevantes y realizar un seguimiento más completo de cada caso.
+
+Respecto al módulo de ventas, consideró que el flujo de trabajo es adecuado y fácil de utilizar, permitiendo relacionar rápidamente a los pacientes con los productos adquiridos y registrar las ventas de manera ordenada. Del mismo modo, validó la secuencia de estados del laboratorio, indicando que refleja correctamente el proceso operativo que se sigue en una óptica, desde la recepción de la orden hasta la entrega final al paciente.
+
+## Entrevista 3: 
+Entrevistador: Mariana Morocho
+
+Datos del entrevistado
+- Nombre: Liz
+- Apellidos: Guevara
+- Edad: 30 años
+- Distrito: Tarapoto
+- Duración: 14:27
+- Link de la entrevista individual:  [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411521_upc_edu_pe/IQDlwA10IMBCSaO9r4zAfaiTAcFJfZkqFV1p1zeAQtIlJF0?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=W79kDk) 
+
+![entrevista Liz](../assets/validacion_optica_3.png)
+
+#### Resumen descriptivo: 
+
+La entrevistada destacó que la plataforma presenta funcionalidades interesantes para la gestión de ópticas, especialmente en las áreas de control de órdenes de laboratorio, inventario y seguimiento de pacientes. Asimismo, consideró que la organización de la información y la estructura de los módulos facilitan el control de las operaciones diarias, principalmente en ópticas medianas y grandes que manejan un alto volumen de ventas y pacientes.
+
+Respecto a la propuesta comercial, señaló que el precio puede resultar accesible para ópticas con mayor capacidad económica y flujo de clientes, pero podría representar una barrera para negocios pequeños. Por ello, recomendó evaluar estrategias comerciales o planes más atractivos que permitan ampliar el alcance de la plataforma a distintos tipos de ópticas y aumentar las posibilidades de adopción.
+
+Durante la exploración del sistema, resaltó el valor del módulo de órdenes de laboratorio, indicando que la clasificación por estados permite llevar un control eficiente de los pedidos y mejorar la organización del trabajo. De igual forma, valoró positivamente el módulo de inventario, ya que facilita el monitoreo del stock disponible y la reposición de productos cuando es necesario.
+
+Entre las mejoras sugeridas, recomendó desarrollar una versión adaptada para dispositivos móviles, debido a que muchas ópticas pequeñas utilizan principalmente teléfonos celulares para gestionar sus actividades diarias. Además, propuso incorporar una clasificación opcional de las monturas por material, como acetato, metal o titanio, con el fin de obtener un mejor control del inventario y facilitar la gestión de productos específicos.
+
+### Segundo segmento
+
+## Entrevista 1: 
 Entrevistador: 
 Datos del entrevistado
 - Nombre: 
@@ -1802,9 +1865,7 @@ Datos del entrevistado
 - Distrito: 
 - Duración: 
 
-
-Resumen descriptivo: 
-
+Resumen descriptivo:
 
 ## Entrevista 2: 
 Entrevistador: 
@@ -1815,7 +1876,7 @@ Datos del entrevistado
 - Distrito: 
 - Duración: 
 
-Resumen descriptivo: 
+Resumen descriptivo:
 
 ## Entrevista 3: 
 Entrevistador: Luciana Mechan
@@ -1858,41 +1919,6 @@ precios por material, reconociendo que es información relevante para ajustarse 
 presupuesto. Finalmente, expresó interés en contar con una comparación visual del 
 grosor entre materiales, más allá de los valores numéricos, para facilitar la 
 comprensión de las diferencias entre opciones.
-
-### Segundo segmento
-
-## Entrevista 1: 
-Entrevistador: 
-Datos del entrevistado
-- Nombre: 
-- Apellidos: 
-- Edad:
-- Distrito: 
-- Duración: 
-
-Resumen descriptivo:
-
-## Entrevista 2: 
-Entrevistador: 
-Datos del entrevistado
-- Nombre: 
-- Apellidos: 
-- Edad:
-- Distrito: 
-- Duración: 
-
-Resumen descriptivo:
-
-## Entrevista 3: 
-Entrevistador: 
-Datos del entrevistado
-- Nombre: 
-- Apellidos: 
-- Edad:
-- Distrito: 
-- Duración: 
-
-Resumen descriptivo:
 
 ## Evaluaciones según heurísticas
 Carrera: Ingeniería de Software <br>
