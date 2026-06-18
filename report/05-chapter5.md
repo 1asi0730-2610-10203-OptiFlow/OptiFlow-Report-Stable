@@ -1823,6 +1823,8 @@ Datos del entrevistado
 
 ![entrevista Marcos](../assets/validacion_optica_2.png)
 
+###
+
 #### Resumen descriptivo: 
 
 Durante la entrevista realizada a un optometrista, se obtuvo una evaluación favorable de la plataforma OptiFlow.Destacó que la presentación de la página es atractiva, los precios son accesibles en relación con las funcionalidades ofrecidas y la estructura general del sistema resulta adecuada para la gestión de una óptica. Asimismo, señaló que los módulos más relevantes para su labor diaria son pacientes, órdenes de laboratorio, inventario y ventas, considerando que la plataforma cubre de manera satisfactoria estos procesos.
@@ -1859,13 +1861,22 @@ Entre las mejoras sugeridas, recomendó desarrollar una versión adaptada para d
 ## Entrevista 1: 
 Entrevistador: 
 Datos del entrevistado
-- Nombre: 
-- Apellidos: 
-- Edad:
-- Distrito: 
-- Duración: 
+- Nombre: Adrián Geraldo
+- Apellidos:  Huaman Villacorta
+- Edad: 19
+- Distrito: Santiago de Surco 
+- Duración: 7:09
+- Link de la entrevista individual: [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQBigwiuvJsRS6m6QzLqMV9oAZb9HLy6r1C52q7KB-aSSno?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=eYc4GK)
 
-Resumen descriptivo:
+![validation-interview-adrian](../assets/validation-interview-adrian.png)
+
+#### Resumen descriptivo:
+
+Adrián es un joven cliente de óptica que participó en la sesión de validación como representante del segundo segmento objetivo de OptiFlow. Durante la entrevista exploró el portal de pacientes de la plataforma, recorriendo las funcionalidades disponibles para su perfil: consulta del estado de su pedido de lentes, revisión de su información de perfil, vista de notificaciones, probador virtual y el calculador de grosor.
+
+A lo largo de toda la sesión, Adrián completó cada una de las tareas propuestas sin dificultad y sin necesitar asistencia del entrevistador. Navegó por los diferentes módulos del portal de forma fluida, orientándose con facilidad entre las secciones disponibles. Al consultar el estado de su orden encontró la información de manera inmediata, y al revisar su perfil de paciente no tuvo inconveniente alguno para ubicar sus datos ni para interpretar la estructura de la vista.
+
+Al finalizar la entrevista, Adrián no presentó observaciones sobre problemas de usabilidad, navegación o comprensión visual en ninguna de las secciones recorridas. No identificó pasos innecesarios, elementos confusos ni fricciones en los flujos evaluados. En términos generales, su experiencia con la plataforma fue positiva desde el inicio: indicó que la interfaz le resultaba clara y que la información presentada era suficiente para entender qué hacer en cada pantalla sin necesidad de instrucciones adicionales. Su retroalimentación refleja que el portal de pacientes cumple con las expectativas de un usuario cliente que busca una experiencia directa y sin complicaciones para hacer seguimiento de su pedido.
 
 ## Entrevista 2: 
 Entrevistador: 
