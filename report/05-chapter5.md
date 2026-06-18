@@ -1774,9 +1774,23 @@ Si la suscripción ya se encuentra activa, el sistema responde `409 Conflict`; s
 | 29f6db1 | fix: swagger error api not defined fix | 08/06/2026 |
  
 
-#### Software Deployment Evidence for Sprint Review. 
+#### Software Deployment Evidence for Sprint Review
 
+Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow conectando por primera vez el frontend desplegado en **Azure Static Web Apps** directamente con el backend real en **Azure App Service**, eliminando la dependencia del Fake API utilizado en sprints anteriores. Todos los bounded contexts implementados — Inventory, Lab Orders, Sales, Patients, Prescriptions, Payments, Subscriptions, Analytics Reports y Staff Metrics — quedaron disponibles a través de la API de producción en `https://opti-flow-apiv1.azurewebsites.net/`.
 
+![](../assets/deployment-azure.png)
+> Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 3.
+
+**Servicios desplegados:**
+
+| Servicio | Plataforma | URL de Producción |
+|---|---|---|
+| Landing Page | GitHub Pages | https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/ |
+| Frontend (Web App) | Azure Static Web Apps | https://proud-sea-096db2110.7.azurestaticapps.net |
+| Backend (REST API) | Azure App Service | https://opti-flow-apiv1.azurewebsites.net/ |
+| Documentación API | Swagger UI (integrado) | https://opti-flow-apiv1.azurewebsites.net/swagger |
+
+El despliegue de este sprint representa el hito de integración completa del sistema: el portal de clientes, el portal de administración y la API de producción operan de forma coordinada en un entorno cloud estable, listo para la demostración y validación con usuarios reales.
 
 #### Team Collaboration Insights for Sprint Review 
 
