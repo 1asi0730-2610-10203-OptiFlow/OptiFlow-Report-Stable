@@ -1776,7 +1776,7 @@ Si la suscripción ya se encuentra activa, el sistema responde `409 Conflict`; s
 
 #### Software Deployment Evidence for Sprint Review
 
-Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow conectando por primera vez el frontend desplegado en **Azure Static Web Apps** directamente con el backend real en **Azure App Service**, eliminando la dependencia del Fake API utilizado en sprints anteriores. Todos los bounded contexts implementados — Inventory, Lab Orders, Sales, Patients, Prescriptions, Payments, Subscriptions, Analytics Reports y Staff Metrics — quedaron disponibles a través de la API de producción en `https://opti-flow-apiv1.azurewebsites.net/`.
+Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow conectando por primera vez el frontend desplegado en **Azure Static Web Apps** directamente con el backend real en **Azure App Service**, eliminando la dependencia del Fake API utilizado en sprints anteriores. Todos los bounded contexts implementados — Inventory, Lab Orders, Sales, Patients, Prescriptions, Payments, Subscriptions, Analytics Reports y Staff Metrics — quedaron disponibles a través de la API de producción en `optiflow.azurewebsites.net`, y para poder realmente probar la API se accedería a `optiflow.azurewebsites.net/swagger/index.html`
 
 ![](../assets/deployment-azure.png)
 > Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 3.
