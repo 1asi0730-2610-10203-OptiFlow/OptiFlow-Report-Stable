@@ -1931,13 +1931,20 @@ presupuesto. Finalmente, expresó interés en contar con una comparación visual
 grosor entre materiales, más allá de los valores numéricos, para facilitar la 
 comprensión de las diferencias entre opciones.
 
+Enlace del video único de las entrevistas: [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241b843_upc_edu_pe/IQAO5qXfRglnQ4FqAduk84tTAVSZUoN9jBvadp3ScCEuuWI?e=u7b3hw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) 
+
 ## Evaluaciones según heurísticas
 Carrera: Ingeniería de Software <br>
 Curso:  Aplicaciones Web  
 Sección: 10203  
 Profesores:  
 Auditor: BuildingFex <br>
-CLIENTE(S):
+CLIENTE(S): 
+- Sebastian Martin Beingolea Montalvo - U202217853
+- Villanueva Rodríguez Giuseppe Adrián - U20221c554
+- Saul Ortega Muñoz - U20231c019
+- Alejandro Manuel Jave Chang - U202312510
+- Valentin Nicolas Medina Mamani - U202316829
 
 #### Site o App a evaluar: OptiFlow
 
@@ -1955,7 +1962,17 @@ El alcance de esta evaluación incluye la revisión de la usabilidad de las sigu
 6. Revisión de reportes de gestión (ventas, laboratorio y desempeño del personal) 
 
 No están incluidas en esta versión de la evaluación las siguientes tareas:
-
+1. Inicio de sesión como empleado del sistema
+2. Registro de una nueva venta
+3. Registro y edición de pacientes clínicos
+4. Adición y edición de productos en el inventario
+5. Gestión del personal (Staff)
+6. Creación de nuevas órdenes de laboratorio
+7. Configuración del sistema (roles y ajustes generales)
+8. Acceso al portal del paciente — Mi Perfil
+9. Acceso al portal del paciente — Virtual Try-On
+10. Acceso al portal del paciente — Notificaciones
+11. Exportación o descarga de datos del sistema
 
 ### ESCALA DE SEVERIDAD
 
