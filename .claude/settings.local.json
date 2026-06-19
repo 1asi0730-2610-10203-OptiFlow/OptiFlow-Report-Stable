@@ -4,7 +4,13 @@
       "mcp__claude_ai_Figma__get_metadata",
       "mcp__claude_ai_Figma__get_design_context",
       "Bash(python *)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(gh api *)",
+      "Bash(gh auth *)",
+      "PowerShell(gh auth *)",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://api.github.com/repos/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page/commits?per_page=100\" -Headers @{\"User-Agent\"=\"Mozilla/5.0\"} -ErrorAction Stop; $response | ForEach-Object { \"$\\($_.sha.Substring\\(0,7\\)\\)`t$\\($_.commit.author.name\\)`t$\\($_.commit.author.date.Substring\\(0,10\\)\\)`t$\\($_.commit.message.Split\\(\"`n\"\\)[0]\\)\" })",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://api.github.com/repos/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend/commits?per_page=100\" -Headers @{\"User-Agent\"=\"Mozilla/5.0\"} -ErrorAction Stop; $response | ForEach-Object { \"$\\($_.sha.Substring\\(0,7\\)\\)`t$\\($_.commit.author.name\\)`t$\\($_.commit.author.date.Substring\\(0,10\\)\\)`t$\\($_.commit.message.Split\\(\"`n\"\\)[0]\\)\" })",
+      "PowerShell($response = Invoke-RestMethod -Uri \"https://api.github.com/repos/1asi0730-2610-10203-OptiFlow/optiflow-platform/branches?per_page=100\" -Headers @{\"User-Agent\"=\"Mozilla/5.0\"}; $response | ForEach-Object { $_.name })"
     ]
   }
 }

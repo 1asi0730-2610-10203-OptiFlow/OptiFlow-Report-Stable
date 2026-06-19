@@ -1681,8 +1681,83 @@ Si bien es cierto el enunciado solicita la utilización de la herramienta de Tre
 
 #### Development Evidence for Sprint Review  
 
-##### Commits frontend
-
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| optiflow-platform | main | 09132d6 | Initial commit | - | 25/05/2026 |
+| optiflow-platform | feature/lab-and-orders | 0ec3bf3 | chore: project setup | - | 04/06/2026 |
+| optiflow-platform | feature/lab-and-orders | 2387b14 | feat: add shared context | - | 04/06/2026 |
+| optiflow-platform | feature/lab-and-orders | 8e56035 | feat(lab-and-orders): add domain layer | WorkOrder aggregate and value objects | 04/06/2026 |
+| optiflow-platform | feature/lab-and-orders | 9aaa7b7 | feat(lab-and-orders): add application layer | command and query services | 04/06/2026 |
+| optiflow-platform | feature/lab-and-orders | fd564fc | feat(lab-and-orders): add infrastructure layer | EFC repositories and migration | 04/06/2026 |
+| optiflow-platform | feature/lab-and-orders | 9b26141 | feat(lab-and-orders): add interfaces layer | REST controllers and assemblers | 04/06/2026 |
+| optiflow-platform | feat/sales | 650408f | feat: added sales bounded context | - | 07/06/2026 |
+| optiflow-platform | feature/inventory | f8bd9db | feat(inventory): add domain layer | - | 07/06/2026 |
+| optiflow-platform | feature/inventory | 86f12fd | feat(inventory): add application layer | - | 07/06/2026 |
+| optiflow-platform | feature/inventory | 2aa9e1f | feat(inventory): add infrastructure layer | - | 07/06/2026 |
+| optiflow-platform | feature/inventory | 41127c6 | feat(inventory): add interfaces layer | - | 07/06/2026 |
+| optiflow-platform | develop | 7d7ed33 | feat(subscription): add subscription domain events | - | 14/06/2026 |
+| optiflow-platform | develop | b8faefd | feat(subscription): add event handlers | - | 14/06/2026 |
+| optiflow-platform | develop | 29e6562 | feat(subscription): add plans related query and query services | - | 14/06/2026 |
+| optiflow-platform | develop | ddeade7 | feat(subscription): add plan command service and errors | - | 14/06/2026 |
+| optiflow-platform | develop | 3ef75ee | feat(subscription): add plan resources | - | 14/06/2026 |
+| optiflow-platform | develop | e8fa4b9 | feat(subscription): add plan Controller, finished subscription bounded context | - | 14/06/2026 |
+| optiflow-platform | develop | dca66e2 | feat(subscription): add EF Core migration for subscription tables | - | 14/06/2026 |
+| optiflow-platform | develop | e955c3e | feat(sales): add sales anticorruption layer | - | 14/06/2026 |
+| optiflow-platform | develop | be67058 | feat(shared): extended IEvent and INotificationHandler | - | 14/06/2026 |
+| optiflow-platform | feature/register-laboratory | 3be1e59 | feat(LabAndOrders): add ContactInfo value object | phone and email validation | 15/06/2026 |
+| optiflow-platform | feature/register-laboratory | cfd1d84 | feat(LabAndOrders): implement LaboratoryCommandService | with duplicate-check | 15/06/2026 |
+| optiflow-platform | feature/register-laboratory | 551aaed | feat(LabAndOrders): add POST endpoint to LaboratoriesController | - | 15/06/2026 |
+| optiflow-platform | develop | ba0e452 | feat(sales): refactor sales to match sales info in the frontend | - | 15/06/2026 |
+| optiflow-platform | develop | 5ecf695 | feat(sales): connected partially with frontend | - | 15/06/2026 |
+| optiflow-platform | develop | d2c17c7 | feat(Inventory): add SupplierContact value object | - | 16/06/2026 |
+| optiflow-platform | develop | 9cb73f4 | feat(Inventory): promote Supplier to aggregate root | - | 16/06/2026 |
+| optiflow-platform | develop | a82f40e | feat(Inventory): implement SupplierCommandService | - | 16/06/2026 |
+| optiflow-platform | develop | 3649d37 | feat(Inventory): add POST endpoint to SuppliersController | - | 16/06/2026 |
+| optiflow-platform | fix/clinical | a206e94 | update clinical assemblers | - | 17/06/2026 |
+| optiflow-platform | fix/clinical | d186a77 | add validations in clinical resources | - | 17/06/2026 |
+| optiflow-platform | develop | e85104e | feat: created model builder extensions for each bounded context | - | 18/06/2026 |
+| optiflow-platform | develop | 9ff57b0 | refactor(shared): split AppDbContext into BC extensions | fix SaleId dictionary mismatch and remove duplicate migration | 18/06/2026 |
+| optiflow-platform | develop | cfc77df | feat(sales): add duplicate validation for sale creation | - | 18/06/2026 |
+| optiflow-platform | develop | 8205e96 | feat: add new deploy.yml | - | 18/06/2026 |
+| optiflow-platform | feature/patient-center | 53abffd | feat(patient-center): add notification commands | patient orders endpoint and fix notification fields | 18/06/2026 |
+| optiflow-platform | feature/IAM | 0cd3205 | feat(iam): implement user aggregates and core identity value objects | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | ee7933a | feat(iam): add domain entities and value objects | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | 9cf5037 | feat(iam): setup database context, settings, and infrastructure | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | f1676c8 | feat(iam): implement repositories and core application service | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | 71ac33a | feat(iam): add application commands, queries, and services | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | da00900 | feat(iam): implement password recovery and reset flow | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | 6ab948d | feat(iam): implement user authentication use case | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | f9e78f7 | feat(iam): implement user registration use case | - | 19/06/2026 |
+| optiflow-platform | feature/IAM | 1e090d3 | feat(iam): expose authentication endpoints, middlewares, and resources | - | 19/06/2026 |
+| OptiFlow-Frontend | fix/datebirth | 5fd3b10 | fix: add range to birth date | - | 31/05/2026 |
+| OptiFlow-Frontend | fix/fulfillment | f81cde3 | feat: add QA validation form in fulfillment | - | 01/06/2026 |
+| OptiFlow-Frontend | fix/fulfillment | 03e35e6 | fix: improve kanban board status list responsiveness | - | 01/06/2026 |
+| OptiFlow-Frontend | feature/settings | 87672d5 | feat: add business information, security and data | - | 01/06/2026 |
+| OptiFlow-Frontend | fix/report | bc301e7 | feat: add sales and finance section | - | 01/06/2026 |
+| OptiFlow-Frontend | fix/report | 23f9f71 | feat: add personal performance section | - | 02/06/2026 |
+| OptiFlow-Frontend | fix/report | f73f27b | feat: add productivity section | - | 02/06/2026 |
+| OptiFlow-Frontend | feat/inventory-events | 70c5518 | feat(inventory): add right click functionality and inventory kardex-service.js | - | 11/06/2026 |
+| OptiFlow-Frontend | feat/inventory-events | 8cbce7d | fix(inventory): stock bar resetting to initial state after restock | purchase events do not register in audit | 11/06/2026 |
+| OptiFlow-Frontend | fix/sales-rework | 8b8562a | fix(sales): rework sales context to work with lab orders | - | 11/06/2026 |
+| OptiFlow-Frontend | fix/inventory-hardcoded-summary-trends | 4987b20 | fix(inventory): replace hardcoded summary trends with calculated values | - | 11/06/2026 |
+| OptiFlow-Frontend | fix/report-static-data | d5ef006 | fix(reports): replace static data with real store calculations and fix i18n period keys | - | 11/06/2026 |
+| OptiFlow-Frontend | feature/laboratory-register-form | 926ebb5 | feat(fulfillment): add register laboratory form | - | 15/06/2026 |
+| OptiFlow-Frontend | fix/payments | 88f3695 | feat(payment-api): add payOutstandingBalance function | - | 15/06/2026 |
+| OptiFlow-Frontend | fix/payments | df2fdad | feat(payments): refactored payment api and sales store to work with actual backend | - | 15/06/2026 |
+| OptiFlow-Frontend | feature/supplier-registration-form | 930b8f4 | feat(Inventory): add supplier registration modal component | - | 16/06/2026 |
+| OptiFlow-Frontend | feature/supplier-registration-form | e5798bf | feat(Inventory): integrate supplier registration modal in inventory view | - | 16/06/2026 |
+| OptiFlow-Frontend | feature/connect-laborders-backend | 2b1a2fb | feat(fulfillment): add backend connection | - | 16/06/2026 |
+| OptiFlow-Frontend | fix/clinical | 4daf88c | set assemblers in clinical | - | 16/06/2026 |
+| OptiFlow-Frontend | fix/clinical | 3007ac1 | fix record-api and store in clinical | - | 16/06/2026 |
+| OptiFlow-Frontend | fix/ui-general-fixes | e51f7e3 | feat: add general right click functionalities | - | 17/06/2026 |
+| OptiFlow-Frontend | fix/laboratory-assembler-remove-id-from-post | 8d47955 | fix(Inventory): update add product modal to send camelCase fields to backend | - | 17/06/2026 |
+| OptiFlow-Frontend | fix/laboratory-assembler-remove-id-from-post | 5baebc6 | fix(Inventory): update inventory list view | - | 17/06/2026 |
+| OptiFlow-Frontend | fix/connect-clinical | f91ee4c | set prescription-api | - | 18/06/2026 |
+| OptiFlow-Frontend | fix/ui-general-fixes | 2efd1e8 | fix(frontend): align API endpoints and field names with backend contract | - | 18/06/2026 |
+| OptiFlow-Frontend | fix/fulfillment-create-lab-order | dd76bc4 | fix: update work order resource | - | 18/06/2026 |
+| OptiFlow-Frontend | fix/connections-clinical | 227a6b5 | set store in clinical | - | 18/06/2026 |
+| OptiFlow-Frontend | feature/endpoint-patient-center | c3c48be | feat(patient-center): connect frontend with backend endpoints | - | 19/06/2026 |
+| OptiFlow-Landing-Page | feature/improve-landing | 45387e2 | feat(improve-landing): update landing page | - | 19/06/2026 |
 
 #### Execution Evidence for Sprint Review
 
