@@ -2114,6 +2114,8 @@ leer cifras exactas en lugar de estimarlas visualmente en un gráfico.
 
 ## Video about the product
 
+Link: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQCyPNM0VCOYSZUO_Vr4WSBUAaESNK7ZTkJOEedmMZgOmWA?e=w1d7Dc&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
 
 
 ## Conclusiones 
