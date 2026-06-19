@@ -1785,7 +1785,43 @@ Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow co
 
 #### Team Collaboration Insights for Sprint Review 
 
+Durante el Sprint 3, el equipo mantuvo la dinámica de coordinación establecida en los sprints anteriores, utilizando **Discord** y **Google Meet** para las reuniones síncronas de planificación, revisión y retrospectiva. **GitHub** continuó siendo la plataforma central de control de versiones e integración, gestionando el trabajo bajo la estrategia GitFlow con ramas `feature/*` mergeadas a `develop` mediante Pull Requests revisados por pares.
 
+**Resumen de colaboración:**
+
+El foco de este sprint fue la implementación completa del backend con arquitectura DDD en ASP.NET Core, la integración del frontend con la API real desplegada en Azure App Service, y la documentación de los endpoints bajo el estándar OpenAPI/Swagger. El equipo se organizó en subequipos especializados por bounded context, permitiendo avances en paralelo con mínimos conflictos de integración. Las métricas del período Mayo 19 – Junio 19, 2026 se detallan a continuación por repositorio.
+
+**Actividad del repositorio — Informe (OptiFlow-Report-Stable):**
+
+El repositorio del informe registró **22 Pull Requests mergeados** y ninguno abierto al cierre del sprint, con **0 issues** activos. La participación fue distribuida entre 5 integrantes contribuyentes, con el contribuidor principal liderando de forma notable en volumen de commits.
+
+![sprint-3-docs-insights](../docs/insights/sprint-3-docs-insights.png)
+
+**Actividad del repositorio — Plataforma (Web Services / Backend):**
+
+Se registraron **30 pull requests activos**, de los cuales **29 fueron mergeados** y **1 permaneció abierto** al cierre del sprint. En total, **5 autores** realizaron **159 commits** distribuidos en todas las ramas, con los 29 Pull Requests integrados por **4 integrantes contribuyentes** y sin issues abiertos durante el período.
+
+![platform-insights-s3](../docs/insights/platform-insights.png)
+
+**Actividad del repositorio — Frontend (Web Application):**
+
+Se registraron **25 pull requests activos**, todos **mergeados** al cierre del sprint, sin Pull Requests pendientes ni issues abiertos. Los **25 Pull Requests** fueron integrados por **5 integrantes contribuyentes** durante el período.
+
+![frontend-insights-s3](../docs/insights/frontend-insights.png)
+
+**Actividad del repositorio — Landing Page:**
+
+La Landing Page registró la participación de **5 autores** durante el período, con el contribuidor principal (Llummo) encabezando con **17 commits** y **3 018 adiciones**. La distribución de contribuciones por integrante fue la siguiente:
+
+| Integrante | Usuario GitHub | Commits | Adiciones | Eliminaciones |
+|---|---|---|---|---|
+| Azama Fukuda, Juan Pablo | Llummo | 17 | 3 018 | 704 |
+| Mechan Montenegro, Luciana Carolina | luuu6 | 8 | 1 055 | 269 |
+| Capillo Lema, Mía Valentina | Miavcl | 3 | 225 | 104 |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | 2 | 437 | 3 |
+| Morocho Pinedo, Mariana | Patto04 | 2 | 728 | 10 |
+
+![landing-page-insights-s3](../docs/insights/landing-page-insights.png)
 
 #### Sprint Review: Conclusiones y Recomendaciones del Sprint 3
 
