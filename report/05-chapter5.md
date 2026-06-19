@@ -1879,15 +1879,22 @@ A lo largo de toda la sesión, Adrián completó cada una de las tareas propuest
 Al finalizar la entrevista, Adrián no presentó observaciones sobre problemas de usabilidad, navegación o comprensión visual en ninguna de las secciones recorridas. No identificó pasos innecesarios, elementos confusos ni fricciones en los flujos evaluados. En términos generales, su experiencia con la plataforma fue positiva desde el inicio: indicó que la interfaz le resultaba clara y que la información presentada era suficiente para entender qué hacer en cada pantalla sin necesidad de instrucciones adicionales. Su retroalimentación refleja que el portal de pacientes cumple con las expectativas de un usuario cliente que busca una experiencia directa y sin complicaciones para hacer seguimiento de su pedido.
 
 ## Entrevista 2: 
-Entrevistador: 
+Entrevistador: Mía Capillo
 Datos del entrevistado
-- Nombre: 
-- Apellidos: 
-- Edad:
-- Distrito: 
-- Duración: 
+- Nombre: Isabella Lourdes
+- Apellidos: Martinez Parra
+- Edad: 20
+- Distrito: La Molina
+- Duración: 7:37
+- Link de la entrevista individual:  [Ver grabación aquí](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20241c101_upc_edu_pe/IQApPY5nwro2RLhZqmgOMGY5ActxwZzwtF1MNl-cIUTcTeY?e=fum9gh&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) 
+
 
 Resumen descriptivo:
+Durante la entrevista, Isabella exploró la landing page de manera autónoma. A través del análisis de la información presentada y de los elementos visuales, logró comprender el propósito general del producto sin necesidad de asistencia. Asimismo, destacó como especialmente atractivos los beneficios dirigidos a los pacientes, segmento del cual forma parte. Por otro lado, señaló que una sección de reseñas o testimonios sería un elemento relevante, ya que suele considerar las experiencias de otros usuarios al momento de evaluar y elegir un producto o servicio.
+
+Al explorar el módulo de Probador Virtual, la participante identificó rápidamente su funcionalidad y navegó con facilidad por las distintas opciones disponibles. Consideró que se trata de una herramienta valiosa, principalmente por el ahorro de tiempo y recursos que representa al permitir una evaluación previa de manera práctica y accesible.
+
+En relación con la Calculadora de Grosor, Isabella localizó y comprendió con rapidez el propósito de la sección. Valoró positivamente que la herramienta proporcione información referencial que sirva como guía para los usuarios. Sin embargo, mencionó que algunas de las terminologías empleadas resultan difíciles de comprender, lo que puede dificultar la interpretación de los resultados y requerir un mayor esfuerzo para entender la información presentada.
 
 ## Entrevista 3: 
 Entrevistador: Luciana Mechan
