@@ -1760,7 +1760,16 @@ Si bien es cierto el enunciado solicita la utilización de la herramienta de Tre
 | OptiFlow-Landing-Page | feature/improve-landing | 45387e2 | feat(improve-landing): update landing page | - | 19/06/2026 |
 
 #### Execution Evidence for Sprint Review
+En este sprint se logró principalmente el despliegue del backend utilizando Azure, se implementó una mejora en la UI del landing page y cambios sutiles en las funcionalidades del frontend.
 
+![](../docs/swagger.png)
+![](../assets/deployment-azure.png)
+![](../docs/optiflow-server.png)
+![](../docs/landing.png)
+![](../docs/register-lab.png)
+![](../docs/register-supplier.png)
+
+![alt text](image.png)
 Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQCYdJ6buvRlRqYAf8LnbvznAUvRkR-WcuUp-oQkUtj4pXY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=t9U6Gj
 
 
@@ -1857,6 +1866,9 @@ Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow co
 
 ![](../assets/deployment-azure.png)
 > Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 3.
+> Captura del server con MySQL
+> ![](../docs/optiflow-server.png)
+
 
 
 
