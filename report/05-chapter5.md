@@ -1787,6 +1787,33 @@ Durante el Sprint 3 se consolidó el entorno de producción cloud de OptiFlow co
 
 
 
+#### Sprint Review: Conclusiones y Recomendaciones del Sprint 3
+
+**Conclusiones**
+
+Durante el Sprint 3 se alcanzó el hito técnico más significativo del proyecto: la transición completa desde el Fake API hacia un backend real en producción. Los seis bounded contexts priorizados — Inventory, Sales, Lab and Orders, Clinical, Subscriptions y Analytics — fueron implementados bajo una arquitectura DDD con ASP.NET Core y desplegados en Azure App Service, conectándose por primera vez con el frontend desplegado en Azure Static Web Apps. Esto elimina la deuda técnica del Fake API y establece una base de persistencia real sobre SQL Server en Azure.
+
+Todos los Technical Stories de alta prioridad (TS-INV, TS-SAL, TS-LAB, TS-CLI, TS-SUB, TS-ANA) fueron completados exitosamente, con sus endpoints documentados bajo el estándar OpenAPI/Swagger. El diseño y la implementación del esquema relacional de base de datos quedaron alineados con los bounded contexts del EventStorming, lo que garantiza integridad transaccional en los flujos críticos de negocio.
+
+Las entrevistas de validación con ambos segmentos objetivos confirmaron que los flujos principales de la plataforma resultan usables sin bloqueos críticos: el portal de pacientes fue completado sin asistencia por los entrevistados del segundo segmento, y el segmento de administradores validó la coherencia del flujo de ventas y el Kanban de laboratorio con los procesos reales de una óptica. La evaluación heurística identificó 5 problemas de usabilidad (2 de severidad 2 y 3 de severidad 3), lo que confirma que la plataforma es funcional pero requiere refinamientos focalizados antes del lanzamiento.
+
+**Recomendaciones**
+
+- **Corregir los problemas de severidad 3 identificados en la evaluación heurística** con prioridad alta: (1) agregar alerta visual de fecha de entrega vencida en la vista My Lenses del portal del paciente; (2) hacer visible permanentemente el botón de avance de estado en las tarjetas del tablero Kanban; (3) complementar los gráficos del Dashboard con tablas de valores numéricos accesibles para usuarios con tecnologías de asistencia.
+
+- **Completar el módulo IAM** (T52), que finalizó el sprint en estado In-Process. La ausencia de autenticación y autorización real representa un riesgo para el despliegue en producción y debe resolverse como primera tarea del siguiente ciclo.
+
+- **Incorporar las mejoras sugeridas por los entrevistados del primer segmento:** módulo de seguimiento de metas e indicadores de desempeño empresarial, ranking de trabajadores con mejor rendimiento, reportes de ventas segmentados por categoría de producto y filtros temporales más granulares en el módulo analítico.
+
+- **Mejorar la experiencia del portal del paciente** atendiendo las observaciones del segundo segmento: separar la vista de seguimiento de pedido y el resumen de pago en secciones independientes dentro de My Lenses, agregar imágenes de referencia de modelos en el Virtual Try-On y añadir texto de ayuda contextual en los campos de la Calculadora de Grosor ("Encuéntralo en tu receta óptica").
+
+- **Desarrollar una versión responsiva para dispositivos móviles**, dado que múltiples entrevistados del primer segmento señalaron que las ópticas pequeñas operan principalmente desde teléfonos celulares. Esta capacidad ampliaría significativamente el alcance comercial de la plataforma.
+
+- **Evaluar estrategias de pricing diferenciadas** para ópticas pequeñas, dado que el precio actual puede representar una barrera de adopción para negocios con menor flujo de clientes, según la retroalimentación recibida en las entrevistas de validación.
+
+- **Orientar el siguiente sprint** hacia la finalización de las tareas del HTML Course (T54–T64) que quedaron pendientes, la implementación de la capa IAM y la incorporación de las correcciones heurísticas priorizadas.
+
+
 ## Validation Interviews
 
 ### Diseño de Entrevistas
