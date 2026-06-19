@@ -1761,6 +1761,9 @@ Si bien es cierto el enunciado solicita la utilización de la herramienta de Tre
 
 #### Execution Evidence for Sprint Review
 
+Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQCYdJ6buvRlRqYAf8LnbvznAUvRkR-WcuUp-oQkUtj4pXY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=t9U6Gj
+
+
 #### Services Documentation Evidence for Sprint Review
 
 Durante el Sprint 3 se documentaron mediante OpenAPI (vía Swagger/Swashbuckle) los endpoints de los seis bounded contexts implementados en el backend de Web Services: Inventory, Sales, Lab and Orders, Clinical, Subscription y Analytics. Cada controlador incluye anotaciones `SwaggerOperation` y `SwaggerResponse` que documentan el propósito de cada acción, los códigos de respuesta posibles y el esquema de los recursos de entrada y salida, generando así una especificación interactiva accesible desde `/swagger`. Como el despliegue de Web Services aún no se ha publicado en un proveedor cloud, la documentación se exploró localmente en `http://localhost:5238/swagger`. A continuación se detalla, para cada endpoint relevante al alcance del Sprint, el verbo HTTP, la sintaxis de la llamada, los parámetros esperados y un ejemplo de respuesta.
