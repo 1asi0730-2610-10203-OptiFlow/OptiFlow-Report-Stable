@@ -1,0 +1,321 @@
+@startuml 04_lab_and_orders
+title OptiFlow Platform — Lab and Orders Bounded Context
+
+skinparam packageStyle rectangle
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor #888888
+skinparam arrowColor #555555
+
+' ─────────────────────────────────────────
+' DOMAIN LAYER
+' ─────────────────────────────────────────
+package "LabAndOrders.Domain" #E8F4F8 {
+
+    package "Model.ValueObjects" {
+        class LaboratoryId <<value object record>> {
+            + Value : int
+        }
+
+        class ContactInfo <<value object sealed>> {
+            + Phone : string
+            + Email : string
+            ' Validates: email format, non-null fields
+        }
+
+        class OrderStatus <<value object sealed record>> {
+            + Value : string
+            + {static} Pending : string
+            + {static} InProduction : string
+            + {static} QualityControl : string
+            + {static} Ready : string
+            + {static} Delivered : string
+        }
+
+        class OrderPriority <<value object sealed record>> {
+            + Value : string
+            + {static} Normal : string
+            + {static} High : string
+            + {static} Urgent : string
+        }
+    }
+
+    package "Model.Aggregates" {
+        class Laboratory <<aggregate root>> {
+            + Id : int
+            + Name : string
+            + ContactInfo : ContactInfo
+            + Laboratory(cmd : CreateLaboratoryCommand)
+        }
+
+        class WorkOrder <<aggregate root>> {
+            + Id : int
+            + SaleId : int
+            + RecipeId : int
+            + LaboratoryId : LaboratoryId
+            + Status : string
+            + Priority : string
+            + PatientName : string
+            + LaboratoryName : string
+            + LensType : string
+            + Frame : string
+            + Prescription : string
+            + DeliveryDate : string
+            + Deposit : decimal
+            + Total : decimal
+            + IsRework : bool
+            + WorkOrder(cmd : CreateWorkOrderCommand)
+            + UpdateStatus(cmd : UpdateOrderStatusCommand) : void
+            ' Marks IsRework=true on backward status transition
+        }
+    }
+
+    package "Model.Commands" {
+        class CreateLaboratoryCommand <<command record>> {
+            + Name : string
+            + Phone : string
+            + Email : string
+        }
+
+        class CreateWorkOrderCommand <<command record>> {
+            + SaleId : int
+            + RecipeId : int
+            + LabId : int
+            + PatientName : string
+            + LaboratoryName : string
+            + LensType : string
+            + Frame : string
+            + Prescription : string
+            + Priority : string
+            + DeliveryDate : string
+            + Deposit : decimal
+            + Total : decimal
+        }
+
+        class UpdateOrderStatusCommand <<command record>> {
+            + WorkOrderId : int
+            + Status : string
+        }
+    }
+
+    package "Model.Queries" {
+        class GetAllLaboratoriesQuery <<query record>>
+        class GetLaboratoryByIdQuery <<query record>> {
+            + Id : int
+        }
+        class GetAllWorkOrdersQuery <<query record>>
+        class GetWorkOrderByIdQuery <<query record>> {
+            + Id : int
+        }
+        class GetWorkOrderBySaleIdQuery <<query record>> {
+            + SaleId : int
+        }
+    }
+
+    package "Repositories" {
+        interface ILaboratoryRepository {
+        }
+
+        interface IWorkOrderRepository {
+            + FindByStatusAsync(status : string) : Task<IEnumerable<WorkOrder>>
+            + FindBySaleIdAsync(saleId : int) : Task<WorkOrder?>
+        }
+    }
+
+    Laboratory *-- ContactInfo
+    WorkOrder *-- LaboratoryId
+    WorkOrder *-- OrderStatus
+    WorkOrder *-- OrderPriority
+    WorkOrder ..> UpdateOrderStatusCommand : status updated by
+}
+
+' ─────────────────────────────────────────
+' APPLICATION LAYER
+' ─────────────────────────────────────────
+package "LabAndOrders.Application" #E8F8E8 {
+
+    package "Errors" {
+        enum CreateLaboratoryError {
+            DuplicateName
+            UnexpectedError
+        }
+        enum CreateWorkOrderError {
+            SaleNotFound
+            LaboratoryNotFound
+            UnexpectedError
+        }
+        enum UpdateOrderStatusError {
+            WorkOrderNotFound
+            UnexpectedError
+        }
+    }
+
+    package "Interfaces" {
+        interface ILaboratoryCommandService {
+            + Handle(cmd : CreateLaboratoryCommand) : Task<Result<Laboratory, CreateLaboratoryError>>
+        }
+
+        interface ILaboratoryQueryService {
+            + Handle(q : GetAllLaboratoriesQuery) : Task<IEnumerable<Laboratory>>
+            + Handle(q : GetLaboratoryByIdQuery) : Task<Laboratory?>
+        }
+
+        interface IWorkOrderCommandService {
+            + Handle(cmd : CreateWorkOrderCommand) : Task<Result<WorkOrder, CreateWorkOrderError>>
+            + Handle(cmd : UpdateOrderStatusCommand) : Task<Result<WorkOrder, UpdateOrderStatusError>>
+        }
+
+        interface IWorkOrderQueryService {
+            + Handle(q : GetAllWorkOrdersQuery) : Task<IEnumerable<WorkOrder>>
+            + Handle(q : GetWorkOrderByIdQuery) : Task<WorkOrder?>
+            + Handle(q : GetWorkOrderBySaleIdQuery) : Task<WorkOrder?>
+        }
+    }
+
+    package "Internal" {
+        class LaboratoryCommandService <<internal>> {
+            - _labRepo : ILaboratoryRepository
+            - _unitOfWork : IUnitOfWork
+            - _logger : ILogger
+        }
+
+        class LaboratoryQueryService <<internal>> {
+            - _labRepo : ILaboratoryRepository
+        }
+
+        class WorkOrderCommandService <<internal>> {
+            - _workOrderRepo : IWorkOrderRepository
+            - _labRepo : ILaboratoryRepository
+            - _unitOfWork : IUnitOfWork
+            - _logger : ILogger
+        }
+
+        class WorkOrderQueryService <<internal>> {
+            - _workOrderRepo : IWorkOrderRepository
+        }
+    }
+
+    LaboratoryCommandService ..|> ILaboratoryCommandService
+    LaboratoryQueryService ..|> ILaboratoryQueryService
+    WorkOrderCommandService ..|> IWorkOrderCommandService
+    WorkOrderQueryService ..|> IWorkOrderQueryService
+
+    LaboratoryCommandService --> ILaboratoryRepository
+    LaboratoryCommandService --> IUnitOfWork
+    LaboratoryQueryService --> ILaboratoryRepository
+    WorkOrderCommandService --> IWorkOrderRepository
+    WorkOrderCommandService --> ILaboratoryRepository
+    WorkOrderCommandService --> IUnitOfWork
+    WorkOrderQueryService --> IWorkOrderRepository
+}
+
+' ─────────────────────────────────────────
+' INFRASTRUCTURE LAYER
+' ─────────────────────────────────────────
+package "LabAndOrders.Infrastructure" #FFF8E8 {
+
+    class LaboratoryRepository {
+    }
+
+    class WorkOrderRepository {
+        + FindByStatusAsync(status : string) : Task<IEnumerable<WorkOrder>>
+        + FindBySaleIdAsync(saleId : int) : Task<WorkOrder?>
+    }
+
+    LaboratoryRepository ..|> ILaboratoryRepository
+    WorkOrderRepository ..|> IWorkOrderRepository
+}
+
+' ─────────────────────────────────────────
+' INTERFACES (API) LAYER
+' ─────────────────────────────────────────
+package "LabAndOrders.Interfaces" #F8E8F8 {
+
+    package "REST.Resources" {
+        class LaboratoryResource <<response DTO>> {
+            + Id : int
+            + Name : string
+            + Phone : string
+            + Email : string
+        }
+
+        class CreateLaboratoryResource <<request DTO>> {
+            + Name : string
+            + Phone : string
+            + Email : string
+        }
+
+        class WorkOrderResource <<response DTO>> {
+            + Id : int
+            + SaleId : int
+            + RecipeId : int
+            + LaboratoryId : int
+            + Status : string
+            + Priority : string
+            + PatientName : string
+            + LaboratoryName : string
+            + LensType : string
+            + Frame : string
+            + Prescription : string
+            + DeliveryDate : string
+            + Deposit : decimal
+            + Total : decimal
+            + IsRework : bool
+        }
+
+        class CreateWorkOrderResource <<request DTO>> {
+            + SaleId : int
+            + RecipeId : int
+            + LabId : int
+            + PatientName : string
+            + LaboratoryName : string
+            + LensType : string
+            + Frame : string
+            + Prescription : string
+            + Priority : string
+            + DeliveryDate : string
+            + Deposit : decimal
+            + Total : decimal
+        }
+
+        class UpdateWorkOrderStatusResource <<request DTO>> {
+            + Status : string
+        }
+    }
+
+    package "REST.Controllers" {
+        class LaboratoriesController <<controller>> {
+            - _laboratoryCmdSvc : ILaboratoryCommandService
+            - _laboratoryQrySvc : ILaboratoryQueryService
+            + CreateLaboratory(resource : CreateLaboratoryResource) : IActionResult
+            + GetAllLaboratories() : IActionResult
+            + GetLaboratoryById(id : int) : IActionResult
+        }
+
+        class WorkOrdersController <<controller>> {
+            - _workOrderCmdSvc : IWorkOrderCommandService
+            - _workOrderQrySvc : IWorkOrderQueryService
+            + CreateWorkOrder(resource : CreateWorkOrderResource) : IActionResult
+            + GetAllWorkOrders() : IActionResult
+            + GetWorkOrderById(id : int) : IActionResult
+            + UpdateOrderStatus(id : int, resource : UpdateWorkOrderStatusResource) : IActionResult
+        }
+    }
+
+    class LabAndOrdersAssemblers <<static>> {
+        + {static} ToResourceFromEntity(entity : Laboratory) : LaboratoryResource
+        + {static} ToResourceFromEntity(entity : WorkOrder) : WorkOrderResource
+        + {static} ToCommandFromResource(resource : CreateLaboratoryResource) : CreateLaboratoryCommand
+        + {static} ToCommandFromResource(resource : CreateWorkOrderResource) : CreateWorkOrderCommand
+    }
+
+    LaboratoriesController --> ILaboratoryCommandService
+    LaboratoriesController --> ILaboratoryQueryService
+    WorkOrdersController --> IWorkOrderCommandService
+    WorkOrdersController --> IWorkOrderQueryService
+    LaboratoriesController ..> LabAndOrdersAssemblers
+    WorkOrdersController ..> LabAndOrdersAssemblers
+}
+
+interface IUnitOfWork
+
+@enduml
