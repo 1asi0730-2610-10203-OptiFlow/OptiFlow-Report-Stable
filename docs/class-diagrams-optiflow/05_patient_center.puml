@@ -1,0 +1,206 @@
+@startuml 05_patient_center
+title OptiFlow Platform — Patient Center Bounded Context
+
+skinparam packageStyle rectangle
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor #888888
+skinparam arrowColor #555555
+
+' ─────────────────────────────────────────
+' DOMAIN LAYER
+' ─────────────────────────────────────────
+package "PatientCenter.Domain" #E8F4F8 {
+
+    package "Model.ValueObjects" {
+        class NotificationStatus <<value object sealed record>> {
+            + Value : string
+            + {static} Pending : string
+            + {static} Sent : string
+            + {static} Read : string
+        }
+    }
+
+    package "Model.Entities" {
+        class LensMaterial <<entity>> {
+            + Id : int
+            + FullName : string
+            + IndexValue : string
+            + BasePrice : decimal
+            + Description : string
+        }
+
+        class PatientNotification <<entity>> {
+            + Id : int
+            + PatientId : int
+            + WorkOrderId : int
+            + Message : string
+            + Status : string
+            + SentAt : DateTime?
+            + PatientNotification(cmd : CreateNotificationCommand)
+            + MarkAsRead() : void
+        }
+    }
+
+    package "Model.Commands" {
+        class CreateNotificationCommand <<command record>> {
+            + PatientId : int
+            + WorkOrderId : int
+            + Message : string
+        }
+    }
+
+    package "Model.Queries" {
+        class GetAllLensMaterialsQuery <<query record>>
+        class GetNotificationsByPatientIdQuery <<query record>> {
+            + PatientId : int
+        }
+    }
+
+    package "Repositories" {
+        interface ILensMaterialRepository {
+        }
+
+        interface IPatientNotificationRepository {
+        }
+    }
+
+    PatientNotification *-- NotificationStatus
+    PatientNotification ..> CreateNotificationCommand : created from
+}
+
+' ─────────────────────────────────────────
+' APPLICATION LAYER
+' ─────────────────────────────────────────
+package "PatientCenter.Application" #E8F8E8 {
+
+    package "Errors" {
+        enum CreateNotificationError {
+            PatientNotFound
+            WorkOrderNotFound
+            UnexpectedError
+        }
+    }
+
+    package "Interfaces" {
+        interface ILensMaterialQueryService {
+            + Handle(q : GetAllLensMaterialsQuery) : Task<IEnumerable<LensMaterial>>
+        }
+
+        interface IPatientNotificationCommandService {
+            + Handle(cmd : CreateNotificationCommand) : Task<Result<PatientNotification, CreateNotificationError>>
+        }
+
+        interface IPatientNotificationQueryService {
+            + Handle(q : GetNotificationsByPatientIdQuery) : Task<IEnumerable<PatientNotification>>
+        }
+    }
+
+    package "Internal" {
+        class LensMaterialQueryService <<internal>> {
+            - _lensMaterialRepo : ILensMaterialRepository
+        }
+
+        class PatientNotificationCommandService <<internal>> {
+            - _notificationRepo : IPatientNotificationRepository
+            - _unitOfWork : IUnitOfWork
+            - _logger : ILogger
+        }
+
+        class PatientNotificationQueryService <<internal>> {
+            - _notificationRepo : IPatientNotificationRepository
+        }
+    }
+
+    LensMaterialQueryService ..|> ILensMaterialQueryService
+    PatientNotificationCommandService ..|> IPatientNotificationCommandService
+    PatientNotificationQueryService ..|> IPatientNotificationQueryService
+
+    LensMaterialQueryService --> ILensMaterialRepository
+    PatientNotificationCommandService --> IPatientNotificationRepository
+    PatientNotificationCommandService --> IUnitOfWork
+    PatientNotificationQueryService --> IPatientNotificationRepository
+}
+
+' ─────────────────────────────────────────
+' INFRASTRUCTURE LAYER
+' ─────────────────────────────────────────
+package "PatientCenter.Infrastructure" #FFF8E8 {
+
+    class LensMaterialRepository {
+    }
+
+    class PatientNotificationRepository {
+    }
+
+    LensMaterialRepository ..|> ILensMaterialRepository
+    PatientNotificationRepository ..|> IPatientNotificationRepository
+}
+
+' ─────────────────────────────────────────
+' INTERFACES (API) LAYER
+' ─────────────────────────────────────────
+package "PatientCenter.Interfaces" #F8E8F8 {
+
+    package "REST.Resources" {
+        class LensMaterialResource <<response DTO>> {
+            + Id : int
+            + FullName : string
+            + IndexValue : string
+            + BasePrice : decimal
+            + Description : string
+        }
+
+        class PatientNotificationResource <<response DTO>> {
+            + Id : int
+            + PatientId : int
+            + WorkOrderId : int
+            + Message : string
+            + Status : string
+            + SentAt : DateTime?
+        }
+
+        class CreateNotificationResource <<request DTO>> {
+            + PatientId : int
+            + WorkOrderId : int
+            + Message : string
+        }
+    }
+
+    package "REST.Controllers" {
+        class LensMaterialsController <<controller>> {
+            - _lensMaterialQrySvc : ILensMaterialQueryService
+            + GetAllLensMaterials() : IActionResult
+            + GetLensMaterialById(id : int) : IActionResult
+        }
+
+        class PatientNotificationsController <<controller>> {
+            - _notificationCmdSvc : IPatientNotificationCommandService
+            - _notificationQrySvc : IPatientNotificationQueryService
+            + CreateNotification(resource : CreateNotificationResource) : IActionResult
+            + GetNotificationsByPatientId(patientId : int) : IActionResult
+            + GetNotificationById(id : int) : IActionResult
+        }
+
+        class PatientOrdersController <<controller>> {
+            ' Aggregates order views for patient-facing queries
+            + GetPatientOrders(patientId : int) : IActionResult
+            + GetPatientOrderById(id : int) : IActionResult
+        }
+    }
+
+    class PatientCenterAssemblers <<static>> {
+        + {static} ToResourceFromEntity(entity : LensMaterial) : LensMaterialResource
+        + {static} ToResourceFromEntity(entity : PatientNotification) : PatientNotificationResource
+        + {static} ToCommandFromResource(resource : CreateNotificationResource) : CreateNotificationCommand
+    }
+
+    LensMaterialsController --> ILensMaterialQueryService
+    PatientNotificationsController --> IPatientNotificationCommandService
+    PatientNotificationsController --> IPatientNotificationQueryService
+    LensMaterialsController ..> PatientCenterAssemblers
+    PatientNotificationsController ..> PatientCenterAssemblers
+}
+
+interface IUnitOfWork
+
+@enduml

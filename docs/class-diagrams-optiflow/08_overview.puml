@@ -1,0 +1,254 @@
+@startuml 08_overview
+title OptiFlow Platform — Bounded Context Overview
+
+skinparam packageStyle rectangle
+skinparam componentStyle rectangle
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor #888888
+skinparam arrowColor #444444
+skinparam packageBorderColor #666666
+
+skinparam package {
+    BackgroundColor<<BC>> #F0F8FF
+    BorderColor<<BC>> #4A90D9
+    FontSize 13
+    FontStyle bold
+}
+
+' ─────────────────────────────────────────
+' SHARED KERNEL (center)
+' ─────────────────────────────────────────
+package "Shared Kernel" #FFFDE7 {
+    class IBaseRepository<TEntity> <<interface>>
+    class IUnitOfWork <<interface>>
+    class BaseRepository<TEntity> <<abstract>>
+    class "Result<TValue,TError>" as Result <<sealed>>
+    class AppDbContext
+    class IEvent <<interface>>
+    class IEventHandler <<interface>>
+    class IAuditableEntity <<interface>>
+
+    BaseRepository ..|> IBaseRepository
+    AppDbContext <-- BaseRepository
+}
+
+' ─────────────────────────────────────────
+' ANALYTICS
+' ─────────────────────────────────────────
+package "Analytics BC" <<BC>> {
+    class AnalyticsReport <<aggregate root>>
+    class StaffMetric <<entity>>
+    class IAnalyticsReportRepository <<interface>>
+    class IStaffMetricRepository <<interface>>
+    class IAnalyticsReportQueryService <<interface>>
+    class IStaffMetricQueryService <<interface>>
+    class AnalyticsReportsController <<controller>>
+    class StaffMetricsController <<controller>>
+
+    AnalyticsReport "1" *-- "0..*" StaffMetric
+    IAnalyticsReportQueryService --> IAnalyticsReportRepository
+    IStaffMetricQueryService --> IStaffMetricRepository
+    AnalyticsReportsController --> IAnalyticsReportQueryService
+    StaffMetricsController --> IStaffMetricQueryService
+}
+
+' ─────────────────────────────────────────
+' CLINICAL
+' ─────────────────────────────────────────
+package "Clinical BC" <<BC>> {
+    class Patient <<aggregate root>>
+    class ClinicalRecord <<entity>>
+    class Prescription <<entity>>
+    class IPatientRepository <<interface>>
+    class IClinicalRecordRepository <<interface>>
+    class IPrescriptionRepository <<interface>>
+    class IPatientCommandService <<interface>>
+    class IPatientQueryService <<interface>>
+    class IPrescriptionCommandService <<interface>>
+    class PatientsController <<controller>>
+    class PrescriptionsController <<controller>>
+
+    Patient "1" -- "1" ClinicalRecord
+    ClinicalRecord "1" *-- "0..*" Prescription
+    IPatientCommandService --> IPatientRepository
+    IPatientCommandService --> IClinicalRecordRepository
+    IPatientCommandService --> IUnitOfWork
+    PatientsController --> IPatientCommandService
+    PatientsController --> IPatientQueryService
+    PrescriptionsController --> IPrescriptionCommandService
+}
+
+' ─────────────────────────────────────────
+' INVENTORY
+' ─────────────────────────────────────────
+package "Inventory BC" <<BC>> {
+    class Product <<aggregate root>>
+    class StockAuditLog <<aggregate root>>
+    class Supplier <<aggregate root>>
+    class Category <<entity>>
+    class SupplierContact <<value object>>
+    class StockOperation <<value object>>
+    class IProductRepository <<interface>>
+    class ISupplierRepository <<interface>>
+    class IProductCommandService <<interface>>
+    class ProductsController <<controller>>
+    class SuppliersController <<controller>>
+
+    Supplier *-- SupplierContact
+    Product ..> StockAuditLog : creates
+    IProductCommandService --> IProductRepository
+    IProductCommandService --> IUnitOfWork
+    ProductsController --> IProductCommandService
+    SuppliersController --> ISupplierRepository
+}
+
+' ─────────────────────────────────────────
+' LAB AND ORDERS
+' ─────────────────────────────────────────
+package "Lab and Orders BC" <<BC>> {
+    class Laboratory <<aggregate root>>
+    class WorkOrder <<aggregate root>>
+    class ContactInfo <<value object>>
+    class LaboratoryId <<value object>>
+    class OrderStatus <<value object>>
+    class OrderPriority <<value object>>
+    class ILaboratoryRepository <<interface>>
+    class IWorkOrderRepository <<interface>>
+    class IWorkOrderCommandService <<interface>>
+    class IWorkOrderQueryService <<interface>>
+    class WorkOrdersController <<controller>>
+
+    Laboratory *-- ContactInfo
+    WorkOrder *-- LaboratoryId
+    WorkOrder *-- OrderStatus
+    IWorkOrderCommandService --> IWorkOrderRepository
+    WorkOrdersController --> IWorkOrderCommandService
+    WorkOrdersController --> IWorkOrderQueryService
+}
+
+' ─────────────────────────────────────────
+' PATIENT CENTER
+' ─────────────────────────────────────────
+package "Patient Center BC" <<BC>> {
+    class LensMaterial <<entity>>
+    class PatientNotification <<entity>>
+    class NotificationStatus <<value object>>
+    class ILensMaterialRepository <<interface>>
+    class IPatientNotificationRepository <<interface>>
+    class IPatientNotificationCommandService <<interface>>
+    class LensMaterialsController <<controller>>
+    class PatientNotificationsController <<controller>>
+
+    PatientNotification *-- NotificationStatus
+    IPatientNotificationCommandService --> IPatientNotificationRepository
+    PatientNotificationsController --> IPatientNotificationCommandService
+    LensMaterialsController --> ILensMaterialRepository
+}
+
+' ─────────────────────────────────────────
+' SALES (event-driven)
+' ─────────────────────────────────────────
+package "Sales BC" <<BC>> {
+    class Sale <<aggregate root>>
+    class SalePayment <<aggregate root>>
+    class SaleId <<value object>>
+    class InvoiceNumber <<value object>>
+    class SaleStatus <<value object>>
+    class PaymentStatus <<value object>>
+    class ISaleRepository <<interface>>
+    class IPaymentRepository <<interface>>
+    class ISaleCommandService <<interface>>
+    class ISaleQueryService <<interface>>
+    class ILabAndOrdersContextFacade <<interface (ACL)>>
+    class SalesController <<controller>>
+    class PaymentsController <<controller>>
+
+    ' Domain events (7 total)
+    class SaleCreatedEvent <<domain event>>
+    class SaleCompletedEvent <<domain event>>
+    class SaleCancelledEvent <<domain event>>
+    class DiscountAppliedEvent <<domain event>>
+    class OutstandingBalancePayedEvent <<domain event>>
+
+    Sale *-- SaleId
+    Sale *-- InvoiceNumber
+    Sale *-- SaleStatus
+    SalePayment *-- PaymentStatus
+
+    ISaleCommandService --> ISaleRepository
+    ISaleCommandService --> IUnitOfWork
+    ISaleCommandService --> ILabAndOrdersContextFacade
+    SalesController --> ISaleCommandService
+    SalesController --> ISaleQueryService
+    PaymentsController --> IPaymentRepository
+
+    Sale ..> SaleCreatedEvent : publishes
+    Sale ..> SaleCompletedEvent : publishes
+    Sale ..> SaleCancelledEvent : publishes
+}
+
+' ─────────────────────────────────────────
+' SUBSCRIPTION (event-driven)
+' ─────────────────────────────────────────
+package "Subscription BC" <<BC>> {
+    class Subscription <<aggregate root>>
+    class Plan <<aggregate root>>
+    class Billing <<aggregate root>>
+    class SubPayment <<aggregate root>>
+    class SubscriptionId <<value object>>
+    class SubscriptionStatus <<value object>>
+    class SubscriptionTier <<value object>>
+    class ISubscriptionRepository <<interface>>
+    class IPlanRepository <<interface>>
+    class IBillingRepository <<interface>>
+    class ISubscriptionCommandService <<interface>>
+    class IPlanCommandService <<interface>>
+    class IBillingCommandService <<interface>>
+    class SubscriptionsController <<controller>>
+    class PlansController <<controller>>
+
+    ' Domain events (10 total)
+    class PlanSubscriptionSelectedEvent <<domain event>>
+    class PaymentProcessedEvent <<domain event>>
+    class SubscriptionCancelledEvent <<domain event>>
+    class RenewalDueEvent <<domain event>>
+
+    Subscription *-- SubscriptionId
+    Subscription *-- SubscriptionStatus
+    Subscription *-- SubscriptionTier
+    Subscription --> Plan
+    Billing *-- SubscriptionId
+    SubPayment *-- SubscriptionId
+
+    ISubscriptionCommandService --> ISubscriptionRepository
+    ISubscriptionCommandService --> IUnitOfWork
+    IPlanCommandService --> IPlanRepository
+    IBillingCommandService --> IBillingRepository
+    SubscriptionsController --> ISubscriptionCommandService
+    PlansController --> IPlanCommandService
+
+    Subscription ..> PlanSubscriptionSelectedEvent : publishes
+    Subscription ..> SubscriptionCancelledEvent : publishes
+    SubPayment ..> PaymentProcessedEvent : publishes
+    Billing ..> RenewalDueEvent : publishes
+}
+
+' ─────────────────────────────────────────
+' CROSS-CONTEXT DEPENDENCIES
+' ─────────────────────────────────────────
+note "Sales reads WorkOrder status\nvia Anti-Corruption Layer (ACL)\nto enforce cancellation rules" as ACL_Note
+
+ILabAndOrdersContextFacade ..> IWorkOrderQueryService : delegates to
+ILabAndOrdersContextFacade .. ACL_Note
+
+note "Clinical.Patient.Id referenced\nby Sales.PatientId and\nPatientCenter.PatientNotification.PatientId" as PatientRef
+
+Patient .. PatientRef
+Sale .. PatientRef
+
+note "LabAndOrders.WorkOrder.SaleId\nlinks back to Sales.Sale.Id\nfor order tracking" as OrderRef
+
+WorkOrder .. OrderRef
+Sale .. OrderRef
+
+@enduml
