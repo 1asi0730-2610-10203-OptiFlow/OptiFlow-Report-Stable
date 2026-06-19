@@ -1,0 +1,355 @@
+@startuml 02_clinical
+title OptiFlow Platform — Clinical Bounded Context
+
+skinparam packageStyle rectangle
+skinparam classBackgroundColor #FAFAFA
+skinparam classBorderColor #888888
+skinparam arrowColor #555555
+
+' ─────────────────────────────────────────
+' DOMAIN LAYER
+' ─────────────────────────────────────────
+package "Clinical.Domain" #E8F4F8 {
+
+    package "Model.Aggregates" {
+        class Patient <<aggregate root>> {
+            + Id : int
+            + PatientId : int
+            + CustomerUuid : string
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string?
+            + Email : string?
+            + BirthDate : DateOnly
+            + Patient(cmd : CreatePatientCommand)
+            + Update(cmd : UpdatePatientCommand) : void
+        }
+    }
+
+    package "Model.Entities" {
+        class ClinicalRecord <<entity>> {
+            + Id : int
+            + RecordId : int
+            + ClinicalRecordUuid : string
+            + PatientId : int
+            + Prescriptions : IReadOnlyCollection<Prescription>
+        }
+
+        class Prescription <<entity>> {
+            + Id : int
+            + PrescriptionId : int
+            + PrescriptionUuid : string
+            + ClinicalRecordId : int
+            + OdSphere : decimal
+            + OdCylinder : decimal
+            + OdAxis : int
+            + OiSphere : decimal
+            + OiCylinder : decimal
+            + OiAxis : int
+            + Addition : decimal?
+            + Notes : string
+            + DoctorName : string
+            + CreatedAt : DateTime
+        }
+    }
+
+    package "Model.Commands" {
+        class CreatePatientCommand <<command record>> {
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string?
+            + Email : string?
+            + BirthDate : DateOnly
+        }
+
+        class UpdatePatientCommand <<command record>> {
+            + PatientId : int
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string?
+            + Email : string?
+            + BirthDate : DateOnly
+        }
+
+        class CreatePrescriptionCommand <<command record>> {
+            + ClinicalRecordId : int
+            + OdSphere : decimal
+            + OdCylinder : decimal
+            + OdAxis : int
+            + OiSphere : decimal
+            + OiCylinder : decimal
+            + OiAxis : int
+            + Addition : decimal?
+            + Notes : string
+            + DoctorName : string
+        }
+    }
+
+    package "Model.Queries" {
+        class GetAllPatientsQuery <<query record>>
+        class GetPatientByIdQuery <<query record>> {
+            + Id : int
+        }
+        class GetPatientByDniQuery <<query record>> {
+            + Dni : string
+        }
+        class GetAllClinicalRecordsQuery <<query record>>
+        class GetClinicalRecordByPatientIdQuery <<query record>> {
+            + PatientId : int
+        }
+        class GetClinicalRecordByIdQuery <<query record>> {
+            + Id : int
+        }
+        class GetAllPrescriptionsQuery <<query record>>
+        class GetPrescriptionsByRecordIdQuery <<query record>> {
+            + ClinicalRecordId : int
+        }
+    }
+
+    package "Repositories" {
+        interface IPatientRepository {
+            + FindByDniAsync(dni : string) : Task<Patient?>
+        }
+
+        interface IClinicalRecordRepository {
+            + FindByPatientIdAsync(patientId : int) : Task<ClinicalRecord?>
+        }
+
+        interface IPrescriptionRepository {
+            + FindByClinicalRecordIdAsync(clinicalRecordId : int) : Task<IEnumerable<Prescription>>
+        }
+    }
+
+    Patient "1" -- "1" ClinicalRecord : has
+    ClinicalRecord "1" *-- "0..*" Prescription : contains
+    Patient ..> CreatePatientCommand : created from
+    Patient ..> UpdatePatientCommand : updated by
+    Prescription ..> CreatePrescriptionCommand : created from
+}
+
+' ─────────────────────────────────────────
+' APPLICATION LAYER
+' ─────────────────────────────────────────
+package "Clinical.Application" #E8F8E8 {
+
+    package "Errors" {
+        enum CreatePatientError {
+            DniAlreadyExists
+            UnexpectedError
+        }
+        enum UpdatePatientError {
+            PatientNotFound
+            DniAlreadyExists
+            UnexpectedError
+        }
+        enum CreatePrescriptionError {
+            ClinicalRecordNotFound
+            UnexpectedError
+        }
+    }
+
+    package "Interfaces" {
+        interface IPatientCommandService {
+            + Handle(cmd : CreatePatientCommand) : Task<Result<Patient, CreatePatientError>>
+            + Handle(cmd : UpdatePatientCommand) : Task<Result<Patient, UpdatePatientError>>
+        }
+
+        interface IPatientQueryService {
+            + Handle(q : GetAllPatientsQuery) : Task<IEnumerable<Patient>>
+            + Handle(q : GetPatientByIdQuery) : Task<Patient?>
+            + Handle(q : GetPatientByDniQuery) : Task<Patient?>
+        }
+
+        interface IClinicalRecordQueryService {
+            + Handle(q : GetAllClinicalRecordsQuery) : Task<IEnumerable<ClinicalRecord>>
+            + Handle(q : GetClinicalRecordByIdQuery) : Task<ClinicalRecord?>
+            + Handle(q : GetClinicalRecordByPatientIdQuery) : Task<ClinicalRecord?>
+        }
+
+        interface IPrescriptionCommandService {
+            + Handle(cmd : CreatePrescriptionCommand) : Task<Result<Prescription, CreatePrescriptionError>>
+        }
+
+        interface IPrescriptionQueryService {
+            + Handle(q : GetAllPrescriptionsQuery) : Task<IEnumerable<Prescription>>
+            + Handle(q : GetPrescriptionsByRecordIdQuery) : Task<IEnumerable<Prescription>>
+        }
+    }
+
+    package "Internal" {
+        class PatientCommandService <<internal>> {
+            - _patientRepo : IPatientRepository
+            - _clinicalRecordRepo : IClinicalRecordRepository
+            - _unitOfWork : IUnitOfWork
+            - _logger : ILogger
+            ' Auto-creates ClinicalRecord on Patient creation
+        }
+
+        class PatientQueryService <<internal>> {
+            - _patientRepo : IPatientRepository
+        }
+
+        class ClinicalRecordQueryService <<internal>> {
+            - _clinicalRecordRepo : IClinicalRecordRepository
+        }
+
+        class PrescriptionCommandService <<internal>> {
+            - _prescriptionRepo : IPrescriptionRepository
+            - _clinicalRecordRepo : IClinicalRecordRepository
+            - _unitOfWork : IUnitOfWork
+            - _logger : ILogger
+        }
+
+        class PrescriptionQueryService <<internal>> {
+            - _prescriptionRepo : IPrescriptionRepository
+        }
+    }
+
+    PatientCommandService ..|> IPatientCommandService
+    PatientQueryService ..|> IPatientQueryService
+    ClinicalRecordQueryService ..|> IClinicalRecordQueryService
+    PrescriptionCommandService ..|> IPrescriptionCommandService
+    PrescriptionQueryService ..|> IPrescriptionQueryService
+
+    PatientCommandService --> IPatientRepository
+    PatientCommandService --> IClinicalRecordRepository
+    PatientCommandService --> IUnitOfWork
+    PrescriptionCommandService --> IPrescriptionRepository
+    PrescriptionCommandService --> IClinicalRecordRepository
+    PrescriptionCommandService --> IUnitOfWork
+    PatientQueryService --> IPatientRepository
+    ClinicalRecordQueryService --> IClinicalRecordRepository
+    PrescriptionQueryService --> IPrescriptionRepository
+}
+
+' ─────────────────────────────────────────
+' INFRASTRUCTURE LAYER
+' ─────────────────────────────────────────
+package "Clinical.Infrastructure" #FFF8E8 {
+
+    class PatientRepository {
+        + FindByDniAsync(dni : string) : Task<Patient?>
+    }
+
+    class ClinicalRecordRepository {
+        + FindByPatientIdAsync(patientId : int) : Task<ClinicalRecord?>
+    }
+
+    class PrescriptionRepository {
+        + FindByClinicalRecordIdAsync(clinicalRecordId : int) : Task<IEnumerable<Prescription>>
+    }
+
+    PatientRepository ..|> IPatientRepository
+    ClinicalRecordRepository ..|> IClinicalRecordRepository
+    PrescriptionRepository ..|> IPrescriptionRepository
+}
+
+' ─────────────────────────────────────────
+' INTERFACES (API) LAYER
+' ─────────────────────────────────────────
+package "Clinical.Interfaces" #F8E8F8 {
+
+    package "REST.Resources" {
+        class PatientResource <<response DTO>> {
+            + Id : int
+            + CustomerUuid : string
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string
+            + Email : string
+            + BirthDate : DateOnly
+        }
+
+        class CreatePatientResource <<request DTO>> {
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string?
+            + Email : string?
+            + BirthDate : DateOnly
+        }
+
+        class UpdatePatientResource <<request DTO>> {
+            + FirstName : string
+            + LastName : string
+            + Dni : string
+            + Phone : string?
+            + Email : string?
+            + BirthDate : DateOnly
+        }
+
+        class ClinicalRecordResource <<response DTO>> {
+            + Id : int
+            + ClinicalRecordUuid : string
+            + PatientId : int
+            + Prescriptions : List<PrescriptionResource>
+        }
+
+        class PrescriptionResource <<response DTO>> {
+            + Id : int
+            + PrescriptionUuid : string
+            + ClinicalRecordId : int
+            + OdSphere : decimal
+            + OdCylinder : decimal
+            + OdAxis : int
+            + OiSphere : decimal
+            + OiCylinder : decimal
+            + OiAxis : int
+            + Addition : decimal?
+            + Notes : string
+            + DoctorName : string
+            + CreatedAt : DateTime
+        }
+    }
+
+    package "REST.Controllers" {
+        class PatientsController <<controller>> {
+            - _patientCmdSvc : IPatientCommandService
+            - _patientQrySvc : IPatientQueryService
+            + CreatePatient(resource : CreatePatientResource) : IActionResult
+            + GetAllPatients() : IActionResult
+            + GetPatientById(id : int) : IActionResult
+            + UpdatePatient(id : int, resource : UpdatePatientResource) : IActionResult
+        }
+
+        class ClinicalRecordsController <<controller>> {
+            - _clinicalQrySvc : IClinicalRecordQueryService
+            + GetAllClinicalRecords() : IActionResult
+            + GetClinicalRecordById(id : int) : IActionResult
+            + GetClinicalRecordByPatientId(patientId : int) : IActionResult
+        }
+
+        class PrescriptionsController <<controller>> {
+            - _prescriptionCmdSvc : IPrescriptionCommandService
+            - _prescriptionQrySvc : IPrescriptionQueryService
+            + CreatePrescription(resource : CreatePrescriptionResource) : IActionResult
+            + GetAllPrescriptions() : IActionResult
+            + GetPrescriptionsByRecordId(recordId : int) : IActionResult
+        }
+    }
+
+    class ClinicalAssemblers <<static>> {
+        + {static} ToResourceFromEntity(entity : Patient) : PatientResource
+        + {static} ToResourceFromEntity(entity : ClinicalRecord) : ClinicalRecordResource
+        + {static} ToResourceFromEntity(entity : Prescription) : PrescriptionResource
+        + {static} ToCommandFromResource(resource : CreatePatientResource) : CreatePatientCommand
+        + {static} ToCommandFromResource(id : int, resource : UpdatePatientResource) : UpdatePatientCommand
+    }
+
+    PatientsController --> IPatientCommandService
+    PatientsController --> IPatientQueryService
+    ClinicalRecordsController --> IClinicalRecordQueryService
+    PrescriptionsController --> IPrescriptionCommandService
+    PrescriptionsController --> IPrescriptionQueryService
+    PatientsController ..> ClinicalAssemblers
+    ClinicalRecordsController ..> ClinicalAssemblers
+    PrescriptionsController ..> ClinicalAssemblers
+}
+
+interface IUnitOfWork
+
+@enduml
