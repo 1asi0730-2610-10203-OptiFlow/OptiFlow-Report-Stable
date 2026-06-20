@@ -1473,7 +1473,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Implementar los endpoints de autenticación y autorización del bounded context IAM para Web Services.</td>
       <td>5 hrs</td>
       <td>Mariana</td>
-      <td>In-Process</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1493,7 +1493,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Crear el repositorio público con la nomenclatura exigida (webdev-course-[nombre del equipo]) para alojar el contenido del curso de HTML.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1503,7 +1503,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el README.md con las instrucciones de configuración del repositorio del curso.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1513,7 +1513,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Crear y estructurar las carpetas base del repositorio (/starter-files, /completed-examples, /scripts).</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1523,7 +1523,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Desarrollar el código de los ejemplos para las clases del curso (Estructura HTML, CSS simple, página de perfil).</td>
       <td>5 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1533,7 +1533,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Generar los enlaces directos precargados que se incluirán en la descripción de los videos del curso.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1543,7 +1543,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Cada miembro redacta el guion de la lección del curso que le fue asignada.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1553,7 +1553,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Introducción al desarrollo web (qué es un sitio web?)".</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1563,7 +1563,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Estructura HTML básica (etiquetas, elementos, atributos)".</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1573,7 +1573,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Elementos HTML comunes (encabezados, párrafos, listas, imágenes, enlaces)".</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1583,7 +1583,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Introducción a CSS (selectores, propiedades como color, fuente, diseño)".</td>
       <td>4 hrs</td>
       <td>Mia</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1593,7 +1593,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Estilo simple (p.ej., centrar contenido, añadir colores y borders)".</td>
       <td>4 hrs</td>
       <td>Mariana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1603,7 +1603,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección final "Creación de una página web básica (ej. Una página de perfil o una entrada de un blog)".</td>
       <td>4 hrs</td>
       <td></td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1613,7 +1613,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Redactar el guion de la lección "Recomendaciones y errores comunes para principiantes".</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1623,7 +1623,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Cada miembro grava la voz en off de la lección del curso que le fue asignada.</td>
       <td>4 hrs</td>
       <td></td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1633,7 +1633,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Garantizar que no haya branding ni referencias personales de los integrantes durante la grabación de los videos del curso.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1643,7 +1643,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Cada miembro edita el video de la lección del curso que le fue asignada.</td>
       <td>4 hrs</td>
       <td></td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1653,7 +1653,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Subir todos los videos del curso a YouTube con la configuración de privacidad en "No listado".</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -1663,7 +1663,7 @@ En el sprint principalmente se tomó enfoque en el desarrollo de la parte del ba
       <td>Armar las descripciones finales de los videos en YouTube, incluyendo los enlaces directos precargados a los editores de código.</td>
       <td>4 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
   </tbody>
 </table>
