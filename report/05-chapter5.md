@@ -1770,6 +1770,7 @@ En este sprint se logró principalmente el despliegue del backend utilizando Azu
 ![](../docs/register-supplier.png)
 
 ![alt text](image.png)
+
 Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQCYdJ6buvRlRqYAf8LnbvznAUvRkR-WcuUp-oQkUtj4pXY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=t9U6Gj
 
 
@@ -1938,6 +1939,285 @@ Las entrevistas de validación con ambos segmentos objetivos confirmaron que los
 - **Evaluar estrategias de pricing diferenciadas** para ópticas pequeñas, dado que el precio actual puede representar una barrera de adopción para negocios con menor flujo de clientes, según la retroalimentación recibida en las entrevistas de validación.
 
 - **Orientar el siguiente sprint** hacia la finalización de las tareas del HTML Course (T54–T64) que quedaron pendientes, la implementación de la capa IAM y la incorporación de las correcciones heurísticas priorizadas.
+
+
+### Sprint 4
+
+#### Sprint Planning 4
+En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la cuarta iteración del proyecto. El enfoque principal de este Sprint abarca la corrección de los problemas de usabilidad identificados en la evaluación heurística del Sprint 3, la integración completa del módulo IAM con el frontend, las mejoras del portal del paciente y la optimización de la responsividad móvil de la aplicación.
+
+| Aspect | Details |
+| :--- | :--- |
+| **Sprint #** | Sprint 4 |
+| **Date** | 2026-06-22 |
+| **Time** | 10:00 AM |
+| **Location** | Reunión Virtual (Discord / Microsoft Teams) |
+| **Prepared By** | Azama Fukuda, Juan Pablo |
+| **Attendees (to planning meeting)** | Atoche Gonzales, Nicolas Fernando / Azama Fukuda, Juan Pablo / Capillo Lema, Mía Valentina / Mechan Montenegro, Luciana Carolina / Morocho Pinedo, Mariana |
+| **Sprint 3 Review Summary** | Se implementó el backend completo con arquitectura DDD en ASP.NET Core, conectando por primera vez el frontend con la API real desplegada en Azure App Service. Se documentaron los endpoints de los bounded contexts bajo el estándar OpenAPI/Swagger y se realizaron las entrevistas de validación con ambos segmentos objetivo, identificando 5 problemas de usabilidad en la evaluación heurística. |
+| **Sprint 3 Retrospective Summary** | La evaluación heurística identificó 5 problemas de usabilidad (2 de severidad 2 y 3 de severidad 3) que deben corregirse antes del lanzamiento. El módulo IAM fue implementado en el backend pero no integrado completamente con el frontend, lo que representa un riesgo para el despliegue en producción. Mejoras acordadas: (1) corregir los 3 problemas de severidad 3 con prioridad alta, (2) integrar la autenticación IAM real en el frontend, (3) mejorar el portal del paciente según el feedback de los entrevistados y (4) desarrollar responsividad móvil en las vistas principales. Finalmente, la mayoría de integrantes opinó que el trabajo sí fue más organizado, pero hubieron algunos erorres de comunicación y de delegación |
+| **Sprint Goal** | Our focus is on delivering a production-ready, secure and accessible OptiFlow platform. We believe it delivers a polished end-to-end experience that resolves all critical usability issues and integrates real authentication for both administrators and patients. This will be confirmed when the three severity-3 heuristic issues are resolved, IAM is fully integrated in the frontend, and the patient portal improvements are validated in the deployed application. |
+| **Sprint n Velocity** | 45 Story Points |
+| **Sum of Story Points** | 45 |
+
+
+#### Retrospectiva del Sprint 3
+
+A continuación se registran los aportes individuales del equipo durante la sesión de retrospectiva realizada al cierre del Sprint 3, estructurados en aciertos y oportunidades de mejora por integrante.
+
+| Integrante | Aciertos | Oportunidades de mejora |
+| :--- | :--- | :--- |
+| Azama Fukuda, Juan Pablo | Se cumplieron con los plazos de entrega con margen razonable. Se mejoró el proceso de QA respecto a sprints anteriores. | Las delegaciones fueron mediocres en algunos casos; falta revisión del trabajo delegado antes de darlo por cerrado. Falta mayor comunicación entre los integrantes. |
+| Atoche Gonzales, Nicolas Fernando | En general estuvo mejor el trabajo en equipo respecto a sprints anteriores. | Algunas delegaciones no tenían sentido aparente; una delegación no se realizó y causó un problema concreto. Se pudieron haber realizado pruebas unitarias para prevenir errores. |
+| Mechan Montenegro, Luciana Carolina | Mejor organización del equipo durante el sprint. | Mejorar la comunicación; reportar el avance individual dentro del grupo de manera más constante. |
+| Morocho Pinedo, Mariana | Mejor organización del equipo durante el sprint. | Vergüenza a la hora de comunicarse por el grupo y al momento de realizar las entrevistas. Las actividades del curso de open source consumieron demasiado tiempo, afectando la disponibilidad para el sprint. |
+| Capillo Lema, Mía Valentina | Mejor organización del equipo durante el sprint. | Comentar más los avances en el chat grupal y compartir más la situación personal cuando afecta la disponibilidad para el proyecto. |
+
+#### Aspect Leaders and Collaborators
+En el sprint el enfoque principal fue la corrección de los problemas de usabilidad identificados en la evaluación heurística, la integración del módulo IAM con el frontend y las mejoras del portal del paciente. El equipo distribuyó las responsabilidades según la especialización de cada integrante en los módulos correspondientes.
+
+| Team Member (Last Name, First Name) | GitHub Username | Heuristic fixes & UX improvements (L)/(C) | IAM Frontend Integration (L)/(C) | Patient portal improvements (L)/(C) | Mobile responsiveness (L)/(C) | Report corrections & documentation (L)/(C) | Software deployment configuration (L)/(C) | Sprint planning & Backlog (L)/(C) | Team collaboration insights (L)/(C) | Scrum Master Role (L)/(C) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Azama Fukuda, Juan Pablo | Llummo | L | | | C | L | L | | | L |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | | L | | | | | | | |
+| Capillo Lema, Mia Valentina | Miavcl | C | | L | | C | | | | |
+| Mechan Montenegro, Luciana Carolina | luuu6 | C | | | L | | | | L | |
+| Morocho Pinedo, Mariana | Patto04 | | | C | | C | | L | | |
+
+
+#### Sprint Backlog 4
+
+<table>
+<thead>
+    <tr>
+      <th style="text-align: left;">Sprint #</th>
+      <th colspan="7" style="text-align: left;">Sprint 4</th>
+    </tr>
+    <tr>
+      <th colspan="2" style="text-align: left;">User Story</th>
+      <th colspan="6" style="text-align: left;">Work-Item / Task</th>
+    </tr>
+    <tr>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Id</th>
+      <th style="text-align: left;">Title</th>
+      <th style="text-align: left;">Description</th>
+      <th style="text-align: left;">Estimation (Hours)</th>
+      <th style="text-align: left;">Assigned To</th>
+      <th style="text-align: left;">Status (To-do / In-Process / To-Review / Done)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TS-IAM-001</td>
+      <td>Integrar autenticación IAM en el frontend</td>
+      <td>T65</td>
+      <td>Frontend IAM Integration — Login y Guards de Ruta</td>
+      <td>Conectar el frontend con los endpoints de autenticación del módulo IAM real (sign-in, sign-up, token refresh). Implementar guards de ruta que restrinjan el acceso a vistas protegidas según el rol del usuario autenticado.</td>
+      <td>6 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>TS-IAM-002</td>
+      <td>Persistencia de sesión y flujo de logout</td>
+      <td>T66</td>
+      <td>Frontend IAM Integration — Sesión y Logout</td>
+      <td>Implementar la persistencia del token JWT en localStorage/sessionStorage, el manejo de expiración de sesión y el flujo de cierre de sesión con limpieza del estado de la store.</td>
+      <td>4 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Heuristic Fix — Severity 3</td>
+      <td>T67</td>
+      <td>Fix: Alerta visual de fecha de entrega vencida en My Lenses</td>
+      <td>Implementar la comparación entre estimatedDate y la fecha actual en la vista My Lenses. Si la fecha ya pasó y el pedido no está en estado DELIVERED, mostrar el campo en rojo con un ícono de advertencia y el texto "Delayed — estimated date has passed".</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Heuristic Fix — Severity 3</td>
+      <td>T68</td>
+      <td>Fix: Visibilidad permanente del botón de avance de estado en Kanban</td>
+      <td>Refactorizar las tarjetas del tablero Kanban para que el botón de avance de estado sea visible permanentemente (sin depender de hover), utilizando una opacidad reducida en reposo que aumente al hacer hover, o reubicándolo como elemento siempre visible en la parte inferior de la tarjeta.</td>
+      <td>3 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Heuristic Fix — Severity 3</td>
+      <td>T69</td>
+      <td>Fix: Tablas de valores numéricos en el Dashboard</td>
+      <td>Agregar debajo de cada gráfico del Dashboard (gráfico de líneas de conversión e ingresos semanales) una sección con los valores numéricos principales en formato de tabla compacta o texto, accesible para tecnologías de asistencia y usuarios con discapacidad visual.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Heuristic Fix — Severity 2</td>
+      <td>T70</td>
+      <td>Fix: Texto de ayuda en campos de la Calculadora de Grosor</td>
+      <td>Agregar un texto de ayuda breve debajo de cada campo de prescripción en la Calculadora de Grosor del portal del paciente (ej. "Encuéntralo en tu receta óptica. Ejemplo: -2.50"). Corregir además el label técnico del selector de material.</td>
+      <td>2 hrs</td>
+      <td>Mia</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Patient Portal Improvement</td>
+      <td>T71</td>
+      <td>Mejora: Separar seguimiento de pedido y resumen de pago en My Lenses</td>
+      <td>Refactorizar la vista My Lenses para separar el tracker de estado del pedido y el resumen de pago en secciones independientes (tabs o cards diferenciadas), e incorporar un detalle itemizado de los productos similar a una boleta con descripción y costo individual.</td>
+      <td>4 hrs</td>
+      <td>Mia</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Patient Portal Improvement</td>
+      <td>T72</td>
+      <td>Mejora: Imágenes de referencia en Virtual Try-On</td>
+      <td>Agregar imágenes de referencia de los modelos de montura disponibles en la vista Virtual Try-On, para que el paciente tenga una referencia visual concreta del producto antes de activar la cámara.</td>
+      <td>3 hrs</td>
+      <td>Mia</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mobile Responsiveness</td>
+      <td>T73</td>
+      <td>Responsividad móvil — Módulo de Ventas e Inventario</td>
+      <td>Implementar estilos responsivos para las vistas del módulo de Ventas e Inventario, asegurando la usabilidad en dispositivos móviles (viewport &lt; 768px) mediante breakpoints CSS y reorganización del layout en pantallas pequeñas.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Mobile Responsiveness</td>
+      <td>T74</td>
+      <td>Responsividad móvil — Tablero Kanban y Portal del Paciente</td>
+      <td>Implementar estilos responsivos para el tablero Kanban del módulo de Lab Orders y las vistas del portal del paciente (My Lenses, Virtual Try-On, Calculadora de Grosor), garantizando la usabilidad en teléfonos celulares.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T75</td>
+      <td>Sprint 4 Planning & Backlog</td>
+      <td>Redactar el Sprint Planning 4, Aspect Leaders and Collaborators y el Sprint Backlog 4 en el informe del proyecto.</td>
+      <td>2 hrs</td>
+      <td>Mariana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T76</td>
+      <td>Development Evidence Sprint 4</td>
+      <td>Completar la tabla Development Evidence del Sprint 4 con los commits de todos los repositorios (optiflow-platform, OptiFlow-Frontend, OptiFlow-Landing-Page) correspondientes a las tasks implementadas en este sprint.</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T77</td>
+      <td>Execution Evidence Sprint 4</td>
+      <td>Recolectar capturas de pantalla o video que evidencien las correcciones heurísticas implementadas, la integración IAM, las mejoras del portal del paciente y las vistas responsivas en mobile, incluyendo el enlace al video de ejecución en SharePoint.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T78</td>
+      <td>Services Documentation Evidence Sprint 4</td>
+      <td>Actualizar la documentación de los servicios del backend con cualquier endpoint nuevo o modificado durante el Sprint 4, verificando la disponibilidad de la documentación Swagger en producción.</td>
+      <td>3 hrs</td>
+      <td>Nicolas</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T79</td>
+      <td>Software Deployment Evidence Sprint 4</td>
+      <td>Documentar el despliegue final del Sprint 4 en Azure, incluyendo capturas del pipeline de GitHub Actions, del Resource Group en Azure Portal y las URLs de producción actualizadas para el frontend y el backend.</td>
+      <td>2 hrs</td>
+      <td>Juan Pablo</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>Documentation</td>
+      <td>T80</td>
+      <td>Team Collaboration Insights Sprint 4</td>
+      <td>Completar la sección Team Collaboration Insights del Sprint 4 con métricas de contribución por integrante (commits, PRs aprobados), capturas de GitHub Insights de todos los repositorios activos y resumen de las reuniones de retrospectiva realizadas.</td>
+      <td>3 hrs</td>
+      <td>Luciana</td>
+      <td>To-do</td>
+    </tr>
+  </tbody>
+</table>
+
+Si bien es cierto el enunciado solicita la utilización de la herramienta de Trello, nosotros optamos por utilizar Jira como nuestra herramienta de desarrollo ágil. Aún así, mostramos una captura con delegaciones en el trello solo para poder cumplir con el requisito del enunciado, además de mostrar las capturas del Jira.
+
+#### Gestión colaborativa y seguimiento de incidencias mediante Jira
+*(Insertar capturas del tablero Jira del Sprint 4 mostrando las tareas distribuidas por estado)*
+
+#### Gestión colaborativa y seguimiento de incidencias mediante Trello
+*(Insertar captura del tablero Trello del Sprint 4)*
+
+#### Development Evidence for Sprint Review
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| optiflow-platform | feature/IAM-frontend | - | - | - | - |
+| OptiFlow-Frontend | fix/heuristic-fixes | - | - | - | - |
+| OptiFlow-Frontend | fix/mobile-responsiveness | - | - | - | - |
+
+*(Completar con los commits reales del Sprint 4)*
+
+#### Execution Evidence for Sprint Review
+*(Insertar capturas o video que evidencien: las correcciones heurísticas implementadas, la integración IAM activa en el login, las mejoras del portal del paciente y las vistas responsivas en mobile)*
+
+Link del video: *(Insertar enlace al video de ejecución del Sprint 4)*
+
+#### Services Documentation Evidence for Sprint Review
+*(Actualizar con cualquier endpoint nuevo o modificado en el Sprint 4. Si no hay cambios en los servicios, indicar que la documentación Swagger sigue disponible en `https://optiflow.azurewebsites.net/swagger/index.html` sin cambios respecto al Sprint 3)*
+
+#### Software Deployment Evidence for Sprint Review
+*(Insertar capturas del despliegue final del Sprint 4 en Azure, incluyendo el pipeline de GitHub Actions y el Resource Group)*
+
+**URLs de Producción:**
+- **Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
+- **API Service:** https://optiflow.azurewebsites.net/
+
+#### Team Collaboration Insights for Sprint Review
+
+*(Insertar métricas de contribución por integrante, capturas de GitHub Insights de todos los repositorios activos y resumen de las reuniones de retrospectiva del Sprint 4)*
+
+| Integrante | Usuario GitHub | Commits |
+|---|---|---|
+| Azama Fukuda, Juan Pablo | Llummo | - |
+| Capillo Lema, Mía Valentina | Miavcl | - |
+| Mechan Montenegro, Luciana Carolina | luuu6 | - |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | - |
+| Morocho Pinedo, Mariana | Patto04 | - |
+
+*(Insertar capturas de GitHub Insights — Pulse, Top Committers y Pull Requests mergeados del Sprint 4)*
 
 
 ## Validation Interviews
