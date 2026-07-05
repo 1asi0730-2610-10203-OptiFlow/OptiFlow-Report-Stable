@@ -2019,7 +2019,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Conectar el frontend con los endpoints de autenticación del módulo IAM real (sign-in, sign-up, token refresh). Implementar guards de ruta que restrinjan el acceso a vistas protegidas según el rol del usuario autenticado.</td>
       <td>6 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td>TS-IAM-002</td>
@@ -2029,7 +2029,127 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Implementar la persistencia del token JWT en localStorage/sessionStorage, el manejo de expiración de sesión y el flujo de cierre de sesión con limpieza del estado de la store.</td>
       <td>4 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-IAM-003</td>
+      <td>Google Sign-In</td>
+      <td>T81</td>
+      <td>Endpoint de Google Sign-In</td>
+      <td>Implementar el endpoint POST /api/v1/authentication/sign-in/google que autentica al usuario mediante su credencial de Google y retorna el token JWT junto con los datos del usuario.</td>
+      <td>4 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-IAM-004</td>
+      <td>Password Recovery & Reset</td>
+      <td>T82</td>
+      <td>Endpoints de Recuperación y Restablecimiento de Contraseña</td>
+      <td>Implementar POST /api/v1/authentication/password-recoveries (genera y envía el token de recuperación) y POST /api/v1/authentication/password-resets (restablece la contraseña con el token de recuperación).</td>
+      <td>4 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-IAM-005</td>
+      <td>Update Email & Password</td>
+      <td>T83</td>
+      <td>Endpoints de Actualización de Email y Contraseña</td>
+      <td>Implementar PUT /api/v1/users/{id}/email (retorna un nuevo JWT) y PUT /api/v1/users/{id}/password para el usuario autenticado.</td>
+      <td>3 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-IAM-006</td>
+      <td>Secure Endpoints (JWT Authorization)</td>
+      <td>T84</td>
+      <td>Protección de Controladores con Filtro de Autorización</td>
+      <td>Implementar el JwtMiddleware y el filtro de autorización personalizado, aplicando el atributo [Authorize] a todos los controladores excepto autenticación, de modo que cada request a un endpoint protegido exija el token JWT.</td>
+      <td>5 hrs</td>
+      <td>Mariana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-ACC-001</td>
+      <td>Account Onboarding (Multi-tenant)</td>
+      <td>T85</td>
+      <td>Onboarding de Cuenta y Agregado Account</td>
+      <td>Implementar el agregado Account y los endpoints POST /api/v1/accounts (completa el onboarding del administrador) y GET /api/v1/accounts/me, con el gate ACCOUNT_SETUP_REQUIRED para forzar el onboarding.</td>
+      <td>5 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-ACC-002</td>
+      <td>Account Scoping</td>
+      <td>T86</td>
+      <td>Aislamiento de Datos por Cuenta (account_id)</td>
+      <td>Acotar todos los bounded contexts (Inventory, Sales, Lab & Orders, Clinical, Patient-center y Subscription) a un account_id mediante migraciones de EF Core y la resolución del CurrentUserContext dentro del DbContext, garantizando el aislamiento de datos entre ópticas.</td>
+      <td>6 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-004</td>
+      <td>Stripe Checkout Session</td>
+      <td>T87</td>
+      <td>Checkout de Suscripción con Stripe</td>
+      <td>Implementar el endpoint POST /api/v1/checkout que genera la sesión de Stripe Checkout para un plan y retorna la URL de redirección, respaldado por IStripeCheckoutService.</td>
+      <td>5 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-005</td>
+      <td>Subscription Access Gate</td>
+      <td>T88</td>
+      <td>Gate de Suscripción Activa</td>
+      <td>Implementar GET /api/v1/subscriptions/me y la validación de suscripción activa (SUBSCRIPTION_REQUIRED) dentro del filtro de autorización, restringiendo el acceso a los módulos según el estado de la suscripción de la cuenta.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SUB-006</td>
+      <td>Plan Selection & Payment Flow (Frontend)</td>
+      <td>T89</td>
+      <td>Flujo de Selección y Pago de Plan</td>
+      <td>Implementar la vista de selección de plan que consume GET /api/v1/plans y redirige a Stripe Checkout vía POST /api/v1/checkout, integrada al onboarding del administrador tras el registro.</td>
+      <td>4 hrs</td>
+      <td>Luciana</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-NOT-001</td>
+      <td>System Notifications</td>
+      <td>T90</td>
+      <td>Notificaciones de Sistema vía REST</td>
+      <td>Implementar los endpoints GET y PATCH /api/v1/users/{userId}/notifications para listar y marcar como leídas las notificaciones de sistema del usuario autenticado.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-SAL-005</td>
+      <td>Work Order ↔ Sale Link & Sale Items</td>
+      <td>T91</td>
+      <td>Vínculo Orden de Trabajo ↔ Venta e Ítems de Venta</td>
+      <td>Implementar PATCH /work-orders/{id}/sale para vincular la orden de laboratorio con su venta, y exponer los ítems de venta (line items) embebidos en el SaleResource.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>TS-INV-004</td>
+      <td>Stock Depletion on Sale Completion</td>
+      <td>T92</td>
+      <td>Depleción de Stock al Completar Venta</td>
+      <td>Implementar POST /products/{id}/consume con registro de auditoría y la depleción automática de stock del inventario cuando una venta se completa.</td>
+      <td>4 hrs</td>
+      <td>Juan Pablo</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2049,7 +2169,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Refactorizar las tarjetas del tablero Kanban para que el botón de avance de estado sea visible permanentemente (sin depender de hover), utilizando una opacidad reducida en reposo que aumente al hacer hover, o reubicándolo como elemento siempre visible en la parte inferior de la tarjeta.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>To-Review</td>
     </tr>
     <tr>
       <td></td>
@@ -2069,7 +2189,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Agregar un texto de ayuda breve debajo de cada campo de prescripción en la Calculadora de Grosor del portal del paciente (ej. "Encuéntralo en tu receta óptica. Ejemplo: -2.50"). Corregir además el label técnico del selector de material.</td>
       <td>2 hrs</td>
       <td>Mia</td>
-      <td>To-do</td>
+      <td>To-Review</td>
     </tr>
     <tr>
       <td></td>
@@ -2079,7 +2199,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Refactorizar la vista My Lenses para separar el tracker de estado del pedido y el resumen de pago en secciones independientes (tabs o cards diferenciadas), e incorporar un detalle itemizado de los productos similar a una boleta con descripción y costo individual.</td>
       <td>4 hrs</td>
       <td>Mia</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2089,7 +2209,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Agregar imágenes de referencia de los modelos de montura disponibles en la vista Virtual Try-On, para que el paciente tenga una referencia visual concreta del producto antes de activar la cámara.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-do</td>
+      <td>To-Review</td>
     </tr>
     <tr>
       <td></td>
@@ -2099,7 +2219,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Implementar estilos responsivos para las vistas del módulo de Ventas e Inventario, asegurando la usabilidad en dispositivos móviles (viewport &lt; 768px) mediante breakpoints CSS y reorganización del layout en pantallas pequeñas.</td>
       <td>5 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2109,7 +2229,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Implementar estilos responsivos para el tablero Kanban del módulo de Lab Orders y las vistas del portal del paciente (My Lenses, Virtual Try-On, Calculadora de Grosor), garantizando la usabilidad en teléfonos celulares.</td>
       <td>5 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2119,7 +2239,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Redactar el Sprint Planning 4, Aspect Leaders and Collaborators y el Sprint Backlog 4 en el informe del proyecto.</td>
       <td>2 hrs</td>
       <td>Mariana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2129,7 +2249,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Completar la tabla Development Evidence del Sprint 4 con los commits de todos los repositorios (optiflow-platform, OptiFlow-Frontend, OptiFlow-Landing-Page) correspondientes a las tasks implementadas en este sprint.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2139,7 +2259,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Recolectar capturas de pantalla o video que evidencien las correcciones heurísticas implementadas, la integración IAM, las mejoras del portal del paciente y las vistas responsivas en mobile, incluyendo el enlace al video de ejecución en SharePoint.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2149,7 +2269,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Actualizar la documentación de los servicios del backend con cualquier endpoint nuevo o modificado durante el Sprint 4, verificando la disponibilidad de la documentación Swagger en producción.</td>
       <td>3 hrs</td>
       <td>Nicolas</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2159,7 +2279,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Documentar el despliegue final del Sprint 4 en Azure, incluyendo capturas del pipeline de GitHub Actions, del Resource Group en Azure Portal y las URLs de producción actualizadas para el frontend y el backend.</td>
       <td>2 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2169,12 +2289,12 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Completar la sección Team Collaboration Insights del Sprint 4 con métricas de contribución por integrante (commits, PRs aprobados), capturas de GitHub Insights de todos los repositorios activos y resumen de las reuniones de retrospectiva realizadas.</td>
       <td>3 hrs</td>
       <td>Luciana</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
   </tbody>
 </table>
 
-Si bien es cierto el enunciado solicita la utilización de la herramienta de Trello, nosotros optamos por utilizar Jira como nuestra herramienta de desarrollo ágil. Aún así, mostramos una captura con delegaciones en el trello solo para poder cumplir con el requisito del enunciado, además de mostrar las capturas del Jira.
+Si bien es cierto el enunciado solicita la utilización de la herramienta de Trello, nosotros optamos por utilizar Jira como nuestra herramienta de desarrollo ágil. Aún así, mostramos una captura con delegaciones en el Trello solo para poder cumplir con el requisito del enunciado, además de mostrar las capturas del Jira.
 
 #### Gestión colaborativa y seguimiento de incidencias mediante Jira
 *(Insertar capturas del tablero Jira del Sprint 4 mostrando las tareas distribuidas por estado)*
@@ -2184,42 +2304,279 @@ Si bien es cierto el enunciado solicita la utilización de la herramienta de Tre
 
 #### Development Evidence for Sprint Review
 
+Durante el Sprint 4 el equipo concentró el esfuerzo de desarrollo en cerrar el ciclo de vida del producto de cara al release final. El trabajo más significativo fue la implementación completa del bounded context de **Identity and Access Management (IAM)** en el backend —con autenticación por JWT, hashing de contraseñas con BCrypt, Google Sign-In y flujo de recuperación de contraseña— y su **integración real en el frontend** (vistas de login, registro, perfil y recuperación de contraseña, interceptor JWT, persistencia de sesión y navegación condicionada por autenticación). Sobre esta base se incorporó **multi-tenancy (account scoping)**: cada bounded context —Inventory, Sales, Lab & Orders, Clinical, Patient-center y Subscription— fue acotado a una cuenta (`account_id`) con sus respectivas migraciones de Entity Framework Core, garantizando el aislamiento de datos entre ópticas. Adicionalmente se integró **Stripe** para el checkout de suscripciones, se implementaron las **notificaciones de sistema vía REST**, y se consolidó el cableado de datos reales entre frontend y backend (ítems de venta, vínculo orden de laboratorio ↔ venta, depleción de stock al completar una venta y cómputo de reportes analíticos en vivo). La siguiente tabla detalla los commits relacionados con la implementación en los repositorios de código durante el Sprint.
+
 | Repository | Branch | Commit Id | Commit Message | Commit Message Body | Committed on (Date) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| optiflow-platform | feature/IAM-frontend | - | - | - | - |
-| OptiFlow-Frontend | fix/heuristic-fixes | - | - | - | - |
-| OptiFlow-Frontend | fix/mobile-responsiveness | - | - | - | - |
+| optiflow-platform | feature/IAM | 8c62d24 | feat(shared): update problem details factory. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 0f01895 | feat(shared): update result pattern implementation. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 15781b0 | feat(iam): add update email and update password endpoints. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | d182ce8 | feat(iam): add google sign-in and password recovery endpoints. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 4f23a2a | feat(iam): update user repository implementation. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 1d4777e | feat(iam): update user repository interface. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | dea7170 | feat(iam): add get all users query. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 546d9ba | feat(iam): update user aggregate with google id and email value objects. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 11b65db | feat(iam): update user query service interface. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | b44cade | feat(iam): update user query service implementation. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 205942f | feat(iam): add google sign-in and password recovery handling. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | c9c3acf | feat(iam): add password recovery command service interface. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 2d95cf9 | feat(analytics): update staff metrics controller. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 4d46497 | feat(analytics): update analytics reports controller. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | b4da7f9 | chore: register new services in dependency injection | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 85afe8e | chore: add missing nuget packages for jwt, bcrypt and google auth. | - | 29/06/2026 |
+| optiflow-platform | feature/IAM | 36c4de3 | feat(subscription): implement Stripe checkout integration | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 4706319 | feat(shared): add database migration | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | f71e0cb | refactor(subscription): update application configuration | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 7946d73 | feat(subscription): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | dfa5376 | feat(sales): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | c1419aa | feat(patient): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 15a4211 | feat(lab): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 6e515fc | feat(inventory): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | ccec2e0 | feat(clinical): add authorize attribute. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 0b67580 | feat(iam): add authorize attribute to all controllers except authentication. | - | 30/06/2026 |
+| optiflow-platform | feature/IAM | 1dbaba8 | fix(inventory): implement inventory reduction | - | 02/07/2026 |
+| optiflow-platform | feature/IAM | 5579917 | fix: fix app settings development. | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | 7203762 | fix(iam): fix login and sign-in flow. | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | 76c65e4 | Fix 500 on sign-up with empty email/password | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | 38bf356 | Restore StockOperation.Consumption dropped by a merge | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | a34a34f | Fix duplicate sale completion on payment | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | cd53330 | Deplete inventory stock when a sale completes | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | 3472b74 | Add sale line items | - | 03/07/2026 |
+| optiflow-platform | feature/IAM | 9743117 | Add ReduceStock command and Sale audit operation to Inventory | - | 03/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | a770021 | feat(patient-center): add AllowWithoutAccount to controllers and patient profile endpoint | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 165b24d | feat(subscription): add migration for account_id columns | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 883b545 | feat(subscription): scope subscription, billing, and payment | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | af101b3 | feat(patient-center): add migration for account_id column | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | c0cf034 | feat(patient-center): scope notifications to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 47c0714 | feat(lab-orders): add migration for account_id columns | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 0849e8a | feat(lab-orders): scope work orders to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 8b1a1f1 | feat(clinical): add migration for account_id columns | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | af80c87 | feat(clinical): scope patient records to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | aa629ab | feat(inventory): add migration for account_id columns | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 073e7db | feat(inventory): scope catalog to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | cbc5bc8 | fix(sales): fix account id in fresh-scope event handlers | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 0f8ed69 | feat(sales): add migration for account_id columns | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | c364340 | feat(shared): scope system notifications to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 689fbc7 | feat(sales): scope sale, payment, and sale item to an account | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | f8ded91 | feat(iam): add migration for accounts and user account_id | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | f199364 | chore: register account services and http context accessor | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 7db215c | feat(shared): resolve current account into db context | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | e0b16ad | feat(iam): add account onboarding endpoint and gate | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 113b8cd | feat(iam): add Account aggregate and onboarding services | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | d1b49f2 | feat(analytics): compute reports live instead of an empty table | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 2bc99b9 | feat(analytics): add ACL facades to Sales and LabAndOrders | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 601bd12 | feat(sales): block sale completion until lab order is ready | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | dbd15ac | feat(lab-orders): add endpoint to link a work order to its sale | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 07ec1f7 | fix(inventory): don't misreport concurrency errors as insufficient stock | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | da89915 | fix(sales): give concurrent SaleCompleted handlers their own DI scope | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | a7d0434 | fix(sales): seed first payment from pending balance, not sale total | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 8a3ade0 | fix(sales): avoid concurrent DbContext use when listing sales | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | feb298d | feat(sales): expose sale items in SaleResource | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | bbbb1db | fix(lab-orders): stop consuming stock at work order creation | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 73a0279 | revert(sales): drop work order exclusion from stock depletion | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 74fd305 | fix(sales): avoid double stock depletion on sale completion | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 32ef75c | feat(sales): notify sale owner on sale completion | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | b953a24 | feat(shared): expose system notifications via REST | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 040a7c3 | feat(shared): add system notification application services | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 7b5acb3 | feat(db): add system_notifications table migration | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 74d34c4 | feat(shared): add system notification domain model and persistence | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | e359c9a | fix(db): drop stale categories table from old migration | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | e5c7ae6 | feat(sales): expose work order material product ids via ACL facade | - | 04/07/2026 |
+| optiflow-platform | feature/patient-center-profile-backend | 3838742 | feat(patient-center): update patient profile endpoint to return full patient data | - | 05/07/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 6cf37c4 | fix: send labId to API and preload stores before work order modal opens | - | 20/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | eb40842 | fix: resolve zero IDs in work order creation modal | - | 20/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 0c0c2d3 | fix: forms | - | 20/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | a83550b | fix: forms | - | 20/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | b1227ee | fix: work order api | - | 20/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 7eed382 | feat(dashboard): improve lab orders display section | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 2e89193 | fix: quick actions now open real forms | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | ed0baae | feat: quick actions in global search open their modals directly | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 4827aa0 | fix: resolve blank screen on tab switch caused by mode=out-in transition | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | efafb90 | fix(animations): remove route key causing blank screen on tab switch | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 336d4ba | feat(animations): add open/close animations to all custom overlay modals | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 9a42e99 | feat(animations): add smooth focus glow and icon scale on search bars | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 3af4667 | feat(animations): add staggered card entrance animations on page load | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | bba1ea0 | feat(animations): add page transition fade-slide on route change | - | 29/06/2026 |
+| OptiFlow-Frontend | feat/dashboard-laborders-display | 13d699f | feat: add actions searchbar | - | 29/06/2026 |
+| OptiFlow-Frontend | feature/iam | 52885ca | fix(laboratories): improve placeholders in add laboratory form | - | 01/07/2026 |
+| OptiFlow-Frontend | feature/iam | be2fcb6 | feat(shared): update sidebar with auth-aware navigation. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 4dbb2fb | feat(shared): add base api with jwt interceptor. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 9de7934 | feat(iam): add reset password view. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 9e757f4 | feat(iam): add register view. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 9bcc7b7 | feat(iam): add profile view. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | ef00020 | feat(iam): add login view. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 2ae2682 | feat(iam): add forgot password view. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | f5e41f0 | feat(iam): add iam routes configuration. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | aa442da | feat(iam): add user assembler to map api response to entity. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 898b1ee | feat(iam): add user entity model. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | db7a6fd | feat(iam): persist session on successful sign-up. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | a1aabc6 | fix(iam): correct authentication endpoint routes. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | c1ddb64 | feat(router): add iam routes. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 22fb598 | chore: update app entry point with iam integration. | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 6d7ac73 | fix(inventory): implement product inventory reduction | - | 02/07/2026 |
+| OptiFlow-Frontend | feature/iam | 7fa2239 | fix(iam): fix login and sign-up flow. | - | 03/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-auth | fe198e4 | Surface sale creation failures instead of always showing success | - | 03/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-auth | bd4ec39 | Add product line items to the sale creation form | - | 03/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-auth | df00bea | Add items field to sale resource/entity/assembler | - | 03/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | e18123e | feat(patient-center): update patient-api to use new by-email endpoint | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | f72fd52 | feat(patient): add export functionality in patient | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 6157c52 | feat(subscription): add plan section | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 0a3f9fc | fix(iam): sync session state across browser tabs | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | bc99bde | fix(iam): remove hardcoded fallback JWT for logged-out requests | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | cda5939 | fix(dashboard): relabel lab orders chart legend, drop prescriptions mislabel | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 2953ae1 | fix(dashboard): show real patients seen/attended today | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 27f6b28 | fix(lab-orders): stop assigning a stale sale id to new orders | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | eb93a77 | fix(sales): surface real error and fail state on payment rejection | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | d3ebdcb | feat(sales): link work order to sale and hide sold orders from picker | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 331fb3f | fix(sales): hide delivered orders from New Sale picker | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | cef8203 | feat(sales): warn when a lab order lacks a linked product | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | d1b0e3c | refactor(sales): drop disconnected articulos field | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | 724cc37 | fix(sales): show real sale items in Products column | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-auth | 1328714 | feat(patient-center): update frontend to use auth store for patient identification | - | 04/07/2026 |
+| OptiFlow-Frontend | feature/iam | 49ad6ef | fix(staff): include phone and entryDate fields in staff saved payload | - | 05/07/2026 |
+| OptiFlow-Frontend | feature/patient-center-profile-backend | e8db672 | feat(patient-center): connect profile view to backend and update sidebar with real patient data | - | 05/07/2026 |
+| OptiFlow-Frontend | feature/iam | df94e57 | chore(i18n): add translation keys for staff and settings. | - | 05/07/2026 |
+| OptiFlow-Frontend | feature/iam | 5929b5e | fix(report): fix reports endpoint. | - | 05/07/2026 |
+| OptiFlow-Frontend | feature/iam | 0baa888 | feat(settings): adjust role assignment and per-role user count. | - | 05/07/2026 |
+| OptiFlow-Frontend | feature/iam | bd1ef73 | feat(staff): improve employee management in modals and list view. | - | 05/07/2026 |
 
-*(Completar con los commits reales del Sprint 4)*
+En este Sprint el repositorio de la Landing Page no registró nuevos commits, dado que su versión final (`release/v3.0.0`) fue publicada al cierre del Sprint 3; se mantiene como versión estable de producción sin cambios adicionales.
 
 #### Execution Evidence for Sprint Review
-*(Insertar capturas o video que evidencien: las correcciones heurísticas implementadas, la integración IAM activa en el login, las mejoras del portal del paciente y las vistas responsivas en mobile)*
 
-Link del video: *(Insertar enlace al video de ejecución del Sprint 4)*
+Durante el Sprint 4 se completó la transformación de OptiFlow en una plataforma multi-tenant lista para producción. Los principales logros ejecutables de este Sprint fueron:
+
+- **Autenticación real integrada (IAM):** el frontend ya no utiliza sesiones simuladas. El usuario inicia sesión contra el backend real, recibe un token JWT que se persiste (con sincronización de sesión entre pestañas del navegador) y se adjunta automáticamente a cada request mediante un interceptor, y la navegación queda protegida por guards de ruta según el estado de autenticación. Se incorporaron las vistas de login, registro, perfil, recuperación de contraseña y Google Sign-In.
+- **Aislamiento de datos por cuenta (multi-tenancy):** el aislamiento se aplica en el backend. Todos los bounded contexts fueron acotados a un `account_id` y el filtro de autorización personalizado exige que el usuario haya completado el onboarding de su cuenta (`ACCOUNT_SETUP_REQUIRED`) y cuente con una suscripción activa (`SUBSCRIPTION_REQUIRED`), de modo que cada administrador únicamente accede a la información de su propia óptica.
+- **Checkout de suscripciones con Stripe:** la selección y pago de planes de suscripción se conectó con la pasarela de pago de Stripe.
+- **Cableado de datos reales:** el módulo de ventas expone ítems de venta itemizados, vincula la orden de laboratorio con la venta, y descuenta stock del inventario al completar una venta; el Dashboard muestra métricas reales (pacientes atendidos, órdenes de laboratorio) y los reportes analíticos se calculan en vivo sobre los datos de la cuenta.
+
+*(Insertar capturas de pantalla que evidencien: la vista de login/registro del portal con autenticación IAM activa, el flujo de suscripción con Stripe, el detalle itemizado de una venta y el perfil del paciente conectado al backend real)*
+
+Link del video: *(Insertar enlace al video de ejecución del Sprint 4 en Microsoft Stream/SharePoint)*
 
 #### Services Documentation Evidence for Sprint Review
-*(Actualizar con cualquier endpoint nuevo o modificado en el Sprint 4. Si no hay cambios en los servicios, indicar que la documentación Swagger sigue disponible en `https://optiflow.azurewebsites.net/swagger/index.html` sin cambios respecto al Sprint 3)*
+
+Durante el Sprint 4 se ampliaron los servicios del backend con el bounded context de **Identity and Access Management (IAM)**, el mecanismo de **account onboarding** para multi-tenancy, las **notificaciones de sistema** y el **checkout de suscripciones con Stripe**. Todos los endpoints continúan documentados mediante OpenAPI (Swagger/Swashbuckle) y disponibles públicamente en `https://optiflow.azurewebsites.net/swagger/index.html`. Con la incorporación de IAM, la mayoría de controladores quedaron protegidos con el atributo `[Authorize]`, por lo que su consumo requiere el token JWT emitido por los endpoints de autenticación.
+
+**Repositorio de Web Services:** [https://github.com/1asi0730-2610-10203-OptiFlow/optiflow-platform](https://github.com/1asi0730-2610-10203-OptiFlow/optiflow-platform)
+
+A continuación se detallan los endpoints nuevos o modificados en este Sprint. El resto de endpoints documentados en el Sprint 3 (Products, Sales, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics) se mantienen disponibles, ahora bajo autenticación. El control de acceso opera en niveles progresivos: **anónimo** (endpoints de autenticación), **autenticado**, **autenticado + cuenta** (onboarding completado) y **autenticado + cuenta + suscripción activa** (nivel por defecto de los módulos operativos).
+
+| Endpoint | Verbo HTTP | Sintaxis de llamada | Parámetros | Descripción |
+|---|---|---|---|---|
+| Iniciar sesión | POST | `/api/v1/authentication/sign-in` | Body: `email`, `password` | Autentica al usuario y retorna el token JWT junto con los datos del usuario. |
+| Registrar usuario | POST | `/api/v1/authentication/sign-up` | Body: `email`, `password`, `fullName` | Crea un nuevo usuario y persiste la sesión inicial. |
+| Google Sign-In | POST | `/api/v1/authentication/sign-in/google` | Body: `idToken` (credencial de Google) | Autentica al usuario mediante su cuenta de Google. |
+| Recuperar contraseña | POST | `/api/v1/authentication/password-recoveries` | Body: `email` | Genera y envía el token de recuperación de contraseña. |
+| Restablecer contraseña | POST | `/api/v1/authentication/password-resets` | Body: `token`, `newPassword` | Restablece la contraseña a partir del token de recuperación. |
+| Crear cuenta (onboarding) | POST | `/api/v1/accounts` | Body: `accountName` y datos de la óptica | Crea la cuenta (tenant) y completa el onboarding del administrador. |
+| Consultar mi cuenta | GET | `/api/v1/accounts/me` | Ninguno | Retorna la cuenta del usuario autenticado (204 si aún no completó el onboarding). |
+| Consultar usuarios | GET | `/api/v1/users` | Ninguno | Retorna la lista de usuarios de la cuenta. |
+| Actualizar email | PUT | `/api/v1/users/{id}/email` | Path: `id` (int). Body: `email` | Actualiza el correo del usuario autenticado (retorna un nuevo JWT). |
+| Actualizar contraseña | PUT | `/api/v1/users/{id}/password` | Path: `id` (int). Body: `currentPassword`, `newPassword` | Actualiza la contraseña del usuario autenticado. |
+| Notificaciones de sistema (usuario) | GET | `/api/v1/users/{userId}/notifications` | Path: `userId` (int) | Retorna las notificaciones de sistema del usuario autenticado. |
+| Marcar notificación de sistema como leída | PATCH | `/api/v1/users/{userId}/notifications/{notificationId}/read` | Path: `userId`, `notificationId` (int) | Marca una notificación de sistema como leída. |
+| Vincular orden de trabajo a venta | PATCH | `/work-orders/{id}/sale` | Path: `id` (int). Body: `saleId` | Asocia una orden de laboratorio con su venta correspondiente. |
+| Listar planes de suscripción | GET | `/api/v1/plans` | Ninguno | Retorna los planes disponibles (visible durante el onboarding). |
+| Checkout de suscripción (Stripe) | POST | `/api/v1/checkout` | Body: `adminId`, `planId`, `planName`, `amount` | Genera la sesión de Stripe Checkout para el pago del plan y retorna la URL de redirección. |
+| Consultar mi suscripción | GET | `/api/v1/subscriptions/me` | Ninguno | Retorna el estado de la suscripción de la cuenta (`hasActiveSubscription`, `status`). |
+
+**Ejemplo y explicación del response — Iniciar sesión (POST /api/v1/authentication/sign-in):**
+
+Ante credenciales válidas, el API responde `200 OK` y retorna el token JWT junto con los datos del usuario autenticado:
+
+```json
+{
+  "id": 1,
+  "email": "admin@optiflow.pe",
+  "fullName": "Administrador Óptica",
+  "accountId": 3,
+  "role": "ADMIN",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+Si las credenciales son incorrectas, el sistema responde `401 Unauthorized`; si el payload es inválido (por ejemplo, email vacío), responde `400 Bad Request` describiendo el error de validación. El token retornado debe enviarse en la cabecera `Authorization: Bearer <token>` para consumir los endpoints protegidos con `[Authorize]`.
+
+**Capturas de la interacción con la documentación:**
+
+*(Insertar capturas de la interfaz de Swagger UI mostrando el nuevo grupo de controladores Authentication, Users, Accounts y SystemNotifications, así como la ejecución de "Try it out" sobre POST /api/v1/authentication/sign-in con su respuesta 200 OK y el uso del botón Authorize con el token JWT.)*
+
+**Commits relacionados con Documentación de servicios para este Sprint:**
+
+| Commit Id | Mensaje | Fecha |
+|---|---|---|
+| 15781b0 | feat(iam): add update email and update password endpoints. | 29/06/2026 |
+| d182ce8 | feat(iam): add google sign-in and password recovery endpoints. | 29/06/2026 |
+| e0b16ad | feat(iam): add account onboarding endpoint and gate | 04/07/2026 |
+| b953a24 | feat(shared): expose system notifications via REST | 04/07/2026 |
+| dbd15ac | feat(lab-orders): add endpoint to link a work order to its sale | 04/07/2026 |
+| 36c4de3 | feat(subscription): implement Stripe checkout integration | 30/06/2026 |
 
 #### Software Deployment Evidence for Sprint Review
-*(Insertar capturas del despliegue final del Sprint 4 en Azure, incluyendo el pipeline de GitHub Actions y el Resource Group)*
+
+Durante el Sprint 4 se consolidó el despliegue de la **versión final** de los productos digitales sobre Azure, cerrando el ciclo de vida del proyecto. El backend en **Azure App Service** (`optiflow.azurewebsites.net`) fue actualizado con las migraciones de Entity Framework Core correspondientes al multi-tenancy (columnas `account_id` en cada bounded context, tabla de cuentas y tabla de notificaciones de sistema), la integración de Stripe (configurada mediante las variables de entorno del App Service) y la seguridad JWT para todos los controladores protegidos. El frontend Vue.js se mantiene desplegado en **Azure Static Web Apps** con integración continua vía GitHub Actions, consumiendo ahora la API asegurada. La Landing Page permanece en su versión estable `v3.0.0` publicada en GitHub Pages al cierre del Sprint 3.
+
+![](../assets/deployment-azure.png)
+> Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 4.
+
+*(Insertar capturas del pipeline de GitHub Actions ejecutado para el despliegue final del Sprint 4 y de las variables de entorno de Stripe/JWT configuradas en el App Service de Azure)*
 
 **URLs de Producción:**
-- **Web App:** https://proud-sea-096db2110.7.azurestaticapps.net
-- **API Service:** https://optiflow.azurewebsites.net/
+- **Landing Page:** https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
+- **Web App (Frontend SPA):** https://proud-sea-096db2110.7.azurestaticapps.net
+- **API Service (Web Services):** https://optiflow.azurewebsites.net/
+- **API Documentation (Swagger):** https://optiflow.azurewebsites.net/swagger/index.html
 
 #### Team Collaboration Insights for Sprint Review
 
-*(Insertar métricas de contribución por integrante, capturas de GitHub Insights de todos los repositorios activos y resumen de las reuniones de retrospectiva del Sprint 4)*
+Durante el Sprint 4, el equipo mantuvo la dinámica de coordinación de los sprints anteriores, utilizando **Discord** y **Google Meet** para las reuniones síncronas de planificación, revisión y retrospectiva, y **GitHub** como plataforma central de control de versiones e integración bajo la estrategia GitFlow, con ramas `feature/*` mergeadas a `develop` mediante Pull Requests revisados por pares.
 
-| Integrante | Usuario GitHub | Commits |
-|---|---|---|
-| Azama Fukuda, Juan Pablo | Llummo | - |
-| Capillo Lema, Mía Valentina | Miavcl | - |
-| Mechan Montenegro, Luciana Carolina | luuu6 | - |
-| Atoche Gonzales, Nicolas Fernando | THECOMAX | - |
-| Morocho Pinedo, Mariana | Patto04 | - |
+**Resumen de colaboración:**
 
-*(Insertar capturas de GitHub Insights — Pulse, Top Committers y Pull Requests mergeados del Sprint 4)*
+El foco de este Sprint fue la integración de autenticación real (IAM) en frontend y backend, la implementación del multi-tenancy (account scoping) sobre todos los bounded contexts, la integración de Stripe para el checkout de suscripciones y el cableado de datos reales de cara al release final. La mayor parte de la actividad de desarrollo se concentró en los repositorios **optiflow-platform** (backend) y **OptiFlow-Frontend**. Las métricas del período Junio 20 – Julio 05, 2026 se detallan a continuación.
+
+**Contribuciones por integrante en los repositorios de código (commits, incluye merges):**
+
+| Integrante | Usuario GitHub | optiflow-platform | OptiFlow-Frontend | Total |
+|---|---|---:|---:|---:|
+| Azama Fukuda, Juan Pablo | Llummo | 66 | 36 | 102 |
+| Morocho Pinedo, Mariana | Patto04 | 30 | 24 | 54 |
+| Mechan Montenegro, Luciana Carolina | luuu6 | 6 | 12 | 18 |
+| Capillo Lema, Mía Valentina | Miavcl | 4 | 6 | 10 |
+| Atoche Gonzales, Nicolas Fernando | THECOMAX | 0 | 4 | 4 |
+
+**Pull Requests integrados durante el Sprint:**
+
+| Repositorio | Pull Requests mergeados |
+|---|---:|
+| optiflow-platform (Web Services / Backend) | 31 |
+| OptiFlow-Frontend (Web Application) | 25 |
+| OptiFlow-Landing-Page | 0 (versión final estable, sin cambios) |
+| OptiFlow-Report-Stable (Informe) | 5 |
+
+En total se integraron **56 Pull Requests** en los repositorios de código durante el Sprint, sin issues abiertos al cierre. La distribución evidencia una participación distribuida del equipo, con el contribuidor principal liderando en volumen de commits y las tareas de IAM, multi-tenancy y cableado de datos repartidas entre los integrantes según su especialización por módulo.
+
+*(Insertar capturas de GitHub Insights — Pulse, Top Committers y Pull Requests mergeados — de los repositorios optiflow-platform y OptiFlow-Frontend correspondientes al período del Sprint 4)*
+
+#### Sprint Review: Conclusiones y Recomendaciones del Sprint 4
+
+**Conclusiones**
+
+El Sprint 4 marcó el cierre del ciclo de vida del proyecto con la entrega de la versión final de OptiFlow como una plataforma multi-tenant, segura y desplegada en producción. La integración completa del módulo IAM —tanto en el backend (JWT, BCrypt, Google Sign-In, recuperación de contraseña) como en el frontend (login, registro, perfil, guards de sesión e interceptor de token)— eliminó la principal deuda técnica identificada en la retrospectiva del Sprint 3: la ausencia de autenticación real. Sobre esa base, la implementación del account scoping garantizó el aislamiento de datos entre ópticas, un requisito indispensable para operar como un verdadero producto SaaS.
+
+Adicionalmente, se integró Stripe para el pago de suscripciones y se completó el cableado de datos reales entre el frontend y el backend, reemplazando los últimos valores simulados por información persistida y calculada en vivo (ítems de venta itemizados, depleción de stock al completar ventas, reportes analíticos en tiempo real). Con ello, los tres productos digitales —Landing Page, Web Application y Web Services— quedaron desplegados en su versión final sobre GitHub Pages y Azure.
+
+**Recomendaciones**
+
+Es importante precisar que el alcance real del Sprint se reorientó respecto a la planificación inicial: el equipo priorizó el cierre técnico del producto (integración IAM, multi-tenancy con account scoping, checkout de Stripe y cableado de datos reales) por encima de algunas correcciones de usabilidad planificadas. Se completaron la responsividad móvil (T73, T74) y la separación del tracker de pedido y el resumen de pago en My Lenses (T71), mientras que varias correcciones heurísticas quedaron pendientes o parcialmente resueltas.
+
+- **Completar las correcciones heurísticas de mayor severidad que quedaron pendientes:** la alerta visual de fecha de entrega vencida en My Lenses (T67) y las tablas de valores numéricos accesibles bajo los gráficos del Dashboard (T69), ambas de severidad 3 y sin implementar al cierre del Sprint.
+- **Consolidar los avances parciales de usabilidad:** hacer permanentemente visible el botón de avance del Kanban también en escritorio (T68, hoy visible solo en dispositivos táctiles), agregar texto de ayuda por campo en la Calculadora de Grosor (T70, hoy con guía general al pie) e incorporar imágenes de referencia reales de las monturas en el Virtual Try-On (T72, hoy con un catálogo de nombre/precio sin fotografías).
+- **Endurecer la seguridad y consistencia de la integración:** enforcer los guards de ruta por rol en el frontend (actualmente el rol solo condiciona la redirección post-login), proteger el endpoint de checkout de Stripe (hoy sin autorización) y persistir en el backend la información de perfil del paciente que aún se guarda solo en `localStorage`.
+- **Consolidar la suite de pruebas automatizadas** (unitarias y de integración) sobre los bounded contexts críticos, dado que la retrospectiva identificó la ausencia de pruebas como una oportunidad de mejora recurrente que habría prevenido varios de los errores corregidos durante el Sprint.
+- **Reforzar la comunicación y la revisión del trabajo delegado** dentro del equipo, ya que la retrospectiva señaló que persistieron algunas fricciones de comunicación y delegaciones que no fueron revisadas antes de darse por cerradas.
 
 
 ## Validation Interviews
