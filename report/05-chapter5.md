@@ -2,9 +2,11 @@
 
 ## Software Configuration Management
 
+### Software Development Environment Configuration
+
 **Figma**
 
-![Figma-logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjih1p5gfTNIjPJ8wUgngz7_k8tUFdhHG42g&s){width=30%}
+![Figma-logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjih1p5gfTNIjPJ8wUgngz7_k8tUFdhHG42g&s)
 
 Herramienta SaaS enfocada en el diseño de interfaces de usuario (UX/UI). Se emplea para conceptualizar la estética y funcionalidad mediante Wireframes, Mock-ups y prototipos dinámicos para sitios web y aplicaciones, facilitando el trabajo cooperativo entre diseñadores en tiempo real.
 
@@ -2559,7 +2561,7 @@ La evaluación empírica de OptiFlow demuestra que centralizar la gestión clín
 
 Como recomendaciones para el roadmap digital, se debe priorizar la transición hacia una arquitectura backend consolidada, migrando la persistencia de datos a SQL Server en Azure para garantizar integridad transaccional. A nivel de producto, es imperativo desplegar el portal de autoservicio web (Épica 01), enfocándose en el probador virtual y la consulta de estados mediante DNI. Finalmente, se sugiere integrar el módulo de inteligencia de negocios para proporcionar a la gerencia un acceso automatizado a las métricas de rendimiento y productividad en tiempo real.
 
-### Bibliografía
+## Bibliografía
 
 DelveInsight. (2025). *Healthcare asset management: Optimizing resources for better patient care*. https://www.delveinsight.com/blog/healthcare-asset-management-for-better-patient-care
 
@@ -2582,3 +2584,5 @@ MedLaunch. (2026). *10 key patient wait time statistics clinics can't ignore*. h
 Modaengafas. (2026). *Opticalia fija en 50 ópticas su objetivo en Perú para 2026*. https://modaengafas.com/opticalia-fija-en-50-opticas-su-objetivo-en-peru-para-2026
 
 The HIPAA Journal. (2025). *HIPAA compliance for optometrists and ophthalmology practices*. The HIPAA Journal. https://www.hipaajournal.com/hipaa-compliance-for-optometrists/
+
+## ANEXO
