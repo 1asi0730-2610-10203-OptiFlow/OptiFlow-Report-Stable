@@ -2559,7 +2559,14 @@ El foco de este Sprint fue la integración de autenticación real (IAM) en front
 
 En total se integraron **56 Pull Requests** en los repositorios de código durante el Sprint, sin issues abiertos al cierre. La distribución evidencia una participación distribuida del equipo, con el contribuidor principal liderando en volumen de commits y las tareas de IAM, multi-tenancy y cableado de datos repartidas entre los integrantes según su especialización por módulo.
 
-*(Insertar capturas de GitHub Insights — Pulse, Top Committers y Pull Requests mergeados — de los repositorios optiflow-platform y OptiFlow-Frontend correspondientes al período del Sprint 4)*
+#### Platform collaboration insights
+
+![insights-platform](../assets/platform-insights-4.png)
+
+#### Frontend collaboration insights
+
+![insights-frotend](../assets/webapp-insights-4.png)
+
 
 #### Sprint Review: Conclusiones y Recomendaciones del Sprint 4
 
