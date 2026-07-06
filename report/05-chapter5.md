@@ -2922,9 +2922,32 @@ Link: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQ
 
 ### Conclusiones y recomendaciones
 
-La evaluación empírica de OptiFlow demuestra que centralizar la gestión clínica, logística y comercial elimina los silos de información y la pérdida de trazabilidad que saturan a las ópticas. Las entrevistas validaron las hipótesis del modelo Lean UX: la automatización del flujo de trabajo y de las notificaciones erradica la dependencia de canales informales, lo cual reduce drásticamente los costos por refabricación y mitiga la insatisfacción del paciente frente a las demoras. En conclusión, la plataforma resuelve la latencia sistémica y mejora significativamente la capacidad operativa y de conversión del negocio.
+La evaluación empírica de OptiFlow demuestra que centralizar la gestión 
+clínica, logística y comercial elimina los silos de información y la pérdida 
+de trazabilidad que saturan a las ópticas. Las entrevistas validaron las 
+hipótesis del modelo Lean UX: la automatización del flujo de trabajo y de las 
+notificaciones erradica la dependencia de canales informales, lo cual reduce 
+drásticamente los costos por refabricación y mitiga la insatisfacción del 
+paciente frente a las demoras. La entrega final del producto consolida un 
+sistema completamente funcional con frontend y backend integrados y 
+desplegados, cubriendo los bounded contexts de IAM, Clinical, Sales, Lab and 
+Orders, Inventory, Subscription, Analytics y Patient Center. En conclusión, 
+la plataforma resuelve la latencia sistémica y mejora significativamente la 
+capacidad operativa y de conversión del negocio, constituyendo una solución 
+viable y lista para su adopción en entornos reales de gestión óptica.
 
-Como recomendaciones para el roadmap digital, se debe priorizar la transición hacia una arquitectura backend consolidada, migrando la persistencia de datos a SQL Server en Azure para garantizar integridad transaccional. A nivel de producto, es imperativo desplegar el portal de autoservicio web (Épica 01), enfocándose en el probador virtual y la consulta de estados mediante DNI. Finalmente, se sugiere integrar el módulo de inteligencia de negocios para proporcionar a la gerencia un acceso automatizado a las métricas de rendimiento y productividad en tiempo real.
+Como recomendaciones para iteraciones futuras del producto, se sugiere 
+incorporar notificaciones push en tiempo real para mantener al paciente 
+informado sobre el avance de su pedido sin necesidad de ingresar activamente 
+a la plataforma. A nivel de experiencia de usuario, los hallazgos de la 
+evaluación heurística indican que deben priorizarse mejoras en la visibilidad 
+del estado del sistema, particularmente en el portal del paciente, donde la 
+ausencia de alertas para pedidos retrasados y la falta de contexto en la 
+calculadora de grosor representan oportunidades concretas de mejora. 
+Finalmente, se recomienda integrar un módulo de inteligencia de negocios más 
+robusto que permita a la gerencia acceder a métricas de rendimiento 
+consolidadas y configurables, complementando los reportes actuales con 
+capacidades de exportación y análisis comparativo por períodos.
 
 ## Bibliografía
 
