@@ -11,19 +11,22 @@ package "fulfillment.domain.model" {
     + patientName: string
     + laboratoryName: string
     + lensType: string
+    + lensProductId: number | null
     + frame: string
+    + frameProductId: number | null
     + prescription: string
     + priority: string
     + deposit: number
     + total: number
     + isRework: boolean
-    + constructor()
+    + constructor(props)
   }
   class Laboratory {
     + id: number
     + name: string
-    + contactInfo: string
-    + constructor()
+    + phone: string
+    + email: string
+    + constructor(props)
   }
   class OrderStatus <<object>> {
     + PENDING: string
@@ -41,26 +44,27 @@ package "fulfillment.domain.model" {
 
 package "fulfillment.infrastructure" {
   class WorkOrderResource {
-    + order_id: string
-    + sale_id: number
-    + recipe_id: number
-    + lab_id: number
+    + saleId: number
+    + recipeId: number
+    + labId: number
     + status: string
-    + delivery_date: string
-    + patient_name: string
-    + laboratory_name: string
-    + lens_type: string
+    + deliveryDate: string
+    + patientName: string
+    + laboratoryName: string
+    + lensType: string
+    + lensProductId: number | null
     + frame: string
+    + frameProductId: number | null
     + prescription: string
     + priority: string
     + deposit: number
     + total: number
-    + is_rework: boolean
+    + isRework: boolean
   }
   class LaboratoryResource {
-    + lab_id: number
     + name: string
-    + contact_info: string
+    + phone: string
+    + email: string
   }
   class WorkOrderAssembler {
     + {static} toEntityFromResource(r: WorkOrderResource): WorkOrder
@@ -70,6 +74,7 @@ package "fulfillment.infrastructure" {
   class LaboratoryAssembler {
     + {static} toEntityFromResource(r: LaboratoryResource): Laboratory
     + {static} toEntitiesFromResponse(r: LaboratoryResource[]): Laboratory[]
+    + {static} toResourceFromEntity(l: Laboratory): LaboratoryResource
   }
   class WorkOrderApi {
     - endpoint: BaseEndpoint
@@ -77,16 +82,18 @@ package "fulfillment.infrastructure" {
     + getWorkOrders(): Promise<WorkOrderResource[]>
     + createWorkOrder(r: WorkOrderResource): Promise<WorkOrderResource>
     + updateOrderStatus(id: string, status: string): Promise<WorkOrderResource>
+    + linkSale(id: string, saleId: number): Promise<WorkOrderResource>
   }
   class LaboratoryApi {
     - endpoint: BaseEndpoint
     + constructor()
     + getLaboratories(): Promise<LaboratoryResource[]>
+    + createLaboratory(r: LaboratoryResource): Promise<LaboratoryResource>
   }
 }
 
 package "fulfillment.application" {
-  class FulfillmentStore {
+  class FulfillmentStore <<Pinia store>> {
     + workOrders: ComputedRef<WorkOrder[]>
     + laboratories: ComputedRef<Laboratory[]>
     + pendingOrders: ComputedRef<WorkOrder[]>
@@ -94,6 +101,7 @@ package "fulfillment.application" {
     + loadLaboratories(): Promise<void>
     + createWorkOrder(wo: WorkOrder): Promise<void>
     + updateOrderStatus(id: string, status: string): Promise<void>
+    + createLaboratory(lab: Laboratory): Promise<void>
   }
 }
 
@@ -131,6 +139,22 @@ package "fulfillment.presentation.components" {
     + emit saved: (wo: WorkOrder)
     + emit close: void
   }
+  class RegisterLaboratoryModal <<component>> {
+    - form: {name, phone, email}
+    - errors: Ref<object>
+    + validate(): boolean
+    + buildLab(): Laboratory
+    + emit save: (lab: Laboratory)
+    + emit close: void
+  }
+  class QualityAssuranceModal <<component>> {
+    + workOrder: WorkOrder (prop)
+    - checks: Ref<object>
+    - allChecked: ComputedRef<boolean>
+    + emit approved: void
+    + emit rejected: void
+    + emit close: void
+  }
 }
 
 BaseApi <|-- WorkOrderApi
@@ -153,18 +177,29 @@ LabOrderListView *-- KanbanBoard : contains
 LabOrderListView *-- WorkOrderList : contains
 LabOrderListView *-- WorkOrderDetailModal : contains
 LabOrderListView *-- NewWorkOrderModal : contains
+LabOrderListView *-- RegisterLaboratoryModal : contains
+WorkOrderDetailModal *-- QualityAssuranceModal : contains
 WorkOrderList *-- WorkOrderItem : composes
 
 WorkOrder ..> OrderStatus : uses
 WorkOrder ..> OrderPriority : uses
 
-note right of OrderStatus
-  Defined as Object.freeze({...}) in JS.
+note right of WorkOrderResource
+  All fields are a 1-to-1 camelCase copy with the entity
+  (no snake_case mapping). WorkOrderAssembler only renames
+  WorkOrder.labId <-> WorkOrderResource.laboratoryId when
+  building the outgoing resource.
+end note
+
+note right of Laboratory
+  Laboratory no longer has a single "contactInfo" string —
+  it was split into separate "phone" and "email" fields.
 end note
 
 note right of WorkOrderApi
-  updateOrderStatus uses PATCH
-  to send only { status } field.
+  updateOrderStatus uses PATCH .../{id}/status.
+  linkSale uses PATCH .../{id}/sale to attach a
+  Sale after checkout, once items are confirmed.
 end note
 
 @enduml

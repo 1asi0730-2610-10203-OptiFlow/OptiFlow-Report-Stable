@@ -832,6 +832,18 @@ Administrator Web Prototype Video: https://upcedupe-my.sharepoint.com/:v:/g/pers
 ### App (Componentes Compartidos y Core)
 ![App Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-app.puml)
 
+### Staff (Gestión de Personal)
+![Staff Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-staff.puml)
+
+### Subscription (Suscripción y Pagos)
+![Subscription Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-subscription.puml)
+
+### Settings (Configuración)
+![Settings Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-settings.puml)
+
+### Patient Center (Portal del Paciente)
+![Patient Center Class Diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable/refs/heads/develop/docs/class-diagram-patient-center.puml)
+
 
 ## Backend Class Diagrams
 

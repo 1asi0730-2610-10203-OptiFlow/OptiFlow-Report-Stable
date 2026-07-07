@@ -3,7 +3,6 @@
 package "inventory.domain.model" {
   class Product {
     + id: number
-    + categoryId: number
     + supplierId: number
     + brand: string
     + model: string
@@ -15,12 +14,7 @@ package "inventory.domain.model" {
     + minimumStockThreshold: number
     + supplierName: string
     + lastRestockDate: string
-    + constructor()
-  }
-  class Category {
-    + id: number
-    + name: string
-    + constructor()
+    + constructor(props)
   }
   class Supplier {
     + id: number
@@ -28,14 +22,27 @@ package "inventory.domain.model" {
     + contactPerson: string
     + phone: string
     + email: string
-    + constructor()
+    + constructor(props)
+  }
+  class PRODUCT_CATEGORIES <<const array>> {
+    + value: string
+    + labelKey: string
+  }
+}
+
+package "inventory.domain.events" {
+  class InventoryEvents <<object>> {
+    + PRODUCT_CREATED: string
+    + PRODUCT_UPDATED: string
+    + PRODUCT_DELETED: string
+    + STOCK_RESTOCKED: string
+    + STOCK_LOW_ALERT: string
   }
 }
 
 package "inventory.infrastructure" {
   class ProductResource {
     + product_id: number
-    + category_id: number
     + supplier_id: number
     + brand: string
     + model: string
@@ -48,14 +55,9 @@ package "inventory.infrastructure" {
     + supplier_name: string
     + last_restock_date: string
   }
-  class CategoryResource {
-    + category_id: number
-    + name: string
-  }
   class SupplierResource {
-    + supplier_id: number
     + name: string
-    + contact_person: string
+    + contactPerson: string
     + phone: string
     + email: string
   }
@@ -63,10 +65,6 @@ package "inventory.infrastructure" {
     + {static} toEntityFromResource(r: ProductResource): Product
     + {static} toEntitiesFromResponse(r: ProductResource[]): Product[]
     + {static} toResourceFromEntity(p: Product): ProductResource
-  }
-  class CategoryAssembler {
-    + {static} toEntityFromResource(r: CategoryResource): Category
-    + {static} toEntitiesFromResponse(r: CategoryResource[]): Category[]
   }
   class SupplierAssembler {
     + {static} toEntityFromResource(r: SupplierResource): Supplier
@@ -78,13 +76,9 @@ package "inventory.infrastructure" {
     + constructor()
     + getProducts(): Promise<ProductResource[]>
     + createProduct(r: ProductResource): Promise<ProductResource>
-    + updateProduct(r: ProductResource): Promise<ProductResource>
+    + updateProduct(id: number, payload: object): Promise<ProductResource>
     + deleteProduct(id: number): Promise<void>
-  }
-  class CategoryApi {
-    - endpoint: BaseEndpoint
-    + constructor()
-    + getCategories(): Promise<CategoryResource[]>
+    + restockProduct(id: number, quantity: number, author: string): Promise<ProductResource>
   }
   class SupplierApi {
     - endpoint: BaseEndpoint
@@ -92,22 +86,27 @@ package "inventory.infrastructure" {
     + getSuppliers(): Promise<SupplierResource[]>
     + createSupplier(r: SupplierResource): Promise<SupplierResource>
   }
+  class StockAuditLogApi {
+    - resourcePath: string
+    + constructor()
+    + getAuditLogs({from, to}): Promise<object[]>
+  }
 }
 
 package "inventory.application" {
-  class InventoryStore {
+  class InventoryStore <<Pinia store>> {
     + products: ComputedRef<Product[]>
-    + categories: ComputedRef<Category[]>
     + suppliers: ComputedRef<Supplier[]>
     + lowStockProducts: ComputedRef<Product[]>
     + loading: Ref<boolean>
     + errors: Ref<string[]>
     + loadProducts(): Promise<void>
-    + loadCategories(): Promise<void>
     + loadSuppliers(): Promise<void>
     + createProduct(p: Product): Promise<void>
     + updateProduct(p: Product): Promise<void>
     + deleteProduct(id: number): Promise<void>
+    + createProductFromResource(r: object): Promise<void>
+    + restock(id: number, qty: number, operation: string): Promise<void>
   }
 }
 
@@ -127,8 +126,12 @@ package "inventory.presentation.views" {
 
 package "inventory.presentation.components" {
   class ModalAddProduct <<component>> {
-    + categories: Category[] (prop)
     + suppliers: Supplier[] (prop)
+    + emit save: (product: Product)
+    + emit close: void
+  }
+  class ModalEditProduct <<component>> {
+    + product: Product (prop)
     + emit save: (product: Product)
     + emit close: void
   }
@@ -143,46 +146,69 @@ package "inventory.presentation.components" {
     + emit close: void
   }
   class ModalAuditLog <<component>> {
-    + logs: object[] (prop)
+    - logs: Ref<object[]>
+    + emit close: void
+  }
+  class RegisterSupplierModal <<component>> {
+    + emit save: (supplier: Supplier)
     + emit close: void
   }
 }
 
 BaseApi <|-- ProductApi
-BaseApi <|-- CategoryApi
 BaseApi <|-- SupplierApi
+BaseApi <|-- StockAuditLogApi
 ProductApi --> BaseEndpoint : uses
-CategoryApi --> BaseEndpoint : uses
 SupplierApi --> BaseEndpoint : uses
 
 ProductAssembler ..> ProductResource : transforms
 ProductAssembler --> Product : creates
-CategoryAssembler ..> CategoryResource : transforms
-CategoryAssembler --> Category : creates
 SupplierAssembler ..> SupplierResource : transforms
 SupplierAssembler --> Supplier : creates
 
 InventoryStore --> ProductApi : uses
-InventoryStore --> CategoryApi : uses
 InventoryStore --> SupplierApi : uses
 InventoryStore --> ProductAssembler : uses
-InventoryStore --> CategoryAssembler : uses
 InventoryStore --> SupplierAssembler : uses
+InventoryStore ..> InventoryEvents : emits (via eventBus)
 
 InventoryListView --> InventoryStore : uses
 InventoryListView *-- ModalAddProduct : contains
+InventoryListView *-- ModalEditProduct : contains
 InventoryListView *-- ModalRestock : contains
 InventoryListView *-- ModalBulkRestock : contains
 InventoryListView *-- ModalAuditLog : contains
+InventoryListView *-- RegisterSupplierModal : contains
+ModalAuditLog --> StockAuditLogApi : uses directly (bypasses store)
+
+Product ..> PRODUCT_CATEGORIES : uses
+
+note right of PRODUCT_CATEGORIES
+  There is no more Category entity, CategoryResource,
+  CategoryAssembler, or CategoryApi. Categories are now a
+  static, hard-coded array of {value, labelKey} pairs used
+  directly by the UI; Product.category is a plain string.
+end note
 
 note right of InventoryStore
-  lowStockProducts filters products
-  where stock <= 3 (hard-coded threshold).
+  lowStockProducts filters products where stock <= 3
+  (hard-coded threshold).
+
+  Mutating actions (createProduct/Product/FromResource,
+  updateProduct, deleteProduct, restock) emit events on the
+  shared eventBus (InventoryEvents) so other parts of the
+  app (e.g. the dashboard's stock alerts) can react without
+  a direct dependency on this store.
 end note
 
 note right of ProductApi
-  updateProduct uses PUT with
-  product_id as the URL path segment.
+  updateProduct uses PUT with the product id as the URL
+  path segment. restockProduct POSTs to .../{id}/restock.
+end note
+
+note right of SupplierResource
+  Unlike ProductResource, SupplierResource fields are
+  camelCase (no id field — only used for create payloads).
 end note
 
 @enduml

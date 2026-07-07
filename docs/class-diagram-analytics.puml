@@ -1,44 +1,119 @@
 @startuml BC-07_Dashboard
 
 note as ImplementationNote
-  The Dashboard bounded context is implemented as a single
-  static view component with no backend API integration.
-  All data (stats, appointments, lab orders, stock alerts)
-  is hardcoded sample data. Chart geometry is computed via
-  local SVG helper functions. i18n is used for labels.
-  There is no Pinia store, API, assembler, or domain model
-  specific to this bounded context.
+  The Dashboard bounded context is now fully data-driven.
+  It is no longer a static view with hardcoded sample data:
+  it has its own domain model (AnalyticsReport, StaffMetric),
+  a DashboardApi that aggregates six backend endpoints, a
+  DashboardAssembler, and a Pinia store (useDashboardStore)
+  exposing derived stats and chart series. DashboardView
+  keeps only presentation-level SVG geometry helpers.
 end note
+
+package "dashboard.domain.model" {
+  class AnalyticsReport {
+    + reportId: number
+    + reportUuid: string
+    + generatedBy: string
+    + period: string
+    + generatedAt: string
+    + totalRevenue: number
+    + totalTransactions: number
+    + conversionRate: number
+    + averageDeliveryDays: number
+    + onTimeDeliveryRate: number
+    + reworkRate: number
+    + totalOrders: number
+    + pendingBalance0_7: number
+    + pendingBalance8_15: number
+    + pendingBalance16_30: number
+    + pendingBalanceOver30: number
+    + constructor(snake_case props)
+  }
+  class StaffMetric {
+    + staffMetricId: number
+    + reportId: number
+    + employeeName: string
+    + quotationsIssued: number
+    + salesClosed: number
+    + totalRevenue: number
+    + constructor(snake_case props)
+  }
+}
+
+package "dashboard.infrastructure" {
+  class DashboardApi {
+    - analyticsReports: BaseEndpoint
+    - staffMetrics: BaseEndpoint
+    - patients: BaseEndpoint
+    - workOrders: BaseEndpoint
+    - sales: BaseEndpoint
+    - products: BaseEndpoint
+    + constructor()
+    + getAnalyticsReports(): Promise<object[]>
+    + getStaffMetrics(): Promise<object[]>
+    + getPatients(): Promise<object[]>
+    + getWorkOrders(): Promise<object[]>
+    + getSales(): Promise<object[]>
+    + getProducts(): Promise<object[]>
+  }
+  class DashboardAssembler {
+    + {static} toAnalyticsReport(raw): AnalyticsReport
+    + {static} toAnalyticsReportList(raw[]): AnalyticsReport[]
+    + {static} toStaffMetric(raw): StaffMetric
+    + {static} toStaffMetricList(raw[]): StaffMetric[]
+  }
+}
+
+package "dashboard.application" {
+  class DashboardStore <<Pinia store>> {
+    + analyticsReports: Ref<AnalyticsReport[]>
+    + staffMetrics: Ref<StaffMetric[]>
+    + patients: Ref<object[]>
+    + workOrders: Ref<object[]>
+    + sales: Ref<Sale[]>
+    + products: Ref<object[]>
+    + loading: Ref<boolean>
+    + error: Ref<string | null>
+    + totalPatients: ComputedRef<number>
+    + patientsSeenToday: ComputedRef<number>
+    + todaysAttendedPatients: ComputedRef<object[]>
+    + monthlyRevenue: ComputedRef<number>
+    + pendingLabOrders: ComputedRef<number>
+    + recetasChartData: ComputedRef<number[]>
+    + ventasChartData: ComputedRef<number[]>
+    + chartPeriodLabels: ComputedRef<string[]>
+    + weekRevenueData: ComputedRef<number[]>
+    + recentWorkOrders: ComputedRef<object[]>
+    + stockAlerts: ComputedRef<object[]>
+    + fetchAll(): Promise<void>
+  }
+}
 
 package "dashboard.presentation.views" {
   class DashboardView <<view>> {
     - today: ComputedRef<string>
-    - stats: object[]
-    - appointments: object[]
-    - labOrders: object[]
-    - stockAlerts: object[]
-    - recetasData: number[]
-    - ventasData: number[]
-    - yTicks: number[]
-    - weekRevenue: number[]
-    - months: ComputedRef<string[]>
-    - weekDays: ComputedRef<string[]>
+    - stats: ComputedRef<object[]>
+    - labOrders: ComputedRef<object[]>
+    - stockAlerts: ComputedRef<object[]>
+    - recetasData: ComputedRef<number[]>
+    - ventasData: ComputedRef<number[]>
+    - chartMax: ComputedRef<number>
+    - yTicks: ComputedRef<number[]>
+    - recPts, venPts: ComputedRef<string>
+    - recAreaPts, venAreaPts: ComputedRef<string>
+    - gridLines: ComputedRef<object[]>
+    - recDots, venDots: ComputedRef<object[]>
     - xLabels: ComputedRef<object[]>
-    - bars: ComputedRef<object[]>
-    - barYTicks: object[]
-    - recPts: string
-    - venPts: string
-    - recAreaPts: string
-    - venAreaPts: string
-    - gridLines: object[]
-    - recDots: object[]
-    - venDots: object[]
-    + lx(i: number): number
-    + ly(v: number): number
-    + polyPts(data: number[]): string
-    + bx(i: number): number
-    + bh(v: number): number
-    + by(v: number): number
+    - weekRevenue: ComputedRef<number[]>
+    - barMaxV: ComputedRef<number>
+    + parseLocalDate(str): Date
+    + labOrderStatusClass(o): string
+    + labOrderStatusKey(o): string
+    + lx(i, total): number
+    + ly(v, max): number
+    + bx(i, total): number
+    + bw(total): number
   }
 }
 
@@ -47,23 +122,42 @@ package "dashboard.presentation" {
     + path: "/panel"
     + name: "dashboard"
     + component: DashboardView
-    + meta.title: "Panel de Control"
   }
 }
 
+DashboardApi --> BaseEndpoint : uses (x6)
+DashboardApi --|> BaseApi
+
+DashboardAssembler --> AnalyticsReport : creates
+DashboardAssembler --> StaffMetric : creates
+
+DashboardStore --> DashboardApi : uses
+DashboardStore --> DashboardAssembler : uses
+DashboardStore ..> SaleAssembler : uses (reuses sales.infrastructure)
+
+DashboardView --> DashboardStore : uses
 DashboardView --> DashboardRoutes : registered in
 DashboardView ..> Router : uses (useRouter)
 DashboardView ..> I18n : uses (useI18n, tm)
 
+note right of DashboardStore
+  fetchAll() calls all six DashboardApi endpoints with
+  Promise.allSettled: each failed request falls back to an
+  empty array (dashboard shows zeros for that slice) instead
+  of failing the whole page; error is only set when every
+  request rejects.
+
+  Line chart: totalOrders vs totalTransactions across the
+  sorted AnalyticsReport periods (last N months).
+  Bar chart: totalRevenue per AnalyticsReport period.
+  stockAlerts: products with stock <= 2x their
+  minimumStockThreshold.
+end note
+
 note right of DashboardView
-  Stat cards: totalPatients, patientsToday,
-  monthlyRevenue, pendingLabOrders (all static).
-
-  Line chart: recetas vs ventas (6-month SVG).
-  Bar chart: weekly revenue per day (SVG).
-
-  No real-time data — values are placeholders
-  until an Analytics API is implemented.
+  Chart geometry (lx/ly/bx/bw + SVG point-string builders)
+  stays local to the view; only the underlying numeric
+  series come from DashboardStore.
 end note
 
 @enduml

@@ -10,7 +10,7 @@ package "clinical.domain.model" {
     + phone: string
     + email: string
     + birthDate: string
-    + constructor()
+    + constructor(props)
     + get fullName(): string
     + get initials(): string
     + get age(): number | null
@@ -19,7 +19,7 @@ package "clinical.domain.model" {
     + id: number
     + clinicalRecordUuid: string
     + patientId: number
-    + constructor()
+    + constructor(props)
   }
   class Prescription {
     + id: number
@@ -35,7 +35,7 @@ package "clinical.domain.model" {
     + notes: string
     + createdAt: string
     + doctorName: string
-    + constructor()
+    + constructor(props)
     + get formattedDate(): string
     + formatValue(val): string
   }
@@ -43,72 +43,64 @@ package "clinical.domain.model" {
 
 package "clinical.infrastructure" {
   class PatientResource {
-    + patient_id: number
-    + customer_uuid: string
-    + first_name: string
-    + last_name: string
+    + firstName: string
+    + lastName: string
     + dni: string
     + phone: string
     + email: string
-    + birth_date: string
-  }
-  class ClinicalRecordResource {
-    + id: number
-    + clinical_record_uuid: string
-    + patient_id: number
+    + birthDate: string
   }
   class PrescriptionResource {
-    + prescription_id: number
-    + prescription_uuid: string
-    + clinical_record_id: number
-    + od_sphere: number
-    + od_cylinder: number
-    + od_axis: number
-    + oi_sphere: number
-    + oi_cylinder: number
-    + oi_axis: number
+    + clinicalRecordId: number
+    + odSphere: number
+    + odCylinder: number
+    + odAxis: number
+    + oiSphere: number
+    + oiCylinder: number
+    + oiAxis: number
     + addition: number | null
     + notes: string
-    + created_at: string
-    + doctor_name: string
+    + doctorName: string
   }
   class PatientAssembler {
-    + {static} toEntityFromResource(r: PatientResource): Patient
-    + {static} toEntitiesFromResponse(r: PatientResource[]): Patient[]
+    + {static} toEntityFromResource(r): Patient
+    + {static} toEntitiesFromResponse(r[]): Patient[]
     + {static} toResourceFromEntity(p: Patient): PatientResource
   }
   class PrescriptionAssembler {
-    + {static} toEntityFromResource(r: PrescriptionResource): Prescription
-    + {static} toEntitiesFromResponse(r: PrescriptionResource[]): Prescription[]
+    + {static} toEntityFromResource(r): Prescription
+    + {static} toEntitiesFromResponse(r[]): Prescription[]
     + {static} toResourceFromEntity(p: Prescription): PrescriptionResource
   }
   class PatientApi {
     - endpoint: BaseEndpoint
     + constructor()
-    + getPatients(): Promise<PatientResource[]>
-    + getPatientById(id: number): Promise<PatientResource>
-    + createPatient(r: PatientResource): Promise<PatientResource>
-    + updatePatient(r: PatientResource): Promise<PatientResource>
+    + getPatients(): Promise<object[]>
+    + getPatientById(id: number): Promise<object>
+    + createPatient(r: PatientResource): Promise<object>
+    + updatePatient(r: PatientResource): Promise<object>
     + deletePatient(id: number): Promise<void>
   }
   class ClinicalRecordApi {
     - endpoint: BaseEndpoint
+    - basePath: string
     + constructor()
-    + getClinicalRecords(): Promise<ClinicalRecordResource[]>
-    + getByPatientId(patientId: number): Promise<ClinicalRecordResource[]>
-    + createClinicalRecord(r: object): Promise<ClinicalRecordResource>
+    + getClinicalRecords(): Promise<object[]>
+    + getByPatientId(patientId: number): Promise<object[]>
+    + createClinicalRecord(r: object): Promise<object>
   }
   class PrescriptionApi {
     - endpoint: BaseEndpoint
+    - basePath: string
     + constructor()
-    + getPrescriptions(): Promise<PrescriptionResource[]>
-    + getPrescriptionsByRecordId(recordId: number): Promise<PrescriptionResource[]>
-    + createPrescription(r: PrescriptionResource): Promise<PrescriptionResource>
+    + getPrescriptions(): Promise<object[]>
+    + getPrescriptionsByRecordId(recordId: number): Promise<object[]>
+    + createPrescription(r: PrescriptionResource): Promise<object>
   }
 }
 
 package "clinical.application" {
-  class ClinicalStore {
+  class ClinicalStore <<Pinia store>> {
     + patients: ComputedRef<Patient[]>
     + prescriptions: ComputedRef<Prescription[]>
     + clinicalRecords: ComputedRef<object[]>
@@ -185,17 +177,19 @@ PatientListView --> ClinicalStore : uses
 PatientListView *-- ModalAddPatient : contains
 PatientListView *-- ModalHce : contains
 PatientListView *-- ModalSuccess : contains
+ModalHce *-- ModalNewExam : contains
 
-note right of ClinicalRecord
-  ClinicalRecord entity exists in domain model.
-  The store saves raw API response objects
-  (not assembled via entity) in clinicalRecords.
-  getRecordForPatient matches on r.patient_id.
+note right of PatientResource
+  No ClinicalRecordResource / RecordAssembler class exists.
+  ClinicalRecordApi returns the raw backend JSON straight
+  through; the store keeps it unassembled in clinicalRecords
+  and matches r.patientId ?? r.patient_id manually.
 end note
 
 note right of ClinicalStore
-  createPatient also auto-creates a linked
-  ClinicalRecord via ClinicalRecordApi.
+  createPatient also auto-refreshes clinicalRecords via
+  ClinicalRecordApi, since the backend links a new
+  ClinicalRecord to every created Patient.
 end note
 
 @enduml

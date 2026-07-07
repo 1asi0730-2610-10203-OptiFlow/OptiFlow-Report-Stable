@@ -1,0 +1,104 @@
+@startuml BC-09_Settings
+
+package "settings.domain.model" {
+  class Role {
+    + id: number
+    + name: string
+    + description: string
+    + userCount: number
+    + color: string
+    + permissions: string[]
+    + internalName: string
+    + constructor(id, name, description, userCount, color, permissions, internalName)
+  }
+}
+
+package "settings.infrastructure" {
+  class RoleAssembler {
+    + {static} toEntity(data, userCount): Role
+    + {static} toEntities(roles, employees): Role[]
+  }
+  class RolesApi {
+    + constructor()
+    + getAll(): Promise<object[]>
+    + getEmployees(): Promise<object[]>
+    + getBusiness(): Promise<object>
+    + create(role): Promise<object>
+    + update(id, role): Promise<object>
+    + delete(id): Promise<void>
+  }
+}
+
+package "settings.presentation.views" {
+  class SettingsView <<view>> {
+    - roles: Ref<Role[]>
+    - loading: Ref<boolean>
+    - showEditDialog: Ref<boolean>
+    - showAddDialog: Ref<boolean>
+    - selectedRoleToEdit: Ref<Role | null>
+    - businessData: Ref<{name, address, phone, email}>
+    - securityData: Ref<{twoFactor, autoLogout, passwordPolicy, dataEncryption}>
+    - backupsData: Ref<{frequency, time, retention, ...}>
+    - businessForm: Ref<object>
+    - businessErrors: Ref<object>
+    - securityForm: Ref<object>
+    - backupsForm: Ref<object>
+    + handleEditRoleClick(role): void
+    + handleUpdateRole(updatedRoleData): Promise<void>
+    + validateBusinessForm(): boolean
+    + openEditBusinessDialog(): void
+    + openEditSecurityDialog(): void
+    + openEditBackupDialog(): void
+    + fetchSettingsData(): Promise<void>
+  }
+}
+
+package "settings.presentation.components" {
+  class RoleListItem <<component>> {
+    + role: Role (prop)
+    + emit edit: (role: Role)
+    + emit delete: (role: Role)
+  }
+  class RolesSummary <<component>> {
+    + roles: Role[] (prop)
+  }
+  class RoleForm <<component>> {
+    + role: Role | null (prop)
+    + emit save: (role: object)
+    + emit cancel: void
+  }
+  class SystemStatus <<component>> {
+  }
+}
+
+BaseApi <|-- RolesApi
+
+RoleAssembler ..> Role : creates
+
+SettingsView --> RolesApi : uses directly (no dedicated store)
+SettingsView --> RoleAssembler : uses
+SettingsView --> EventBus : uses
+SettingsView *-- RoleListItem : contains
+SettingsView *-- RolesSummary : contains
+SettingsView *-- RoleForm : contains
+SettingsView *-- SystemStatus : contains
+
+note right of RoleAssembler
+  ROLE_MAP hard-codes display name, description, color and
+  default permissions for the four known role keys (ADMIN,
+  OPTOMETRIST, SALES_ADVISOR, RECEPTIONIST); toEntities()
+  additionally counts staff members per role to fill
+  Role.userCount by cross-referencing the /staff response.
+end note
+
+note right of SettingsView
+  There is no SettingsStore/Pinia store for this bounded
+  context — RolesApi is instantiated and called directly
+  from the view, the same pattern used by ModalAuditLog in
+  Inventory. businessData/securityData/backupsData are
+  populated from RolesApi.getBusiness() plus local-only
+  placeholder values (security/backup settings are not yet
+  backed by a real endpoint).
+end note
+
+@enduml

@@ -1,88 +1,142 @@
 @startuml BC-01_IAM
 
-note as PlanningNote
-  ⚠ This bounded context is PLANNED / NOT IMPLEMENTED.
-  No src/iam/ directory exists in the codebase.
-  The classes below represent the intended design.
-  Authentication is currently bypassed (hardcoded user in Layout).
+note as ImplementationNote
+  IAM is fully implemented (no longer planned/pending).
+  Supports admin + client authentication, Google Sign-In,
+  password recovery/reset, profile updates, and drives the
+  post-login redirect (patient portal vs. admin dashboard
+  vs. /select-plan when the account has no active
+  subscription yet).
 end note
 
 package "iam.domain.model" {
   class User {
     + id: number
-    + username: string
-    + passwordHash: string
+    + email: string
     + role: string
-    + constructor()
-  }
-  class UserRole <<object>> {
-    + ADMIN: string
-    + EMPLOYEE: string
-    + OPTOMETRIST: string
+    + accountId: string | null
+    + constructor(id, email, role, accountId)
+    + get isClient(): boolean
   }
 }
 
 package "iam.infrastructure" {
-  class UserResource {
-    + user_id: number
-    + username: string
-    + password_hash: string
-    + role_id: number
-  }
-  class RoleResource {
-    + role_id: number
-    + name: string
-  }
-  class AuthResponse {
-    + token: string
-    + user: UserResource
-  }
   class UserAssembler {
-    + {static} toEntityFromResource(r: UserResource): User
+    + {static} toEntity(resource): User | null
   }
-  class AuthApi {
-    - endpoint: BaseEndpoint
+  class IamApi {
     + constructor()
-    + login(username: string, password: string): Promise<AuthResponse>
-    + register(username: string, password: string, roleId: number): Promise<AuthResponse>
+    + signIn(email: string, password: string): Promise<object>
+    + signUp(email: string, password: string, userType: string): Promise<object>
+    + clientSignIn(username: string): Promise<object>
+    + googleSignIn(idToken: string): Promise<object>
+    + forgotPassword(email: string): Promise<object>
+    + resetPassword(token: string, newPassword: string): Promise<object>
+    + getUserById(id: number): Promise<object>
+    + updateUserEmail(id: number, newEmail: string): Promise<object>
+    + updateUserPassword(id: number, currentPassword: string, newPassword: string): Promise<object>
   }
 }
 
 package "iam.application" {
-  class AuthStore {
-    + currentUser: ComputedRef<User | null>
-    + token: ComputedRef<string | null>
+  class AuthStore <<Pinia store>> {
+    + user: Ref<User | null>
+    + token: Ref<string | null>
+    + subscriptionActive: Ref<boolean | null>
+    + loading: Ref<boolean>
+    + error: Ref<string | null>
     + isAuthenticated: ComputedRef<boolean>
-    + isAdmin: ComputedRef<boolean>
-    + login(username: string, password: string): Promise<void>
+    + currentUser: ComputedRef<User | null>
+    + isClient: ComputedRef<boolean>
+    + refreshSubscription(): Promise<boolean>
+    + setSubscriptionActive(value: boolean | null): void
+    + signIn(email, password): Promise<boolean>
+    + signUpAdminForCheckout(email, password): Promise<boolean>
+    + clientSignIn(username): Promise<boolean>
+    + signUp(email, password, userType): Promise<boolean>
+    + googleSignIn(idToken): Promise<boolean>
+    + forgotPassword(email): Promise<boolean>
+    + resetPassword(token, newPassword): Promise<boolean>
+    + updateEmail(newEmail): Promise<boolean>
+    + updatePassword(currentPassword, newPassword): Promise<boolean>
     + logout(): void
-    + register(username: string, password: string, roleId: number): Promise<void>
+    + clearError(): void
   }
 }
 
-package "iam.presentation.components" {
-  class LoginForm <<component>> {
-    - username: Ref<string>
+package "iam.presentation.views" {
+  class LoginView <<view>> {
+    - email: Ref<string>
     - password: Ref<string>
-    + emit submitted: (credentials: object)
+    - mode: Ref<"admin" | "client">
+    - showSuccessMsg: Ref<boolean>
+    + setMode(next: string): void
+    + renderGoogleButton(): boolean
+    + submit(): Promise<void>
+    + resolveRedirectPath(): Promise<string>
   }
-  class RegisterForm <<component>> {
-    - username: Ref<string>
-    - password: Ref<string>
-    - roleId: Ref<number>
-    + emit submitted: (data: object)
+  class RegisterView <<view>> {
+    - form: {email, password, confirmPassword, userType}
+    - isBuyMode: ComputedRef<boolean>
+    - localError: Ref<string | null>
+    - successMsg: Ref<string | null>
+    + validate(): boolean
+    + handleSubmit(): Promise<void>
+    + startCheckout(): Promise<void>
+  }
+  class ForgotPasswordView <<view>> {
+    - email: Ref<string>
+    - successMsg: Ref<string | null>
+    + handleSubmit(): Promise<void>
+  }
+  class ResetPasswordView <<view>> {
+    - token: Ref<string>
+    - form: {password, confirmPassword}
+    - localError: Ref<string | null>
+    - successMsg: Ref<string | null>
+    + handleSubmit(): Promise<void>
+  }
+  class ProfileView <<view>> {
+    - emailForm: {newEmail}
+    - passwordForm: {currentPassword, newPassword, confirmNewPassword}
+    - emailMsg: {error, success}
+    - passwordMsg: {error, success}
+    + handleUpdateEmail(): Promise<void>
+    + handleUpdatePassword(): Promise<void>
   }
 }
 
-BaseApi <|-- AuthApi
-AuthApi --> BaseEndpoint : uses
-AuthApi ..> AuthResponse : returns
-AuthResponse *-- UserResource : contains
-AuthStore --> AuthApi : uses
+AuthStore --> IamApi : uses
 AuthStore --> UserAssembler : uses
-UserAssembler ..> UserResource : transforms
-UserAssembler --> User : creates
-User ..> UserRole : uses
-RoleResource --* UserResource
+AuthStore --> SubscriptionApi : uses (refreshSubscription)
+UserAssembler ..> User : creates
+
+LoginView --> AuthStore : uses
+RegisterView --> AuthStore : uses
+RegisterView --> SubscriptionApi : uses (startCheckout)
+ForgotPasswordView --> AuthStore : uses
+ResetPasswordView --> AuthStore : uses
+ProfileView --> AuthStore : uses
+
+note right of RegisterView
+  isBuyMode is true when arriving from the pricing page
+  with a ?plan=&period= query. In that case, registering
+  logs the admin in immediately (signUpAdminForCheckout)
+  and opens a Stripe Checkout session right away instead
+  of redirecting to /login.
+end note
+
+note right of AuthStore
+  Session (user, token, subscriptionActive) is persisted to
+  localStorage and kept in sync across browser tabs via the
+  native "storage" event, so a login/logout in one tab is
+  reflected in every other open tab of the same browser.
+end note
+
+note bottom of IamApi
+  No UserResource/RoleResource classes exist — IamApi
+  methods return the raw backend JSON body directly,
+  which UserAssembler.toEntity() consumes.
+end note
 
 @enduml
