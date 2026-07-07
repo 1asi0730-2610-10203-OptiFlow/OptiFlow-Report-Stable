@@ -1,0 +1,197 @@
+@startuml BC-10_PatientCenter
+
+note as ImplementationNote
+  Patient Center is the patient-facing portal (routes under
+  /patient/*), rendered inside PatientLayout instead of
+  AdminLayout. It covers: order tracking (My Lenses),
+  a virtual glasses try-on (face-api.js), a lens-thickness
+  calculator, notifications, and the patient's own profile.
+end note
+
+package "patient-center.domain.model" {
+  class Material {
+    + id: number
+    + name: string
+    + info: string
+    + price: number
+    + details: string
+    + constructor(props)
+  }
+  class Order {
+    + id: number
+    + orderNumber: string
+    + status: string
+    + productName: string
+    + constructor(props)
+  }
+}
+
+package "patient-center.infrastructure" {
+  class MaterialResource {
+    + material_id: number
+    + full_name: string
+    + index_value: string
+    + base_price: number
+    + description: string
+  }
+  class OrderResource {
+    + order_id: number
+    + order_number: string
+    + status: string
+    + product_name: string
+    + delivery_date: string
+  }
+  class MaterialAssembler {
+    + {static} toEntityFromResource(r: MaterialResource): Material
+    + {static} toEntitiesFromResponse(r: MaterialResource[]): Material[]
+  }
+  class OrderAssembler {
+    + {static} toEntityFromResource(r: OrderResource): Order
+  }
+  class MaterialApi {
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getMaterials(): Promise<MaterialResource[]>
+  }
+  class OrderApi {
+    - endpoint: BaseEndpoint
+    + constructor()
+    + getOrderByNumber(orderNumber: string): Promise<OrderResource[]>
+  }
+  class PatientApi {
+    + getByEmail(email: string): Promise<object>
+  }
+  class PatientOrderApi {
+    + getByPatientId(patientId: number): Promise<object[]>
+  }
+  class NotificationApi {
+    + getByPatientId(patientId: number): Promise<object[]>
+    + create(patientId: number, resource): Promise<object>
+    + markAsRead(patientId: number, notificationId: number): Promise<object>
+  }
+}
+
+package "patient-center.application" {
+  class CalculatorStore <<Pinia store>> {
+    + materials: Ref<Material[]>
+    + loading: Ref<boolean>
+    + loadMaterials(): Promise<void>
+  }
+  class OrderStore <<Pinia store>> {
+    + patientOrders: Ref<object[]>
+    + loading: Ref<boolean>
+    + patientId: Ref<number | null>
+    + resolvePatientId(email): Promise<number | null>
+    + fetchAllPatientOrders(email): Promise<void>
+  }
+  class NotificationStore <<Pinia store>> {
+    + notifications: Ref<object[]>
+    + loading: Ref<boolean>
+    + patientId: Ref<number | null>
+    + resolvePatientId(email): Promise<number | null>
+    + fetchNotifications(email): Promise<void>
+    + createNotification(email, resource): Promise<void>
+    + markAsRead(notificationId): Promise<void>
+  }
+}
+
+package "patient-center.presentation.views" {
+  class MyLensesView <<view>> {
+    - today: ComputedRef<string>
+    - orders: ComputedRef<object[]>
+    + getPaymentPercentage(order): number
+    + getStatusStep(status): number
+  }
+  class VirtualTryOnView <<view>> {
+    - frames: Ref<object[]>
+    - selectedFrameId: Ref<number>
+    - isCameraActive: Ref<boolean>
+    - modelsLoaded: Ref<boolean>
+    - videoRef, canvasRef, streamRef: Ref<Element | null>
+    + selectFrame(id): void
+    + startCamera(): Promise<void>
+    + stopCamera(): void
+    + runDetectionLoop(): Promise<void>
+  }
+  class CalculatorView <<view>> {
+    - esfera: Ref<string>
+    - cilindro: Ref<string>
+    - selectedMaterialId: Ref<number>
+    - showResults: Ref<boolean>
+    - errors: Ref<object>
+    - displayMaterials: ComputedRef<Material[]>
+    - results: ComputedRef<object[]>
+    - currentResult: ComputedRef<object>
+    + handleCalculate(): void
+    + selectMaterial(id): void
+  }
+  class NotificationsView <<view>> {
+    - notifications: ComputedRef<object[]>
+    - loading: ComputedRef<boolean>
+  }
+  class PatientProfileView <<view>> {
+    - profile: Ref<object>
+    - errors: Ref<object>
+    - loading: Ref<boolean>
+    - patientId: Ref<number | null>
+    - showSuccess: Ref<boolean>
+  }
+}
+
+BaseApi <|-- MaterialApi
+BaseApi <|-- OrderApi
+BaseApi <|-- PatientApi
+BaseApi <|-- PatientOrderApi
+BaseApi <|-- NotificationApi
+MaterialApi --> BaseEndpoint : uses
+OrderApi --> BaseEndpoint : uses
+
+MaterialAssembler ..> MaterialResource : transforms
+MaterialAssembler --> Material : creates
+OrderAssembler ..> OrderResource : transforms
+OrderAssembler --> Order : creates
+
+CalculatorStore --> MaterialApi : uses
+CalculatorStore --> MaterialAssembler : uses
+OrderStore --> PatientOrderApi : uses
+OrderStore --> PatientApi : uses (resolvePatientId)
+NotificationStore --> NotificationApi : uses
+NotificationStore --> PatientApi : uses (resolvePatientId)
+
+MyLensesView --> OrderStore : uses
+VirtualTryOnView ..> "face-api.js" : uses (external lib)
+CalculatorView --> CalculatorStore : uses
+NotificationsView --> NotificationStore : uses
+PatientProfileView --> PatientApi : uses directly (no store)
+
+note right of MaterialResource
+  MaterialResource/OrderResource are the only remaining
+  snake_case resources in the frontend — everywhere else
+  in patient-center, backend responses are consumed as raw
+  objects with no resource/assembler layer at all (Patient,
+  PatientOrder, Notification).
+end note
+
+note right of OrderStore
+  OrderStore and NotificationStore both duplicate the same
+  resolvePatientId(email) pattern independently (no shared
+  "current patient" store yet) — each resolves and caches
+  its own patientId the first time it's needed.
+end note
+
+note right of VirtualTryOnView
+  Loads face-api.js models from a CDN (MODEL_URL), then
+  runs a live face-landmark detection loop over the
+  webcam feed via getUserMedia to overlay the selected
+  glasses frame image in real time on an HTML canvas.
+end note
+
+note right of CalculatorView
+  Lens thickness estimate: thickness = (|esfera| + |cilindro|)
+  * (1.85 / materialIndex), purely client-side using the
+  material's refractive index loaded from CalculatorStore
+  (falls back to a local backupMaterials list if the API
+  call fails).
+end note
+
+@enduml

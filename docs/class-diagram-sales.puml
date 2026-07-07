@@ -1,25 +1,5 @@
 @startuml BC-03_Sales
 
-package "shared.infrastructure" {
-  class BaseApi {
-    - http: AxiosInstance
-    + constructor()
-    + get http(): AxiosInstance
-  }
-  class BaseEndpoint {
-    - http: AxiosInstance
-    - resourcePath: string
-    + constructor(http, resourcePath)
-    + getAll(): Promise<any[]>
-    + getById(id): Promise<any>
-    + create(resource): Promise<any>
-    + update(id, resource): Promise<any>
-    + patch(id, resource): Promise<any>
-    + delete(id): Promise<void>
-    + getAllByParam(paramKey, paramValue): Promise<any[]>
-  }
-}
-
 package "sales.domain.model" {
   class Sale {
     + id: number
@@ -30,7 +10,7 @@ package "sales.domain.model" {
     + patientRx: string
     + userId: number
     + userName: string
-    + articulos: string[]
+    + items: array
     + totalAmount: number
     + adelanto: number
     + pendingBalance: number
@@ -41,7 +21,7 @@ package "sales.domain.model" {
     + createdAt: string
     + deliveredAt: string
     + notes: string
-    + constructor()
+    + constructor(props)
   }
   class SaleDetail {
     + id: number
@@ -51,7 +31,7 @@ package "sales.domain.model" {
     + quantity: number
     + unitPrice: number
     + subtotal: number
-    + constructor()
+    + constructor(props)
   }
   class Payment {
     + id: number
@@ -59,7 +39,7 @@ package "sales.domain.model" {
     + amountPaid: number
     + method: string
     + paidAt: string
-    + constructor()
+    + constructor(props)
   }
   class Feedback {
     + id: number
@@ -69,7 +49,7 @@ package "sales.domain.model" {
     + recommendService: boolean
     + comment: string
     + submittedAt: string
-    + constructor()
+    + constructor(props)
   }
   class SaleStatus <<object>> {
     + PENDING: string
@@ -97,9 +77,9 @@ package "sales.infrastructure" {
     + patientRx: string
     + userId: number
     + userName: string
-    + articulos: string[]
+    + items: array
     + totalAmount: number
-    + adelanto: number
+    + advance: number
     + pendingBalance: number
     + discountCode: string
     + discountAmount: number
@@ -161,12 +141,15 @@ package "sales.infrastructure" {
     + createSale(r: SaleResource): Promise<SaleResource>
     + updateSale(id: number, r: SaleResource): Promise<SaleResource>
     + getSaleDetailsBySaleId(saleId: number): Promise<SaleDetailResource[]>
+    + cancelSale(id: number, labOrderStatus: string): Promise<SaleResource>
   }
   class PaymentApi {
     - payments: BaseEndpoint
+    - path: string
     + constructor()
     + getPaymentsBySaleId(saleId: number): Promise<PaymentResource[]>
     + registerPayment(r: PaymentResource): Promise<PaymentResource>
+    + payOutstandingBalance(saleId: number, r: PaymentResource): Promise<PaymentResource>
   }
   class FeedbackApi {
     - feedbacks: BaseEndpoint
@@ -176,7 +159,7 @@ package "sales.infrastructure" {
 }
 
 package "sales.application" {
-  class SalesStore {
+  class SalesStore <<Pinia store>> {
     + sales: Ref<Sale[]>
     + payments: Ref<Payment[]>
     + currentSale: Ref<Sale | null>
@@ -190,12 +173,12 @@ package "sales.application" {
     + totalSaldo: ComputedRef<number>
     + ticketPromedio: ComputedRef<number>
     + fetchSales(): Promise<void>
-    + createSale(s: Sale): Promise<void>
+    + createSale(s: Sale): Promise<Sale | false>
     + updateSale(id: number, s: Sale): Promise<void>
     + markAsReturned(id: number): Promise<void>
     + cancelSale(id: number): Promise<void>
     + fetchPaymentsBySale(saleId: number): Promise<void>
-    + registerPayment(p: Payment): Promise<void>
+    + registerPayment(p: Payment): Promise<boolean>
     + submitFeedback(f: Feedback): Promise<void>
   }
 }
@@ -254,7 +237,7 @@ package "sales.presentation.components" {
     + emit close: void
     + nextStep(): void
     + prevStep(): void
-    + buildArticulos(): string[]
+    + buildItems(): array
     + generateCode(prefix: string): string
     + save(): void
     + close(): void
@@ -311,9 +294,18 @@ SaleListView *-- FeedbackForm : dialog
 SaleTable *-- SaleStatusBadge : contains
 
 note right of SaleResource
-  Sales API uses camelCase field names
-  (same as entity). The assembler performs
-  a 1-to-1 copy with no key transformation.
+  Only one field is renamed between entity and resource:
+  Sale.adelanto (Spanish) <-> SaleResource.advance
+  (English), handled explicitly in SaleAssembler. Every
+  other field is a 1-to-1 camelCase copy. The old "articulos"
+  field was renamed to "items" on both Sale and SaleResource.
+end note
+
+note right of PaymentApi
+  payOutstandingBalance POSTs to
+  ".../payments/{saleId}/pay" and is what
+  SalesStore.registerPayment actually calls;
+  registerPayment() (plain create) is unused by the store.
 end note
 
 note right of SaleStatus

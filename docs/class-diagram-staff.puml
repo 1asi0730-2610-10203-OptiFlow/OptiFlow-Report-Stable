@@ -1,0 +1,137 @@
+@startuml BC-06_Staff
+
+package "staff.domain.model" {
+  class Staff {
+    + id: number
+    + employeeCode: string
+    + firstName: string
+    + lastName: string
+    + email: string
+    + phone: string
+    + role: string
+    + department: string
+    + status: string
+    + activeToday: boolean
+    + entryDate: string
+    + photo: string
+    + constructor(id, employeeCode, firstName, lastName, email, phone, role, department, status, activeToday, entryDate, photo)
+    + get fullName(): string
+    + {static} fromJson(json): Staff
+  }
+}
+
+package "staff.infrastructure" {
+  class StaffResource {
+    + id: number
+    + employeeCode: string
+    + firstName: string
+    + lastName: string
+    + email: string
+    + phone: string
+    + role: string
+    + department: string
+    + status: string
+    + activeToday: boolean
+    + entryDate: string
+    + photo: string
+  }
+  class StaffAssembler {
+    + {static} toEntityFromResource(r: StaffResource): Staff
+    + {static} toEntitiesFromResponse(r: StaffResource[]): Staff[]
+    + {static} toResourceFromEntity(s: Staff): StaffResource
+  }
+  class StaffApi {
+    - staff: BaseEndpoint
+    + constructor()
+    + getStaff(): Promise<StaffResource[]>
+    + getStaffById(id: number): Promise<StaffResource>
+    + createEmployee(r: StaffResource): Promise<StaffResource>
+    + updateEmployee(id: number, r: StaffResource): Promise<StaffResource>
+    + deleteEmployee(id: number): Promise<void>
+  }
+}
+
+package "staff.application" {
+  class StaffStore <<Pinia store (Options API)>> {
+    + staff: Staff[]
+    + loading: boolean
+    + errors: string[]
+    + totalEmployees: number
+    + optometrists: number
+    + supportStaff: number
+    + activeTodayCount: number
+    + fetchStaff(): Promise<void>
+    + createEmployee(data): Promise<Staff>
+    + updateEmployee(id, data): Promise<Staff>
+    + deleteEmployee(id): Promise<void>
+  }
+}
+
+package "staff.presentation.views" {
+  class StaffListView <<view>> {
+    - search: Ref<string>
+    - departmentFilter: Ref<string | null>
+    - roleFilter: Ref<string | null>
+    - showAddModal: Ref<boolean>
+    - showDetailModal: Ref<boolean>
+    - selectedEmployee: Ref<Staff | null>
+    - editingEmployee: Ref<Staff | null>
+    - filteredStaff: ComputedRef<Staff[]>
+    + onEmployeeSaved(employee): Promise<void>
+    + onEditEmployee(employee): void
+    + onDeleteEmployee(employee): void
+    + onRowClick(event): void
+    + getInitials(name): string
+    + getRoleTagStyle(role): object
+  }
+}
+
+package "staff.presentation.components" {
+  class StaffFormModal <<component>> {
+    + employee: Staff | null (prop)
+    - isEditMode: ComputedRef<boolean>
+    - form: reactive object
+    - errors: Ref<object>
+    + emit update:visible: (v: boolean)
+    + emit saved: (payload: object)
+    + emit close: void
+    + validate(): boolean
+    + onSave(): void
+  }
+  class StaffDetailModal <<component>> {
+    + employee: Staff (prop)
+    - initials: ComputedRef<string>
+    + emit update:visible: (v: boolean)
+    + emit edit: (employee: Staff)
+    + emit delete: (employee: Staff)
+    + getRoleTagStyle(role): object
+  }
+}
+
+BaseApi <|-- StaffApi
+StaffApi --> BaseEndpoint : uses
+
+StaffAssembler ..> StaffResource : transforms
+StaffAssembler --> Staff : creates
+
+StaffStore --> StaffApi : uses
+StaffStore --> StaffAssembler : uses
+
+StaffListView --> StaffStore : uses
+StaffListView --> EventBus : uses
+StaffListView *-- StaffFormModal : contains
+StaffListView *-- StaffDetailModal : contains
+
+note right of StaffStore
+  Unlike most other stores in the app (Composition-API
+  "setup" style with ref/computed), StaffStore is written
+  with Pinia's Options API (state/getters/actions object).
+end note
+
+note right of StaffFormModal
+  form.fullName is split into firstName/lastName on save
+  (names[0] + the remaining words) before building the
+  Staff payload sent to the store.
+end note
+
+@enduml

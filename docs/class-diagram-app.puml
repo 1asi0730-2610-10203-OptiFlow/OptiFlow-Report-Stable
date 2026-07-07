@@ -2,7 +2,9 @@
 
 package "app" {
   class App <<component>> {
-    + renders: Layout
+    - isPatient: ComputedRef<boolean>
+    - isAdmin: ComputedRef<boolean>
+    + renders: AdminLayout | PatientLayout | router-view
   }
 }
 
@@ -32,13 +34,50 @@ package "shared.infrastructure" {
     + delete(id): Promise<void>
     + getAllByParam(paramKey, paramValue): Promise<any[]>
   }
+  class EventBus <<singleton>> {
+    + on(event: string, handler: function): function
+    + off(event: string, handler: function): void
+    + emit(event: string, payload: any): void
+  }
+}
+
+package "shared.presentation.utils" {
+  class Validators <<object>> {
+    + {static} isValidEmail(email: string): boolean
+    + {static} isValidPhone(phone: string): boolean
+  }
+}
+
+package "shared.presentation.composables" {
+  class useModalAnimation <<composable>> {
+    + isClosing: Ref<boolean>
+    + requestClose(): void
+    + onOverlayAnimEnd(e: Event): void
+  }
 }
 
 package "shared.presentation.components" {
-  class Layout <<component>> {
-    - navItems: NavItem[]
-    + navigate(to: string): void
-    + isActive(to: string): boolean
+  class AdminLayout <<component>> {
+    + renders: AppSidebar + GlobalSearch + LanguageSwitcher + router-view
+  }
+  class PatientLayout <<component>> {
+    - isMobileOpen: Ref<boolean>
+    - userProfile: Ref<{firstName, lastName}>
+    + loadProfile(): Promise<void>
+  }
+  class AppSidebar <<component>> {
+    - navItems: {key, icon, to}[]
+    - isMobileOpen: Ref<boolean>
+    - userName: ComputedRef<string>
+    - userInitials: ComputedRef<string>
+    + handleLogout(): void
+  }
+  class GlobalSearch <<component>> {
+    - isOpen: Ref<boolean>
+    - query: Ref<string>
+    - activeIndex: Ref<number>
+    - allActions: ComputedRef<object[]>
+    + open cmd-palette via keyboard shortcut
   }
   class LanguageSwitcher <<component>> {
   }
@@ -49,43 +88,76 @@ package "shared.presentation.views" {
   }
 }
 
-App *-- Layout : composes
-Layout --> Router : uses (router-view + push)
-Layout *-- LanguageSwitcher : composes
+App *-- AdminLayout : composes (admin routes)
+App *-- PatientLayout : composes (/patient/* routes)
+App --> Router : uses (useRoute)
+AdminLayout *-- AppSidebar : composes
+AdminLayout *-- GlobalSearch : composes
+AdminLayout *-- LanguageSwitcher : composes
+AdminLayout --> Router : uses (router-view)
+PatientLayout *-- LanguageSwitcher : composes
+PatientLayout --> Router : uses (router-view)
+PatientLayout ..> PatientApi : uses (loadProfile)
+AppSidebar --> Router : uses (push)
+AppSidebar --> AuthStore : uses (currentUser, logout)
+GlobalSearch --> EventBus : uses
+GlobalSearch --> Router : uses (push)
 PageNotFound --> Router : uses (push)
 
+note right of App
+  Top-level layout switch based on the current route:
+  - "/login", "/register", "/forgot-password",
+    "/reset-password", "/" → bare <router-view> (no chrome)
+  - "/patient/*"           → PatientLayout
+  - everything else        → AdminLayout
+end note
+
 note right of BaseApi
-  Extended by every bounded-context
-  API class (PatientApi, SalesApi, etc.)
-  to obtain a configured AxiosInstance
-  pointed at VITE_OPTIFLOW_API_URL.
+  Extended by every bounded-context API class (PatientApi,
+  SalesApi, etc.) to obtain a shared AxiosInstance pointed
+  at VITE_OPTIFLOW_API_URL. A request interceptor attaches
+  "Authorization: Bearer <token>" to every non-public
+  endpoint. A response interceptor:
+  - on 401: clears the session and redirects to /login.
+  - on 403 with code SUBSCRIPTION_REQUIRED or
+    ACCOUNT_SETUP_REQUIRED (non-CLIENT users only): marks
+    the subscription inactive and redirects to /select-plan.
 end note
 
 note right of BaseEndpoint
-  Instantiated inside each API class
-  using the AxiosInstance from BaseApi.
-  Wraps CRUD + getAllByParam for a
-  single REST resource path.
+  Instantiated inside each API class using the
+  AxiosInstance from BaseApi. Wraps CRUD +
+  getAllByParam for a single REST resource path.
 end note
 
-note right of Layout
-  App shell: sidebar with nav items
-  (panel, patients, sales, labOrders,
-  inventory, staff, reports, settings)
-  and <router-view> main content area.
-  Also mounts pv-toast and pv-confirm-dialog
-  for global PrimeVue services.
+note right of EventBus
+  Minimal in-memory pub/sub (Map<event, handler[]>), used
+  e.g. by the inventory store to broadcast stock events
+  that GlobalSearch/other components can subscribe to
+  without a direct store dependency.
+end note
+
+note right of AppSidebar
+  Nav items: panel, patients, sales, labOrders, inventory,
+  staff, reports, settings. User name/initials are derived
+  from the authenticated user's email local-part.
 end note
 
 note bottom of Router
-  Routes registered:
-    /           → redirect /panel
-    /panel      → DashboardView
-    /patients   → PatientListView
-    /sales      → SaleListView
-    /lab-orders → LabOrderListView
-    /inventory  → InventoryListView
-    /:pathMatch → PageNotFound
+  Route modules registered per bounded context (iam,
+  dashboard, sales, fulfillment, inventory, clinical, staff,
+  patient-center, report, settings, subscription), plus a
+  catch-all "/:pathMatch(.*)*" → PageNotFound.
+
+  beforeEach guard:
+  - blocks unauthenticated access to any non-public,
+    non-/patient/* route → redirects to /login.
+  - guestOnly routes (login/register/...) redirect an
+    already-authenticated user to homePath().
+  - CLIENT users are confined to /patient/* and /profile.
+  - non-CLIENT (admin) users without an active subscription
+    are redirected to /select-plan, re-validated against the
+    backend once per page load via authStore.refreshSubscription().
 end note
 
 @enduml

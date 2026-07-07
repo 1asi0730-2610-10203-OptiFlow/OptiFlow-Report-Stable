@@ -1,0 +1,82 @@
+@startuml BC-08_Subscription
+
+note as ImplementationNote
+  Subscription is infrastructure + presentation only — there
+  is no domain.model or resource/assembler layer. SubscriptionApi
+  returns the backend's raw JSON straight through, and the
+  views consume it directly (e.g. plan.id, plan.name, plan.price,
+  plan.tier fields read directly off the plain response objects).
+end note
+
+package "subscription.infrastructure" {
+  class SubscriptionApi {
+    + constructor()
+    + getPlans(): Promise<object[]>
+    + getMySubscription(): Promise<{hasActiveSubscription, status, subscription}>
+    + confirmCheckout(sessionId: string): Promise<{active: boolean}>
+    + createCheckoutSession(planId, planName, amount): Promise<{checkoutUrl: string}>
+  }
+}
+
+package "subscription.presentation.views" {
+  class SelectPlanView <<view>> {
+    - plans: Ref<object[]>
+    - period: Ref<"monthly" | "yearly">
+    - loadingPlans: Ref<boolean>
+    - checkingOutPlanId: Ref<number | null>
+    - confirmingPayment: Ref<boolean>
+    - error: Ref<string | null>
+    - visiblePlans: ComputedRef<object[]>
+    - hasYearlyPlans: ComputedRef<boolean>
+    + monthlyPrice(plan): string
+    + confirmPaymentReturn(): Promise<void>
+    + selectPlan(plan): Promise<void>
+  }
+  class PaymentSuccessView <<view>> {
+    - state: Ref<"confirming" | "success" | "error">
+    + confirm(): Promise<void>
+  }
+}
+
+package "subscription.presentation" {
+  class SubscriptionRoutes <<configuration>> {
+    + "/select-plan"     -> SelectPlanView
+    + "/payment-success" -> PaymentSuccessView
+  }
+}
+
+BaseApi <|-- SubscriptionApi
+
+SelectPlanView --> SubscriptionApi : uses (getPlans, createCheckoutSession)
+SelectPlanView --> AuthStore : uses (refreshSubscription)
+PaymentSuccessView --> SubscriptionApi : uses (confirmCheckout)
+PaymentSuccessView --> AuthStore : uses (setSubscriptionActive, logout)
+
+note right of SelectPlanView
+  Plans are grouped into monthly/yearly by matching a regex
+  against plan.name ("Mensual" vs "Anual") rather than a
+  dedicated field, then sorted cheapest-first. Yearly plans
+  store the FULL annual price; monthlyPrice() divides by 12
+  for display only.
+
+  On return from Stripe (?status=success), polls
+  authStore.refreshSubscription() up to 6 times (1.5s apart)
+  waiting for the webhook/return handler to activate the
+  subscription before redirecting to /panel.
+end note
+
+note right of PaymentSuccessView
+  Polls SubscriptionApi.confirmCheckout(sessionId) up to 5
+  times. On success, redirects to /login if the purchase came
+  from the registration funnel (sessionStorage flag
+  "postPurchaseRedirect"), otherwise straight to /panel.
+end note
+
+note right of SubscriptionApi
+  createCheckoutSession's response is either a real absolute
+  Stripe Checkout URL (redirect the browser to pay) or a
+  relative app path (local dev-activate — already active,
+  no real payment involved).
+end note
+
+@enduml
