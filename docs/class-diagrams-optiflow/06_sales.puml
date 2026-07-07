@@ -1,492 +1,98 @@
-@startuml 06_sales
-title OptiFlow Platform — Sales Bounded Context
+@startuml
+' Auto-generated from source code (Domain/Model) — Sales bounded context
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontStyle bold
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+}
+title Sales (Ventas) — Domain Model
 
-skinparam packageStyle rectangle
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor #888888
-skinparam arrowColor #555555
-
-' ─────────────────────────────────────────
-' DOMAIN LAYER
-' ─────────────────────────────────────────
-package "Sales.Domain" #E8F4F8 {
-
-    package "Model.ValueObjects" {
-        class SaleId <<value object sealed record>> {
-            + Value : int
-        }
-
-        class PaymentId <<value object sealed record>> {
-            + Value : int
-        }
-
-        class InvoiceNumber <<value object sealed record>> {
-            + Value : string
-            ' Validates: non-null/whitespace
-        }
-
-        class SaleStatus <<value object sealed record>> {
-            + Value : string
-            + {static} Active : string
-            + {static} Partial : string
-            + {static} Paid : string
-            + {static} Returned : string
-            + {static} Cancelled : string
-            + {static} CancellationRequested : string
-        }
-
-        class PaymentStatus <<value object sealed record>> {
-            + Value : string
-            + {static} Pending : string
-            + {static} Advanced : string
-            + {static} Completed : string
-        }
-    }
-
-    package "Model.Aggregates" {
-        class Sale <<aggregate root>> {
-            + Id : SaleId
-            + InvoiceNumber : InvoiceNumber
-            + LabOrderNumber : string
-            + PatientId : int
-            + PatientName : string
-            + UserId : int
-            + UserName : string
-            + TotalAmount : decimal
-            + Advance : decimal
-            + PendingBalance : decimal
-            + DiscountCode : string
-            + DiscountAmount : decimal
-            + PaymentMethod : string
-            + Status : string
-            + CreatedAt : string
-            + DeliveredAt : string
-            + Notes : string
-            + Sale(cmd : CreateSaleCommand)
-            + GenerateQuota(cmd : GenerateSaleQuotaCommand) : void
-            + RequestCancellation(cmd : RequestSaleCancellationCommand) : void
-            + Cancel(cmd : CancelSaleCommand) : void
-            + ApplyDiscount(cmd : ApplyPromotionalDiscountCommand) : void
-            + Complete() : void
-            + RecordPayment(remaining : decimal) : void
-        }
-
-        class Payment <<aggregate root>> {
-            + Id : PaymentId
-            + SaleId : int
-            + TotalAmount : decimal
-            + PaidAmount : decimal
-            + OutstandingBalance : decimal
-            + Status : string
-            + Method : string
-            + PaidAt : string
-            + Payment(saleId : int, totalAmount : decimal)
-            + PayBalance(amount : decimal, method : string) : bool
-        }
-    }
-
-    package "Model.Commands" {
-        class CreateSaleCommand <<command record>> {
-            + InvoiceNumber : string
-            + LabOrderNumber : string?
-            + PatientId : int
-            + PatientName : string
-            + UserId : int
-            + UserName : string
-            + TotalAmount : decimal
-            + Advance : decimal
-            + DiscountCode : string?
-            + DiscountAmount : decimal
-            + PaymentMethod : string
-            + CreatedAt : string
-            + DeliveredAt : string?
-            + Notes : string?
-        }
-
-        class GenerateSaleQuotaCommand <<command record>> {
-            + SaleId : int
-            + Advance : decimal
-            ' Min 30% advance rule enforced
-        }
-
-        class RequestSaleCancellationCommand <<command record>> {
-            + SaleId : int
-        }
-
-        class CancelSaleCommand <<command record>> {
-            + SaleId : int
-            + LabOrderStatus : string
-            ' Blocked if LabOrder is in production
-        }
-
-        class ApplyPromotionalDiscountCommand <<command record>> {
-            + SaleId : int
-            + DiscountCode : string
-            + DiscountAmount : decimal
-        }
-
-        class CompleteSaleCommand <<command record>> {
-            + SaleId : int
-        }
-
-        class PayOutstandingBalanceCommand <<command record>> {
-            + SaleId : int
-            + AmountPaid : decimal
-            + Method : string
-        }
-    }
-
-    package "Model.Events" {
-        class SaleCreatedEvent <<domain event>> {
-            + SaleId : int
-            + PatientName : string
-            + TotalAmount : decimal
-        }
-
-        class SaleQuotaGeneratedEvent <<domain event>> {
-            + SaleId : int
-            + Advance : decimal
-        }
-
-        class SaleCancellationRequestedEvent <<domain event>> {
-            + SaleId : int
-        }
-
-        class SaleCancelledEvent <<domain event>> {
-            + SaleId : int
-        }
-
-        class DiscountAppliedEvent <<domain event>> {
-            + SaleId : int
-            + DiscountCode : string
-            + DiscountAmount : decimal
-            + NewTotalAmount : decimal
-        }
-
-        class SaleCompletedEvent <<domain event>> {
-            + SaleId : int
-        }
-
-        class OutstandingBalancePayedEvent <<domain event>> {
-            + SaleId : int
-            + PaymentId : int
-            + PaidAmount : decimal
-            + OutstandingBalance : decimal
-        }
-
-        SaleCreatedEvent ..|> IEvent
-        SaleQuotaGeneratedEvent ..|> IEvent
-        SaleCancellationRequestedEvent ..|> IEvent
-        SaleCancelledEvent ..|> IEvent
-        DiscountAppliedEvent ..|> IEvent
-        SaleCompletedEvent ..|> IEvent
-        OutstandingBalancePayedEvent ..|> IEvent
-    }
-
-    package "Model.Queries" {
-        class GetAllSalesQuery <<query record>>
-        class GetSaleByIdQuery <<query record>> {
-            + Id : SaleId
-        }
-        class GetAllPaymentsQuery <<query record>>
-        class GetPaymentByIdQuery <<query record>> {
-            + Id : PaymentId
-        }
-        class GetPaymentBySaleIdQuery <<query record>> {
-            + SaleId : int
-        }
-    }
-
-    package "Repositories" {
-        interface ISaleRepository {
-            + ExistsByInvoiceNumberAsync(invoiceNumber : InvoiceNumber) : Task<bool>
-        }
-
-        interface IPaymentRepository {
-            + FindBySaleIdAsync(saleId : int) : Task<Payment?>
-        }
-    }
-
-    Sale *-- SaleId
-    Sale *-- InvoiceNumber
-    Sale *-- SaleStatus
-    Payment *-- PaymentId
-    Payment *-- PaymentStatus
-    Sale ..> SaleCreatedEvent : publishes
-    Sale ..> SaleQuotaGeneratedEvent : publishes
-    Sale ..> SaleCancellationRequestedEvent : publishes
-    Sale ..> SaleCancelledEvent : publishes
-    Sale ..> DiscountAppliedEvent : publishes
-    Sale ..> SaleCompletedEvent : publishes
-    Payment ..> OutstandingBalancePayedEvent : publishes
+class Payment <<Aggregate Root>> #FFE8E8 {
+  +Id: PaymentId
+  +AccountId: Guid
+  +SaleId: int
+  +TotalAmount: decimal
+  +PaidAmount: decimal
+  +OutstandingBalance: decimal
+  +Status: string
+  +Method: string
+  +PaidAt: string
 }
 
-' ─────────────────────────────────────────
-' APPLICATION LAYER
-' ─────────────────────────────────────────
-package "Sales.Application" #E8F8E8 {
-
-    package "Errors" {
-        enum CreateSaleError {
-            DuplicateInvoiceNumber
-            UnexpectedError
-        }
-        enum GenerateSaleQuotaError {
-            SaleNotFound
-            QuotaBelowMinimum
-            UnexpectedError
-        }
-        enum RequestSaleCancellationError {
-            SaleNotFound
-            UnexpectedError
-        }
-        enum CancelSaleError {
-            SaleNotFound
-            SaleInProductionStatus
-            UnexpectedError
-        }
-        enum ApplyPromotionalDiscountError {
-            SaleNotFound
-            UnexpectedError
-        }
-        enum CompleteSaleError {
-            SaleNotFound
-            UnexpectedError
-        }
-        enum PayOutstandingBalanceError {
-            SaleNotFound
-            UnexpectedError
-        }
-    }
-
-    package "ACL (Anti-Corruption Layer)" {
-        interface ILabAndOrdersContextFacade {
-            + GetWorkOrderBySaleIdAsync(saleId : int) : Task<WorkOrderDto?>
-        }
-
-        class LabAndOrdersContextFacade {
-            - _workOrderQueryService : IWorkOrderQueryService
-        }
-
-        LabAndOrdersContextFacade ..|> ILabAndOrdersContextFacade
-    }
-
-    package "Interfaces" {
-        interface ISaleCommandService {
-            + Handle(cmd : CreateSaleCommand) : Task<Result<Sale, CreateSaleError>>
-            + Handle(cmd : GenerateSaleQuotaCommand) : Task<Result<Sale, GenerateSaleQuotaError>>
-            + Handle(cmd : RequestSaleCancellationCommand) : Task<Result<Sale, RequestSaleCancellationError>>
-            + Handle(cmd : CancelSaleCommand) : Task<Result<Sale, CancelSaleError>>
-            + Handle(cmd : ApplyPromotionalDiscountCommand) : Task<Result<Sale, ApplyPromotionalDiscountError>>
-            + Handle(cmd : CompleteSaleCommand) : Task<Result<Sale, CompleteSaleError>>
-        }
-
-        interface ISaleQueryService {
-            + Handle(q : GetAllSalesQuery) : Task<IEnumerable<Sale>>
-            + Handle(q : GetSaleByIdQuery) : Task<Sale?>
-        }
-
-        interface IPaymentCommandService {
-            + Handle(cmd : PayOutstandingBalanceCommand) : Task<Result<Payment, PayOutstandingBalanceError>>
-        }
-
-        interface IPaymentQueryService {
-            + Handle(q : GetAllPaymentsQuery) : Task<IEnumerable<Payment>>
-            + Handle(q : GetPaymentByIdQuery) : Task<Payment?>
-            + Handle(q : GetPaymentBySaleIdQuery) : Task<Payment?>
-        }
-    }
-
-    package "Internal.CommandServices" {
-        class SaleCommandService <<internal>> {
-            - _saleRepo : ISaleRepository
-            - _unitOfWork : IUnitOfWork
-            - _mediator : IMediator
-            - _logger : ILogger
-        }
-
-        class PaymentCommandService <<internal>> {
-            - _paymentRepo : IPaymentRepository
-            - _saleRepo : ISaleRepository
-            - _unitOfWork : IUnitOfWork
-            - _mediator : IMediator
-            - _logger : ILogger
-            ' Creates Payment on first pay; updates on subsequent
-        }
-    }
-
-    package "Internal.QueryServices" {
-        class SaleQueryService <<internal>> {
-            - _saleRepo : ISaleRepository
-        }
-
-        class PaymentQueryService <<internal>> {
-            - _paymentRepo : IPaymentRepository
-        }
-    }
-
-    package "Internal.EventHandlers" {
-        class SaleCreatedEventHandler <<internal>>
-        class SaleQuotaGeneratedEventHandler <<internal>>
-        class SaleCancellationRequestedEventHandler <<internal>>
-        class SaleCancelledEventHandler <<internal>>
-        class DiscountAppliedEventHandler <<internal>>
-        class SaleCompletedEventHandler <<internal>>
-        class OutstandingBalancePayedEventHandler <<internal>>
-
-        SaleCreatedEventHandler ..|> IEventHandler
-        SaleQuotaGeneratedEventHandler ..|> IEventHandler
-        SaleCancellationRequestedEventHandler ..|> IEventHandler
-        SaleCancelledEventHandler ..|> IEventHandler
-        DiscountAppliedEventHandler ..|> IEventHandler
-        SaleCompletedEventHandler ..|> IEventHandler
-        OutstandingBalancePayedEventHandler ..|> IEventHandler
-    }
-
-    SaleCommandService ..|> ISaleCommandService
-    SaleQueryService ..|> ISaleQueryService
-    PaymentCommandService ..|> IPaymentCommandService
-    PaymentQueryService ..|> IPaymentQueryService
-
-    SaleCommandService --> ISaleRepository
-    SaleCommandService --> IUnitOfWork
-    PaymentCommandService --> IPaymentRepository
-    PaymentCommandService --> ISaleRepository
-    PaymentCommandService --> IUnitOfWork
-    SaleQueryService --> ISaleRepository
-    PaymentQueryService --> IPaymentRepository
-    SaleCommandService --> ILabAndOrdersContextFacade
+class Sale <<Aggregate Root>> #FFE8E8 {
+  +Id: SaleId
+  +AccountId: Guid
+  +InvoiceNumber: InvoiceNumber
+  +LabOrderNumber: string
+  +PatientId: int
+  +PatientName: string
+  +UserId: int
+  +UserName: string
+  +TotalAmount: decimal
+  +Advance: decimal
+  +PendingBalance: decimal
+  +DiscountCode: string
+  +DiscountAmount: decimal
+  +PaymentMethod: string
+  +Status: string
+  +CreatedAt: string
+  +DeliveredAt: string
+  +Notes: string
 }
 
-' ─────────────────────────────────────────
-' INFRASTRUCTURE LAYER
-' ─────────────────────────────────────────
-package "Sales.Infrastructure" #FFF8E8 {
-
-    class SaleRepository {
-        + FindByIdAsync(id : SaleId) : Task<Sale?>
-        + ExistsByInvoiceNumberAsync(invoiceNumber : InvoiceNumber) : Task<bool>
-    }
-
-    class PaymentRepository {
-        + FindBySaleIdAsync(saleId : int) : Task<Payment?>
-    }
-
-    SaleRepository ..|> ISaleRepository
-    PaymentRepository ..|> IPaymentRepository
+class SaleItem <<Entity>> {
+  +Id: int
+  +AccountId: Guid
+  +SaleId: int
+  +ProductId: int
+  +Quantity: int
 }
 
-' ─────────────────────────────────────────
-' INTERFACES (API) LAYER
-' ─────────────────────────────────────────
-package "Sales.Interfaces" #F8E8F8 {
-
-    package "REST.Resources" {
-        class SaleResource <<response DTO>> {
-            + Id : int
-            + InvoiceNumber : string
-            + LabOrderNumber : string
-            + PatientId : int
-            + PatientName : string
-            + UserId : int
-            + UserName : string
-            + TotalAmount : decimal
-            + Advance : decimal
-            + PendingBalance : decimal
-            + DiscountCode : string
-            + DiscountAmount : decimal
-            + PaymentMethod : string
-            + Status : string
-            + CreatedAt : string
-            + DeliveredAt : string
-            + Notes : string
-        }
-
-        class CreateSaleResource <<request DTO>> {
-            + InvoiceNumber : string
-            + LabOrderNumber : string?
-            + PatientId : int
-            + PatientName : string
-            + UserId : int
-            + UserName : string
-            + TotalAmount : decimal
-            + Advance : decimal
-            + DiscountCode : string?
-            + DiscountAmount : decimal
-            + PaymentMethod : string
-            + CreatedAt : string
-            + DeliveredAt : string?
-            + Notes : string?
-        }
-
-        class GenerateSaleQuotaResource <<request DTO>> {
-            + Advance : decimal
-        }
-
-        class CancelSaleResource <<request DTO>> {
-            + LabOrderStatus : string
-        }
-
-        class ApplyPromotionalDiscountResource <<request DTO>> {
-            + DiscountCode : string
-            + DiscountAmount : decimal
-        }
-
-        class PaymentResource <<response DTO>> {
-            + Id : int
-            + SaleId : int
-            + TotalAmount : decimal
-            + PaidAmount : decimal
-            + OutstandingBalance : decimal
-            + Status : string
-            + Method : string
-            + PaidAt : string
-        }
-
-        class PayOutstandingBalanceResource <<request DTO>> {
-            + AmountPaid : decimal
-            + Method : string
-        }
-    }
-
-    package "REST.Controllers" {
-        class SalesController <<controller>> {
-            - _saleCmdSvc : ISaleCommandService
-            - _saleQrySvc : ISaleQueryService
-            + CreateSale(resource : CreateSaleResource) : IActionResult
-            + GetAllSales() : IActionResult
-            + GetSaleById(id : int) : IActionResult
-            + GenerateSaleQuota(id : int, resource : GenerateSaleQuotaResource) : IActionResult
-            + RequestSaleCancellation(id : int) : IActionResult
-            + CancelSale(id : int, resource : CancelSaleResource) : IActionResult
-            + ApplyPromotionalDiscount(id : int, resource : ApplyPromotionalDiscountResource) : IActionResult
-        }
-
-        class PaymentsController <<controller>> {
-            - _paymentCmdSvc : IPaymentCommandService
-            - _paymentQrySvc : IPaymentQueryService
-            + GetAllPayments() : IActionResult
-            + GetPaymentById(id : int) : IActionResult
-            + PayOutstandingBalance(saleId : int, resource : PayOutstandingBalanceResource) : IActionResult
-        }
-    }
-
-    class SalesAssemblers <<static>> {
-        + {static} ToResourceFromEntity(entity : Sale) : SaleResource
-        + {static} ToResourceFromEntity(entity : Payment) : PaymentResource
-        + {static} ToCommandFromResource(resource : CreateSaleResource) : CreateSaleCommand
-    }
-
-    SalesController --> ISaleCommandService
-    SalesController --> ISaleQueryService
-    PaymentsController --> IPaymentCommandService
-    PaymentsController --> IPaymentQueryService
-    SalesController ..> SalesAssemblers
-    PaymentsController ..> SalesAssemblers
+class InvoiceNumber <<Value Object>> #EAF2FF {
+  +Value: string
 }
 
-interface IEvent
-interface IEventHandler
-interface IUnitOfWork
+class PaymentId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+enum PaymentStatus <<Value Object>> {
+  Pending
+  Advanced
+  Completed
+}
+
+class SaleId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+enum SaleStatus <<Value Object>> {
+  Active
+  Partial
+  Paid
+  Returned
+  Cancelled
+  CancellationRequested
+}
+
+' Relationships
+Payment "0..*" --> "1" Sale : SaleId
+Payment "1" *-- "1" PaymentId : Id
+Payment ..> PaymentStatus : Status (valores)
+Sale "1" *-- "1" InvoiceNumber : InvoiceNumber
+Sale "1" *-- "1" SaleId : Id
+Sale ..> SaleStatus : Status (valores)
+SaleItem "0..*" --> "1" Sale : SaleId
+
+note as ExternalRefs
+  **Referencias a otros bounded contexts** (no incluidas como clases en este diagrama):
+  * PatientId (Sale) -> Clinical.Patient
+  * ProductId (SaleItem) -> Inventory.Product
+  * UserId (Sale) -> IAM.User
+  * AccountId (Guid) en todas las clases -> IAM.Account (alcance multi-tenant)
+end note
 
 @enduml

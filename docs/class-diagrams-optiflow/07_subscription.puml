@@ -1,583 +1,109 @@
-@startuml 07_subscription
-title OptiFlow Platform — Subscription Bounded Context
+@startuml
+' Auto-generated from source code (Domain/Model) — Subscription bounded context
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontStyle bold
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+}
+title Subscription (Suscripción) — Domain Model
 
-skinparam packageStyle rectangle
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor #888888
-skinparam arrowColor #555555
-
-' ─────────────────────────────────────────
-' DOMAIN LAYER
-' ─────────────────────────────────────────
-package "Subscription.Domain" #E8F4F8 {
-
-    package "Model.ValueObjects" {
-        class SubscriptionId <<value object sealed record>> {
-            + Value : int
-            ' Validates: Value > 0
-        }
-
-        class PlanId <<value object sealed record>> {
-            + Value : int
-            ' Validates: Value > 0
-        }
-
-        class BillingId <<value object sealed record>> {
-            + Value : int
-            ' Validates: Value > 0
-        }
-
-        class SubPaymentId <<value object sealed record>> {
-            + Value : int
-            ' Validates: Value > 0
-        }
-
-        class SubscriptionStatus <<value object record>> {
-            + Value : string
-            + {static} PendingPayment : string
-            + {static} Active : string
-            + {static} Cancelled : string
-            + {static} Expired : string
-        }
-
-        class SubscriptionTier <<value object record>> {
-            + Value : string
-            + {static} Basic : string
-            + {static} Professional : string
-            + {static} Enterprise : string
-        }
-
-        class SubPaymentStatus <<value object record>> {
-            + Value : string
-            + {static} Pending : string
-            + {static} Processed : string
-            + {static} Failed : string
-        }
-    }
-
-    package "Model.Aggregates" {
-        class Subscription <<aggregate root>> {
-            + Id : int
-            + AdminId : int
-            + PlanId : PlanId
-            + Tier : SubscriptionTier
-            + Amount : decimal
-            + PaymentMethod : string
-            + Status : SubscriptionStatus
-            + StartDate : DateTimeOffset?
-            + EndDate : DateTimeOffset?
-            + Subscription(cmd : SelectSubscriptionPlanCommand)
-            + Activate(cmd : ActivateSubscriptionCommand) : void
-            + Cancel(cmd : CancelSubscriptionCommand) : void
-            + Expire(cmd : ExpireSubscriptionCommand) : void
-            + ChangePlan(cmd : ChangePlanCommand) : void
-        }
-
-        class Plan <<aggregate root>> {
-            + Id : int
-            + Name : string
-            + Tier : SubscriptionTier
-            + Price : decimal
-            + Description : string
-            + PlanId : PlanId
-            + Plan(cmd : CreatePlanCommand)
-        }
-
-        class Billing <<aggregate root>> {
-            + Id : int
-            + SubscriptionId : SubscriptionId
-            + RenewalDate : DateTimeOffset
-            + AutoRenew : bool
-            + BillingStatus : string
-            + {static} StatusPending : string
-            + {static} StatusDue : string
-            + {static} StatusRenewed : string
-            + {static} StatusExpired : string
-            + Billing(cmd : CheckSubscriptionRenewalCommand)
-            + MarkDue() : void
-            + MarkRenewed() : void
-            + MarkExpired() : void
-        }
-
-        class SubPayment <<aggregate root>> {
-            + Id : int
-            + SubscriptionId : SubscriptionId
-            + Amount : decimal
-            + PaymentMethod : string
-            + Status : SubPaymentStatus
-            + ProcessedAt : DateTimeOffset?
-            + SubPayment(cmd : ProcessSubscriptionPaymentCommand)
-            + MarkProcessed() : void
-            + MarkFailed() : void
-        }
-    }
-
-    package "Model.Commands" {
-        class SelectSubscriptionPlanCommand <<command record>> {
-            + AdminId : int
-            + PlanId : int
-            + Tier : string
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class ActivateSubscriptionCommand <<command record>> {
-            + SubscriptionId : int
-            + Tier : string
-            + StartDate : DateTimeOffset
-            + EndDate : DateTimeOffset
-        }
-
-        class CancelSubscriptionCommand <<command record>> {
-            + SubscriptionId : int
-        }
-
-        class ExpireSubscriptionCommand <<command record>> {
-            + SubscriptionId : int
-        }
-
-        class ChangePlanCommand <<command record>> {
-            + SubscriptionId : int
-            + NewPlanId : int
-            + NewTier : string
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class CheckSubscriptionRenewalCommand <<command record>> {
-            + SubscriptionId : int
-        }
-
-        class ProcessSubscriptionPaymentCommand <<command record>> {
-            + SubscriptionId : int
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class RequestAutoRenewCommand <<command record>> {
-            + SubscriptionId : int
-        }
-
-        class CreatePlanCommand <<command record>> {
-            + Name : string
-            + Tier : string
-            + Price : decimal
-            + Description : string
-        }
-    }
-
-    package "Model.Events" {
-        class PlanSubscriptionSelectedEvent <<domain event>>
-        class PaymentProcessingStartedEvent <<domain event>>
-        class PaymentProcessedEvent <<domain event>>
-        class PlanChangeRequestedEvent <<domain event>>
-        class PlanChangeRequestSentEvent <<domain event>>
-        class SubscriptionCancelledEvent <<domain event>>
-        class SubscriptionExpiredEvent <<domain event>>
-        class SubscriptionEndDateCheckedEvent <<domain event>>
-        class RenewalDueEvent <<domain event>>
-        class RequestedRenewSubscriptionEvent <<domain event>>
-
-        PlanSubscriptionSelectedEvent ..|> IEvent
-        PaymentProcessingStartedEvent ..|> IEvent
-        PaymentProcessedEvent ..|> IEvent
-        PlanChangeRequestedEvent ..|> IEvent
-        PlanChangeRequestSentEvent ..|> IEvent
-        SubscriptionCancelledEvent ..|> IEvent
-        SubscriptionExpiredEvent ..|> IEvent
-        SubscriptionEndDateCheckedEvent ..|> IEvent
-        RenewalDueEvent ..|> IEvent
-        RequestedRenewSubscriptionEvent ..|> IEvent
-    }
-
-    package "Model.Queries" {
-        class GetAllSubscriptionsQuery <<query record>>
-        class GetSubscriptionByIdQuery <<query record>> {
-            + Id : SubscriptionId
-        }
-        class GetSubscriptionsByAdminIdQuery <<query record>> {
-            + AdminId : int
-        }
-        class GetAllPlansQuery <<query record>>
-        class GetPlanByIdQuery <<query record>> {
-            + Id : PlanId
-        }
-        class GetBillingBySubscriptionIdQuery <<query record>> {
-            + SubscriptionId : SubscriptionId
-        }
-        class GetSubPaymentByIdQuery <<query record>> {
-            + Id : SubPaymentId
-        }
-        class GetSubPaymentsBySubscriptionIdQuery <<query record>> {
-            + SubscriptionId : SubscriptionId
-        }
-    }
-
-    package "Repositories" {
-        interface ISubscriptionRepository {
-            + FindByAdminIdAsync(adminId : int) : Task<IEnumerable<Subscription>>
-            + FindByStatusAsync(status : string) : Task<IEnumerable<Subscription>>
-        }
-
-        interface IPlanRepository {
-        }
-
-        interface IBillingRepository {
-        }
-
-        interface ISubPaymentRepository {
-        }
-    }
-
-    Subscription *-- SubscriptionId
-    Subscription *-- PlanId
-    Subscription *-- SubscriptionStatus
-    Subscription *-- SubscriptionTier
-    Billing *-- SubscriptionId
-    SubPayment *-- SubscriptionId
-    SubPayment *-- SubPaymentStatus
-    Plan *-- SubscriptionTier
-    Plan *-- PlanId
-
-    Subscription ..> PlanSubscriptionSelectedEvent : publishes
-    Subscription ..> SubscriptionCancelledEvent : publishes
-    Subscription ..> SubscriptionExpiredEvent : publishes
-    SubPayment ..> PaymentProcessingStartedEvent : publishes
-    SubPayment ..> PaymentProcessedEvent : publishes
-    Billing ..> RenewalDueEvent : publishes
+class Billing <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +SubscriptionId: SubscriptionId
+  +RenewalDate: DateTimeOffset
+  +AutoRenew: bool
+  +BillingStatus: string
+  {static} +StatusPending
+  {static} +StatusDue
+  {static} +StatusRenewed
+  {static} +StatusExpired
 }
 
-' ─────────────────────────────────────────
-' APPLICATION LAYER
-' ─────────────────────────────────────────
-package "Subscription.Application" #E8F8E8 {
-
-    package "Errors" {
-        enum SelectSubscriptionPlanError {
-            PlanNotFound
-            InvalidTier
-            UnexpectedError
-        }
-        enum ActivateSubscriptionError {
-            SubscriptionNotFound
-            InvalidStatus
-            UnexpectedError
-        }
-        enum CancelSubscriptionError {
-            SubscriptionNotFound
-            UnexpectedError
-        }
-        enum ProcessSubscriptionPaymentError {
-            SubscriptionNotFound
-            PaymentFailed
-            UnexpectedError
-        }
-        enum ChangePlanError {
-            SubscriptionNotFound
-            PlanNotFound
-            UnexpectedError
-        }
-        enum CreatePlanError {
-            DuplicateName
-            UnexpectedError
-        }
-    }
-
-    package "Interfaces" {
-        interface ISubscriptionCommandService {
-            + Handle(cmd : SelectSubscriptionPlanCommand) : Task<Result<Subscription, SelectSubscriptionPlanError>>
-            + Handle(cmd : ActivateSubscriptionCommand) : Task<Result<Subscription, ActivateSubscriptionError>>
-            + Handle(cmd : CancelSubscriptionCommand) : Task<Result<Subscription, CancelSubscriptionError>>
-            + Handle(cmd : ChangePlanCommand) : Task<Result<Subscription, ChangePlanError>>
-        }
-
-        interface ISubscriptionQueryService {
-            + Handle(q : GetAllSubscriptionsQuery) : Task<IEnumerable<Subscription>>
-            + Handle(q : GetSubscriptionByIdQuery) : Task<Subscription?>
-            + Handle(q : GetSubscriptionsByAdminIdQuery) : Task<IEnumerable<Subscription>>
-        }
-
-        interface IPlanCommandService {
-            + Handle(cmd : CreatePlanCommand) : Task<Result<Plan, CreatePlanError>>
-        }
-
-        interface IPlanQueryService {
-            + Handle(q : GetAllPlansQuery) : Task<IEnumerable<Plan>>
-            + Handle(q : GetPlanByIdQuery) : Task<Plan?>
-        }
-
-        interface ISubPaymentCommandService {
-            + Handle(cmd : ProcessSubscriptionPaymentCommand) : Task<Result<SubPayment, ProcessSubscriptionPaymentError>>
-        }
-
-        interface ISubPaymentQueryService {
-            + Handle(q : GetSubPaymentByIdQuery) : Task<SubPayment?>
-            + Handle(q : GetSubPaymentsBySubscriptionIdQuery) : Task<IEnumerable<SubPayment>>
-        }
-
-        interface IBillingCommandService {
-            + Handle(cmd : CheckSubscriptionRenewalCommand) : Task<Result<Billing, RenewalCheckError>>
-        }
-
-        interface IBillingQueryService {
-            + Handle(q : GetBillingBySubscriptionIdQuery) : Task<Billing?>
-        }
-    }
-
-    package "Internal.CommandServices" {
-        class SubscriptionCommandService <<internal>> {
-            - _subscriptionRepo : ISubscriptionRepository
-            - _unitOfWork : IUnitOfWork
-            - _mediator : IMediator
-            - _logger : ILogger
-        }
-
-        class PlanCommandService <<internal>> {
-            - _planRepo : IPlanRepository
-            - _unitOfWork : IUnitOfWork
-        }
-
-        class SubPaymentCommandService <<internal>> {
-            - _paymentRepo : ISubPaymentRepository
-            - _subscriptionRepo : ISubscriptionRepository
-            - _unitOfWork : IUnitOfWork
-            - _mediator : IMediator
-            - _logger : ILogger
-        }
-
-        class BillingCommandService <<internal>> {
-            - _billingRepo : IBillingRepository
-            - _subscriptionRepo : ISubscriptionRepository
-            - _unitOfWork : IUnitOfWork
-        }
-    }
-
-    package "Internal.QueryServices" {
-        class SubscriptionQueryService <<internal>> {
-            - _subscriptionRepo : ISubscriptionRepository
-        }
-
-        class PlanQueryService <<internal>> {
-            - _planRepo : IPlanRepository
-        }
-
-        class SubPaymentQueryService <<internal>> {
-            - _paymentRepo : ISubPaymentRepository
-        }
-
-        class BillingQueryService <<internal>> {
-            - _billingRepo : IBillingRepository
-        }
-    }
-
-    package "Internal.EventHandlers" {
-        class PaymentProcessingStartedEventHandler <<internal>>
-        class PaymentProcessedEventHandler <<internal>>
-        class PlanChangeRequestedEventHandler <<internal>>
-        class PlanChangeRequestSentEventHandler <<internal>>
-        class PlanSubscriptionSelectedEventHandler <<internal>>
-        class SubscriptionCancelledEventHandler <<internal>>
-        class SubscriptionExpiredEventHandler <<internal>>
-        class SubscriptionEndDateCheckedEventHandler <<internal>>
-        class RenewalDueEventHandler <<internal>>
-        class RequestedRenewSubscriptionEventHandler <<internal>>
-
-        PaymentProcessingStartedEventHandler ..|> IEventHandler
-        PaymentProcessedEventHandler ..|> IEventHandler
-        PlanChangeRequestedEventHandler ..|> IEventHandler
-        PlanChangeRequestSentEventHandler ..|> IEventHandler
-        PlanSubscriptionSelectedEventHandler ..|> IEventHandler
-        SubscriptionCancelledEventHandler ..|> IEventHandler
-        SubscriptionExpiredEventHandler ..|> IEventHandler
-        SubscriptionEndDateCheckedEventHandler ..|> IEventHandler
-        RenewalDueEventHandler ..|> IEventHandler
-        RequestedRenewSubscriptionEventHandler ..|> IEventHandler
-    }
-
-    SubscriptionCommandService ..|> ISubscriptionCommandService
-    SubscriptionQueryService ..|> ISubscriptionQueryService
-    PlanCommandService ..|> IPlanCommandService
-    PlanQueryService ..|> IPlanQueryService
-    SubPaymentCommandService ..|> ISubPaymentCommandService
-    SubPaymentQueryService ..|> ISubPaymentQueryService
-    BillingCommandService ..|> IBillingCommandService
-    BillingQueryService ..|> IBillingQueryService
-
-    SubscriptionCommandService --> ISubscriptionRepository
-    SubscriptionCommandService --> IUnitOfWork
-    SubPaymentCommandService --> ISubPaymentRepository
-    SubPaymentCommandService --> ISubscriptionRepository
-    SubPaymentCommandService --> IUnitOfWork
-    BillingCommandService --> IBillingRepository
-    BillingCommandService --> ISubscriptionRepository
-    PlanCommandService --> IPlanRepository
-    SubscriptionQueryService --> ISubscriptionRepository
-    PlanQueryService --> IPlanRepository
-    SubPaymentQueryService --> ISubPaymentRepository
-    BillingQueryService --> IBillingRepository
+class Payment <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +SubscriptionId: SubscriptionId
+  +Amount: decimal
+  +PaymentMethod: string
+  +Status: PaymentStatus
+  +ProcessedAt: DateTimeOffset?
 }
 
-' ─────────────────────────────────────────
-' INFRASTRUCTURE LAYER
-' ─────────────────────────────────────────
-package "Subscription.Infrastructure" #FFF8E8 {
-
-    class SubscriptionRepository {
-        + FindByAdminIdAsync(adminId : int) : Task<IEnumerable<Subscription>>
-        + FindByStatusAsync(status : string) : Task<IEnumerable<Subscription>>
-    }
-
-    class PlanRepository {
-    }
-
-    class BillingRepository {
-    }
-
-    class SubPaymentRepository {
-    }
-
-    SubscriptionRepository ..|> ISubscriptionRepository
-    PlanRepository ..|> IPlanRepository
-    BillingRepository ..|> IBillingRepository
-    SubPaymentRepository ..|> ISubPaymentRepository
+class Plan <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +Name: string
+  +Tier: SubscriptionTier
+  +Price: decimal
+  +Description: string
+  +PlanId: PlanId
 }
 
-' ─────────────────────────────────────────
-' INTERFACES (API) LAYER
-' ─────────────────────────────────────────
-package "Subscription.Interfaces" #F8E8F8 {
-
-    package "REST.Resources" {
-        class SubscriptionResource <<response DTO>> {
-            + Id : int
-            + AdminId : int
-            + PlanId : int
-            + Tier : string
-            + Amount : decimal
-            + PaymentMethod : string
-            + Status : string
-            + StartDate : DateTimeOffset?
-            + EndDate : DateTimeOffset?
-        }
-
-        class SelectSubscriptionPlanResource <<request DTO>> {
-            + AdminId : int
-            + PlanId : int
-            + Tier : string
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class ActivateSubscriptionResource <<request DTO>> {
-            + Tier : string
-            + StartDate : DateTimeOffset
-            + EndDate : DateTimeOffset
-        }
-
-        class ChangePlanResource <<request DTO>> {
-            + NewPlanId : int
-            + NewTier : string
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class PlanResource <<response DTO>> {
-            + Id : int
-            + Name : string
-            + Tier : string
-            + Price : decimal
-            + Description : string
-        }
-
-        class CreatePlanResource <<request DTO>> {
-            + Name : string
-            + Tier : string
-            + Price : decimal
-            + Description : string
-        }
-
-        class SubPaymentResource <<response DTO>> {
-            + Id : int
-            + SubscriptionId : int
-            + Amount : decimal
-            + PaymentMethod : string
-            + Status : string
-            + ProcessedAt : DateTimeOffset?
-        }
-
-        class ProcessPaymentResource <<request DTO>> {
-            + Amount : decimal
-            + PaymentMethod : string
-        }
-
-        class BillingResource <<response DTO>> {
-            + Id : int
-            + SubscriptionId : int
-            + RenewalDate : DateTimeOffset
-            + AutoRenew : bool
-            + BillingStatus : string
-        }
-    }
-
-    package "REST.Controllers" {
-        class SubscriptionsController <<controller>> {
-            - _subscriptionCmdSvc : ISubscriptionCommandService
-            - _subscriptionQrySvc : ISubscriptionQueryService
-            + SelectSubscriptionPlan(resource : SelectSubscriptionPlanResource) : IActionResult
-            + GetAllSubscriptions() : IActionResult
-            + GetSubscriptionById(id : int) : IActionResult
-            + ActivateSubscription(id : int, resource : ActivateSubscriptionResource) : IActionResult
-            + CancelSubscription(id : int) : IActionResult
-            + ChangePlan(id : int, resource : ChangePlanResource) : IActionResult
-        }
-
-        class PlansController <<controller>> {
-            - _planCmdSvc : IPlanCommandService
-            - _planQrySvc : IPlanQueryService
-            + CreatePlan(resource : CreatePlanResource) : IActionResult
-            + GetAllPlans() : IActionResult
-            + GetPlanById(id : int) : IActionResult
-        }
-
-        class SubPaymentsController <<controller>> {
-            - _paymentCmdSvc : ISubPaymentCommandService
-            - _paymentQrySvc : ISubPaymentQueryService
-            + ProcessSubscriptionPayment(resource : ProcessPaymentResource) : IActionResult
-            + GetAllPayments() : IActionResult
-            + GetPaymentById(id : int) : IActionResult
-        }
-
-        class BillingController <<controller>> {
-            - _billingCmdSvc : IBillingCommandService
-            - _billingQrySvc : IBillingQueryService
-            + GetBillingBySubscriptionId(subscriptionId : int) : IActionResult
-            + CheckSubscriptionRenewal(subscriptionId : int) : IActionResult
-        }
-    }
-
-    class SubscriptionAssemblers <<static>> {
-        + {static} ToResourceFromEntity(entity : Subscription) : SubscriptionResource
-        + {static} ToResourceFromEntity(entity : Plan) : PlanResource
-        + {static} ToResourceFromEntity(entity : SubPayment) : SubPaymentResource
-        + {static} ToResourceFromEntity(entity : Billing) : BillingResource
-    }
-
-    SubscriptionsController --> ISubscriptionCommandService
-    SubscriptionsController --> ISubscriptionQueryService
-    PlansController --> IPlanCommandService
-    PlansController --> IPlanQueryService
-    SubPaymentsController --> ISubPaymentCommandService
-    SubPaymentsController --> ISubPaymentQueryService
-    BillingController --> IBillingCommandService
-    BillingController --> IBillingQueryService
-    SubscriptionsController ..> SubscriptionAssemblers
-    PlansController ..> SubscriptionAssemblers
-    SubPaymentsController ..> SubscriptionAssemblers
-    BillingController ..> SubscriptionAssemblers
+class Subscription <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +AdminId: int
+  +PlanId: PlanId
+  +Tier: SubscriptionTier
+  +Amount: decimal
+  +PaymentMethod: string
+  +Status: SubscriptionStatus
+  +StartDate: DateTimeOffset?
+  +EndDate: DateTimeOffset?
 }
 
-interface IEvent
-interface IEventHandler
-interface IUnitOfWork
+class BillingId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+class PaymentId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+enum PaymentStatus <<Value Object>> {
+  Pending
+  Processed
+  Failed
+}
+
+class PlanId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+class SubscriptionId <<Value Object>> #EAF2FF {
+  +Value: int
+}
+
+enum SubscriptionStatus <<Value Object>> {
+  PendingPayment
+  Active
+  Cancelled
+  Expired
+}
+
+enum SubscriptionTier <<Value Object>> {
+  Basic
+  Professional
+  Enterprise
+}
+
+' Relationships
+Billing "1" *-- "1" SubscriptionId : SubscriptionId
+Payment "1" *-- "1" PaymentStatus : Status
+Payment "1" *-- "1" SubscriptionId : SubscriptionId
+Plan "1" *-- "1" PlanId : PlanId
+Plan "1" *-- "1" SubscriptionTier : Tier
+Subscription "1" *-- "1" PlanId : PlanId
+Subscription "1" *-- "1" SubscriptionStatus : Status
+Subscription "1" *-- "1" SubscriptionTier : Tier
+
+note as ExternalRefs
+  **Referencias a otros bounded contexts** (no incluidas como clases en este diagrama):
+  * AdminId (Subscription) -> IAM.User
+  * AccountId (Guid) en todas las clases -> IAM.Account (alcance multi-tenant)
+end note
 
 @enduml

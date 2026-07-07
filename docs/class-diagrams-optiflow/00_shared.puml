@@ -1,121 +1,33 @@
-@startuml 00_shared
-title OptiFlow Platform — Shared Kernel
+@startuml
+' Auto-generated from source code (Domain/Model) — Shared bounded context
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontStyle bold
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+}
+title Shared — Domain Model
 
-skinparam packageStyle rectangle
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor #888888
-skinparam arrowColor #555555
-skinparam stereotypeCBackgroundColor #E0E0FF
-skinparam stereotypeABackgroundColor #FFE0E0
-
-' ─────────────────────────────────────────
-' SHARED DOMAIN
-' ─────────────────────────────────────────
-package "Shared.Domain" #E8F4F8 {
-
-    interface IAuditableEntity {
-        + CreatedAt : DateTimeOffset?
-        + UpdatedAt : DateTimeOffset?
-    }
-
-    interface IEvent {
-        ' Marker interface — extends INotification (Cortex.Mediator)
-    }
-
-    interface "IBaseRepository<TEntity>" as IBaseRepository {
-        + AddAsync(entity : TEntity) : Task<TEntity>
-        + FindByIdAsync(id : int) : Task<TEntity?>
-        + Update(entity : TEntity) : void
-        + Remove(entity : TEntity) : void
-        + ListAsync() : Task<IEnumerable<TEntity>>
-    }
-
-    interface IUnitOfWork {
-        + CompleteAsync() : Task<int>
-    }
+class SystemNotification <<Entity>> {
+  +Id: int
+  +AccountId: Guid
+  +RecipientUserId: int
+  +Category: string
+  +Message: string
+  +IsRead: bool
+  +CreatedAt: DateTime
 }
 
-' ─────────────────────────────────────────
-' SHARED APPLICATION
-' ─────────────────────────────────────────
-package "Shared.Application" #E8F8E8 {
-
-    class "Result<TValue, TError>" as Result <<sealed>> {
-        + IsSuccess : bool
-        + IsFailure : bool
-        + Map<TNew>() : Result<TNew, TError>
-        + Fold(onSuccess, onFailure) : TResult
-        + Match(onSuccess, onFailure) : TResult
-    }
-
-    class "Success<TValue, TError>" as SuccessResult <<sealed record>> {
-        + Value : TValue
-    }
-
-    class "Failure<TValue, TError>" as FailureResult <<sealed record>> {
-        + Error : TError
-    }
-
-    interface "IEventHandler<TEvent>" as IEventHandler {
-        + Handle(event : TEvent, ct : CancellationToken) : Task
-    }
-
-    Result <|-- SuccessResult
-    Result <|-- FailureResult
+enum NotificationCategory <<Value Object>> {
+  SaleCompleted
 }
 
-' ─────────────────────────────────────────
-' SHARED INFRASTRUCTURE
-' ─────────────────────────────────────────
-package "Shared.Infrastructure" #FFF8E8 {
-
-    class AppDbContext {
-        + SaveChangesAsync() : Task<int>
-    }
-
-    class "BaseRepository<TEntity>" as BaseRepository {
-        # Context : AppDbContext
-        + AddAsync(entity : TEntity) : Task<TEntity>
-        + FindByIdAsync(id : int) : Task<TEntity?>
-        + Update(entity : TEntity) : void
-        + Remove(entity : TEntity) : void
-        + ListAsync() : Task<IEnumerable<TEntity>>
-    }
-
-    class UnitOfWork {
-        - _context : AppDbContext
-        + CompleteAsync() : Task<int>
-    }
-
-    class AuditableEntityInterceptor {
-        + SavingChangesAsync() : ValueTask<InterceptionResult<int>>
-        ' Auto-sets CreatedAt / UpdatedAt
-    }
-
-    BaseRepository o-- AppDbContext
-    UnitOfWork o-- AppDbContext
-    AppDbContext ..> AuditableEntityInterceptor : uses
-}
-
-' ─────────────────────────────────────────
-' SHARED INTERFACES
-' ─────────────────────────────────────────
-package "Shared.Interfaces" #F8E8F8 {
-
-    class KebabCaseRouteNamingConvention {
-        + Apply(convention : ActionModel) : void
-    }
-
-    class StringExtensions <<static>> {
-        + {static} ToKebabCase(input : string) : string
-    }
-}
-
-' ─────────────────────────────────────────
-' CROSS-CUTTING RELATIONSHIPS
-' ─────────────────────────────────────────
-BaseRepository ..|> IBaseRepository
-UnitOfWork ..|> IUnitOfWork
-IEvent ..> IEventHandler : «handled by»
+note as ExternalRefs
+  **Referencias a otros bounded contexts** (no incluidas como clases en este diagrama):
+  * RecipientUserId (SystemNotification) -> IAM.User
+  * AccountId (Guid) en todas las clases -> IAM.Account (alcance multi-tenant)
+end note
 
 @enduml
