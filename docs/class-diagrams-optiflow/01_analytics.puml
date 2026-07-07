@@ -1,173 +1,47 @@
-@startuml 01_analytics
-title OptiFlow Platform — Analytics Bounded Context
+@startuml
+' Auto-generated from source code (Domain/Model) — Analytics bounded context
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontStyle bold
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+}
+title Analytics — Domain Model
 
-skinparam packageStyle rectangle
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor #888888
-skinparam arrowColor #555555
-
-' ─────────────────────────────────────────
-' DOMAIN LAYER
-' ─────────────────────────────────────────
-package "Analytics.Domain" #E8F4F8 {
-
-    package "Model.Aggregates" {
-        class AnalyticsReport <<aggregate root>> {
-            + Id : int
-            + GeneratedBy : string
-            + Period : string
-            + GeneratedAt : DateTime
-            + TotalRevenue : decimal
-            + TotalTransactions : int
-            + ConversionRate : decimal
-            + AverageDeliveryDays : decimal
-            + OnTimeDeliveryRate : decimal
-            + ReworkRate : decimal
-            + TotalOrders : int
-            + PendingBalance0To7 : decimal
-            + PendingBalance8To15 : decimal
-            + PendingBalance16To30 : decimal
-            + PendingBalanceOver30 : decimal
-        }
-    }
-
-    package "Model.Entities" {
-        class StaffMetric <<entity>> {
-            + Id : int
-            + ReportId : int
-            + EmployeeName : string
-            + QuotationsIssued : int
-            + SalesClosed : int
-            + TotalRevenue : decimal
-        }
-    }
-
-    package "Model.Queries" {
-        class GetAllAnalyticsReportsQuery <<query record>>
-        class GetAnalyticsReportByPeriodQuery <<query record>> {
-            + Period : string
-        }
-        class GetAllStaffMetricsQuery <<query record>>
-        class GetStaffMetricsByReportIdQuery <<query record>> {
-            + ReportId : int
-        }
-    }
-
-    package "Repositories" {
-        interface IAnalyticsReportRepository {
-        }
-        interface IStaffMetricRepository {
-        }
-    }
-
-    AnalyticsReport "1" *-- "0..*" StaffMetric : contains
+class AnalyticsReport <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +GeneratedBy: string
+  +Period: string
+  +GeneratedAt: DateTime
+  +TotalRevenue: decimal
+  +TotalTransactions: int
+  +ConversionRate: decimal
+  +AverageDeliveryDays: decimal
+  +OnTimeDeliveryRate: decimal
+  +ReworkRate: decimal
+  +TotalOrders: int
+  +PendingBalance0To7: decimal
+  +PendingBalance8To15: decimal
+  +PendingBalance16To30: decimal
+  +PendingBalanceOver30: decimal
 }
 
-' ─────────────────────────────────────────
-' APPLICATION LAYER
-' ─────────────────────────────────────────
-package "Analytics.Application" #E8F8E8 {
-
-    package "Internal.QueryServices" {
-        interface IAnalyticsReportQueryService {
-            + Handle(query : GetAllAnalyticsReportsQuery) : Task<IEnumerable<AnalyticsReport>>
-            + Handle(query : GetAnalyticsReportByPeriodQuery) : Task<AnalyticsReport?>
-        }
-
-        interface IStaffMetricQueryService {
-            + Handle(query : GetAllStaffMetricsQuery) : Task<IEnumerable<StaffMetric>>
-            + Handle(query : GetStaffMetricsByReportIdQuery) : Task<IEnumerable<StaffMetric>>
-        }
-
-        class AnalyticsReportQueryService <<internal>> {
-            - _reportRepo : IAnalyticsReportRepository
-        }
-
-        class StaffMetricQueryService <<internal>> {
-            - _metricRepo : IStaffMetricRepository
-        }
-    }
-
-    AnalyticsReportQueryService ..|> IAnalyticsReportQueryService
-    StaffMetricQueryService ..|> IStaffMetricQueryService
-    AnalyticsReportQueryService --> IAnalyticsReportRepository
-    StaffMetricQueryService --> IStaffMetricRepository
+class StaffMetric <<Entity>> {
+  +Id: int
+  +ReportId: int
+  +EmployeeName: string
+  +QuotationsIssued: int
+  +SalesClosed: int
+  +TotalRevenue: decimal
 }
 
-' ─────────────────────────────────────────
-' INFRASTRUCTURE LAYER
-' ─────────────────────────────────────────
-package "Analytics.Infrastructure" #FFF8E8 {
+' Relationships
+StaffMetric "0..*" --> "1" AnalyticsReport : ReportId
 
-    class AnalyticsReportRepository {
-        # Context : AppDbContext
-    }
-
-    class StaffMetricRepository {
-        # Context : AppDbContext
-    }
-
-    AnalyticsReportRepository ..|> IAnalyticsReportRepository
-    StaffMetricRepository ..|> IStaffMetricRepository
-}
-
-' ─────────────────────────────────────────
-' INTERFACES (API) LAYER
-' ─────────────────────────────────────────
-package "Analytics.Interfaces" #F8E8F8 {
-
-    package "REST.Resources" {
-        class AnalyticsResource <<response DTO>> {
-            + Id : int
-            + GeneratedBy : string
-            + Period : string
-            + GeneratedAt : DateTime
-            + TotalRevenue : decimal
-            + TotalTransactions : int
-            + ConversionRate : decimal
-            + AverageDeliveryDays : decimal
-            + OnTimeDeliveryRate : decimal
-            + ReworkRate : decimal
-            + TotalOrders : int
-            + PendingBalance0To7 : decimal
-            + PendingBalance8To15 : decimal
-            + PendingBalance16To30 : decimal
-            + PendingBalanceOver30 : decimal
-        }
-
-        class StaffMetricResource <<response DTO>> {
-            + Id : int
-            + ReportId : int
-            + EmployeeName : string
-            + QuotationsIssued : int
-            + SalesClosed : int
-            + TotalRevenue : decimal
-        }
-    }
-
-    package "REST.Controllers" {
-        class AnalyticsReportsController <<controller>> {
-            - _reportQueryService : IAnalyticsReportQueryService
-            + GetAllAnalyticsReports() : IActionResult
-            + GetAnalyticsReportById(id : int) : IActionResult
-        }
-
-        class StaffMetricsController <<controller>> {
-            - _metricQueryService : IStaffMetricQueryService
-            + GetAllStaffMetrics() : IActionResult
-            + GetStaffMetricById(id : int) : IActionResult
-        }
-    }
-
-    class AnalyticsAssemblers <<static>> {
-        + {static} ToResourceFromEntity(entity : AnalyticsReport) : AnalyticsResource
-        + {static} ToResourceFromEntity(entity : StaffMetric) : StaffMetricResource
-    }
-
-    AnalyticsReportsController --> IAnalyticsReportQueryService
-    StaffMetricsController --> IStaffMetricQueryService
-    AnalyticsReportsController ..> AnalyticsAssemblers
-    StaffMetricsController ..> AnalyticsAssemblers
-}
+note as ExternalRefs
+  AccountId (Guid) presente en todas las clases -> IAM.Account (alcance multi-tenant)
+end note
 
 @enduml

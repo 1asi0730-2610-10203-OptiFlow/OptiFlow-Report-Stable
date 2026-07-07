@@ -1,443 +1,83 @@
-@startuml 03_inventory
-title OptiFlow Platform — Inventory Bounded Context
+@startuml
+' Auto-generated from source code (Domain/Model) — Inventory bounded context
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam classFontStyle bold
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+}
+title Inventory (Inventario) — Domain Model
 
-skinparam packageStyle rectangle
-skinparam classBackgroundColor #FAFAFA
-skinparam classBorderColor #888888
-skinparam arrowColor #555555
-
-' ─────────────────────────────────────────
-' DOMAIN LAYER
-' ─────────────────────────────────────────
-package "Inventory.Domain" #E8F4F8 {
-
-    package "Model.ValueObjects" {
-        class StockOperation <<value object sealed record>> {
-            + Value : string
-            + {static} Restock : string
-            + {static} ManualAdjustment : string
-        }
-
-        class SupplierContact <<value object sealed>> {
-            + ContactPerson : string
-            + Phone : string
-            + Email : string
-            ' Validates: email format, non-null fields
-        }
-    }
-
-    package "Model.Aggregates" {
-        class Product <<aggregate root>> {
-            + Id : int
-            + CategoryId : int
-            + Category : string
-            + SupplierId : int
-            + SupplierName : string
-            + Sku : string
-            + Name : string
-            + Brand : string
-            + Model : string
-            + Price : decimal
-            + Stock : int
-            + MinimumStockThreshold : int
-            + LastRestockDate : string
-            + Product(cmd : RegisterProductCommand)
-            + UpdateDetails(cmd : UpdateProductCommand) : void
-            + UpdateStockLevel(cmd : UpdateStockLevelCommand) : void
-            + Restock(cmd : RestockProductCommand) : void
-            + AdjustStock(cmd : LogManualAdjustmentCommand) : void
-            + IsLowStock() : bool
-            + HasStock() : bool
-        }
-
-        class StockAuditLog <<aggregate root>> {
-            + Id : int
-            + ProductId : int
-            + ProductName : string
-            + Sku : string
-            + Operation : string
-            + PreviousStock : int
-            + Quantity : int
-            + NewStock : int
-            + Author : string
-            + Date : string
-            + Time : string
-        }
-
-        class Supplier <<aggregate root>> {
-            + Id : int
-            + Name : string
-            + Contact : SupplierContact
-            + Supplier(cmd : CreateSupplierCommand)
-        }
-    }
-
-    package "Model.Entities" {
-        class Category <<entity>> {
-            + Id : int
-            + Name : string
-        }
-    }
-
-    package "Model.Commands" {
-        class RegisterProductCommand <<command record>> {
-            + CategoryId : int
-            + Category : string
-            + SupplierId : int
-            + SupplierName : string
-            + Sku : string
-            + Name : string
-            + Brand : string
-            + Model : string
-            + Price : decimal
-            + Stock : int
-            + MinimumStockThreshold : int
-            + LastRestockDate : string
-        }
-
-        class UpdateProductCommand <<command record>> {
-            + ProductId : int
-            + Name : string
-            + Sku : string
-            + Category : string
-            + Price : decimal
-            + MinimumStockThreshold : int
-        }
-
-        class RestockProductCommand <<command record>> {
-            + ProductId : int
-            + Quantity : int
-            + Author : string
-        }
-
-        class UpdateStockLevelCommand <<command record>> {
-            + ProductId : int
-            + NewStock : int
-        }
-
-        class LogManualAdjustmentCommand <<command record>> {
-            + ProductId : int
-            + NewStock : int
-            + Justification : string
-            + Author : string
-        }
-
-        class VerifySupplyStockCommand <<command record>> {
-            + ProductId : int
-        }
-
-        class CreateSupplierCommand <<command record>> {
-            + Name : string
-            + ContactPerson : string
-            + Phone : string
-            + Email : string
-        }
-    }
-
-    package "Model.Queries" {
-        class GetAllProductsQuery <<query record>>
-        class GetProductByIdQuery <<query record>> {
-            + Id : int
-        }
-        class GetLowStockProductsQuery <<query record>>
-        class GetAllCategoriesQuery <<query record>>
-        class GetAllSuppliersQuery <<query record>>
-        class GetSupplierByIdQuery <<query record>> {
-            + Id : int
-        }
-        class GetAuditLogsQuery <<query record>>
-    }
-
-    package "Repositories" {
-        interface IProductRepository {
-            + ExistsBySkuAsync(sku : string) : Task<bool>
-            + ListLowStockAsync() : Task<IEnumerable<Product>>
-        }
-
-        interface IStockAuditLogRepository {
-        }
-
-        interface ICategoryRepository {
-        }
-
-        interface ISupplierRepository {
-            + FindByNameAsync(name : string) : Task<Supplier?>
-        }
-    }
-
-    Supplier *-- SupplierContact
-    Product ..> StockAuditLog : creates (side-effect)
+class Product <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +Category: EProductCategory
+  +SupplierId: int
+  +SupplierName: string
+  +Sku: string
+  +Name: string
+  +Brand: string
+  +Model: string
+  +Price: decimal
+  +Stock: int
+  +MinimumStockThreshold: int
+  +LastRestockDate: string
 }
 
-' ─────────────────────────────────────────
-' APPLICATION LAYER
-' ─────────────────────────────────────────
-package "Inventory.Application" #E8F8E8 {
-
-    package "Errors" {
-        enum RegisterProductError {
-            DuplicateSku
-            UnexpectedError
-        }
-        enum UpdateProductError {
-            ProductNotFound
-            UnexpectedError
-        }
-        enum RestockProductError {
-            ProductNotFound
-            InvalidQuantity
-            UnexpectedError
-        }
-        enum LogManualAdjustmentError {
-            ProductNotFound
-            JustificationRequired
-            UnexpectedError
-        }
-        enum VerifySupplyStockError {
-            ProductNotFound
-            OutOfStock
-        }
-        enum CreateSupplierError {
-            DuplicateName
-            UnexpectedError
-        }
-    }
-
-    package "Interfaces" {
-        interface IProductCommandService {
-            + Handle(cmd : RegisterProductCommand) : Task<Result<Product, RegisterProductError>>
-            + Handle(cmd : UpdateProductCommand) : Task<Result<Product, UpdateProductError>>
-            + Handle(cmd : UpdateStockLevelCommand) : Task<Result<Product, UpdateStockLevelError>>
-            + Handle(cmd : RestockProductCommand) : Task<Result<Product, RestockProductError>>
-            + Handle(cmd : LogManualAdjustmentCommand) : Task<Result<Product, LogManualAdjustmentError>>
-            + Handle(cmd : VerifySupplyStockCommand) : Task<Result<Product, VerifySupplyStockError>>
-        }
-
-        interface IProductQueryService {
-            + Handle(q : GetAllProductsQuery) : Task<IEnumerable<Product>>
-            + Handle(q : GetProductByIdQuery) : Task<Product?>
-            + Handle(q : GetLowStockProductsQuery) : Task<IEnumerable<Product>>
-        }
-
-        interface ICategoryQueryService {
-            + Handle(q : GetAllCategoriesQuery) : Task<IEnumerable<Category>>
-        }
-
-        interface ISupplierCommandService {
-            + Handle(cmd : CreateSupplierCommand) : Task<Result<Supplier, CreateSupplierError>>
-        }
-
-        interface ISupplierQueryService {
-            + Handle(q : GetSupplierByIdQuery) : Task<Supplier?>
-            + Handle(q : GetAllSuppliersQuery) : Task<IEnumerable<Supplier>>
-        }
-
-        interface IStockAuditLogQueryService {
-            + Handle(q : GetAuditLogsQuery) : Task<IEnumerable<StockAuditLog>>
-        }
-    }
-
-    package "Internal" {
-        class ProductCommandService <<internal>> {
-            - _productRepo : IProductRepository
-            - _auditLogRepo : IStockAuditLogRepository
-            - _unitOfWork : IUnitOfWork
-            - _logger : ILogger
-            ' Creates StockAuditLog on Restock/ManualAdjustment
-        }
-
-        class ProductQueryService <<internal>> {
-            - _productRepo : IProductRepository
-        }
-
-        class CategoryQueryService <<internal>> {
-            - _categoryRepo : ICategoryRepository
-        }
-
-        class SupplierCommandService <<internal>> {
-            - _supplierRepo : ISupplierRepository
-            - _unitOfWork : IUnitOfWork
-        }
-
-        class SupplierQueryService <<internal>> {
-            - _supplierRepo : ISupplierRepository
-        }
-
-        class StockAuditLogQueryService <<internal>> {
-            - _auditLogRepo : IStockAuditLogRepository
-        }
-    }
-
-    ProductCommandService ..|> IProductCommandService
-    ProductQueryService ..|> IProductQueryService
-    CategoryQueryService ..|> ICategoryQueryService
-    SupplierCommandService ..|> ISupplierCommandService
-    SupplierQueryService ..|> ISupplierQueryService
-    StockAuditLogQueryService ..|> IStockAuditLogQueryService
-
-    ProductCommandService --> IProductRepository
-    ProductCommandService --> IStockAuditLogRepository
-    ProductCommandService --> IUnitOfWork
-    SupplierCommandService --> ISupplierRepository
-    ProductQueryService --> IProductRepository
-    CategoryQueryService --> ICategoryRepository
-    SupplierQueryService --> ISupplierRepository
-    StockAuditLogQueryService --> IStockAuditLogRepository
+class StockAuditLog <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +ProductId: int
+  +ProductName: string
+  +Sku: string
+  +Operation: string
+  +PreviousStock: int
+  +Quantity: int
+  +NewStock: int
+  +Author: string
+  +Date: string
+  +Time: string
 }
 
-' ─────────────────────────────────────────
-' INFRASTRUCTURE LAYER
-' ─────────────────────────────────────────
-package "Inventory.Infrastructure" #FFF8E8 {
-
-    class ProductRepository {
-        + ExistsBySkuAsync(sku : string) : Task<bool>
-        + ListLowStockAsync() : Task<IEnumerable<Product>>
-    }
-
-    class StockAuditLogRepository {
-    }
-
-    class CategoryRepository {
-    }
-
-    class SupplierRepository {
-        + FindByNameAsync(name : string) : Task<Supplier?>
-    }
-
-    ProductRepository ..|> IProductRepository
-    StockAuditLogRepository ..|> IStockAuditLogRepository
-    CategoryRepository ..|> ICategoryRepository
-    SupplierRepository ..|> ISupplierRepository
+class Supplier <<Aggregate Root>> #FFE8E8 {
+  +Id: int
+  +AccountId: Guid
+  +Name: string
+  +Contact: SupplierContact
 }
 
-' ─────────────────────────────────────────
-' INTERFACES (API) LAYER
-' ─────────────────────────────────────────
-package "Inventory.Interfaces" #F8E8F8 {
-
-    package "REST.Resources" {
-        class ProductResource <<response DTO>> {
-            + Id : int
-            + CategoryId : int
-            + Category : string
-            + SupplierId : int
-            + SupplierName : string
-            + Sku : string
-            + Name : string
-            + Brand : string
-            + Model : string
-            + Price : decimal
-            + Stock : int
-            + MinimumStockThreshold : int
-            + LastRestockDate : string
-        }
-
-        class RegisterProductResource <<request DTO>> {
-            + CategoryId : int
-            + Category : string
-            + SupplierId : int
-            + SupplierName : string
-            + Sku : string
-            + Name : string
-            + Brand : string
-            + Model : string
-            + Price : decimal
-            + Stock : int
-            + MinimumStockThreshold : int
-            + LastRestockDate : string
-        }
-
-        class RestockProductResource <<request DTO>> {
-            + Quantity : int
-            + Author : string
-        }
-
-        class LogManualAdjustmentResource <<request DTO>> {
-            + NewStock : int
-            + Justification : string
-            + Author : string
-        }
-
-        class CategoryResource <<response DTO>> {
-            + Id : int
-            + Name : string
-        }
-
-        class SupplierResource <<response DTO>> {
-            + Id : int
-            + Name : string
-            + ContactPerson : string
-            + Phone : string
-            + Email : string
-        }
-
-        class CreateSupplierResource <<request DTO>> {
-            + Name : string
-            + ContactPerson : string
-            + Phone : string
-            + Email : string
-        }
-
-        class StockAuditLogResource <<response DTO>> {
-            + Id : int
-            + ProductId : int
-            + ProductName : string
-            + Sku : string
-            + Operation : string
-            + PreviousStock : int
-            + Quantity : int
-            + NewStock : int
-            + Author : string
-            + Date : string
-            + Time : string
-        }
-    }
-
-    package "REST.Controllers" {
-        class ProductsController <<controller>> {
-            - _productCmdSvc : IProductCommandService
-            - _productQrySvc : IProductQueryService
-            + RegisterProduct(resource : RegisterProductResource) : IActionResult
-            + GetAllProducts() : IActionResult
-            + GetProductById(id : int) : IActionResult
-            + GetLowStockProducts() : IActionResult
-            + VerifyProductSupplyStock(id : int) : IActionResult
-            + UpdateProduct(id : int, resource : UpdateProductResource) : IActionResult
-            + UpdateProductStockLevel(id : int, resource : UpdateStockLevelResource) : IActionResult
-            + RestockProduct(id : int, resource : RestockProductResource) : IActionResult
-            + LogManualAdjustment(id : int, resource : LogManualAdjustmentResource) : IActionResult
-        }
-
-        class CategoriesController <<controller>> {
-            - _categoryQrySvc : ICategoryQueryService
-            + GetAllCategories() : IActionResult
-            + GetCategoryById(id : int) : IActionResult
-        }
-
-        class SuppliersController <<controller>> {
-            - _supplierCmdSvc : ISupplierCommandService
-            - _supplierQrySvc : ISupplierQueryService
-            + CreateSupplier(resource : CreateSupplierResource) : IActionResult
-            + GetAllSuppliers() : IActionResult
-            + GetSupplierById(id : int) : IActionResult
-        }
-
-        class StockAuditLogsController <<controller>> {
-            - _auditLogQrySvc : IStockAuditLogQueryService
-            + GetAuditLogs() : IActionResult
-            + GetAuditLogById(id : int) : IActionResult
-        }
-    }
-
-    ProductsController --> IProductCommandService
-    ProductsController --> IProductQueryService
-    CategoriesController --> ICategoryQueryService
-    SuppliersController --> ISupplierCommandService
-    SuppliersController --> ISupplierQueryService
-    StockAuditLogsController --> IStockAuditLogQueryService
+enum EProductCategory {
+  Lenses
+  Frames
+  Accessories
+  ContactLenses
+  Sunglasses
+  Equipment
 }
 
-interface IUnitOfWork
+enum StockOperation <<Value Object>> {
+  Restock
+  ManualAdjustment
+  Sale
+  Consumption
+}
+
+class SupplierContact <<Value Object>> #EAF2FF {
+  +ContactPerson: string
+  +Phone: string
+  +Email: string
+}
+
+' Relationships
+Product "0..*" --> "1" Supplier : SupplierId
+Product "1" *-- "1" EProductCategory : Category
+StockAuditLog "0..*" --> "1" Product : ProductId
+Supplier "1" *-- "1" SupplierContact : Contact
+
+note as ExternalRefs
+  AccountId (Guid) presente en todas las clases -> IAM.Account (alcance multi-tenant)
+end note
 
 @enduml
