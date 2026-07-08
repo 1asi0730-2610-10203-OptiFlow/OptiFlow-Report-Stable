@@ -221,7 +221,6 @@ El Fake API se basa en **json-server** con un archivo `db.json` que expone todos
 #### Sprint Planning 1
 En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la primera iteración del proyecto. El enfoque principal de este Sprint abarca la elaboración de los artefactos fundacionales de Lean UX, especificación de requerimientos, diseño de base de datos, modelado DDD, diseño de interfaces en Figma y el despliegue inicial del Landing Page.
 
-#### Sprint Planning 1
 | Aspect | Details |
 | :--- | :--- |
 | **Sprint #** | Sprint 1 |
