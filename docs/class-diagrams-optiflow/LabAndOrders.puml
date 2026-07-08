@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: LabAndOrders
-@startuml LabAndOrdersClassDiagram
+' Detailed Class Diagram for Bounded Context: LabAndOrders
+@startuml LabAndOrdersDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -10,22 +10,22 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 package "optiflow_platform.LabAndOrders.Application.Errors" {
-    enum CreateLaboratoryError <<enum>> {
+    enum "CreateLaboratoryError" as CreateLaboratoryError <<enum>> {
         DuplicateName
         InvalidContactInfo
         UnexpectedError
     }
 
-    enum CreateWorkOrderError <<enum>> {
+    enum "CreateWorkOrderError" as CreateWorkOrderError <<enum>> {
         UnexpectedError
     }
 
-    enum LinkSaleError <<enum>> {
+    enum "LinkSaleError" as LinkSaleError <<enum>> {
         WorkOrderNotFound
         UnexpectedError
     }
 
-    enum UpdateOrderStatusError <<enum>> {
+    enum "UpdateOrderStatusError" as UpdateOrderStatusError <<enum>> {
         WorkOrderNotFound
         InvalidStatus
         UnexpectedError
@@ -33,240 +33,397 @@ package "optiflow_platform.LabAndOrders.Application.Errors" {
 
 }
 
-package "optiflow_platform.LabAndOrders.Application.Internal.CommandServices" {
-    class LaboratoryCommandService  {
-    }
-
-    class WorkOrderCommandService  {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Application.Internal.QueryServices" {
-    class LaboratoryQueryService  {
-    }
-
-    class WorkOrderQueryService  {
-    }
-
-}
-
 package "optiflow_platform.LabAndOrders.Application.Services" {
-    interface ILaboratoryCommandService <<interface>> {
+    interface "ILaboratoryCommandService" as ILaboratoryCommandService <<interface>> {
+        - Handle(CreateLaboratoryCommand command, CancellationToken cancellationToken): Task<Result<Laboratory, CreateLaboratoryError>>
     }
 
-    interface ILaboratoryQueryService <<interface>> {
+    interface "ILaboratoryQueryService" as ILaboratoryQueryService <<interface>> {
+        - Handle(GetAllLaboratoriesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Laboratory>>
+        - Handle(GetLaboratoryByIdQuery query, CancellationToken cancellationToken): Task<Laboratory?>
     }
 
-    interface IWorkOrderCommandService <<interface>> {
+    interface "IWorkOrderCommandService" as IWorkOrderCommandService <<interface>> {
+        - Handle(CreateWorkOrderCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, CreateWorkOrderError>>
+        - Handle(UpdateOrderStatusCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, UpdateOrderStatusError>>
+        - Handle(LinkSaleCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, LinkSaleError>>
     }
 
-    interface IWorkOrderQueryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Domain.Model.Aggregates" {
-    class Laboratory  {
-        + Id: int
-        + AccountId: Guid
-        + Name: string
-        + ContactInfo: ContactInfo
-    }
-
-    class WorkOrder  {
-        + Id: int
-        + AccountId: Guid
-        + SaleId: int
-        + RecipeId: int
-        + LaboratoryId: LaboratoryId
-        + Status: string
-        + Priority: string
-        + PatientName: string
-        + LaboratoryName: string
-        + LensType: string
-        + LensProductId: int?
-        + Frame: string
-        + FrameProductId: int?
-        + Prescription: string
-        + DeliveryDate: string
-        + Deposit: decimal
-        + Total: decimal
-        + IsRework: bool
-        --
-        + UpdateStatus(command): void
-        + LinkSale(saleId): void
-        - IsBackwardTransition(from, to): bool
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Domain.Model.Commands" {
-    class CreateLaboratoryCommand <<record>> {
-    }
-
-    class CreateWorkOrderCommand <<record>> {
-    }
-
-    class LinkSaleCommand <<record>> {
-    }
-
-    class UpdateOrderStatusCommand <<record>> {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Domain.Model.Events" {
-    class WorkOrderCreatedEvent <<record>> {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Domain.Model.Queries" {
-    class GetAllLaboratoriesQuery <<record>> {
-    }
-
-    class GetAllWorkOrdersQuery <<record>> {
-    }
-
-    class GetLaboratoryByIdQuery <<record>> {
-    }
-
-    class GetWorkOrderByIdQuery <<record>> {
-    }
-
-    class GetWorkOrderBySaleIdQuery <<record>> {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Domain.Model.ValueObjects" {
-    class ContactInfo  {
-        + Phone: string
-        + Email: string
-    }
-
-    class LaboratoryId <<record>> {
-    }
-
-    class OrderPriority <<record>> {
-        -   ValidValues: HashSet<string>
-        + Value: string
-        --
-        + ToString(): string
-    }
-
-    class OrderStatus <<record>> {
-        -   ValidValues: HashSet<string>
-        + Value: string
-        --
-        + ToString(): string
+    interface "IWorkOrderQueryService" as IWorkOrderQueryService <<interface>> {
+        - Handle(GetAllWorkOrdersQuery query, CancellationToken cancellationToken): Task<IEnumerable<WorkOrder>>
+        - Handle(GetWorkOrderByIdQuery query, CancellationToken cancellationToken): Task<WorkOrder?>
+        - Handle(GetWorkOrderBySaleIdQuery query, CancellationToken cancellationToken): Task<WorkOrder?>
     }
 
 }
 
 package "optiflow_platform.LabAndOrders.Domain.Repositories" {
-    interface ILaboratoryRepository <<interface>> {
+    interface "ILaboratoryRepository" as ILaboratoryRepository <<interface>> {
+        - FindByNameAsync(string name, CancellationToken cancellationToken): Task<Laboratory?>
     }
 
-    interface IWorkOrderRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplyLabAndOrdersConfiguration(builder, dbContext): void
-    }
-
-}
-
-package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Repositories" {
-    class LaboratoryRepository  {
-        + FindByNameAsync(name, default): Task<Laboratory?>
-    }
-
-    class WorkOrderRepository  {
-        + FindBySaleIdAsync(saleId, default): Task<WorkOrder?>
+    interface "IWorkOrderRepository" as IWorkOrderRepository <<interface>> {
+        - FindByStatusAsync(string status, CancellationToken cancellationToken): Task<IEnumerable<WorkOrder>>
+        - FindBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<WorkOrder?>
     }
 
 }
 
 package "optiflow_platform.LabAndOrders.Interfaces.REST" {
-    class LaboratoriesController  {
-        + GetAllLaboratories(default): Task<ActionResult>
-        + GetLaboratoryById(id, default): Task<ActionResult>
+    class "LaboratoriesController" as LaboratoriesController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + RegisterLaboratory(CreateLaboratoryResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + GetAllLaboratories(CancellationToken cancellationToken): Task<ActionResult>
+        + GetLaboratoryById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + LaboratoriesController(ILaboratoryCommandService laboratoryCommandService, ILaboratoryQueryService laboratoryQueryService, ILogger<LaboratoriesController> logger)
     }
 
-    class WorkOrdersController  {
-        + GetAllWorkOrders(default): Task<ActionResult>
-        + GetWorkOrderById(id, default): Task<ActionResult>
+    class "WorkOrdersController" as WorkOrdersController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + CreateWorkOrder(CreateWorkOrderResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + GetAllWorkOrders(CancellationToken cancellationToken): Task<ActionResult>
+        + GetWorkOrderById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + UpdateWorkOrderStatus(int id, UpdateWorkOrderStatusResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + LinkSale(int id, LinkSaleResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + WorkOrdersController(IWorkOrderCommandService workOrderCommandService, IWorkOrderQueryService workOrderQueryService, ILogger<WorkOrdersController> logger)
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Application.Internal.CommandServices" {
+    class "LaboratoryCommandService" as LaboratoryCommandService  {
+        + Handle(CreateLaboratoryCommand command, CancellationToken cancellationToken): Task<Result<Laboratory, CreateLaboratoryError>>
+        + LaboratoryCommandService(ILaboratoryRepository laboratoryRepository, IUnitOfWork unitOfWork, ICurrentUserContext currentUserContext, ILogger<LaboratoryCommandService> logger)
+    }
+
+    class "WorkOrderCommandService" as WorkOrderCommandService  {
+        + Handle(CreateWorkOrderCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, CreateWorkOrderError>>
+        + Handle(UpdateOrderStatusCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, UpdateOrderStatusError>>
+        + Handle(LinkSaleCommand command, CancellationToken cancellationToken): Task<Result<WorkOrder, LinkSaleError>>
+        + WorkOrderCommandService(IWorkOrderRepository workOrderRepository, IUnitOfWork unitOfWork, IMediator domainEventPublisher, ICurrentUserContext currentUserContext, ILogger<WorkOrderCommandService> logger)
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Application.Internal.QueryServices" {
+    class "LaboratoryQueryService" as LaboratoryQueryService  {
+        + Handle(GetAllLaboratoriesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Laboratory>>
+        + Handle(GetLaboratoryByIdQuery query, CancellationToken cancellationToken): Task<Laboratory?>
+        + LaboratoryQueryService(ILaboratoryRepository laboratoryRepository)
+    }
+
+    class "WorkOrderQueryService" as WorkOrderQueryService  {
+        + Handle(GetAllWorkOrdersQuery query, CancellationToken cancellationToken): Task<IEnumerable<WorkOrder>>
+        + Handle(GetWorkOrderByIdQuery query, CancellationToken cancellationToken): Task<WorkOrder?>
+        + Handle(GetWorkOrderBySaleIdQuery query, CancellationToken cancellationToken): Task<WorkOrder?>
+        + WorkOrderQueryService(IWorkOrderRepository workOrderRepository)
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Aggregates" {
+    class "Laboratory" as Laboratory  {
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} Name: string
+        + {method} ContactInfo: ContactInfo
+        --
+        # Laboratory()
+        + Laboratory(CreateLaboratoryCommand command, Guid accountId)
+    }
+
+    class "WorkOrder" as WorkOrder  {
+        - {field} StatusFlow: string[]
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} SaleId: int
+        + {method} RecipeId: int
+        + {method} LaboratoryId: LaboratoryId
+        + {method} Status: string
+        + {method} Priority: string
+        + {method} PatientName: string
+        + {method} LaboratoryName: string
+        + {method} LensType: string
+        + {method} LensProductId: int?
+        + {method} Frame: string
+        + {method} FrameProductId: int?
+        + {method} Prescription: string
+        + {method} DeliveryDate: string
+        + {method} Deposit: decimal
+        + {method} Total: decimal
+        + {method} IsRework: bool
+        --
+        + UpdateStatus(UpdateOrderStatusCommand command): void
+        + LinkSale(int saleId): void
+        - IsBackwardTransition(string from, string to): bool
+        # WorkOrder()
+        + WorkOrder(CreateWorkOrderCommand command, Guid accountId)
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Commands" {
+    class "CreateLaboratoryCommand" as CreateLaboratoryCommand <<record>> {
+        + {method} Name: string
+        + {method} Phone: string
+        + {method} Email: string
+    }
+
+    class "CreateWorkOrderCommand" as CreateWorkOrderCommand <<record>> {
+        + {method} SaleId: int
+        + {method} RecipeId: int
+        + {method} LabId: int
+        + {method} PatientName: string
+        + {method} LaboratoryName: string
+        + {method} LensType: string
+        + {method} LensProductId: int?
+        + {method} Frame: string
+        + {method} FrameProductId: int?
+        + {method} Prescription: string
+        + {method} Priority: string
+        + {method} DeliveryDate: string
+        + {method} Deposit: decimal
+        + {method} Total: decimal
+    }
+
+    class "LinkSaleCommand" as LinkSaleCommand <<record>> {
+        + {method} WorkOrderId: int
+        + {method} SaleId: int
+    }
+
+    class "UpdateOrderStatusCommand" as UpdateOrderStatusCommand <<record>> {
+        + {method} WorkOrderId: int
+        + {method} Status: string
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Events" {
+    class "WorkOrderCreatedEvent" as WorkOrderCreatedEvent <<record>> {
+        + {method} WorkOrderId: int
+        + {method} LensProductId: int?
+        + {method} FrameProductId: int?
+        + {method} PatientName: string
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Queries" {
+    class "GetAllLaboratoriesQuery" as GetAllLaboratoriesQuery <<record>> {
+    }
+
+    class "GetAllWorkOrdersQuery" as GetAllWorkOrdersQuery <<record>> {
+    }
+
+    class "GetLaboratoryByIdQuery" as GetLaboratoryByIdQuery <<record>> {
+        + {method} Id: int
+    }
+
+    class "GetWorkOrderByIdQuery" as GetWorkOrderByIdQuery <<record>> {
+        + {method} Id: int
+    }
+
+    class "GetWorkOrderBySaleIdQuery" as GetWorkOrderBySaleIdQuery <<record>> {
+        + {method} SaleId: int
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.ValueObjects" {
+    class "ContactInfo" as ContactInfo  {
+        + {method} Phone: string
+        + {method} Email: string
+        --
+        - ContactInfo()
+        + ContactInfo(string phone, string email)
+    }
+
+    class "LaboratoryId" as LaboratoryId <<record>> {
+        + {method} Value: int
+    }
+
+    class "OrderPriority" as OrderPriority <<record>> {
+        + {field} Normal: string
+        + {field} High: string
+        + {field} Urgent: string
+        - {field} ValidValues: HashSet<string>
+        + {method} Value: string
+        --
+        + ToString(): string
+        + OrderPriority(string value)
+    }
+
+    class "OrderStatus" as OrderStatus <<record>> {
+        + {field} Pending: string
+        + {field} InProduction: string
+        + {field} QualityControl: string
+        + {field} Ready: string
+        + {field} Delivered: string
+        - {field} ValidValues: HashSet<string>
+        + {method} Value: string
+        --
+        + ToString(): string
+        + OrderStatus(string value)
     }
 
 }
 
 package "optiflow_platform.LabAndOrders.Interfaces.REST.Resources" {
-    class CreateLaboratoryResource <<record>> {
+    class "CreateLaboratoryResource" as CreateLaboratoryResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Name: string
+        + {method} Phone: string
+        + {method} Email: string
     }
 
-    class CreateWorkOrderResource <<record>> {
+    class "CreateWorkOrderResource" as CreateWorkOrderResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} SaleId: int
+        + {method} RecipeId: int
+        + {method} LabId: int
+        + {method} PatientName: string
+        + {method} LaboratoryName: string
+        + {method} LensType: string
+        + {method} LensProductId: int?
+        + {method} Frame: string
+        + {method} FrameProductId: int?
+        + {method} Prescription: string
+        + {method} Priority: string
+        + {method} DeliveryDate: string
+        + {method} Deposit: decimal
+        + {method} Total: decimal
     }
 
-    class LaboratoryResource <<record>> {
+    class "LaboratoryResource" as LaboratoryResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} Name: string
+        + {method} Phone: string
+        + {method} Email: string
     }
 
-    class LinkSaleResource <<record>> {
+    class "LinkSaleResource" as LinkSaleResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} SaleId: int
     }
 
-    class UpdateWorkOrderStatusResource <<record>> {
+    class "UpdateWorkOrderStatusResource" as UpdateWorkOrderStatusResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Status: string
     }
 
-    class WorkOrderResource <<record>> {
+    class "WorkOrderResource" as WorkOrderResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} SaleId: int
+        + {method} RecipeId: int
+        + {method} LaboratoryId: int
+        + {method} Status: string
+        + {method} Priority: string
+        + {method} PatientName: string
+        + {method} LaboratoryName: string
+        + {method} LensType: string
+        + {method} LensProductId: int?
+        + {method} Frame: string
+        + {method} FrameProductId: int?
+        + {method} Prescription: string
+        + {method} DeliveryDate: string
+        + {method} Deposit: decimal
+        + {method} Total: decimal
+        + {method} IsRework: bool
     }
 
 }
 
 package "optiflow_platform.LabAndOrders.Interfaces.REST.Transform" {
-    class CreateLaboratoryCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): CreateLaboratoryCommand
+    class "CreateLaboratoryCommandFromResourceAssembler" as CreateLaboratoryCommandFromResourceAssembler  {
+        + ToCommandFromResource(CreateLaboratoryResource resource): CreateLaboratoryCommand
     }
 
-    class CreateWorkOrderCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): CreateWorkOrderCommand
+    class "CreateWorkOrderCommandFromResourceAssembler" as CreateWorkOrderCommandFromResourceAssembler  {
+        + ToCommandFromResource(CreateWorkOrderResource resource): CreateWorkOrderCommand
     }
 
-    class LaboratoryResourceFromEntityAssembler  {
-        + ToResourceFromEntity(laboratory): LaboratoryResource
+    class "LaboratoryResourceFromEntityAssembler" as LaboratoryResourceFromEntityAssembler  {
+        + ToResourceFromEntity(Laboratory laboratory): LaboratoryResource
     }
 
-    class LinkSaleCommandFromResourceAssembler  {
-        + ToCommandFromResource(workOrderId, resource): LinkSaleCommand
+    class "LinkSaleCommandFromResourceAssembler" as LinkSaleCommandFromResourceAssembler  {
+        + ToCommandFromResource(int workOrderId, LinkSaleResource resource): LinkSaleCommand
     }
 
-    class UpdateOrderStatusCommandFromResourceAssembler  {
-        + ToCommandFromResource(workOrderId, resource): UpdateOrderStatusCommand
+    class "UpdateOrderStatusCommandFromResourceAssembler" as UpdateOrderStatusCommandFromResourceAssembler  {
+        + ToCommandFromResource(int workOrderId, UpdateWorkOrderStatusResource resource): UpdateOrderStatusCommand
     }
 
-    class WorkOrderResourceFromEntityAssembler  {
-        + ToResourceFromEntity(workOrder): WorkOrderResource
+    class "WorkOrderResourceFromEntityAssembler" as WorkOrderResourceFromEntityAssembler  {
+        + ToResourceFromEntity(WorkOrder workOrder): WorkOrderResource
     }
 
 }
 
-' Relationships
+package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Repositories" {
+    class "LaboratoryRepository" as LaboratoryRepository  {
+        + FindByNameAsync(string name, CancellationToken cancellationToken): Task<Laboratory?>
+        + LaboratoryRepository(AppDbContext context)
+    }
+
+    class "WorkOrderRepository" as WorkOrderRepository  {
+        + FindByStatusAsync(string status, CancellationToken cancellationToken): Task<IEnumerable<WorkOrder>>
+        + FindBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<WorkOrder?>
+        + WorkOrderRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplyLabAndOrdersConfiguration(ModelBuilder builder, AppDbContext dbContext): void
+    }
+
+}
+
+LaboratoriesController --> ILaboratoryCommandService : uses
+LaboratoriesController --> ILaboratoryQueryService : uses
+WorkOrdersController --> IWorkOrderCommandService : uses
+WorkOrdersController --> IWorkOrderQueryService : uses
 LaboratoryCommandService ..|> ILaboratoryCommandService
-LaboratoryCommandService --> ILaboratoryRepository : "uses"
+LaboratoryCommandService --> ILaboratoryRepository : uses
 WorkOrderCommandService ..|> IWorkOrderCommandService
-WorkOrderCommandService --> IWorkOrderRepository : "uses"
+WorkOrderCommandService --> IWorkOrderRepository : uses
 LaboratoryQueryService ..|> ILaboratoryQueryService
-LaboratoryQueryService --> ILaboratoryRepository : "uses"
+LaboratoryQueryService --> ILaboratoryRepository : uses
 WorkOrderQueryService ..|> IWorkOrderQueryService
-WorkOrderQueryService --> IWorkOrderRepository : "uses"
+WorkOrderQueryService --> IWorkOrderRepository : uses
+Laboratory --> ContactInfo : uses
+Laboratory --> CreateLaboratoryCommand : uses
+WorkOrder --> LaboratoryId : uses
+WorkOrder --> CreateWorkOrderCommand : uses
 LaboratoryRepository ..|> ILaboratoryRepository
 WorkOrderRepository ..|> IWorkOrderRepository
-LaboratoriesController --> ILaboratoryCommandService : "uses"
-LaboratoriesController --> ILaboratoryQueryService : "uses"
-WorkOrdersController --> IWorkOrderCommandService : "uses"
-WorkOrdersController --> IWorkOrderQueryService : "uses"
 
 @enduml

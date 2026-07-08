@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: Sales
-@startuml SalesClassDiagram
+' Detailed Class Diagram for Bounded Context: Sales
+@startuml SalesDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -10,442 +10,662 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 package "optiflow_platform.Sales.Application.Errors" {
-    enum ApplyPromotionalDiscountError <<enum>> {
+    enum "ApplyPromotionalDiscountError" as ApplyPromotionalDiscountError <<enum>> {
         SaleNotFound
         UnexpectedError
     }
 
-    enum CancelSaleError <<enum>> {
+    enum "CancelSaleError" as CancelSaleError <<enum>> {
         SaleNotFound
         SaleInProductionStatus
         UnexpectedError
     }
 
-    enum CompleteSaleError <<enum>> {
+    enum "CompleteSaleError" as CompleteSaleError <<enum>> {
         SaleNotFound
         UnexpectedError
     }
 
-    enum CreateSaleError <<enum>> {
+    enum "CreateSaleError" as CreateSaleError <<enum>> {
         UnexpectedError
         DuplicateInvoiceNumber
     }
 
-    enum GenerateSaleQuotaError <<enum>> {
+    enum "GenerateSaleQuotaError" as GenerateSaleQuotaError <<enum>> {
         SaleNotFound
         QuotaBelowMinimum
         UnexpectedError
     }
 
-    enum PayOutstandingBalanceError <<enum>> {
+    enum "PayOutstandingBalanceError" as PayOutstandingBalanceError <<enum>> {
         SaleNotFound
         LabOrderNotReady
         UnexpectedError
     }
 
-    enum RequestSaleCancellationError <<enum>> {
+    enum "RequestSaleCancellationError" as RequestSaleCancellationError <<enum>> {
         SaleNotFound
         UnexpectedError
     }
 
 }
 
-package "optiflow_platform.Sales.Application.Internal.CommandServices" {
-    class PaymentCommandService  {
-        -   CompletableLabOrderStatuses: string[]
-    }
-
-    class SaleCommandService  {
-    }
-
-}
-
-package "optiflow_platform.Sales.Application.Internal.EventHandlers" {
-    class DiscountAppliedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent): Task
-    }
-
-    class OutstandingBalancePayedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent, cancellationToken): Task
-    }
-
-    class SaleCancellationRequestedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent, cancellationToken): Task
-    }
-
-    class SaleCancelledEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent, cancellationToken): Task
-    }
-
-    class SaleCompletedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent, cancellationToken): Task
-    }
-
-    class SaleCreatedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent): Task
-    }
-
-    class SaleQuotaGeneratedEventHandler  {
-        + Handle(domainEvent, cancellationToken): Task
-        - On(domainEvent): Task
-    }
-
-}
-
-package "optiflow_platform.Sales.Application.Internal.QueryServices" {
-    class PaymentQueryService  {
-        + Handle(query, default): Task<Payment?>
-    }
-
-    class SaleQueryService  {
-        + Handle(query, default): Task<Sale?>
-    }
-
-}
-
 package "optiflow_platform.Sales.Application.Services" {
-    interface IPaymentCommandService <<interface>> {
+    interface "IPaymentCommandService" as IPaymentCommandService <<interface>> {
+        - Handle(PayOutstandingBalanceCommand command, CancellationToken cancellationToken): Task<Result<Payment, PayOutstandingBalanceError>>
     }
 
-    interface IPaymentQueryService <<interface>> {
+    interface "IPaymentQueryService" as IPaymentQueryService <<interface>> {
+        - Handle(GetAllPaymentsQuery query, CancellationToken cancellationToken): Task<IEnumerable<Payment>>
+        - Handle(GetPaymentByIdQuery query, CancellationToken cancellationToken): Task<Payment?>
+        - Handle(GetPaymentBySaleIdQuery query, CancellationToken cancellationToken): Task<Payment?>
     }
 
-    interface ISaleCommandService <<interface>> {
+    interface "ISaleCommandService" as ISaleCommandService <<interface>> {
+        - Handle(CreateSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CreateSaleError>>
+        - Handle(GenerateSaleQuotaCommand command, CancellationToken cancellationToken): Task<Result<Sale, GenerateSaleQuotaError>>
+        - Handle(RequestSaleCancellationCommand command, CancellationToken cancellationToken): Task<Result<Sale, RequestSaleCancellationError>>
+        - Handle(CancelSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CancelSaleError>>
+        - Handle(ApplyPromotionalDiscountCommand command, CancellationToken cancellationToken): Task<Result<Sale, ApplyPromotionalDiscountError>>
+        - Handle(CompleteSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CompleteSaleError>>
     }
 
-    interface ISaleQueryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.Aggregates" {
-    class Payment  {
-        + Id: PaymentId
-        + AccountId: Guid
-        + SaleId: int
-        + TotalAmount: decimal
-        + PaidAmount: decimal
-        + OutstandingBalance: decimal
-        + Status: string
-        + Method: string
-        + PaidAt: string
-        --
-        + PayBalance(amount, method): bool
-    }
-
-    class Sale  {
-        + Id: SaleId
-        + AccountId: Guid
-        + InvoiceNumber: InvoiceNumber
-        + LabOrderNumber: string
-        + PatientId: int
-        + PatientName: string
-        + UserId: int
-        + UserName: string
-        + TotalAmount: decimal
-        + Advance: decimal
-        + PendingBalance: decimal
-        + DiscountCode: string
-        + DiscountAmount: decimal
-        + PaymentMethod: string
-        + Status: string
-        + CreatedAt: string
-        + DeliveredAt: string
-        + Notes: string
-        --
-        + GenerateQuota(command): void
-        + RequestCancellation(command): void
-        + Cancel(command): void
-        + ApplyDiscount(command): void
-        + Complete(): void
-        + RecordPayment(remaining): void
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.Commands" {
-    class ApplyPromotionalDiscountCommand <<record>> {
-    }
-
-    class CancelSaleCommand <<record>> {
-    }
-
-    class CompleteSaleCommand <<record>> {
-    }
-
-    class CreateSaleCommand <<record>> {
-    }
-
-    class CreateSaleItemCommand <<record>> {
-    }
-
-    class GenerateSaleQuotaCommand <<record>> {
-    }
-
-    class PayOutstandingBalanceCommand <<record>> {
-    }
-
-    class RequestSaleCancellationCommand <<record>> {
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.Entities" {
-    class SaleItem  {
-        + Id: int
-        + AccountId: Guid
-        + SaleId: int
-        + ProductId: int
-        + Quantity: int
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.Events" {
-    class DiscountAppliedEvent <<record>> {
-    }
-
-    class OutstandingBalancePayedEvent <<record>> {
-    }
-
-    class SaleCancellationRequestedEvent <<record>> {
-    }
-
-    class SaleCancelledEvent <<record>> {
-    }
-
-    class SaleCompletedEvent <<record>> {
-    }
-
-    class SaleCompletedItem <<record>> {
-    }
-
-    class SaleCreatedEvent <<record>> {
-    }
-
-    class SaleQuotaGeneratedEvent <<record>> {
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.Queries" {
-    class GetAllPaymentsQuery <<record>> {
-    }
-
-    class GetAllSalesQuery <<record>> {
-    }
-
-    class GetPaymentByIdQuery <<record>> {
-    }
-
-    class GetPaymentBySaleIdQuery <<record>> {
-    }
-
-    class GetSaleByIdQuery <<record>> {
-    }
-
-}
-
-package "optiflow_platform.Sales.Domain.Model.ValueObjects" {
-    class InvoiceNumber <<record>> {
-        + Value: string
-        --
-        + ToString(): string
-    }
-
-    class PaymentId <<record>> {
-        + Value: int
-        --
-        + ToString(): string
-    }
-
-    class PaymentStatus <<record>> {
-        -   ValidValues: HashSet<string>
-        + Value: string
-        --
-        + ToString(): string
-    }
-
-    class SaleId <<record>> {
-        + Value: int
-        --
-        + ToString(): string
-    }
-
-    class SaleStatus <<record>> {
-        + Value: string
-        --
-        + ToString(): string
+    interface "ISaleQueryService" as ISaleQueryService <<interface>> {
+        - Handle(GetAllSalesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Sale>>
+        - Handle(GetSaleByIdQuery query, CancellationToken cancellationToken): Task<Sale?>
     }
 
 }
 
 package "optiflow_platform.Sales.Domain.Repositories" {
-    interface IPaymentRepository <<interface>> {
+    interface "IPaymentRepository" as IPaymentRepository <<interface>> {
+        - FindBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<Payment?>
     }
 
-    interface ISaleItemRepository <<interface>> {
+    interface "ISaleItemRepository" as ISaleItemRepository <<interface>> {
+        - ListBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<IEnumerable<SaleItem>>
     }
 
-    interface ISaleRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Sales.Infrastructure.Persistence.EFC.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplySalesConfiguration(builder, dbContext): void
-    }
-
-}
-
-package "optiflow_platform.Sales.Infrastructure.Persistence.EFC.Repositories" {
-    class PaymentRepository  {
-        + FindByIdAsync(id, default): Task<Payment?>
-        + FindBySaleIdAsync(saleId, default): Task<Payment?>
-    }
-
-    class SaleItemRepository  {
-        + ListBySaleIdAsync(saleId, default): Task<IEnumerable<SaleItem>>
-    }
-
-    class SaleRepository  {
-        + FindByIdAsync(id, default): Task<Sale?>
-        + ExistsByInvoiceNumberAsync(invoiceNumber, default): Task<bool>
+    interface "ISaleRepository" as ISaleRepository <<interface>> {
+        - ExistsByInvoiceNumberAsync(InvoiceNumber invoiceNumber, CancellationToken cancellationToken): Task<bool>
     }
 
 }
 
 package "optiflow_platform.Sales.Interfaces.Acl" {
-    interface ILabAndOrdersContextFacade <<interface>> {
+    interface "ILabAndOrdersContextFacade" as ILabAndOrdersContextFacade <<interface>> {
+        - FetchWorkOrderStatusBySaleId(int saleId, CancellationToken cancellationToken): Task<string?>
     }
 
-    class LabAndOrdersContextFacade  {
+    class "LabAndOrdersContextFacade" as LabAndOrdersContextFacade  {
+        + FetchWorkOrderStatusBySaleId(int saleId, CancellationToken cancellationToken): Task<string?>
+        + LabAndOrdersContextFacade(IWorkOrderQueryService workOrderQueryService)
     }
 
 }
 
 package "optiflow_platform.Sales.Interfaces.REST" {
-    class PaymentsController  {
-        + GetAllPayments(default): Task<ActionResult>
-        + GetPaymentById(id, default): Task<ActionResult>
-        + GetPaymentBySaleId(saleId, default): Task<ActionResult>
+    class "PaymentsController" as PaymentsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + GetAllPayments(CancellationToken cancellationToken): Task<ActionResult>
+        + GetPaymentById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + GetPaymentBySaleId(int saleId, CancellationToken cancellationToken): Task<ActionResult>
+        + PayOutstandingBalance(int saleId, PayOutstandingBalanceResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + PaymentsController(IPaymentCommandService paymentCommandService, IPaymentQueryService paymentQueryService, ILogger<PaymentsController> logger)
     }
 
-    class SalesController  {
-        - BuildResourceAsync(sale, cancellationToken): Task<SaleResource>
-        + GetAllSales(default): Task<ActionResult>
-        + GetSaleById(id, default): Task<ActionResult>
-        + RequestSaleCancellation(id, cancellationToken): Task<ActionResult>
+    class "SalesController" as SalesController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        - BuildResourceAsync(Sale sale, CancellationToken cancellationToken): Task<SaleResource>
+        + CreateSale(CreateSaleResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + GetAllSales(CancellationToken cancellationToken): Task<ActionResult>
+        + GetSaleById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + GenerateSaleQuota(int id, GenerateSaleQuotaResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + RequestSaleCancellation(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + CancelSale(int id, CancelSaleResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + ApplyPromotionalDiscount(int id, ApplyPromotionalDiscountResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + SalesController(ISaleCommandService saleCommandService, ISaleQueryService saleQueryService, ISaleItemRepository saleItemRepository, ILogger<SalesController> logger)
+    }
+
+}
+
+package "optiflow_platform.Sales.Application.Internal.CommandServices" {
+    class "PaymentCommandService" as PaymentCommandService  {
+        - {field} CompletableLabOrderStatuses: string[]
+        --
+        + Handle(PayOutstandingBalanceCommand command, CancellationToken cancellationToken): Task<Result<Payment, PayOutstandingBalanceError>>
+        + PaymentCommandService(IPaymentRepository paymentRepository, ISaleRepository saleRepository, ILabAndOrdersContextFacade labAndOrdersContextFacade, IUnitOfWork unitOfWork, IMediator domainEventPublisher, ILogger<PaymentCommandService> logger)
+    }
+
+    class "SaleCommandService" as SaleCommandService  {
+        + Handle(CreateSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CreateSaleError>>
+        + Handle(GenerateSaleQuotaCommand command, CancellationToken cancellationToken): Task<Result<Sale, GenerateSaleQuotaError>>
+        + Handle(RequestSaleCancellationCommand command, CancellationToken cancellationToken): Task<Result<Sale, RequestSaleCancellationError>>
+        + Handle(CancelSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CancelSaleError>>
+        + Handle(ApplyPromotionalDiscountCommand command, CancellationToken cancellationToken): Task<Result<Sale, ApplyPromotionalDiscountError>>
+        + Handle(CompleteSaleCommand command, CancellationToken cancellationToken): Task<Result<Sale, CompleteSaleError>>
+        + SaleCommandService(ISaleRepository saleRepository, ISaleItemRepository saleItemRepository, IUnitOfWork unitOfWork, IMediator domainEventPublisher, ICurrentUserContext currentUserContext, ILogger<SaleCommandService> logger)
+    }
+
+}
+
+package "optiflow_platform.Sales.Application.Internal.EventHandlers" {
+    class "DiscountAppliedEventHandler" as DiscountAppliedEventHandler  {
+        + Handle(DiscountAppliedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(DiscountAppliedEvent domainEvent): Task
+    }
+
+    class "OutstandingBalancePayedEventHandler" as OutstandingBalancePayedEventHandler  {
+        + Handle(OutstandingBalancePayedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(OutstandingBalancePayedEvent domainEvent, CancellationToken cancellationToken): Task
+        + OutstandingBalancePayedEventHandler(ISaleCommandService saleCommandService)
+    }
+
+    class "SaleCancellationRequestedEventHandler" as SaleCancellationRequestedEventHandler  {
+        + Handle(SaleCancellationRequestedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(SaleCancellationRequestedEvent domainEvent, CancellationToken cancellationToken): Task
+        + SaleCancellationRequestedEventHandler(ILabAndOrdersContextFacade labAndOrdersContextFacade, ISaleCommandService saleCommandService)
+    }
+
+    class "SaleCancelledEventHandler" as SaleCancelledEventHandler  {
+        + Handle(SaleCancelledEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(SaleCancelledEvent domainEvent, CancellationToken cancellationToken): Task
+    }
+
+    class "SaleCompletedEventHandler" as SaleCompletedEventHandler  {
+        + Handle(SaleCompletedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(SaleCompletedEvent domainEvent, CancellationToken cancellationToken): Task
+        + SaleCompletedEventHandler(IServiceScopeFactory scopeFactory, ILogger<SaleCompletedEventHandler> logger)
+    }
+
+    class "SaleCreatedEventHandler" as SaleCreatedEventHandler  {
+        + Handle(SaleCreatedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(SaleCreatedEvent domainEvent): Task
+    }
+
+    class "SaleQuotaGeneratedEventHandler" as SaleQuotaGeneratedEventHandler  {
+        + Handle(SaleQuotaGeneratedEvent domainEvent, CancellationToken cancellationToken): Task
+        - On(SaleQuotaGeneratedEvent domainEvent): Task
+    }
+
+}
+
+package "optiflow_platform.Sales.Application.Internal.QueryServices" {
+    class "PaymentQueryService" as PaymentQueryService  {
+        + Handle(GetAllPaymentsQuery query, CancellationToken cancellationToken): Task<IEnumerable<Payment>>
+        + Handle(GetPaymentByIdQuery query, CancellationToken cancellationToken): Task<Payment?>
+        + Handle(GetPaymentBySaleIdQuery query, CancellationToken cancellationToken): Task<Payment?>
+        + PaymentQueryService(IPaymentRepository paymentRepository)
+    }
+
+    class "SaleQueryService" as SaleQueryService  {
+        + Handle(GetAllSalesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Sale>>
+        + Handle(GetSaleByIdQuery query, CancellationToken cancellationToken): Task<Sale?>
+        + SaleQueryService(ISaleRepository saleRepository)
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.Aggregates" {
+    class "Payment" as Payment  {
+        + {method} Id: PaymentId
+        + {method} AccountId: Guid
+        + {method} SaleId: int
+        + {method} TotalAmount: decimal
+        + {method} PaidAmount: decimal
+        + {method} OutstandingBalance: decimal
+        + {method} Status: string
+        + {method} Method: string
+        + {method} PaidAt: string
+        --
+        + PayBalance(decimal amount, string method): bool
+        # Payment()
+        + Payment(int saleId, decimal totalAmount, Guid accountId)
+    }
+
+    class "Sale" as Sale  {
+        - {field} MinimumQuotaPercentage: decimal
+        + {method} Id: SaleId
+        + {method} AccountId: Guid
+        + {method} InvoiceNumber: InvoiceNumber
+        + {method} LabOrderNumber: string
+        + {method} PatientId: int
+        + {method} PatientName: string
+        + {method} UserId: int
+        + {method} UserName: string
+        + {method} TotalAmount: decimal
+        + {method} Advance: decimal
+        + {method} PendingBalance: decimal
+        + {method} DiscountCode: string
+        + {method} DiscountAmount: decimal
+        + {method} PaymentMethod: string
+        + {method} Status: string
+        + {method} CreatedAt: string
+        + {method} DeliveredAt: string
+        + {method} Notes: string
+        --
+        + GenerateQuota(GenerateSaleQuotaCommand command): void
+        + RequestCancellation(RequestSaleCancellationCommand command): void
+        + Cancel(CancelSaleCommand command): void
+        + ApplyDiscount(ApplyPromotionalDiscountCommand command): void
+        + Complete(): void
+        + RecordPayment(decimal remaining): void
+        # Sale()
+        + Sale(CreateSaleCommand command, Guid accountId)
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.Commands" {
+    class "ApplyPromotionalDiscountCommand" as ApplyPromotionalDiscountCommand <<record>> {
+        + {method} SaleId: SaleId
+        + {method} DiscountCode: string
+        + {method} DiscountAmount: decimal
+    }
+
+    class "CancelSaleCommand" as CancelSaleCommand <<record>> {
+        + {method} SaleId: SaleId
+        + {method} LabOrderStatus: string
+    }
+
+    class "CompleteSaleCommand" as CompleteSaleCommand <<record>> {
+        + {method} SaleId: SaleId
+    }
+
+    class "CreateSaleCommand" as CreateSaleCommand <<record>> {
+        + {method} InvoiceNumber: InvoiceNumber
+        + {method} LabOrderNumber: string?
+        + {method} PatientId: int
+        + {method} PatientName: string
+        + {method} UserId: int
+        + {method} UserName: string
+        + {method} TotalAmount: decimal
+        + {method} Advance: decimal
+        + {method} DiscountCode: string?
+        + {method} DiscountAmount: decimal
+        + {method} PaymentMethod: string
+        + {method} CreatedAt: string
+        + {method} DeliveredAt: string?
+        + {method} Notes: string?
+        + {method} Items: IReadOnlyList<CreateSaleItemCommand>
+    }
+
+    class "CreateSaleItemCommand" as CreateSaleItemCommand <<record>> {
+        + {method} ProductId: int
+        + {method} Quantity: int
+    }
+
+    class "GenerateSaleQuotaCommand" as GenerateSaleQuotaCommand <<record>> {
+        + {method} SaleId: SaleId
+        + {method} Advance: decimal
+    }
+
+    class "PayOutstandingBalanceCommand" as PayOutstandingBalanceCommand <<record>> {
+        + {method} SaleId: SaleId
+        + {method} AmountPaid: decimal
+        + {method} Method: string
+    }
+
+    class "RequestSaleCancellationCommand" as RequestSaleCancellationCommand <<record>> {
+        + {method} SaleId: SaleId
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.Entities" {
+    class "SaleItem" as SaleItem  {
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} SaleId: int
+        + {method} ProductId: int
+        + {method} Quantity: int
+        --
+        # SaleItem()
+        + SaleItem(int saleId, int productId, int quantity, Guid accountId)
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.Events" {
+    class "DiscountAppliedEvent" as DiscountAppliedEvent <<record>> {
+        + {method} SaleId: SaleId
+        + {method} DiscountCode: string
+        + {method} DiscountAmount: decimal
+        + {method} NewTotalAmount: decimal
+    }
+
+    class "OutstandingBalancePayedEvent" as OutstandingBalancePayedEvent <<record>> {
+        + {method} SaleId: SaleId
+        + {method} PaymentId: PaymentId
+        + {method} PaidAmount: decimal
+        + {method} OutstandingBalance: decimal
+    }
+
+    class "SaleCancellationRequestedEvent" as SaleCancellationRequestedEvent <<record>> {
+        + {method} SaleId: SaleId
+    }
+
+    class "SaleCancelledEvent" as SaleCancelledEvent <<record>> {
+        + {method} SaleId: SaleId
+    }
+
+    class "SaleCompletedEvent" as SaleCompletedEvent <<record>> {
+        + {method} SaleId: SaleId
+        + {method} UserName: string
+        + {method} Items: IReadOnlyList<SaleCompletedItem>
+        + {method} AccountId: Guid
+    }
+
+    class "SaleCompletedItem" as SaleCompletedItem <<record>> {
+        + {method} ProductId: int
+        + {method} Quantity: int
+    }
+
+    class "SaleCreatedEvent" as SaleCreatedEvent <<record>> {
+        + {method} SaleId: SaleId
+        + {method} PatientName: string
+        + {method} TotalAmount: decimal
+    }
+
+    class "SaleQuotaGeneratedEvent" as SaleQuotaGeneratedEvent <<record>> {
+        + {method} SaleId: SaleId
+        + {method} Advance: decimal
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.Queries" {
+    class "GetAllPaymentsQuery" as GetAllPaymentsQuery <<record>> {
+    }
+
+    class "GetAllSalesQuery" as GetAllSalesQuery <<record>> {
+    }
+
+    class "GetPaymentByIdQuery" as GetPaymentByIdQuery <<record>> {
+        + {method} Id: PaymentId
+    }
+
+    class "GetPaymentBySaleIdQuery" as GetPaymentBySaleIdQuery <<record>> {
+        + {method} SaleId: int
+    }
+
+    class "GetSaleByIdQuery" as GetSaleByIdQuery <<record>> {
+        + {method} Id: SaleId
+    }
+
+}
+
+package "optiflow_platform.Sales.Domain.Model.ValueObjects" {
+    class "InvoiceNumber" as InvoiceNumber <<record>> {
+        + {method} Value: string
+        --
+        + ToString(): string
+        + InvoiceNumber(string value)
+    }
+
+    class "PaymentId" as PaymentId <<record>> {
+        + {method} Value: int
+        --
+        + ToString(): string
+        + PaymentId(int value)
+    }
+
+    class "PaymentStatus" as PaymentStatus <<record>> {
+        + {field} Pending: string
+        + {field} Advanced: string
+        + {field} Completed: string
+        - {field} ValidValues: HashSet<string>
+        + {method} Value: string
+        --
+        + ToString(): string
+        + PaymentStatus(string value)
+    }
+
+    class "SaleId" as SaleId <<record>> {
+        + {method} Value: int
+        --
+        + ToString(): string
+        + SaleId(int value)
+    }
+
+    class "SaleStatus" as SaleStatus <<record>> {
+        + {field} Active: string
+        + {field} Partial: string
+        + {field} Paid: string
+        + {field} Returned: string
+        + {field} Cancelled: string
+        + {field} CancellationRequested: string
+        - {field} ValidValues: HashSet<string>
+        + {method} Value: string
+        --
+        + ToString(): string
+        + SaleStatus(string value)
     }
 
 }
 
 package "optiflow_platform.Sales.Interfaces.REST.Resources" {
-    class ApplyPromotionalDiscountResource <<record>> {
+    class "ApplyPromotionalDiscountResource" as ApplyPromotionalDiscountResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} DiscountCode: string
+        + {method} DiscountAmount: decimal
     }
 
-    class CancelSaleResource <<record>> {
+    class "CancelSaleResource" as CancelSaleResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} LabOrderStatus: string
     }
 
-    class CreateSaleResource <<record>> {
+    class "CreateSaleResource" as CreateSaleResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} InvoiceNumber: string
+        + {method} LabOrderNumber: string?
+        + {method} PatientId: int
+        + {method} PatientName: string
+        + {method} UserId: int
+        + {method} UserName: string
+        + {method} TotalAmount: decimal
+        + {method} Advance: decimal
+        + {method} DiscountCode: string?
+        + {method} DiscountAmount: decimal
+        + {method} PaymentMethod: string
+        + {method} CreatedAt: string
+        + {method} DeliveredAt: string?
+        + {method} Notes: string?
+        + {method} Items: IReadOnlyList<CreateSaleItemResource>
     }
 
-    class CreateSaleItemResource <<record>> {
+    class "CreateSaleItemResource" as CreateSaleItemResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} ProductId: int
+        + {method} Quantity: int
     }
 
-    class GenerateSaleQuotaResource <<record>> {
+    class "GenerateSaleQuotaResource" as GenerateSaleQuotaResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Advance: decimal
     }
 
-    class PaymentResource <<record>> {
+    class "PaymentResource" as PaymentResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} SaleId: int
+        + {method} AmountPaid: decimal
+        + {method} Method: string
+        + {method} PaidAt: string
     }
 
-    class PayOutstandingBalanceResource <<record>> {
+    class "PayOutstandingBalanceResource" as PayOutstandingBalanceResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} AmountPaid: decimal
+        + {method} Method: string
     }
 
-    class SaleItemResource <<record>> {
+    class "SaleItemResource" as SaleItemResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} ProductId: int
+        + {method} Quantity: int
     }
 
-    class SaleResource <<record>> {
+    class "SaleResource" as SaleResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} InvoiceNumber: string
+        + {method} LabOrderNumber: string
+        + {method} PatientId: int
+        + {method} PatientName: string
+        + {method} UserId: int
+        + {method} UserName: string
+        + {method} TotalAmount: decimal
+        + {method} Advance: decimal
+        + {method} PendingBalance: decimal
+        + {method} DiscountCode: string
+        + {method} DiscountAmount: decimal
+        + {method} Status: string
+        + {method} PaymentMethod: string
+        + {method} CreatedAt: string
+        + {method} DeliveredAt: string
+        + {method} Notes: string
+        + {method} Items: IEnumerable<SaleItemResource>
     }
 
 }
 
 package "optiflow_platform.Sales.Interfaces.REST.Transform" {
-    class ApplyPromotionalDiscountCommandFromResourceAssembler  {
+    class "ApplyPromotionalDiscountCommandFromResourceAssembler" as ApplyPromotionalDiscountCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaleId saleId, ApplyPromotionalDiscountResource resource): ApplyPromotionalDiscountCommand
     }
 
-    class CancelSaleCommandFromResourceAssembler  {
-        + ToCommandFromResource(saleId, resource): CancelSaleCommand
+    class "CancelSaleCommandFromResourceAssembler" as CancelSaleCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaleId saleId, CancelSaleResource resource): CancelSaleCommand
     }
 
-    class CreateSaleCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): CreateSaleCommand
+    class "CreateSaleCommandFromResourceAssembler" as CreateSaleCommandFromResourceAssembler  {
+        + ToCommandFromResource(CreateSaleResource resource): CreateSaleCommand
     }
 
-    class GenerateSaleQuotaCommandFromResourceAssembler  {
-        + ToCommandFromResource(saleId, resource): GenerateSaleQuotaCommand
+    class "GenerateSaleQuotaCommandFromResourceAssembler" as GenerateSaleQuotaCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaleId saleId, GenerateSaleQuotaResource resource): GenerateSaleQuotaCommand
     }
 
-    class PaymentResourceFromEntityAssembler  {
-        + ToResourceFromEntity(payment): PaymentResource
+    class "PaymentResourceFromEntityAssembler" as PaymentResourceFromEntityAssembler  {
+        + ToResourceFromEntity(Payment payment): PaymentResource
     }
 
-    class PayOutstandingBalanceCommandFromResourceAssembler  {
+    class "PayOutstandingBalanceCommandFromResourceAssembler" as PayOutstandingBalanceCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaleId saleId, PayOutstandingBalanceResource resource): PayOutstandingBalanceCommand
     }
 
-    class SaleResourceFromEntityAssembler  {
-        + ToResourceFromEntity(sale, items): SaleResource
+    class "SaleResourceFromEntityAssembler" as SaleResourceFromEntityAssembler  {
+        + ToResourceFromEntity(Sale sale, IEnumerable<SaleItem> items): SaleResource
     }
 
 }
 
-' Relationships
+package "optiflow_platform.Sales.Infrastructure.Persistence.EFC.Repositories" {
+    class "PaymentRepository" as PaymentRepository  {
+        + FindByIdAsync(int id, CancellationToken cancellationToken): Task<Payment?>
+        + FindBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<Payment?>
+        + PaymentRepository(AppDbContext context)
+    }
+
+    class "SaleItemRepository" as SaleItemRepository  {
+        + ListBySaleIdAsync(int saleId, CancellationToken cancellationToken): Task<IEnumerable<SaleItem>>
+        + SaleItemRepository(AppDbContext context)
+    }
+
+    class "SaleRepository" as SaleRepository  {
+        + FindByIdAsync(int id, CancellationToken cancellationToken): Task<Sale?>
+        + ExistsByInvoiceNumberAsync(InvoiceNumber invoiceNumber, CancellationToken cancellationToken): Task<bool>
+        + SaleRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.Sales.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplySalesConfiguration(ModelBuilder builder, AppDbContext dbContext): void
+    }
+
+}
+
+LabAndOrdersContextFacade ..|> ILabAndOrdersContextFacade
+PaymentsController --> IPaymentCommandService : uses
+PaymentsController --> IPaymentQueryService : uses
+SalesController --> ISaleCommandService : uses
+SalesController --> ISaleQueryService : uses
+SalesController --> ISaleItemRepository : uses
 PaymentCommandService ..|> IPaymentCommandService
-PaymentCommandService --> IPaymentRepository : "uses"
-PaymentCommandService --> ISaleRepository : "uses"
-PaymentCommandService --> ILabAndOrdersContextFacade : "uses"
+PaymentCommandService --> IPaymentRepository : uses
+PaymentCommandService --> ISaleRepository : uses
+PaymentCommandService --> ILabAndOrdersContextFacade : uses
 SaleCommandService ..|> ISaleCommandService
-SaleCommandService --> ISaleRepository : "uses"
-SaleCommandService --> ISaleItemRepository : "uses"
-OutstandingBalancePayedEventHandler --> ISaleCommandService : "uses"
-SaleCancellationRequestedEventHandler --> ILabAndOrdersContextFacade : "uses"
-SaleCancellationRequestedEventHandler --> ISaleCommandService : "uses"
+SaleCommandService --> ISaleRepository : uses
+SaleCommandService --> ISaleItemRepository : uses
+OutstandingBalancePayedEventHandler --> ISaleCommandService : uses
+SaleCancellationRequestedEventHandler --> ILabAndOrdersContextFacade : uses
+SaleCancellationRequestedEventHandler --> ISaleCommandService : uses
 PaymentQueryService ..|> IPaymentQueryService
-PaymentQueryService --> IPaymentRepository : "uses"
+PaymentQueryService --> IPaymentRepository : uses
 SaleQueryService ..|> ISaleQueryService
-SaleQueryService --> ISaleRepository : "uses"
-ApplyPromotionalDiscountCommand --> SaleId : "uses"
-CancelSaleCommand --> SaleId : "uses"
-CompleteSaleCommand --> SaleId : "uses"
-CreateSaleCommand --> InvoiceNumber : "uses"
-GenerateSaleQuotaCommand --> SaleId : "uses"
-PayOutstandingBalanceCommand --> SaleId : "uses"
-RequestSaleCancellationCommand --> SaleId : "uses"
-DiscountAppliedEvent --> SaleId : "uses"
-OutstandingBalancePayedEvent --> SaleId : "uses"
-OutstandingBalancePayedEvent --> PaymentId : "uses"
-SaleCancellationRequestedEvent --> SaleId : "uses"
-SaleCancelledEvent --> SaleId : "uses"
-SaleCompletedEvent --> SaleId : "uses"
-SaleCreatedEvent --> SaleId : "uses"
-SaleQuotaGeneratedEvent --> SaleId : "uses"
-GetPaymentByIdQuery --> PaymentId : "uses"
-GetSaleByIdQuery --> SaleId : "uses"
+SaleQueryService --> ISaleRepository : uses
+Payment --> PaymentId : uses
+Sale --> SaleId : uses
+Sale --> InvoiceNumber : uses
+Sale --> CreateSaleCommand : uses
+ApplyPromotionalDiscountCommand --> SaleId : uses
+CancelSaleCommand --> SaleId : uses
+CompleteSaleCommand --> SaleId : uses
+CreateSaleCommand --> InvoiceNumber : uses
+CreateSaleCommand "1" --> "*" CreateSaleItemCommand : uses
+GenerateSaleQuotaCommand --> SaleId : uses
+PayOutstandingBalanceCommand --> SaleId : uses
+RequestSaleCancellationCommand --> SaleId : uses
+DiscountAppliedEvent --> SaleId : uses
+OutstandingBalancePayedEvent --> SaleId : uses
+OutstandingBalancePayedEvent --> PaymentId : uses
+SaleCancellationRequestedEvent --> SaleId : uses
+SaleCancelledEvent --> SaleId : uses
+SaleCompletedEvent --> SaleId : uses
+SaleCompletedEvent "1" --> "*" SaleCompletedItem : uses
+SaleCreatedEvent --> SaleId : uses
+SaleQuotaGeneratedEvent --> SaleId : uses
+GetPaymentByIdQuery --> PaymentId : uses
+GetSaleByIdQuery --> SaleId : uses
+CreateSaleResource "1" --> "*" CreateSaleItemResource : uses
+SaleResource "1" --> "*" SaleItemResource : uses
 PaymentRepository ..|> IPaymentRepository
 SaleItemRepository ..|> ISaleItemRepository
 SaleRepository ..|> ISaleRepository
-LabAndOrdersContextFacade ..|> ILabAndOrdersContextFacade
-PaymentsController --> IPaymentCommandService : "uses"
-PaymentsController --> IPaymentQueryService : "uses"
-SalesController --> ISaleCommandService : "uses"
-SalesController --> ISaleQueryService : "uses"
-SalesController --> ISaleItemRepository : "uses"
 
 @enduml
