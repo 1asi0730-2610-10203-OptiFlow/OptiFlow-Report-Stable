@@ -2451,7 +2451,23 @@ Durante el Sprint 4 se completó la transformación de OptiFlow en una plataform
 - **Checkout de suscripciones con Stripe:** la selección y pago de planes de suscripción se conectó con la pasarela de pago de Stripe.
 - **Cableado de datos reales:** el módulo de ventas expone ítems de venta itemizados, vincula la orden de laboratorio con la venta, y descuenta stock del inventario al completar una venta; el Dashboard muestra métricas reales (pacientes atendidos, órdenes de laboratorio) y los reportes analíticos se calculan en vivo sobre los datos de la cuenta.
 
-*(Insertar capturas de pantalla que evidencien: la vista de login/registro del portal con autenticación IAM activa, el flujo de suscripción con Stripe, el detalle itemizado de una venta y el perfil del paciente conectado al backend real)*
+**Evidencia de implementación (código fuente del repositorio `OptiFlow-Frontend`):**
+
+La siguiente tabla mapea cada logro ejecutable con los artefactos de código que lo implementan y el endpoint del backend que consumen, verificables en el repositorio del frontend:
+
+| Capacidad | Artefacto de código (frontend) | Endpoint consumido (backend) |
+|---|---|---|
+| Login con email y contraseña | `iam/presentation/views/login-view.vue` + `auth.store.js › signIn()` | `POST /api/v1/authentication/sign-in` |
+| Registro de administrador | `iam/presentation/views/register-view.vue` + `auth.store.js › signUp()` | `POST /api/v1/authentication/sign-up` |
+| Google Sign-In | `iam/presentation/components/GoogleSignInButton.vue` + `auth.store.js › googleSignIn()` | `POST /api/v1/authentication/sign-in/google` |
+| Recuperación / restablecimiento de contraseña | `forgot-password-view.vue`, `reset-password-view.vue` | `POST /api/v1/authentication/password-recoveries`, `/password-resets` |
+| Perfil (actualizar email / contraseña) | `iam/presentation/views/profile-view.vue` + `auth.store.js › updateEmail()`, `updatePassword()` | `PUT /api/v1/users/{id}/email`, `/password` |
+| Persistencia de sesión JWT y sincronización entre pestañas | `auth.store.js` (`localStorage` + listener del evento `storage`) | — |
+| Adjunto automático del token en cada request | `shared/infrastructure/base-api.js` (interceptor `Authorization: Bearer <token>`) | — |
+| Protección de rutas por estado de sesión y suscripción | `router.js › beforeEach` (guards) + interceptor de respuesta (401 → `/login`, 403 `SUBSCRIPTION_REQUIRED`/`ACCOUNT_SETUP_REQUIRED` → `/select-plan`) | `GET /api/v1/subscriptions/me` |
+| Checkout de suscripción con Stripe | `subscription/presentation/views/select-plan-view.vue`, `payment-success-view.vue` + `subscription-api.js › createCheckoutSession()` | `POST /api/v1/checkout`, `POST /api/v1/checkout/confirm` |
+
+*(Espacio reservado para las capturas de pantalla de la ejecución: vista de login/registro con IAM activo, flujo de suscripción con Stripe, detalle itemizado de una venta y perfil del paciente conectado al backend real.)*
 
 Link del video: *(Insertar enlace al video de ejecución del Sprint 4 en Microsoft Stream/SharePoint)*
 
