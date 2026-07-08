@@ -1845,7 +1845,9 @@ Si la suscripción ya se encuentra activa, el sistema responde `409 Conflict`; s
 
 **Capturas de la interacción con la documentación:**
 
-*(Insertar aquí las capturas de pantalla de la interfaz de Swagger UI en `https://optiflow.azurewebsites.net/swagger`, mostrando: (1) la lista completa de controladores agrupados por tag — Products, Sales, Payments, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics —, y (2) la ejecución de "Try it out" sobre el endpoint POST /products con datos de muestra y su respuesta 201 Created.)*
+La siguiente captura muestra la interfaz de Swagger UI generada por Swashbuckle en `https://optiflow.azurewebsites.net/swagger`, con la lista completa de controladores agrupados por tag (Products, Sales, Payments, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics) desde la cual es posible ejecutar cada operación mediante "Try it out".
+
+![swagger-ui-sprint3](../docs/swagger.png){width=100%}
 
 **Commits relacionados con Documentación para este Sprint:**
 
