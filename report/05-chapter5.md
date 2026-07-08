@@ -2517,7 +2517,9 @@ Si las credenciales son incorrectas, el sistema responde `401 Unauthorized`; si 
 
 **Capturas de la interacción con la documentación:**
 
-*(Insertar capturas de la interfaz de Swagger UI mostrando el nuevo grupo de controladores Authentication, Users, Accounts y SystemNotifications, así como la ejecución de "Try it out" sobre POST /api/v1/authentication/sign-in con su respuesta 200 OK y el uso del botón Authorize con el token JWT.)*
+La documentación interactiva sigue disponible en `https://optiflow.azurewebsites.net/swagger`. Con la incorporación de IAM se sumaron los grupos de controladores Authentication, Users, Accounts y SystemNotifications, y los endpoints protegidos requieren el token JWT a través del botón **Authorize** de Swagger UI.
+
+![swagger-ui-sprint4](../docs/swagger.png){width=100%}
 
 **Commits relacionados con Documentación de servicios para este Sprint:**
 
