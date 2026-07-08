@@ -798,13 +798,51 @@ Administrator Web Prototype Video: https://upcedupe-my.sharepoint.com/:v:/g/pers
 ![level.jpg](../assets/impactMap/level.jpg)
 
 ### Software Architecture Context Diagram
-![context.png](../assets/C4/context.png)
+
+#### Frontend - Context Diagram
+![Frontend - Context Diagram](../assets/C4/Frontend/SystemContext.png){width=100%}
+
+#### Backend - Context Diagram (Level 1)
+![Backend - Context Diagram](../assets/C4/backend/L1_SystemContext-dark.png){width=100%}
 
 ### Software Architecture Container Diagrams
-![container.png](../assets/C4/container.png)
+
+#### Frontend - Container Diagram
+![Frontend - Container Diagram](../assets/C4/Frontend/Containers.png){width=100%}
+
+#### Backend - Container Diagram (Level 2)
+![Backend - Container Diagram](../assets/C4/backend/L2_Containers-dark.png){width=100%}
 
 ### Software Architecture Components Diagrams
-![component.png](../assets/C4/component.png)
+
+#### Frontend - Components Diagram
+![Frontend - Components Diagram](../assets/C4/Frontend/Components.png){width=100%}
+
+#### Backend - Components Diagram (Level 3)
+![Backend - Components Diagram](../assets/C4/backend/L3_Components-dark.png){width=100%}
+
+#### Backend - Detailed Subsystem Diagrams (Level 4)
+
+##### IAM Subsystem
+![Backend - IAM Subsystem](../assets/C4/backend/L4_IAM-dark.png){width=100%}
+
+##### Clinical Subsystem
+![Backend - Clinical Subsystem](../assets/C4/backend/L4_Clinical-dark.png){width=100%}
+
+##### Sales Subsystem
+![Backend - Sales Subsystem](../assets/C4/backend/L4_Sales-dark.png){width=100%}
+
+##### Fulfillment Subsystem
+![Backend - Fulfillment Subsystem](../assets/C4/backend/L4_Fulfillment-dark.png){width=100%}
+
+##### Inventory Subsystem
+![Backend - Inventory Subsystem](../assets/C4/backend/L4_Inventory-dark.png){width=100%}
+
+##### Staff Subsystem
+![Backend - Staff Subsystem](../assets/C4/backend/L4_Staff-dark.png){width=100%}
+
+##### Subscription Subsystem
+![Backend - Subscription Subsystem](../assets/C4/backend/L4_Subscription-dark.png){width=100%}
 
 ## Software Object-Oriented Design
 
