@@ -2302,6 +2302,9 @@ Si bien es cierto el enunciado solicita la utilización de la herramienta de Tre
 #### Gestión colaborativa y seguimiento de incidencias mediante Trello
 ![trello-sprint-4](../assets/trello-4.png)
 
+**Enlace del tablero Trello:**
+https://trello.com/invite/b/69eba124179d41cdbf1d256e/ATTI3167beb4688f2da975bd23cdf51f144c3C1DA6E6/optiflow
+
 #### Development Evidence for Sprint Review
 
 Durante el Sprint 4 el equipo concentró el esfuerzo de desarrollo en cerrar el ciclo de vida del producto de cara al release final. El trabajo más significativo fue la implementación completa del bounded context de **Identity and Access Management (IAM)** en el backend —con autenticación por JWT, hashing de contraseñas con BCrypt, Google Sign-In y flujo de recuperación de contraseña— y su **integración real en el frontend** (vistas de login, registro, perfil y recuperación de contraseña, interceptor JWT, persistencia de sesión y navegación condicionada por autenticación). Sobre esta base se incorporó **multi-tenancy (account scoping)**: cada bounded context —Inventory, Sales, Lab & Orders, Clinical, Patient-center y Subscription— fue acotado a una cuenta (`account_id`) con sus respectivas migraciones de Entity Framework Core, garantizando el aislamiento de datos entre ópticas. Adicionalmente se integró **Stripe** para el checkout de suscripciones, se implementaron las **notificaciones de sistema vía REST**, y se consolidó el cableado de datos reales entre frontend y backend (ítems de venta, vínculo orden de laboratorio ↔ venta, depleción de stock al completar una venta y cómputo de reportes analíticos en vivo). La siguiente tabla detalla los commits relacionados con la implementación en los repositorios de código durante el Sprint.
