@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: Analytics
-@startuml AnalyticsClassDiagram
+' Detailed Class Diagram for Bounded Context: Analytics
+@startuml AnalyticsDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -9,162 +9,233 @@ skinparam class {
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-package "optiflow_platform.Analytics.Application.Internal.QueryServices" {
-    class AnalyticsReportQueryService  {
-        - BuildReportsAsync(cancellationToken): Task<IReadOnlyList<AnalyticsReport>>
-        + PeriodOf(createdAt): string?
-        + AgeInDays(createdAt): int
-    }
-
-    class StaffMetricQueryService  {
-    }
-
-}
-
 package "optiflow_platform.Analytics.Application.Services" {
-    interface IAnalyticsReportQueryService <<interface>> {
+    interface "IAnalyticsReportQueryService" as IAnalyticsReportQueryService <<interface>> {
+        - Handle(GetAllAnalyticsReportsQuery query, CancellationToken cancellationToken): Task<IEnumerable<AnalyticsReport>>
+        - Handle(GetAnalyticsReportByIdQuery query, CancellationToken cancellationToken): Task<AnalyticsReport?>
+        - Handle(GetAnalyticsReportsByPeriodQuery query, CancellationToken cancellationToken): Task<IEnumerable<AnalyticsReport>>
     }
 
-    interface IStaffMetricQueryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Analytics.Domain.Model.Aggregates" {
-    class AnalyticsReport  {
-        + Id: int
-        + GeneratedBy: string
-        + Period: string
-        + GeneratedAt: DateTime
-        + TotalRevenue: decimal
-        + TotalTransactions: int
-        + ConversionRate: decimal
-        + AverageDeliveryDays: decimal
-        + OnTimeDeliveryRate: decimal
-        + ReworkRate: decimal
-        + TotalOrders: int
-        + PendingBalance0To7: decimal
-        + PendingBalance8To15: decimal
-        + PendingBalance16To30: decimal
-        + PendingBalanceOver30: decimal
-    }
-
-}
-
-package "optiflow_platform.Analytics.Domain.Model.Entities" {
-    class StaffMetric  {
-        + Id: int
-        + ReportId: int
-        + EmployeeName: string
-        + QuotationsIssued: int
-        + SalesClosed: int
-        + TotalRevenue: decimal
-    }
-
-}
-
-package "optiflow_platform.Analytics.Domain.Model.Queries" {
-    class GetAllAnalyticsReportsQuery <<record>> {
-    }
-
-    class GetAnalyticsReportByIdQuery <<record>> {
-    }
-
-    class GetAnalyticsReportsByPeriodQuery <<record>> {
-    }
-
-    class GetAllStaffMetricsQuery <<record>> {
-    }
-
-    class GetStaffMetricsByReportIdQuery <<record>> {
+    interface "IStaffMetricQueryService" as IStaffMetricQueryService <<interface>> {
+        - Handle(GetAllStaffMetricsQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
+        - Handle(GetStaffMetricsByReportIdQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
     }
 
 }
 
 package "optiflow_platform.Analytics.Domain.Repositories" {
-    interface IStaffMetricRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplyAnalyticsConfiguration(builder): void
-    }
-
-}
-
-package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Repositories" {
-    class StaffMetricRepository  {
+    interface "IStaffMetricRepository" as IStaffMetricRepository <<interface>> {
+        - FindByReportIdAsync(int reportId, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
     }
 
 }
 
 package "optiflow_platform.Analytics.Interfaces.Acl" {
-    class WorkOrderSummary <<record>> {
+    class "WorkOrderSummary" as WorkOrderSummary <<record>> {
+        + {method} SaleId: int
+        + {method} IsRework: bool
     }
 
-    interface ILabOrdersContextFacade <<interface>> {
+    interface "ILabOrdersContextFacade" as ILabOrdersContextFacade <<interface>> {
+        - FetchAllWorkOrdersAsync(CancellationToken cancellationToken): Task<IReadOnlyList<WorkOrderSummary>>
     }
 
-    class SaleSummary <<record>> {
+    class "SaleSummary" as SaleSummary <<record>> {
+        + {method} Id: int
+        + {method} CreatedAt: string
+        + {method} TotalAmount: decimal
+        + {method} PendingBalance: decimal
+        + {method} Status: string
     }
 
-    interface ISalesContextFacade <<interface>> {
+    interface "ISalesContextFacade" as ISalesContextFacade <<interface>> {
+        - FetchAllSalesAsync(CancellationToken cancellationToken): Task<IReadOnlyList<SaleSummary>>
     }
 
-    class LabOrdersContextFacade  {
+    class "LabOrdersContextFacade" as LabOrdersContextFacade  {
+        + FetchAllWorkOrdersAsync(CancellationToken cancellationToken): Task<IReadOnlyList<WorkOrderSummary>>
+        + LabOrdersContextFacade(IWorkOrderQueryService workOrderQueryService)
     }
 
-    class SalesContextFacade  {
+    class "SalesContextFacade" as SalesContextFacade  {
+        + FetchAllSalesAsync(CancellationToken cancellationToken): Task<IReadOnlyList<SaleSummary>>
+        + SalesContextFacade(ISaleQueryService saleQueryService)
     }
 
 }
 
 package "optiflow_platform.Analytics.Interfaces.REST" {
-    class AnalyticsReportsController  {
-        + GetAllAnalyticsReports(default): Task<ActionResult>
-        + GetAnalyticsReportById(id, default): Task<ActionResult>
-        + GetAnalyticsReportsByPeriod(period, default): Task<ActionResult>
+    class "AnalyticsReportsController" as AnalyticsReportsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + GetAllAnalyticsReports(CancellationToken cancellationToken): Task<ActionResult>
+        + GetAnalyticsReportById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + GetAnalyticsReportsByPeriod(string period, CancellationToken cancellationToken): Task<ActionResult>
+        + AnalyticsReportsController(IAnalyticsReportQueryService analyticsReportQueryService, ILogger<AnalyticsReportsController> logger)
     }
 
-    class StaffMetricsController  {
-        + GetAllStaffMetrics(default): Task<ActionResult>
-        + GetStaffMetricsByReportId(reportId, default): Task<ActionResult>
+    class "StaffMetricsController" as StaffMetricsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + GetAllStaffMetrics(CancellationToken cancellationToken): Task<ActionResult>
+        + GetStaffMetricsByReportId(int reportId, CancellationToken cancellationToken): Task<ActionResult>
+        + StaffMetricsController(IStaffMetricQueryService staffMetricQueryService, ILogger<StaffMetricsController> logger)
+    }
+
+}
+
+package "optiflow_platform.Analytics.Application.Internal.QueryServices" {
+    class "AnalyticsReportQueryService" as AnalyticsReportQueryService  {
+        + Handle(GetAllAnalyticsReportsQuery query, CancellationToken cancellationToken): Task<IEnumerable<AnalyticsReport>>
+        + Handle(GetAnalyticsReportByIdQuery query, CancellationToken cancellationToken): Task<AnalyticsReport?>
+        + Handle(GetAnalyticsReportsByPeriodQuery query, CancellationToken cancellationToken): Task<IEnumerable<AnalyticsReport>>
+        - BuildReportsAsync(CancellationToken cancellationToken): Task<IReadOnlyList<AnalyticsReport>>
+        + AnalyticsReportQueryService(ISalesContextFacade salesContextFacade, ILabOrdersContextFacade labOrdersContextFacade, ILogger<AnalyticsReportQueryService> logger)
+    }
+
+    class "StaffMetricQueryService" as StaffMetricQueryService  {
+        + Handle(GetAllStaffMetricsQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
+        + Handle(GetStaffMetricsByReportIdQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
+        + StaffMetricQueryService(IStaffMetricRepository staffMetricRepository, ILogger<StaffMetricQueryService> logger)
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Aggregates" {
+    class "AnalyticsReport" as AnalyticsReport  {
+        + {method} Id: int
+        + {method} GeneratedBy: string
+        + {method} Period: string
+        + {method} GeneratedAt: DateTime
+        + {method} TotalRevenue: decimal
+        + {method} TotalTransactions: int
+        + {method} ConversionRate: decimal
+        + {method} AverageDeliveryDays: decimal
+        + {method} OnTimeDeliveryRate: decimal
+        + {method} ReworkRate: decimal
+        + {method} TotalOrders: int
+        + {method} PendingBalance0To7: decimal
+        + {method} PendingBalance8To15: decimal
+        + {method} PendingBalance16To30: decimal
+        + {method} PendingBalanceOver30: decimal
+        --
+        # AnalyticsReport()
+        + AnalyticsReport(string generatedBy, string period, decimal totalRevenue, int totalTransactions, decimal conversionRate, decimal averageDeliveryDays, decimal onTimeDeliveryRate, decimal reworkRate, int totalOrders, decimal pendingBalance0To7, decimal pendingBalance8To15, decimal pendingBalance16To30, decimal pendingBalanceOver30)
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Entities" {
+    class "StaffMetric" as StaffMetric  {
+        + {method} Id: int
+        + {method} ReportId: int
+        + {method} EmployeeName: string
+        + {method} QuotationsIssued: int
+        + {method} SalesClosed: int
+        + {method} TotalRevenue: decimal
+        --
+        # StaffMetric()
+        + StaffMetric(int reportId, string employeeName, int quotationsIssued, int salesClosed, decimal totalRevenue)
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Queries" {
+    class "GetAllAnalyticsReportsQuery" as GetAllAnalyticsReportsQuery <<record>> {
+    }
+
+    class "GetAnalyticsReportByIdQuery" as GetAnalyticsReportByIdQuery <<record>> {
+        + {method} Id: int
+    }
+
+    class "GetAnalyticsReportsByPeriodQuery" as GetAnalyticsReportsByPeriodQuery <<record>> {
+        + {method} Period: string
+    }
+
+    class "GetAllStaffMetricsQuery" as GetAllStaffMetricsQuery <<record>> {
+    }
+
+    class "GetStaffMetricsByReportIdQuery" as GetStaffMetricsByReportIdQuery <<record>> {
+        + {method} ReportId: int
     }
 
 }
 
 package "optiflow_platform.Analytics.Interfaces.REST.Resources" {
-    class AnalyticsReportResource <<record>> {
+    class "AnalyticsReportResource" as AnalyticsReportResource <<record>> {
+        + {method} Id: int
+        + {method} GeneratedBy: string
+        + {method} Period: string
+        + {method} GeneratedAt: string
+        + {method} TotalRevenue: decimal
+        + {method} TotalTransactions: int
+        + {method} ConversionRate: decimal
+        + {method} AverageDeliveryDays: decimal
+        + {method} OnTimeDeliveryRate: decimal
+        + {method} ReworkRate: decimal
+        + {method} TotalOrders: int
+        + {method} PendingBalance0To7: decimal
+        + {method} PendingBalance8To15: decimal
+        + {method} PendingBalance16To30: decimal
+        + {method} PendingBalanceOver30: decimal
     }
 
-    class StaffMetricResource <<record>> {
+    class "StaffMetricResource" as StaffMetricResource <<record>> {
+        + {method} Id: int
+        + {method} ReportId: int
+        + {method} EmployeeName: string
+        + {method} QuotationsIssued: int
+        + {method} SalesClosed: int
+        + {method} TotalRevenue: decimal
     }
 
 }
 
 package "optiflow_platform.Analytics.Interfaces.REST.Transform" {
-    class AnalyticsReportResourceFromEntityAssembler  {
-        + ToResourceFromEntity(entity): AnalyticsReportResource
+    class "AnalyticsReportResourceFromEntityAssembler" as AnalyticsReportResourceFromEntityAssembler  {
+        + ToResourceFromEntity(AnalyticsReport entity): AnalyticsReportResource
     }
 
-    class StaffMetricResourceFromEntityAssembler  {
-        + ToResourceFromEntity(entity): StaffMetricResource
+    class "StaffMetricResourceFromEntityAssembler" as StaffMetricResourceFromEntityAssembler  {
+        + ToResourceFromEntity(StaffMetric entity): StaffMetricResource
     }
 
 }
 
-' Relationships
-AnalyticsReportQueryService ..|> IAnalyticsReportQueryService
-AnalyticsReportQueryService --> ISalesContextFacade : "uses"
-AnalyticsReportQueryService --> ILabOrdersContextFacade : "uses"
-StaffMetricQueryService ..|> IStaffMetricQueryService
-StaffMetricQueryService --> IStaffMetricRepository : "uses"
-StaffMetricRepository ..|> IStaffMetricRepository
+package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Repositories" {
+    class "StaffMetricRepository" as StaffMetricRepository  {
+        + FindByReportIdAsync(int reportId, CancellationToken cancellationToken): Task<IEnumerable<StaffMetric>>
+        + StaffMetricRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplyAnalyticsConfiguration(ModelBuilder builder): void
+    }
+
+}
+
 LabOrdersContextFacade ..|> ILabOrdersContextFacade
 SalesContextFacade ..|> ISalesContextFacade
-AnalyticsReportsController --> IAnalyticsReportQueryService : "uses"
-StaffMetricsController --> IStaffMetricQueryService : "uses"
+AnalyticsReportsController --> IAnalyticsReportQueryService : uses
+StaffMetricsController --> IStaffMetricQueryService : uses
+AnalyticsReportQueryService ..|> IAnalyticsReportQueryService
+AnalyticsReportQueryService --> ISalesContextFacade : uses
+AnalyticsReportQueryService --> ILabOrdersContextFacade : uses
+StaffMetricQueryService ..|> IStaffMetricQueryService
+StaffMetricQueryService --> IStaffMetricRepository : uses
+StaffMetricRepository ..|> IStaffMetricRepository
 
 @enduml

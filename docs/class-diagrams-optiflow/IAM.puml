@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: IAM
-@startuml IAMClassDiagram
+' Detailed Class Diagram for Bounded Context: IAM
+@startuml IAMDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -9,26 +9,42 @@ skinparam class {
 skinparam packageStyle rectangle
 skinparam shadowing false
 
+package "optiflow_platform.IAM.Resources" {
+    class "IamMessages" as IamMessages  {
+    }
+
+}
+
 package "optiflow_platform.IAM.Application.ACL" {
-    interface IClientAccountService <<interface>> {
+    interface "IClientAccountService" as IClientAccountService <<interface>> {
+        - EnsureClientUserAsync(string email, Guid opticAccountId, CancellationToken cancellationToken): Task
     }
 
 }
 
 package "optiflow_platform.IAM.Application.CommandServices" {
-    interface IAccountCommandService <<interface>> {
+    interface "IAccountCommandService" as IAccountCommandService <<interface>> {
+        - Handle(CreateAccountCommand command, CancellationToken cancellationToken): Task<Result<Account>>
     }
 
-    interface IPasswordRecoveryCommandService <<interface>> {
+    interface "IPasswordRecoveryCommandService" as IPasswordRecoveryCommandService <<interface>> {
+        - Handle(GeneratePasswordRecoveryTokenCommand command, CancellationToken cancellationToken): Task<Result>
+        - Handle(ResetPasswordCommand command, CancellationToken cancellationToken): Task<Result>
     }
 
-    interface IUserCommandService <<interface>> {
+    interface "IUserCommandService" as IUserCommandService <<interface>> {
+        - Handle(SignInCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - Handle(SignInClientCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - Handle(SignUpCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - Handle(UpdateUserEmailCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - Handle(UpdateUserPasswordCommand command, CancellationToken cancellationToken): Task<Result<User>>
+        - Handle(GoogleSignInCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
     }
 
 }
 
 package "optiflow_platform.IAM.Domain.Model" {
-    enum IamError <<enum>> {
+    enum "IamError" as IamError <<enum>> {
         None
         UserNotFound
         EmailAlreadyInUse
@@ -44,119 +60,187 @@ package "optiflow_platform.IAM.Domain.Model" {
 
 }
 
+package "optiflow_platform.IAM.Application.QueryServices" {
+    interface "IAccountQueryService" as IAccountQueryService <<interface>> {
+        - Handle(GetAccountByIdQuery query, CancellationToken cancellationToken): Task<Account?>
+    }
+
+    interface "IUserQueryService" as IUserQueryService <<interface>> {
+        - Handle(GetUserByIdQuery query, CancellationToken cancellationToken): Task<User?>
+        - Handle(GetUserByEmailQuery query, CancellationToken cancellationToken): Task<User?>
+        - Handle(GetAllUsersQuery query, CancellationToken cancellationToken): Task<IEnumerable<User>>
+    }
+
+}
+
+package "optiflow_platform.IAM.Domain.Repositories" {
+    interface "IAccountRepository" as IAccountRepository <<interface>> {
+        - FindByIdAsync(Guid id, CancellationToken cancellationToken): Task<Account?>
+    }
+
+    interface "IPasswordRecoveryTokenRepository" as IPasswordRecoveryTokenRepository <<interface>> {
+        - FindByTokenHashAsync(string tokenHash, CancellationToken cancellationToken): Task<PasswordRecoveryToken?>
+    }
+
+    interface "IUserRepository" as IUserRepository <<interface>> {
+        - FindByIdAsync(Guid id, CancellationToken cancellationToken): Task<User?>
+        - FindByEmailAsync(EmailAddress email, CancellationToken cancellationToken): Task<User?>
+        - ExistsByEmailAsync(EmailAddress email, CancellationToken cancellationToken): Task<bool>
+        - FindUserByIdAsync(UserId id, CancellationToken cancellationToken): Task<User?>
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Acl" {
+    class "PatientDirectoryService" as PatientDirectoryService  {
+        + FindOpticAccountIdByEmailAsync(string email, CancellationToken cancellationToken): Task<Guid?>
+        + PatientDirectoryService(IPatientRepository patientRepository)
+    }
+
+}
+
+package "optiflow_platform.IAM.Interfaces.REST" {
+    class "AccountsController" as AccountsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutSubscription]
+        --
+        + CreateAccount(CreateAccountResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + GetMyAccount(CancellationToken cancellationToken): Task<IActionResult>
+        + AccountsController(IAccountCommandService accountCommandService, IAccountQueryService accountQueryService, ICurrentUserContext currentUserContext, Microsoft.Extensions.Localization.IStringLocalizer<optiflow_platform.IAM.Resources.IamMessages> localizer, optiflow_platform.Shared.Interfaces.Rest.ProblemDetails.ProblemDetailsFactory problemDetailsFactory)
+    }
+
+    class "AuthenticationController" as AuthenticationController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [AllowAnonymous]
+        --
+        + SignIn(SignInResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + ClientSignIn(ClientSignInResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + GoogleSignIn(GoogleSignInResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + SignUp(SignUpResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + ForgotPassword(PasswordRecoveryResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + ResetPassword(ResetPasswordResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + AuthenticationController(IUserCommandService userCommandService, IPasswordRecoveryCommandService passwordRecoveryCommandService, Microsoft.Extensions.Localization.IStringLocalizer<optiflow_platform.IAM.Resources.IamMessages> localizer, optiflow_platform.Shared.Interfaces.Rest.ProblemDetails.ProblemDetailsFactory problemDetailsFactory)
+    }
+
+    class "UsersController" as UsersController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutSubscription]
+        --
+        + GetAllUsers(CancellationToken cancellationToken): Task<IActionResult>
+        + GetUserById(Guid id, CancellationToken cancellationToken): Task<IActionResult>
+        + UpdateUserEmail(Guid id, UpdateUserEmailResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + UpdateUserPassword(Guid id, UpdateUserPasswordResource resource, CancellationToken cancellationToken): Task<IActionResult>
+        + UsersController(IUserCommandService userCommandService, IUserQueryService userQueryService, Microsoft.Extensions.Localization.IStringLocalizer<optiflow_platform.IAM.Resources.IamMessages> localizer, optiflow_platform.Shared.Interfaces.Rest.ProblemDetails.ProblemDetailsFactory problemDetailsFactory)
+    }
+
+}
+
 package "optiflow_platform.IAM.Application.Internal.ACL" {
-    class ClientAccountService  {
-        + EnsureClientUserAsync(email, opticAccountId, default): Task
+    class "ClientAccountService" as ClientAccountService  {
+        + EnsureClientUserAsync(string email, Guid opticAccountId, CancellationToken cancellationToken): Task
+        + ClientAccountService(IUserRepository userRepository, IHashingService hashingService, IUnitOfWork unitOfWork)
     }
 
 }
 
 package "optiflow_platform.IAM.Application.Internal.CommandServices" {
-    class AccountCommandService  {
-        + Handle(command, cancellationToken): Task<Result<Account>>
+    class "AccountCommandService" as AccountCommandService  {
+        + Handle(CreateAccountCommand command, CancellationToken cancellationToken): Task<Result<Account>>
+        + AccountCommandService(IAccountRepository accountRepository, IUserRepository userRepository, IUnitOfWork unitOfWork)
     }
 
-    class PasswordRecoveryCommandService  {
-        + Handle(command, cancellationToken): Task<Result>
-        + Handle(command, cancellationToken): Task<Result>
+    class "PasswordRecoveryCommandService" as PasswordRecoveryCommandService  {
+        + Handle(GeneratePasswordRecoveryTokenCommand command, CancellationToken cancellationToken): Task<Result>
+        + Handle(ResetPasswordCommand command, CancellationToken cancellationToken): Task<Result>
+        + PasswordRecoveryCommandService(IUserRepository userRepository, IPasswordRecoveryTokenRepository tokenRepository, IEmailService emailService, IHashingService hashingService, IUnitOfWork unitOfWork)
     }
 
-    class UserCommandService  {
-        - BuildDefaultOpticName(email): string
-        + Handle(command, cancellationToken): Task<Result<AuthenticatedUser>>
-        - ProvisionOpticAsync(user, cancellationToken): Task
-        + Handle(command, cancellationToken): Task<Result<AuthenticatedUser>>
-        - TryLinkClientToOpticAsync(user, cancellationToken): Task
-        + Handle(command, cancellationToken): Task<Result<AuthenticatedUser>>
-        + Handle(command, cancellationToken): Task<Result<AuthenticatedUser>>
-        + Handle(command, cancellationToken): Task<Result<User>>
-        + Handle(command, cancellationToken): Task<Result<AuthenticatedUser>>
-    }
-
-}
-
-package "optiflow_platform.IAM.Application.Internal.OutboundServices.Email" {
-    interface IEmailService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.IAM.Application.Internal.OutboundServices.Hashing" {
-    interface IHashingService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.IAM.Application.Internal.OutboundServices.Patients" {
-    interface IPatientDirectoryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.IAM.Application.Internal.OutboundServices.Tokens" {
-    interface ITokenService <<interface>> {
+    class "UserCommandService" as UserCommandService  {
+        - BuildDefaultOpticName(string email): string
+        + Handle(SignInCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - ProvisionOpticAsync(User user, CancellationToken cancellationToken): Task
+        + Handle(SignInClientCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        - TryLinkClientToOpticAsync(User user, CancellationToken cancellationToken): Task
+        + Handle(SignUpCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        + Handle(UpdateUserEmailCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        + Handle(UpdateUserPasswordCommand command, CancellationToken cancellationToken): Task<Result<User>>
+        + Handle(GoogleSignInCommand command, CancellationToken cancellationToken): Task<Result<AuthenticatedUser>>
+        + UserCommandService(IUserRepository userRepository, IAccountRepository accountRepository, IHashingService hashingService, ITokenService tokenService, IUnitOfWork unitOfWork, IPatientDirectoryService patientDirectory, IConfiguration configuration)
     }
 
 }
 
 package "optiflow_platform.IAM.Application.Internal.QueryServices" {
-    class AccountQueryService  {
-        + Handle(query, cancellationToken): Task<Account?>
+    class "AccountQueryService" as AccountQueryService  {
+        + Handle(GetAccountByIdQuery query, CancellationToken cancellationToken): Task<Account?>
+        + AccountQueryService(IAccountRepository accountRepository)
     }
 
-    class UserQueryService  {
-        + Handle(query, cancellationToken): Task<User?>
-        + Handle(query, cancellationToken): Task<User?>
-        + Handle(query, cancellationToken): Task<IEnumerable<User>>
-    }
-
-}
-
-package "optiflow_platform.IAM.Application.QueryServices" {
-    interface IAccountQueryService <<interface>> {
-    }
-
-    interface IUserQueryService <<interface>> {
+    class "UserQueryService" as UserQueryService  {
+        + Handle(GetUserByIdQuery query, CancellationToken cancellationToken): Task<User?>
+        + Handle(GetUserByEmailQuery query, CancellationToken cancellationToken): Task<User?>
+        + Handle(GetAllUsersQuery query, CancellationToken cancellationToken): Task<IEnumerable<User>>
+        + UserQueryService(IUserRepository userRepository)
     }
 
 }
 
 package "optiflow_platform.IAM.Domain.Model.Aggregates" {
-    class Account  {
-        + Id: Guid
-        + Name: string
-        + OwnerUserId: Guid?
-        + CreatedAt: DateTimeOffset?
-        + UpdatedAt: DateTimeOffset?
-    }
-
-    class User  {
-        + Id: UserId
-        + Email: EmailAddress
-        + Password: Password
-        + GoogleId: GoogleId?
-        + Status: UserStatus
-        + Role: UserRole
-        + AccountId: Guid?
-        + CreatedAt: DateTimeOffset?
-        + UpdatedAt: DateTimeOffset?
-        + DeletedAt: DateTimeOffset?
-        + Version: long
+    class "Account" as Account  {
+        + {method} Id: Guid
+        + {method} Name: string
+        + {method} OwnerUserId: Guid?
+        + {method} CreatedAt: DateTimeOffset?
+        + {method} UpdatedAt: DateTimeOffset?
         --
-        + ChangePassword(password): User
-        + ChangeEmail(email): User
-        + Deactivate(): User
-        + LinkGoogleAccount(googleId): User
-        + AssignAccount(accountId): User
-        + AssignRole(role): User
+        # Account()
+        + Account(CreateAccountCommand command)
     }
 
-    enum UserRole <<enum>> {
+    class "User" as User  {
+        + {method} Id: UserId
+        + {method} Email: EmailAddress
+        + {method} Password: Password
+        + {method} GoogleId: GoogleId?
+        + {method} Status: UserStatus
+        + {method} Role: UserRole
+        + {method} AccountId: Guid?
+        + {method} CreatedAt: DateTimeOffset?
+        + {method} UpdatedAt: DateTimeOffset?
+        + {method} DeletedAt: DateTimeOffset?
+        + {method} Version: long
+        --
+        + ChangePassword(Password password): User
+        + ChangeEmail(EmailAddress email): User
+        + Deactivate(): User
+        + LinkGoogleAccount(GoogleId googleId): User
+        + AssignAccount(Guid accountId): User
+        + AssignRole(UserRole role): User
+        + User()
+        + User(EmailAddress email, Password password)
+        + User(EmailAddress email, Password password, GoogleId googleId)
+    }
+
+    enum "UserRole" as UserRole <<enum>> {
         Admin
         Client
     }
 
-    enum UserStatus <<enum>> {
+    enum "UserStatus" as UserStatus <<enum>> {
         Active
         Inactive
     }
@@ -164,365 +248,428 @@ package "optiflow_platform.IAM.Domain.Model.Aggregates" {
 }
 
 package "optiflow_platform.IAM.Domain.Model.Commands" {
-    class CreateAccountCommand <<record>> {
+    class "CreateAccountCommand" as CreateAccountCommand <<record>> {
+        + {method} Name: string
+        + {method} OwnerUserId: Guid
     }
 
-    class GeneratePasswordRecoveryTokenCommand <<record>> {
+    class "GeneratePasswordRecoveryTokenCommand" as GeneratePasswordRecoveryTokenCommand <<record>> {
+        + {method} Email: EmailAddress
     }
 
-    class GoogleSignInCommand <<record>> {
-        + IdToken: string
+    class "GoogleSignInCommand" as GoogleSignInCommand <<record>> {
+        + {method} IdToken: string
+        --
+        + GoogleSignInCommand(string idToken)
     }
 
-    class ResetPasswordCommand <<record>> {
+    class "ResetPasswordCommand" as ResetPasswordCommand <<record>> {
+        + {method} Token: string
+        + {method} NewPassword: Password
     }
 
-    class SignInClientCommand <<record>> {
+    class "SignInClientCommand" as SignInClientCommand <<record>> {
+        + {method} Email: EmailAddress
     }
 
-    class SignInCommand <<record>> {
+    class "SignInCommand" as SignInCommand <<record>> {
+        + {method} Email: EmailAddress
+        + {method} Password: Password
     }
 
-    class SignUpCommand <<record>> {
+    class "SignUpCommand" as SignUpCommand <<record>> {
+        + {method} Email: EmailAddress
+        + {method} Password: Password
+        + {method} Role: UserRole
     }
 
-    class UpdateUserEmailCommand <<record>> {
+    class "UpdateUserEmailCommand" as UpdateUserEmailCommand <<record>> {
+        + {method} UserId: UserId
+        + {method} NewEmail: EmailAddress
     }
 
-    class UpdateUserPasswordCommand <<record>> {
+    class "UpdateUserPasswordCommand" as UpdateUserPasswordCommand <<record>> {
+        + {method} UserId: UserId
+        + {method} CurrentPassword: Password
+        + {method} NewPassword: Password
     }
 
 }
 
 package "optiflow_platform.IAM.Domain.Model.Entities" {
-    class PasswordRecoveryToken  {
-        + Id: Guid
-        + TokenHash: string
-        + UserId: Guid
-        + CreatedAt: DateTime
-        + ExpiresAt: DateTime
-        + IsUsed: bool
+    class "PasswordRecoveryToken" as PasswordRecoveryToken  {
+        + {method} Id: Guid
+        + {method} TokenHash: string
+        + {method} UserId: Guid
+        + {method} CreatedAt: DateTime
+        + {method} ExpiresAt: DateTime
+        + {method} IsUsed: bool
         --
         + IsValid(): bool
         + MarkAsUsed(): void
+        + PasswordRecoveryToken()
+        + PasswordRecoveryToken(string tokenHash, Guid userId, long expirationMinutes)
     }
 
 }
 
 package "optiflow_platform.IAM.Domain.Model.Queries" {
-    class AuthenticatedUser <<record>> {
+    class "AuthenticatedUser" as AuthenticatedUser <<record>> {
+        + {method} User: User
+        + {method} Token: string
     }
 
-    class GetAccountByIdQuery <<record>> {
+    class "GetAccountByIdQuery" as GetAccountByIdQuery <<record>> {
+        + {method} AccountId: Guid
     }
 
-    class GetAllUsersQuery <<record>> {
+    class "GetAllUsersQuery" as GetAllUsersQuery <<record>> {
     }
 
-    class GetUserByEmailQuery <<record>> {
+    class "GetUserByEmailQuery" as GetUserByEmailQuery <<record>> {
+        + {method} Email: EmailAddress
     }
 
-    class GetUserByIdQuery <<record>> {
+    class "GetUserByIdQuery" as GetUserByIdQuery <<record>> {
+        + {method} UserId: UserId
     }
 
 }
 
 package "optiflow_platform.IAM.Domain.Model.ValueObjects" {
-    class EmailAddress <<record>> {
-        + Value: string
+    class "EmailAddress" as EmailAddress <<record>> {
+        + {method} Value: string
+        --
+        + EmailAddress(string value)
     }
 
-    class GoogleId <<record>> {
-        + Value: string
+    class "GoogleId" as GoogleId <<record>> {
+        + {method} Value: string
+        --
+        + GoogleId(string value)
     }
 
-    class Password <<record>> {
-        + Value: string
+    class "Password" as Password <<record>> {
+        + {method} Value: string
+        --
+        + Password(string value)
     }
 
-    class UserId <<record>> {
-        + Value: Guid
-    }
-
-}
-
-package "optiflow_platform.IAM.Domain.Repositories" {
-    interface IAccountRepository <<interface>> {
-    }
-
-    interface IPasswordRecoveryTokenRepository <<interface>> {
-    }
-
-    interface IUserRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Acl" {
-    class PatientDirectoryService  {
-        + FindOpticAccountIdByEmailAsync(email, default): Task<Guid?>
+    class "UserId" as UserId <<record>> {
+        + {method} Value: Guid
+        --
+        + UserId(Guid value)
     }
 
 }
 
 package "optiflow_platform.IAM.Infrastructure.Email.Smtp" {
-    class SmtpEmailService  {
-        + SendPasswordRecoveryEmailAsync(to, token): Task
+    class "SmtpEmailService" as SmtpEmailService  {
+        + SendPasswordRecoveryEmailAsync(string to, string token): Task
+        + SmtpEmailService(ILogger<SmtpEmailService> logger, IConfiguration configuration, IStringLocalizer<IamMessages> localizer)
     }
 
 }
 
 package "optiflow_platform.IAM.Infrastructure.Hashing.BCrypt" {
-    class BCryptHashingService  {
-        + Encode(rawPassword): string
-        + Matches(rawPassword, encodedPassword): bool
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplyIamConfiguration(builder): void
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Persistence.EntityFrameworkCore.Repositories" {
-    class AccountRepository  {
-        + FindByIdAsync(id, cancellationToken): Task<Account?>
-    }
-
-    class PasswordRecoveryTokenRepository  {
-        + FindByTokenHashAsync(tokenHash, cancellationToken): Task<PasswordRecoveryToken?>
-    }
-
-    class UserRepository  {
-        + FindByEmailAsync(email, cancellationToken): Task<User?>
-        + ExistsByEmailAsync(email, cancellationToken): Task<bool>
-        + FindByIdAsync(id, cancellationToken): Task<User?>
-        + FindUserByIdAsync(id, cancellationToken): Task<User?>
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Attributes" {
-    class AllowAnonymousAttribute  {
-    }
-
-    class AllowWithoutAccountAttribute  {
-    }
-
-    class AllowWithoutSubscriptionAttribute  {
-    }
-
-    class AuthorizeAttribute  {
-        + OnAuthorizationAsync(context): Task
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Components" {
-    class JwtMiddleware  {
-        + Invoke(context, tokenService, userQueryService, appDbContext): Task
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Extensions" {
-    class RequestAuthorizationMiddlewareExtensions  {
-        + UseRequestAuthorization(builder): IApplicationBuilder
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Tokens.Jwt.Configuration" {
-    class TokenSettings  {
-        + ExpirationDays: int
-    }
-
-}
-
-package "optiflow_platform.IAM.Infrastructure.Tokens.Jwt.Services" {
-    class TokenService  {
-        -   _tokenSettings: TokenSettings
-        --
-        + GenerateToken(username): string
-        + GetUsernameFromToken(token): string?
-        + ValidateToken(token): bool
-    }
-
-}
-
-package "optiflow_platform.IAM.Interfaces.REST" {
-    class AccountsController  {
-        + CreateAccount(resource, cancellationToken): Task<IActionResult>
-        + GetMyAccount(cancellationToken): Task<IActionResult>
-    }
-
-    class AuthenticationController  {
-        + SignIn(resource, cancellationToken): Task<IActionResult>
-        + ClientSignIn(resource, cancellationToken): Task<IActionResult>
-        + GoogleSignIn(resource, cancellationToken): Task<IActionResult>
-        + SignUp(resource, cancellationToken): Task<IActionResult>
-        + ForgotPassword(resource, cancellationToken): Task<IActionResult>
-        + ResetPassword(resource, cancellationToken): Task<IActionResult>
-    }
-
-    class UsersController  {
-        + GetAllUsers(cancellationToken): Task<IActionResult>
-        + GetUserById(id, cancellationToken): Task<IActionResult>
-        + UpdateUserEmail(id, resource, cancellationToken): Task<IActionResult>
-        + UpdateUserPassword(id, resource, cancellationToken): Task<IActionResult>
+    class "BCryptHashingService" as BCryptHashingService  {
+        + Encode(string rawPassword): string
+        + Matches(string rawPassword, string encodedPassword): bool
     }
 
 }
 
 package "optiflow_platform.IAM.Interfaces.REST.Resources" {
-    class AccountResource <<record>> {
+    class "AccountResource" as AccountResource <<record>> {
+        + {method} Id: Guid
+        + {method} Name: string
     }
 
-    class AuthenticatedUserResource <<record>> {
+    class "AuthenticatedUserResource" as AuthenticatedUserResource <<record>> {
+        + {method} Id: Guid
+        + {method} Email: string
+        + {method} Token: string
+        + {method} AccountId: Guid?
+        + {method} Role: string
     }
 
-    class ClientSignInResource <<record>> {
+    class "ClientSignInResource" as ClientSignInResource <<record>> {
+        + {method} Username: string
     }
 
-    class CreateAccountResource <<record>> {
+    class "CreateAccountResource" as CreateAccountResource <<record>> {
+        + {method} Name: string
     }
 
-    class GoogleSignInResource <<record>> {
+    class "GoogleSignInResource" as GoogleSignInResource <<record>> {
+        + {method} IdToken: string
     }
 
-    class PasswordRecoveryResource <<record>> {
+    class "PasswordRecoveryResource" as PasswordRecoveryResource <<record>> {
+        + {method} Email: string
     }
 
-    class ResetPasswordResource <<record>> {
+    class "ResetPasswordResource" as ResetPasswordResource <<record>> {
+        + {method} Token: string
+        + {method} NewPassword: string
     }
 
-    class SignInResource <<record>> {
+    class "SignInResource" as SignInResource <<record>> {
+        + {method} Email: string
+        + {method} Password: string
     }
 
-    class SignUpResource <<record>> {
+    class "SignUpResource" as SignUpResource <<record>> {
+        + {method} Email: string
+        + {method} Password: string
+        + {method} UserType: string?
     }
 
-    class UpdateUserEmailResource <<record>> {
+    class "UpdateUserEmailResource" as UpdateUserEmailResource <<record>> {
+        + {method} NewEmail: string
     }
 
-    class UpdateUserPasswordResource <<record>> {
+    class "UpdateUserPasswordResource" as UpdateUserPasswordResource <<record>> {
+        + {method} CurrentPassword: string
+        + {method} NewPassword: string
     }
 
-    class UserResource <<record>> {
+    class "UserResource" as UserResource <<record>> {
+        + {method} Id: Guid
+        + {method} Email: string
     }
 
 }
 
 package "optiflow_platform.IAM.Interfaces.REST.Transform" {
-    class AccountResourceFromEntityAssembler  {
-        + ToResourceFromEntity(account): AccountResource
+    class "AccountResourceFromEntityAssembler" as AccountResourceFromEntityAssembler  {
+        + ToResourceFromEntity(Account account): AccountResource
     }
 
-    class AuthenticatedUserResourceFromEntityAssembler  {
-        + ToResourceFromEntity(user, token): AuthenticatedUserResource
+    class "AuthenticatedUserResourceFromEntityAssembler" as AuthenticatedUserResourceFromEntityAssembler  {
+        + ToResourceFromEntity(User user, string token): AuthenticatedUserResource
     }
 
-    class CreateAccountCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource, ownerUserId): CreateAccountCommand
+    class "CreateAccountCommandFromResourceAssembler" as CreateAccountCommandFromResourceAssembler  {
+        + ToCommandFromResource(CreateAccountResource resource, Guid ownerUserId): CreateAccountCommand
     }
 
-    class GeneratePasswordRecoveryTokenCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): GeneratePasswordRecoveryTokenCommand
+    class "GeneratePasswordRecoveryTokenCommandFromResourceAssembler" as GeneratePasswordRecoveryTokenCommandFromResourceAssembler  {
+        + ToCommandFromResource(PasswordRecoveryResource resource): GeneratePasswordRecoveryTokenCommand
     }
 
-    class GoogleSignInCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): GoogleSignInCommand
+    class "GoogleSignInCommandFromResourceAssembler" as GoogleSignInCommandFromResourceAssembler  {
+        + ToCommandFromResource(GoogleSignInResource resource): GoogleSignInCommand
     }
 
-    class IamErrorToActionAssembler  {
-        + ToActionResult(error, message, controller, problemDetailsFactory, localizer): IActionResult
+    class "IamErrorToActionAssembler" as IamErrorToActionAssembler  {
+        + ToActionResult(Enum? error, string message, ControllerBase controller, ProblemDetailsFactory problemDetailsFactory, IStringLocalizer<IamMessages> localizer): IActionResult
     }
 
-    class ResetPasswordCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): ResetPasswordCommand
+    class "ResetPasswordCommandFromResourceAssembler" as ResetPasswordCommandFromResourceAssembler  {
+        + ToCommandFromResource(ResetPasswordResource resource): ResetPasswordCommand
     }
 
-    class SignInCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): SignInCommand
+    class "SignInCommandFromResourceAssembler" as SignInCommandFromResourceAssembler  {
+        + ToCommandFromResource(SignInResource resource): SignInCommand
     }
 
-    class SignUpCommandFromResourceAssembler  {
-        + ToCommandFromResource(resource): SignUpCommand
+    class "SignUpCommandFromResourceAssembler" as SignUpCommandFromResourceAssembler  {
+        + ToCommandFromResource(SignUpResource resource): SignUpCommand
     }
 
-    class UpdateUserEmailCommandFromResourceAssembler  {
-        + ToCommandFromResource(userId, resource): UpdateUserEmailCommand
+    class "UpdateUserEmailCommandFromResourceAssembler" as UpdateUserEmailCommandFromResourceAssembler  {
+        + ToCommandFromResource(Guid userId, UpdateUserEmailResource resource): UpdateUserEmailCommand
     }
 
-    class UpdateUserPasswordCommandFromResourceAssembler  {
-        + ToCommandFromResource(userId, resource): UpdateUserPasswordCommand
+    class "UpdateUserPasswordCommandFromResourceAssembler" as UpdateUserPasswordCommandFromResourceAssembler  {
+        + ToCommandFromResource(Guid userId, UpdateUserPasswordResource resource): UpdateUserPasswordCommand
     }
 
-    class UserResourceFromEntityAssembler  {
-        + ToResourceFromEntity(user): UserResource
-    }
-
-}
-
-package "optiflow_platform.IAM.Resources" {
-    class IamMessages  {
+    class "UserResourceFromEntityAssembler" as UserResourceFromEntityAssembler  {
+        + ToResourceFromEntity(User user): UserResource
     }
 
 }
 
-' Relationships
-ClientAccountService ..|> IClientAccountService
-ClientAccountService --> IUserRepository : "uses"
-ClientAccountService --> IHashingService : "uses"
-AccountCommandService ..|> IAccountCommandService
-AccountCommandService --> IAccountRepository : "uses"
-AccountCommandService --> IUserRepository : "uses"
-PasswordRecoveryCommandService ..|> IPasswordRecoveryCommandService
-PasswordRecoveryCommandService --> IUserRepository : "uses"
-PasswordRecoveryCommandService --> IPasswordRecoveryTokenRepository : "uses"
-PasswordRecoveryCommandService --> IEmailService : "uses"
-PasswordRecoveryCommandService --> IHashingService : "uses"
-UserCommandService ..|> IUserCommandService
-UserCommandService --> IUserRepository : "uses"
-UserCommandService --> IAccountRepository : "uses"
-UserCommandService --> IHashingService : "uses"
-UserCommandService --> ITokenService : "uses"
-UserCommandService --> IPatientDirectoryService : "uses"
-AccountQueryService ..|> IAccountQueryService
-AccountQueryService --> IAccountRepository : "uses"
-UserQueryService ..|> IUserQueryService
-UserQueryService --> IUserRepository : "uses"
-GeneratePasswordRecoveryTokenCommand --> EmailAddress : "uses"
-ResetPasswordCommand --> Password : "uses"
-SignInClientCommand --> EmailAddress : "uses"
-SignInCommand --> EmailAddress : "uses"
-SignInCommand --> Password : "uses"
-SignUpCommand --> EmailAddress : "uses"
-SignUpCommand --> Password : "uses"
-SignUpCommand --> UserRole : "uses"
-UpdateUserEmailCommand --> UserId : "uses"
-UpdateUserEmailCommand --> EmailAddress : "uses"
-UpdateUserPasswordCommand --> UserId : "uses"
-UpdateUserPasswordCommand --> Password : "uses"
-AuthenticatedUser --> User : "uses"
-GetUserByEmailQuery --> EmailAddress : "uses"
-GetUserByIdQuery --> UserId : "uses"
+package "optiflow_platform.IAM.Application.Internal.OutboundServices.Email" {
+    interface "IEmailService" as IEmailService <<interface>> {
+        - SendPasswordRecoveryEmailAsync(string to, string token): Task
+    }
+
+}
+
+package "optiflow_platform.IAM.Application.Internal.OutboundServices.Hashing" {
+    interface "IHashingService" as IHashingService <<interface>> {
+        - Encode(string rawPassword): string
+        - Matches(string rawPassword, string encodedPassword): bool
+    }
+
+}
+
+package "optiflow_platform.IAM.Application.Internal.OutboundServices.Patients" {
+    interface "IPatientDirectoryService" as IPatientDirectoryService <<interface>> {
+        - FindOpticAccountIdByEmailAsync(string email, CancellationToken cancellationToken): Task<Guid?>
+    }
+
+}
+
+package "optiflow_platform.IAM.Application.Internal.OutboundServices.Tokens" {
+    interface "ITokenService" as ITokenService <<interface>> {
+        - GenerateToken(string username): string
+        - GetUsernameFromToken(string token): string?
+        - ValidateToken(string token): bool
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Persistence.EntityFrameworkCore.Repositories" {
+    class "AccountRepository" as AccountRepository  {
+        + FindByIdAsync(Guid id, CancellationToken cancellationToken): Task<Account?>
+        + AccountRepository(AppDbContext context)
+    }
+
+    class "PasswordRecoveryTokenRepository" as PasswordRecoveryTokenRepository  {
+        + FindByTokenHashAsync(string tokenHash, CancellationToken cancellationToken): Task<PasswordRecoveryToken?>
+        + PasswordRecoveryTokenRepository(AppDbContext context)
+    }
+
+    class "UserRepository" as UserRepository  {
+        + FindByEmailAsync(EmailAddress email, CancellationToken cancellationToken): Task<User?>
+        + ExistsByEmailAsync(EmailAddress email, CancellationToken cancellationToken): Task<bool>
+        + FindByIdAsync(Guid id, CancellationToken cancellationToken): Task<User?>
+        + FindUserByIdAsync(UserId id, CancellationToken cancellationToken): Task<User?>
+        + UserRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Attributes" {
+    class "AllowAnonymousAttribute" as AllowAnonymousAttribute  {
+        .. Attributes ..
+        [AttributeUsage]
+        --
+    }
+
+    class "AllowWithoutAccountAttribute" as AllowWithoutAccountAttribute  {
+        .. Attributes ..
+        [AttributeUsage]
+        --
+    }
+
+    class "AllowWithoutSubscriptionAttribute" as AllowWithoutSubscriptionAttribute  {
+        .. Attributes ..
+        [AttributeUsage]
+        --
+    }
+
+    class "AuthorizeAttribute" as AuthorizeAttribute  {
+        .. Attributes ..
+        [AttributeUsage]
+        --
+        + OnAuthorizationAsync(AuthorizationFilterContext context): Task
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Components" {
+    class "JwtMiddleware" as JwtMiddleware  {
+        + Invoke(HttpContext context, ITokenService tokenService, IUserQueryService userQueryService, AppDbContext appDbContext): Task
+        + JwtMiddleware(RequestDelegate next)
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Pipeline.Middleware.Extensions" {
+    class "RequestAuthorizationMiddlewareExtensions" as RequestAuthorizationMiddlewareExtensions  {
+        + UseRequestAuthorization(IApplicationBuilder builder): IApplicationBuilder
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Tokens.Jwt.Configuration" {
+    class "TokenSettings" as TokenSettings  {
+        + {method} Secret: string
+        + {method} ExpirationDays: int
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Tokens.Jwt.Services" {
+    class "TokenService" as TokenService  {
+        - {field} _tokenSettings: TokenSettings
+        --
+        + GenerateToken(string username): string
+        + GetUsernameFromToken(string token): string?
+        + ValidateToken(string token): bool
+        + TokenService(IOptions<TokenSettings> tokenSettings)
+    }
+
+}
+
+package "optiflow_platform.IAM.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplyIamConfiguration(ModelBuilder builder): void
+    }
+
+}
+
 PatientDirectoryService ..|> IPatientDirectoryService
+AccountsController --> IAccountCommandService : uses
+AccountsController --> IAccountQueryService : uses
+AuthenticationController --> IUserCommandService : uses
+AuthenticationController --> IPasswordRecoveryCommandService : uses
+UsersController --> IUserCommandService : uses
+UsersController --> IUserQueryService : uses
+ClientAccountService ..|> IClientAccountService
+ClientAccountService --> IUserRepository : uses
+ClientAccountService --> IHashingService : uses
+AccountCommandService ..|> IAccountCommandService
+AccountCommandService --> IAccountRepository : uses
+AccountCommandService --> IUserRepository : uses
+PasswordRecoveryCommandService ..|> IPasswordRecoveryCommandService
+PasswordRecoveryCommandService --> IUserRepository : uses
+PasswordRecoveryCommandService --> IPasswordRecoveryTokenRepository : uses
+PasswordRecoveryCommandService --> IEmailService : uses
+PasswordRecoveryCommandService --> IHashingService : uses
+UserCommandService ..|> IUserCommandService
+UserCommandService --> IUserRepository : uses
+UserCommandService --> IAccountRepository : uses
+UserCommandService --> IHashingService : uses
+UserCommandService --> ITokenService : uses
+UserCommandService --> IPatientDirectoryService : uses
+AccountQueryService ..|> IAccountQueryService
+AccountQueryService --> IAccountRepository : uses
+UserQueryService ..|> IUserQueryService
+UserQueryService --> IUserRepository : uses
+Account --> CreateAccountCommand : uses
+User --> UserId : uses
+User --> EmailAddress : uses
+User --> Password : uses
+User --> UserStatus : uses
+User --> UserRole : uses
+User --> GoogleId : uses
+GeneratePasswordRecoveryTokenCommand --> EmailAddress : uses
+ResetPasswordCommand --> Password : uses
+SignInClientCommand --> EmailAddress : uses
+SignInCommand --> EmailAddress : uses
+SignInCommand --> Password : uses
+SignUpCommand --> EmailAddress : uses
+SignUpCommand --> Password : uses
+SignUpCommand --> UserRole : uses
+UpdateUserEmailCommand --> UserId : uses
+UpdateUserEmailCommand --> EmailAddress : uses
+UpdateUserPasswordCommand --> UserId : uses
+UpdateUserPasswordCommand --> Password : uses
+AuthenticatedUser --> User : uses
+GetUserByEmailQuery --> EmailAddress : uses
+GetUserByIdQuery --> UserId : uses
 SmtpEmailService ..|> IEmailService
 BCryptHashingService ..|> IHashingService
 AccountRepository ..|> IAccountRepository
 PasswordRecoveryTokenRepository ..|> IPasswordRecoveryTokenRepository
 UserRepository ..|> IUserRepository
 TokenService ..|> ITokenService
-TokenService --> TokenSettings : "uses"
-AccountsController --> IAccountCommandService : "uses"
-AccountsController --> IAccountQueryService : "uses"
-AuthenticationController --> IUserCommandService : "uses"
-AuthenticationController --> IPasswordRecoveryCommandService : "uses"
-UsersController --> IUserCommandService : "uses"
-UsersController --> IUserQueryService : "uses"
+TokenService --> TokenSettings : uses
 
 @enduml

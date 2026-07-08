@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: Staff
-@startuml StaffClassDiagram
+' Detailed Class Diagram for Bounded Context: Staff
+@startuml StaffDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -9,215 +9,322 @@ skinparam class {
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-package "optiflow_platform.Staff.Application.Internal.CommandServices" {
-    class RoleCommandService  {
-        + Handle(command, default): Task<Role?>
-        + Handle(command, default): Task<Role?>
-        + DeleteAsync(id, default): Task<bool>
-    }
-
-    class StaffCommandService  {
-        + Handle(command, default): Task<StaffMember?>
-        + Handle(command, default): Task<StaffMember?>
-        + DeleteAsync(id, default): Task<bool>
-    }
-
-}
-
-package "optiflow_platform.Staff.Application.Internal.QueryServices" {
-    class RoleQueryService  {
-        + Handle(query, default): Task<IEnumerable<Role>>
-        + Handle(query, default): Task<Role?>
-    }
-
-    class StaffQueryService  {
-        + Handle(query, default): Task<IEnumerable<StaffMember>>
-        + Handle(query, default): Task<StaffMember?>
-    }
-
-}
-
 package "optiflow_platform.Staff.Application.Services" {
-    interface IRoleCommandService <<interface>> {
+    interface "IRoleCommandService" as IRoleCommandService <<interface>> {
+        - Handle(CreateRoleCommand command, CancellationToken cancellationToken): Task<Role?>
+        - Handle(UpdateRoleCommand command, CancellationToken cancellationToken): Task<Role?>
+        - DeleteAsync(int id, CancellationToken cancellationToken): Task<bool>
     }
 
-    interface IRoleQueryService <<interface>> {
+    interface "IRoleQueryService" as IRoleQueryService <<interface>> {
+        - Handle(GetAllRolesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Role>>
+        - Handle(GetRoleByIdQuery query, CancellationToken cancellationToken): Task<Role?>
     }
 
-    interface IStaffCommandService <<interface>> {
+    interface "IStaffCommandService" as IStaffCommandService <<interface>> {
+        - Handle(CreateStaffCommand command, CancellationToken cancellationToken): Task<StaffMember?>
+        - Handle(UpdateStaffCommand command, CancellationToken cancellationToken): Task<StaffMember?>
+        - DeleteAsync(int id, CancellationToken cancellationToken): Task<bool>
     }
 
-    interface IStaffQueryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Staff.Domain.Model.Aggregates" {
-    class Role  {
-        + Id: int
-        + AccountId: Guid
-        + Name: string
-        + DisplayName: string
-        + Description: string?
-        + Color: string
-        + Permissions: string
-        + PermissionList: IEnumerable<string>
-        --
-        + Update(command): void
-        - JoinPermissions(permissions): string
-        - Internalize(displayName): string
-    }
-
-    class StaffMember  {
-        + Id: int
-        + AccountId: Guid
-        + EmployeeCode: string
-        + FirstName: string
-        + LastName: string
-        + Email: string?
-        + Phone: string?
-        + Role: string?
-        + Department: string?
-        + Status: string
-        + ActiveToday: bool
-        + EntryDate: string?
-        + Photo: string?
-        --
-        + Update(command): void
-    }
-
-}
-
-package "optiflow_platform.Staff.Domain.Model.Commands" {
-    class CreateRoleCommand <<record>> {
-    }
-
-    class UpdateRoleCommand <<record>> {
-    }
-
-    class CreateStaffCommand <<record>> {
-    }
-
-    class UpdateStaffCommand <<record>> {
-    }
-
-}
-
-package "optiflow_platform.Staff.Domain.Model.Queries" {
-    class GetAllRolesQuery <<record>> {
-    }
-
-    class GetRoleByIdQuery <<record>> {
-    }
-
-    class GetAllStaffQuery <<record>> {
-    }
-
-    class GetStaffByIdQuery <<record>> {
+    interface "IStaffQueryService" as IStaffQueryService <<interface>> {
+        - Handle(GetAllStaffQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMember>>
+        - Handle(GetStaffByIdQuery query, CancellationToken cancellationToken): Task<StaffMember?>
     }
 
 }
 
 package "optiflow_platform.Staff.Domain.Repositories" {
-    interface IRoleRepository <<interface>> {
+    interface "IRoleRepository" as IRoleRepository <<interface>> {
     }
 
-    interface IStaffRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.Staff.Infrastructure.Persistence.EFC.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplyStaffConfiguration(builder, dbContext): void
-    }
-
-}
-
-package "optiflow_platform.Staff.Infrastructure.Persistence.EFC.Repositories" {
-    class RoleRepository  {
-    }
-
-    class StaffRepository  {
-    }
-
-}
-
-package "optiflow_platform.Staff.Interfaces.REST.Resources" {
-    class RoleResource <<record>> {
-    }
-
-    class SaveRoleResource <<record>> {
-    }
-
-    class StaffResource <<record>> {
-    }
-
-    class SaveStaffResource <<record>> {
+    interface "IStaffRepository" as IStaffRepository <<interface>> {
     }
 
 }
 
 package "optiflow_platform.Staff.Interfaces.REST" {
-    class RolesController  {
-        + GetAll(default): Task<ActionResult>
-        + GetById(id, default): Task<ActionResult>
-        + Create(resource, cancellationToken): Task<ActionResult>
-        + Update(id, resource, cancellationToken): Task<ActionResult>
-        + Delete(id, cancellationToken): Task<ActionResult>
+    class "RolesController" as RolesController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + GetAll(CancellationToken cancellationToken): Task<ActionResult>
+        + GetById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + Create(SaveRoleResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + Update(int id, SaveRoleResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + Delete(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + RolesController(IRoleCommandService roleCommandService, IRoleQueryService roleQueryService, ILogger<RolesController> logger)
     }
 
-    class StaffController  {
-        + GetAll(default): Task<ActionResult>
-        + GetById(id, default): Task<ActionResult>
-        + Create(resource, cancellationToken): Task<ActionResult>
-        + Update(id, resource, cancellationToken): Task<ActionResult>
-        + Delete(id, cancellationToken): Task<ActionResult>
+    class "StaffController" as StaffController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        --
+        + GetAll(CancellationToken cancellationToken): Task<ActionResult>
+        + GetById(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + Create(SaveStaffResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + Update(int id, SaveStaffResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + Delete(int id, CancellationToken cancellationToken): Task<ActionResult>
+        + StaffController(IStaffCommandService staffCommandService, IStaffQueryService staffQueryService, ILogger<StaffController> logger)
+    }
+
+}
+
+package "optiflow_platform.Staff.Application.Internal.CommandServices" {
+    class "RoleCommandService" as RoleCommandService  {
+        + Handle(CreateRoleCommand command, CancellationToken cancellationToken): Task<Role?>
+        + Handle(UpdateRoleCommand command, CancellationToken cancellationToken): Task<Role?>
+        + DeleteAsync(int id, CancellationToken cancellationToken): Task<bool>
+        + RoleCommandService(IRoleRepository roleRepository, IUnitOfWork unitOfWork, ICurrentUserContext currentUserContext)
+    }
+
+    class "StaffCommandService" as StaffCommandService  {
+        + Handle(CreateStaffCommand command, CancellationToken cancellationToken): Task<StaffMember?>
+        + Handle(UpdateStaffCommand command, CancellationToken cancellationToken): Task<StaffMember?>
+        + DeleteAsync(int id, CancellationToken cancellationToken): Task<bool>
+        + StaffCommandService(IStaffRepository staffRepository, IUnitOfWork unitOfWork, ICurrentUserContext currentUserContext)
+    }
+
+}
+
+package "optiflow_platform.Staff.Application.Internal.QueryServices" {
+    class "RoleQueryService" as RoleQueryService  {
+        + Handle(GetAllRolesQuery query, CancellationToken cancellationToken): Task<IEnumerable<Role>>
+        + Handle(GetRoleByIdQuery query, CancellationToken cancellationToken): Task<Role?>
+        + RoleQueryService(IRoleRepository roleRepository)
+    }
+
+    class "StaffQueryService" as StaffQueryService  {
+        + Handle(GetAllStaffQuery query, CancellationToken cancellationToken): Task<IEnumerable<StaffMember>>
+        + Handle(GetStaffByIdQuery query, CancellationToken cancellationToken): Task<StaffMember?>
+        + StaffQueryService(IStaffRepository staffRepository)
+    }
+
+}
+
+package "optiflow_platform.Staff.Domain.Model.Aggregates" {
+    class "Role" as Role  {
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} Name: string
+        + {method} DisplayName: string
+        + {method} Description: string?
+        + {method} Color: string
+        + {method} Permissions: string
+        + {method} PermissionList: IEnumerable<string>
+        --
+        + Update(UpdateRoleCommand command): void
+        - JoinPermissions(IEnumerable<string>? permissions): string
+        - Internalize(string displayName): string
+        # Role()
+        + Role(CreateRoleCommand command, Guid accountId)
+    }
+
+    class "StaffMember" as StaffMember  {
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} EmployeeCode: string
+        + {method} FirstName: string
+        + {method} LastName: string
+        + {method} Email: string?
+        + {method} Phone: string?
+        + {method} Role: string?
+        + {method} Department: string?
+        + {method} Status: string
+        + {method} ActiveToday: bool
+        + {method} EntryDate: string?
+        + {method} Photo: string?
+        --
+        + Update(UpdateStaffCommand command): void
+        # StaffMember()
+        + StaffMember(CreateStaffCommand command, Guid accountId)
+    }
+
+}
+
+package "optiflow_platform.Staff.Domain.Model.Commands" {
+    class "CreateRoleCommand" as CreateRoleCommand <<record>> {
+        + {method} Name: string?
+        + {method} DisplayName: string?
+        + {method} Description: string?
+        + {method} Color: string?
+        + {method} Permissions: IEnumerable<string>?
+    }
+
+    class "UpdateRoleCommand" as UpdateRoleCommand <<record>> {
+        + {method} Id: int
+        + {method} Name: string?
+        + {method} DisplayName: string?
+        + {method} Description: string?
+        + {method} Color: string?
+        + {method} Permissions: IEnumerable<string>?
+    }
+
+    class "CreateStaffCommand" as CreateStaffCommand <<record>> {
+        + {method} EmployeeCode: string?
+        + {method} FirstName: string
+        + {method} LastName: string?
+        + {method} Email: string?
+        + {method} Phone: string?
+        + {method} Role: string?
+        + {method} Department: string?
+        + {method} Status: string?
+        + {method} ActiveToday: bool
+        + {method} EntryDate: string?
+        + {method} Photo: string?
+    }
+
+    class "UpdateStaffCommand" as UpdateStaffCommand <<record>> {
+        + {method} Id: int
+        + {method} EmployeeCode: string?
+        + {method} FirstName: string
+        + {method} LastName: string?
+        + {method} Email: string?
+        + {method} Phone: string?
+        + {method} Role: string?
+        + {method} Department: string?
+        + {method} Status: string?
+        + {method} ActiveToday: bool
+        + {method} EntryDate: string?
+        + {method} Photo: string?
+    }
+
+}
+
+package "optiflow_platform.Staff.Domain.Model.Queries" {
+    class "GetAllRolesQuery" as GetAllRolesQuery <<record>> {
+    }
+
+    class "GetRoleByIdQuery" as GetRoleByIdQuery <<record>> {
+        + {method} Id: int
+    }
+
+    class "GetAllStaffQuery" as GetAllStaffQuery <<record>> {
+    }
+
+    class "GetStaffByIdQuery" as GetStaffByIdQuery <<record>> {
+        + {method} Id: int
+    }
+
+}
+
+package "optiflow_platform.Staff.Interfaces.REST.Resources" {
+    class "RoleResource" as RoleResource <<record>> {
+        + {method} Id: int
+        + {method} Name: string
+        + {method} DisplayName: string
+        + {method} Description: string?
+        + {method} Color: string
+        + {method} Permissions: List<string>
+    }
+
+    class "SaveRoleResource" as SaveRoleResource <<record>> {
+        + {method} Name: string?
+        + {method} DisplayName: string?
+        + {method} Description: string?
+        + {method} Color: string?
+        + {method} Permissions: List<string>?
+    }
+
+    class "StaffResource" as StaffResource <<record>> {
+        + {method} Id: int
+        + {method} EmployeeCode: string
+        + {method} FirstName: string
+        + {method} LastName: string
+        + {method} Email: string?
+        + {method} Phone: string?
+        + {method} Role: string?
+        + {method} Department: string?
+        + {method} Status: string
+        + {method} ActiveToday: bool
+        + {method} EntryDate: string?
+        + {method} Photo: string?
+    }
+
+    class "SaveStaffResource" as SaveStaffResource <<record>> {
+        + {method} EmployeeCode: string?
+        + {method} FirstName: string
+        + {method} LastName: string?
+        + {method} Email: string?
+        + {method} Phone: string?
+        + {method} Role: string?
+        + {method} Department: string?
+        + {method} Status: string?
+        + {method} ActiveToday: bool
+        + {method} EntryDate: string?
+        + {method} Photo: string?
     }
 
 }
 
 package "optiflow_platform.Staff.Interfaces.REST.Transform" {
-    class CreateRoleCommandFromResourceAssembler  {
-        + ToCommandFromResource(r): CreateRoleCommand
+    class "CreateRoleCommandFromResourceAssembler" as CreateRoleCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaveRoleResource r): CreateRoleCommand
     }
 
-    class UpdateRoleCommandFromResourceAssembler  {
-        + ToCommandFromResource(id, r): UpdateRoleCommand
+    class "UpdateRoleCommandFromResourceAssembler" as UpdateRoleCommandFromResourceAssembler  {
+        + ToCommandFromResource(int id, SaveRoleResource r): UpdateRoleCommand
     }
 
-    class RoleResourceFromEntityAssembler  {
-        + ToResourceFromEntity(e): RoleResource
+    class "RoleResourceFromEntityAssembler" as RoleResourceFromEntityAssembler  {
+        + ToResourceFromEntity(Role e): RoleResource
     }
 
-    class CreateStaffCommandFromResourceAssembler  {
-        + ToCommandFromResource(r): CreateStaffCommand
+    class "CreateStaffCommandFromResourceAssembler" as CreateStaffCommandFromResourceAssembler  {
+        + ToCommandFromResource(SaveStaffResource r): CreateStaffCommand
     }
 
-    class UpdateStaffCommandFromResourceAssembler  {
-        + ToCommandFromResource(id, r): UpdateStaffCommand
+    class "UpdateStaffCommandFromResourceAssembler" as UpdateStaffCommandFromResourceAssembler  {
+        + ToCommandFromResource(int id, SaveStaffResource r): UpdateStaffCommand
     }
 
-    class StaffResourceFromEntityAssembler  {
-        + ToResourceFromEntity(e): StaffResource
+    class "StaffResourceFromEntityAssembler" as StaffResourceFromEntityAssembler  {
+        + ToResourceFromEntity(StaffMember e): StaffResource
     }
 
 }
 
-' Relationships
+package "optiflow_platform.Staff.Infrastructure.Persistence.EFC.Repositories" {
+    class "RoleRepository" as RoleRepository  {
+        + RoleRepository(AppDbContext context)
+    }
+
+    class "StaffRepository" as StaffRepository  {
+        + StaffRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.Staff.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplyStaffConfiguration(ModelBuilder builder, AppDbContext dbContext): void
+    }
+
+}
+
+RolesController --> IRoleCommandService : uses
+RolesController --> IRoleQueryService : uses
+StaffController --> IStaffCommandService : uses
+StaffController --> IStaffQueryService : uses
 RoleCommandService ..|> IRoleCommandService
-RoleCommandService --> IRoleRepository : "uses"
+RoleCommandService --> IRoleRepository : uses
 StaffCommandService ..|> IStaffCommandService
-StaffCommandService --> IStaffRepository : "uses"
+StaffCommandService --> IStaffRepository : uses
 RoleQueryService ..|> IRoleQueryService
-RoleQueryService --> IRoleRepository : "uses"
+RoleQueryService --> IRoleRepository : uses
 StaffQueryService ..|> IStaffQueryService
-StaffQueryService --> IStaffRepository : "uses"
+StaffQueryService --> IStaffRepository : uses
+Role --> CreateRoleCommand : uses
+StaffMember --> CreateStaffCommand : uses
 RoleRepository ..|> IRoleRepository
 StaffRepository ..|> IStaffRepository
-RolesController --> IRoleCommandService : "uses"
-RolesController --> IRoleQueryService : "uses"
-StaffController --> IStaffCommandService : "uses"
-StaffController --> IStaffQueryService : "uses"
 
 @enduml

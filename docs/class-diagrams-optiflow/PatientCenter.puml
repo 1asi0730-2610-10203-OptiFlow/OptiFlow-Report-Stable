@@ -1,5 +1,5 @@
-' Class Diagram for Bounded Context: PatientCenter
-@startuml PatientCenterClassDiagram
+' Detailed Class Diagram for Bounded Context: PatientCenter
+@startuml PatientCenterDetailedClassDiagram
 
 skinparam class {
     BackgroundColor White
@@ -10,168 +10,277 @@ skinparam packageStyle rectangle
 skinparam shadowing false
 
 package "optiflow_platform.PatientCenter.Application.Errors" {
-    enum CreateNotificationError <<enum>> {
+    enum "CreateNotificationError" as CreateNotificationError <<enum>> {
         UnexpectedError
     }
 
 }
 
-package "optiflow_platform.PatientCenter.Application.Internal.CommandServices" {
-    class PatientNotificationCommandService  {
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Application.Internal.QueryServices" {
-    class LensMaterialQueryService  {
-    }
-
-    class PatientNotificationQueryService  {
-    }
-
-}
-
 package "optiflow_platform.PatientCenter.Application.Services" {
-    interface ILensMaterialQueryService <<interface>> {
+    interface "ILensMaterialQueryService" as ILensMaterialQueryService <<interface>> {
+        - Handle(GetAllLensMaterialsQuery query, CancellationToken cancellationToken): Task<IEnumerable<LensMaterial>>
     }
 
-    interface IPatientNotificationCommandService <<interface>> {
+    interface "IPatientNotificationCommandService" as IPatientNotificationCommandService <<interface>> {
+        - Handle(CreateNotificationCommand command, CancellationToken cancellationToken): Task<Result<PatientNotification, CreateNotificationError>>
     }
 
-    interface IPatientNotificationQueryService <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Domain.Model.Commands" {
-    class CreateNotificationCommand <<record>> {
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Domain.Model.Entities" {
-    class LensMaterial  {
-        + Id: int
-        + FullName: string
-        + IndexValue: string
-        + BasePrice: decimal
-        + Description: string
-    }
-
-    class PatientNotification  {
-        + Id: int
-        + AccountId: Guid
-        + PatientId: int
-        + WorkOrderId: int
-        + Message: string
-        + Status: string
-        + SentAt: DateTime?
-        --
-        + MarkAsRead(): void
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Domain.Model.Queries" {
-    class GetAllLensMaterialsQuery <<record>> {
-    }
-
-    class GetNotificationsByPatientIdQuery <<record>> {
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Domain.Model.ValueObjects" {
-    class NotificationStatus <<record>> {
-        -   ValidValues: HashSet<string>
-        + Value: string
-        --
-        + ToString(): string
+    interface "IPatientNotificationQueryService" as IPatientNotificationQueryService <<interface>> {
+        - Handle(GetNotificationsByPatientIdQuery query, CancellationToken cancellationToken): Task<IEnumerable<PatientNotification>>
     }
 
 }
 
 package "optiflow_platform.PatientCenter.Domain.Repositories" {
-    interface ILensMaterialRepository <<interface>> {
+    interface "ILensMaterialRepository" as ILensMaterialRepository <<interface>> {
     }
 
-    interface IPatientNotificationRepository <<interface>> {
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Configuration.Extensions" {
-    class ModelBuilderExtensions  {
-        + ApplyPatientCenterConfiguration(builder, dbContext): void
-    }
-
-}
-
-package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Repositories" {
-    class LensMaterialRepository  {
-    }
-
-    class PatientNotificationRepository  {
+    interface "IPatientNotificationRepository" as IPatientNotificationRepository <<interface>> {
+        - FindByPatientIdAsync(int patientId, CancellationToken cancellationToken): Task<IEnumerable<PatientNotification>>
     }
 
 }
 
 package "optiflow_platform.PatientCenter.Interfaces.REST" {
-    class LensMaterialsController  {
-        + GetAllLensMaterials(default): Task<ActionResult>
+    class "LensMaterialsController" as LensMaterialsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutSubscription]
+        --
+        + GetAllLensMaterials(CancellationToken cancellationToken): Task<ActionResult>
+        + LensMaterialsController(ILensMaterialQueryService lensMaterialQueryService)
     }
 
-    class PatientNotificationsController  {
+    class "PatientNotificationsController" as PatientNotificationsController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutAccount]
+        [AllowWithoutSubscription]
+        --
+        + GetNotificationsByPatientId(int patientId, CancellationToken cancellationToken): Task<ActionResult>
+        + CreateNotification(int patientId, CreatePatientNotificationResource resource, CancellationToken cancellationToken): Task<ActionResult>
+        + MarkAsRead(int patientId, int notificationId, CancellationToken cancellationToken): Task<ActionResult>
+        + PatientNotificationsController(IPatientNotificationQueryService notificationQueryService, IPatientNotificationCommandService notificationCommandService, ILogger<PatientNotificationsController> logger)
     }
 
-    class PatientOrdersController  {
+    class "PatientOrdersController" as PatientOrdersController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutAccount]
+        [AllowWithoutSubscription]
+        --
+        + GetOrdersByPatientId(int patientId, CancellationToken cancellationToken): Task<ActionResult>
+        + PatientOrdersController(IWorkOrderQueryService workOrderQueryService, ISaleQueryService saleQueryService, ILogger<PatientOrdersController> logger)
     }
 
-    class PatientProfileController  {
+    class "PatientProfileController" as PatientProfileController  {
+        .. Attributes ..
+        [ApiController]
+        [Route]
+        [Produces]
+        [Tags]
+        [Authorize]
+        [AllowWithoutAccount]
+        [AllowWithoutSubscription]
+        --
+        + GetPatientByEmail(string email, CancellationToken cancellationToken): Task<ActionResult>
+        + PatientProfileController(IPatientQueryService patientQueryService, ILogger<PatientProfileController> logger)
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Application.Internal.CommandServices" {
+    class "PatientNotificationCommandService" as PatientNotificationCommandService  {
+        + Handle(CreateNotificationCommand command, CancellationToken cancellationToken): Task<Result<PatientNotification, CreateNotificationError>>
+        + PatientNotificationCommandService(IPatientNotificationRepository notificationRepository, IUnitOfWork unitOfWork, ICurrentUserContext currentUserContext, ILogger<PatientNotificationCommandService> logger)
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Application.Internal.QueryServices" {
+    class "LensMaterialQueryService" as LensMaterialQueryService  {
+        + Handle(GetAllLensMaterialsQuery query, CancellationToken cancellationToken): Task<IEnumerable<LensMaterial>>
+        + LensMaterialQueryService(ILensMaterialRepository lensMaterialRepository)
+    }
+
+    class "PatientNotificationQueryService" as PatientNotificationQueryService  {
+        + Handle(GetNotificationsByPatientIdQuery query, CancellationToken cancellationToken): Task<IEnumerable<PatientNotification>>
+        + PatientNotificationQueryService(IPatientNotificationRepository notificationRepository)
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Commands" {
+    class "CreateNotificationCommand" as CreateNotificationCommand <<record>> {
+        + {method} PatientId: int
+        + {method} WorkOrderId: int
+        + {method} Message: string
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Entities" {
+    class "LensMaterial" as LensMaterial  {
+        + {method} Id: int
+        + {method} FullName: string
+        + {method} IndexValue: string
+        + {method} BasePrice: decimal
+        + {method} Description: string
+        --
+        # LensMaterial()
+    }
+
+    class "PatientNotification" as PatientNotification  {
+        + {method} Id: int
+        + {method} AccountId: Guid
+        + {method} PatientId: int
+        + {method} WorkOrderId: int
+        + {method} Message: string
+        + {method} Status: string
+        + {method} SentAt: DateTime?
+        --
+        + MarkAsRead(): void
+        # PatientNotification()
+        + PatientNotification(CreateNotificationCommand command, Guid accountId)
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Queries" {
+    class "GetAllLensMaterialsQuery" as GetAllLensMaterialsQuery <<record>> {
+    }
+
+    class "GetNotificationsByPatientIdQuery" as GetNotificationsByPatientIdQuery <<record>> {
+        + {method} PatientId: int
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.ValueObjects" {
+    class "NotificationStatus" as NotificationStatus <<record>> {
+        + {field} Pending: string
+        + {field} Sent: string
+        + {field} Read: string
+        - {field} ValidValues: HashSet<string>
+        + {method} Value: string
+        --
+        + ToString(): string
+        + NotificationStatus(string value)
     }
 
 }
 
 package "optiflow_platform.PatientCenter.Interfaces.REST.Resources" {
-    class LensMaterialResource <<record>> {
+    class "LensMaterialResource" as LensMaterialResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} FullName: string
+        + {method} IndexValue: string
+        + {method} BasePrice: decimal
+        + {method} Description: string
     }
 
-    class PatientNotificationResource <<record>> {
+    class "PatientNotificationResource" as PatientNotificationResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} Id: int
+        + {method} PatientId: int
+        + {method} WorkOrderId: int
+        + {method} Message: string
+        + {method} Status: string
+        + {method} SentAt: DateTime?
     }
 
-    class CreatePatientNotificationResource <<record>> {
+    class "CreatePatientNotificationResource" as CreatePatientNotificationResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} WorkOrderId: int
+        + {method} Message: string
     }
 
-    class PatientOrderResource <<record>> {
+    class "PatientOrderResource" as PatientOrderResource <<record>> {
+        .. Attributes ..
+        [SwaggerSchema]
+        --
+        + {method} WorkOrderId: int
+        + {method} SaleId: int
+        + {method} OrderNumber: string
+        + {method} PatientName: string
+        + {method} LensType: string
+        + {method} Frame: string
+        + {method} Status: string
+        + {method} Priority: string
+        + {method} DeliveryDate: string
+        + {method} CreatedAt: string
+        + {method} Total: decimal
+        + {method} Deposit: decimal
+        + {method} PendingBalance: decimal
+        + {method} IsRework: bool
     }
 
 }
 
 package "optiflow_platform.PatientCenter.Interfaces.REST.Transform" {
-    class CreateNotificationCommandFromResourceAssembler  {
+    class "CreateNotificationCommandFromResourceAssembler" as CreateNotificationCommandFromResourceAssembler  {
+        + ToCommandFromResource(int patientId, CreatePatientNotificationResource resource): CreateNotificationCommand
     }
 
-    class LensMaterialResourceFromEntityAssembler  {
-        + ToResourceFromEntity(m): LensMaterialResource
+    class "LensMaterialResourceFromEntityAssembler" as LensMaterialResourceFromEntityAssembler  {
+        + ToResourceFromEntity(LensMaterial m): LensMaterialResource
     }
 
-    class PatientNotificationResourceFromEntityAssembler  {
-        + ToResourceFromEntity(n): PatientNotificationResource
+    class "PatientNotificationResourceFromEntityAssembler" as PatientNotificationResourceFromEntityAssembler  {
+        + ToResourceFromEntity(PatientNotification n): PatientNotificationResource
     }
 
 }
 
-' Relationships
+package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Repositories" {
+    class "LensMaterialRepository" as LensMaterialRepository  {
+        + LensMaterialRepository(AppDbContext context)
+    }
+
+    class "PatientNotificationRepository" as PatientNotificationRepository  {
+        + FindByPatientIdAsync(int patientId, CancellationToken cancellationToken): Task<IEnumerable<PatientNotification>>
+        + PatientNotificationRepository(AppDbContext context)
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class "ModelBuilderExtensions" as ModelBuilderExtensions  {
+        + ApplyPatientCenterConfiguration(ModelBuilder builder, AppDbContext dbContext): void
+    }
+
+}
+
+LensMaterialsController --> ILensMaterialQueryService : uses
+PatientNotificationsController --> IPatientNotificationQueryService : uses
+PatientNotificationsController --> IPatientNotificationCommandService : uses
 PatientNotificationCommandService ..|> IPatientNotificationCommandService
-PatientNotificationCommandService --> IPatientNotificationRepository : "uses"
+PatientNotificationCommandService --> IPatientNotificationRepository : uses
 LensMaterialQueryService ..|> ILensMaterialQueryService
-LensMaterialQueryService --> ILensMaterialRepository : "uses"
+LensMaterialQueryService --> ILensMaterialRepository : uses
 PatientNotificationQueryService ..|> IPatientNotificationQueryService
-PatientNotificationQueryService --> IPatientNotificationRepository : "uses"
+PatientNotificationQueryService --> IPatientNotificationRepository : uses
+PatientNotification --> CreateNotificationCommand : uses
 LensMaterialRepository ..|> ILensMaterialRepository
 PatientNotificationRepository ..|> IPatientNotificationRepository
-LensMaterialsController --> ILensMaterialQueryService : "uses"
-PatientNotificationsController --> IPatientNotificationQueryService : "uses"
-PatientNotificationsController --> IPatientNotificationCommandService : "uses"
 
 @enduml
