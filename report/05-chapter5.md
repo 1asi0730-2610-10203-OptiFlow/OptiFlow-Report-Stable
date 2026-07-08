@@ -2469,7 +2469,7 @@ La siguiente tabla mapea cada logro ejecutable con los artefactos de código que
 
 *(Espacio reservado para las capturas de pantalla de la ejecución: vista de login/registro con IAM activo, flujo de suscripción con Stripe, detalle itemizado de una venta y perfil del paciente conectado al backend real.)*
 
-Link del video: *(Insertar enlace al video de ejecución del Sprint 4 en Microsoft Stream/SharePoint)*
+Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQBkruTPmXMxR5jA8qkQQckzAUyxBfdumridbXqc-7M__gQ?e=OeiQYH&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 #### Services Documentation Evidence for Sprint Review
 
