@@ -2536,10 +2536,13 @@ La documentación interactiva sigue disponible en `https://optiflow.azurewebsite
 
 Durante el Sprint 4 se consolidó el despliegue de la **versión final** de los productos digitales sobre Azure, cerrando el ciclo de vida del proyecto. El backend en **Azure App Service** (`optiflow.azurewebsites.net`) fue actualizado con las migraciones de Entity Framework Core correspondientes al multi-tenancy (columnas `account_id` en cada bounded context, tabla de cuentas y tabla de notificaciones de sistema), la integración de Stripe (configurada mediante las variables de entorno del App Service) y la seguridad JWT para todos los controladores protegidos. El frontend Vue.js se mantiene desplegado en **Azure Static Web Apps** con integración continua vía GitHub Actions, consumiendo ahora la API asegurada. La Landing Page permanece en su versión estable `v3.0.0` publicada en GitHub Pages al cierre del Sprint 3.
 
+El despliegue se mantiene sobre la misma infraestructura consolidada en el Sprint 3, por lo que la evidencia del entorno de producción es la misma que la del sprint anterior:
+
 ![](../assets/deployment-azure.png)
 > Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 4.
 
-*(Insertar capturas del pipeline de GitHub Actions ejecutado para el despliegue final del Sprint 4 y de las variables de entorno de Stripe/JWT configuradas en el App Service de Azure)*
+![](../docs/optiflow-server.png)
+> Captura del servidor de base de datos (SQL) que respalda la persistencia de la API en producción durante el Sprint 4.
 
 **URLs de Producción:**
 - **Landing Page:** https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
