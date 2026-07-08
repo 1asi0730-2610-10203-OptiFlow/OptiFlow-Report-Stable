@@ -1,0 +1,392 @@
+' Class Diagram for Bounded Context: Inventory
+@startuml InventoryClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.Inventory.Application.Errors" {
+    enum ConsumeStockError <<enum>> {
+        ProductNotFound
+        InvalidQuantity
+        InsufficientStock
+        UnexpectedError
+    }
+
+    enum CreateSupplierError <<enum>> {
+        DuplicateName
+        InvalidContact
+        UnexpectedError
+    }
+
+    enum LogManualAdjustmentError <<enum>> {
+        ProductNotFound
+        JustificationRequired
+        UnexpectedError
+    }
+
+    enum ReduceStockError <<enum>> {
+        ProductNotFound
+        InvalidQuantity
+        InsufficientStock
+        UnexpectedError
+    }
+
+    enum RegisterProductError <<enum>> {
+        DuplicateSku
+        UnexpectedError
+    }
+
+    enum RestockProductError <<enum>> {
+        ProductNotFound
+        InvalidQuantity
+        UnexpectedError
+    }
+
+    enum UpdateProductError <<enum>> {
+        ProductNotFound
+        UnexpectedError
+    }
+
+    enum UpdateStockLevelError <<enum>> {
+        ProductNotFound
+        UnexpectedError
+    }
+
+    enum VerifySupplyStockError <<enum>> {
+        ProductNotFound
+        OutOfStock
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.Inventory.Application.Internal.CommandServices" {
+    class ProductCommandService  {
+    }
+
+    class SupplierCommandService  {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Application.Internal.EventHandlers" {
+    class SaleCompletedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+    }
+
+}
+
+package "optiflow_platform.Inventory.Application.Internal.QueryServices" {
+    class ProductQueryService  {
+        + Handle(query, default): Task<Product?>
+    }
+
+    class StockAuditLogQueryService  {
+    }
+
+    class SupplierQueryService  {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Application.Services" {
+    interface IProductCommandService <<interface>> {
+    }
+
+    interface IProductQueryService <<interface>> {
+    }
+
+    interface IStockAuditLogQueryService <<interface>> {
+    }
+
+    interface ISupplierCommandService <<interface>> {
+    }
+
+    interface ISupplierQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Domain.Model.Aggregates" {
+    class Product  {
+        + Id: int
+        + AccountId: Guid
+        + Category: EProductCategory
+        + SupplierId: int
+        + SupplierName: string
+        + Sku: string
+        + Name: string
+        + Brand: string
+        + Model: string
+        + Price: decimal
+        + Stock: int
+        + MinimumStockThreshold: int
+        + LastRestockDate: string
+        --
+        + UpdateDetails(command): void
+        + UpdateStockLevel(command): void
+        + Restock(command): void
+        + ReduceStock(quantity): void
+        + AdjustStock(command): void
+        + ConsumeStock(command): void
+        + IsLowStock(): bool
+        + HasStock(): bool
+    }
+
+    class StockAuditLog  {
+        + Id: int
+        + AccountId: Guid
+        + ProductId: int
+        + ProductName: string
+        + Sku: string
+        + Operation: string
+        + PreviousStock: int
+        + Quantity: int
+        + NewStock: int
+        + Author: string
+        + Date: string
+        + Time: string
+    }
+
+    class Supplier  {
+        + Id: int
+        + AccountId: Guid
+        + Name: string
+        + Contact: SupplierContact
+    }
+
+}
+
+package "optiflow_platform.Inventory.Domain.Model.Commands" {
+    class ConsumeStockCommand <<record>> {
+    }
+
+    class CreateSupplierCommand <<record>> {
+    }
+
+    class LogManualAdjustmentCommand <<record>> {
+    }
+
+    class ReduceStockCommand <<record>> {
+    }
+
+    class RegisterProductCommand <<record>> {
+    }
+
+    class RestockProductCommand <<record>> {
+    }
+
+    class UpdateProductCommand <<record>> {
+    }
+
+    class UpdateStockLevelCommand <<record>> {
+    }
+
+    class VerifySupplyStockCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Domain.Model.Queries" {
+    class GetAllProductsQuery <<record>> {
+    }
+
+    class GetAllSuppliersQuery <<record>> {
+    }
+
+    class GetAuditLogsQuery <<record>> {
+    }
+
+    class GetLowStockProductsQuery <<record>> {
+    }
+
+    class GetProductByIdQuery <<record>> {
+    }
+
+    class GetSupplierByIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Domain.Model.ValueObjects" {
+    enum EProductCategory <<enum>> {
+        Lenses
+        Frames
+        Accessories
+        ContactLenses
+        Sunglasses
+        Equipment
+    }
+
+    class StockOperation <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+    class SupplierContact  {
+        + ContactPerson: string
+        + Phone: string
+        + Email: string
+    }
+
+}
+
+package "optiflow_platform.Inventory.Domain.Repositories" {
+    interface IProductRepository <<interface>> {
+    }
+
+    interface IStockAuditLogRepository <<interface>> {
+    }
+
+    interface ISupplierRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplyInventoryConfiguration(builder, dbContext): void
+    }
+
+}
+
+package "optiflow_platform.Inventory.Infrastructure.Persistence.EFC.Repositories" {
+    class ProductRepository  {
+        + ExistsBySkuAsync(sku, default): Task<bool>
+        + ListLowStockAsync(default): Task<IEnumerable<Product>>
+    }
+
+    class StockAuditLogRepository  {
+    }
+
+    class SupplierRepository  {
+        + FindByNameAsync(name, default): Task<Supplier?>
+    }
+
+}
+
+package "optiflow_platform.Inventory.Interfaces.REST" {
+    class ProductsController  {
+        + GetAllProducts(default): Task<ActionResult>
+        + GetLowStockProducts(default): Task<ActionResult>
+        + GetProductById(id, default): Task<ActionResult>
+        + VerifySupplyStock(id, cancellationToken): Task<ActionResult>
+    }
+
+    class StockAuditLogsController  {
+    }
+
+    class SuppliersController  {
+        + GetAllSuppliers(default): Task<ActionResult>
+        + GetSupplierById(id, default): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.Inventory.Interfaces.REST.Resources" {
+    class ConsumeStockResource <<record>> {
+    }
+
+    class LogManualAdjustmentResource <<record>> {
+    }
+
+    class ProductResource <<record>> {
+    }
+
+    class RegisterProductResource <<record>> {
+    }
+
+    class RegisterSupplierResource <<record>> {
+    }
+
+    class RestockProductResource <<record>> {
+    }
+
+    class StockAuditLogResource <<record>> {
+    }
+
+    class SupplierResource <<record>> {
+    }
+
+    class UpdateProductResource <<record>> {
+    }
+
+    class UpdateStockLevelResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Inventory.Interfaces.REST.Transform" {
+    class ConsumeStockCommandFromResourceAssembler  {
+        + ToCommandFromResource(productId, resource): ConsumeStockCommand
+    }
+
+    class LogManualAdjustmentCommandFromResourceAssembler  {
+        + ToCommandFromResource(productId, resource): LogManualAdjustmentCommand
+    }
+
+    class ProductResourceFromEntityAssembler  {
+        + ToResourceFromEntity(product): ProductResource
+    }
+
+    class RegisterProductCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): RegisterProductCommand
+    }
+
+    class RegisterSupplierCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreateSupplierCommand
+    }
+
+    class RestockProductCommandFromResourceAssembler  {
+        + ToCommandFromResource(productId, resource): RestockProductCommand
+    }
+
+    class StockAuditLogResourceFromEntityAssembler  {
+        + ToResourceFromEntity(auditLog): StockAuditLogResource
+    }
+
+    class SupplierResourceFromEntityAssembler  {
+        + ToResourceFromEntity(supplier): SupplierResource
+    }
+
+    class UpdateProductCommandFromResourceAssembler  {
+        + ToCommandFromResource(productId, resource): UpdateProductCommand
+    }
+
+    class UpdateStockLevelCommandFromResourceAssembler  {
+        + ToCommandFromResource(productId, resource): UpdateStockLevelCommand
+    }
+
+}
+
+' Relationships
+ProductCommandService ..|> IProductCommandService
+ProductCommandService --> IProductRepository : "uses"
+ProductCommandService --> IStockAuditLogRepository : "uses"
+SupplierCommandService ..|> ISupplierCommandService
+SupplierCommandService --> ISupplierRepository : "uses"
+ProductQueryService ..|> IProductQueryService
+ProductQueryService --> IProductRepository : "uses"
+StockAuditLogQueryService ..|> IStockAuditLogQueryService
+StockAuditLogQueryService --> IStockAuditLogRepository : "uses"
+SupplierQueryService ..|> ISupplierQueryService
+SupplierQueryService --> ISupplierRepository : "uses"
+RegisterProductCommand --> EProductCategory : "uses"
+UpdateProductCommand --> EProductCategory : "uses"
+ProductRepository ..|> IProductRepository
+StockAuditLogRepository ..|> IStockAuditLogRepository
+SupplierRepository ..|> ISupplierRepository
+ProductsController --> IProductCommandService : "uses"
+ProductsController --> IProductQueryService : "uses"
+StockAuditLogsController --> IStockAuditLogQueryService : "uses"
+SuppliersController --> ISupplierCommandService : "uses"
+SuppliersController --> ISupplierQueryService : "uses"
+
+@enduml

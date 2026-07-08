@@ -1,0 +1,170 @@
+' Class Diagram for Bounded Context: Analytics
+@startuml AnalyticsClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.Analytics.Application.Internal.QueryServices" {
+    class AnalyticsReportQueryService  {
+        - BuildReportsAsync(cancellationToken): Task<IReadOnlyList<AnalyticsReport>>
+        + PeriodOf(createdAt): string?
+        + AgeInDays(createdAt): int
+    }
+
+    class StaffMetricQueryService  {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Application.Services" {
+    interface IAnalyticsReportQueryService <<interface>> {
+    }
+
+    interface IStaffMetricQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Aggregates" {
+    class AnalyticsReport  {
+        + Id: int
+        + GeneratedBy: string
+        + Period: string
+        + GeneratedAt: DateTime
+        + TotalRevenue: decimal
+        + TotalTransactions: int
+        + ConversionRate: decimal
+        + AverageDeliveryDays: decimal
+        + OnTimeDeliveryRate: decimal
+        + ReworkRate: decimal
+        + TotalOrders: int
+        + PendingBalance0To7: decimal
+        + PendingBalance8To15: decimal
+        + PendingBalance16To30: decimal
+        + PendingBalanceOver30: decimal
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Entities" {
+    class StaffMetric  {
+        + Id: int
+        + ReportId: int
+        + EmployeeName: string
+        + QuotationsIssued: int
+        + SalesClosed: int
+        + TotalRevenue: decimal
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Model.Queries" {
+    class GetAllAnalyticsReportsQuery <<record>> {
+    }
+
+    class GetAnalyticsReportByIdQuery <<record>> {
+    }
+
+    class GetAnalyticsReportsByPeriodQuery <<record>> {
+    }
+
+    class GetAllStaffMetricsQuery <<record>> {
+    }
+
+    class GetStaffMetricsByReportIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Domain.Repositories" {
+    interface IStaffMetricRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplyAnalyticsConfiguration(builder): void
+    }
+
+}
+
+package "optiflow_platform.Analytics.Infrastructure.Persistence.EFC.Repositories" {
+    class StaffMetricRepository  {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Interfaces.Acl" {
+    class WorkOrderSummary <<record>> {
+    }
+
+    interface ILabOrdersContextFacade <<interface>> {
+    }
+
+    class SaleSummary <<record>> {
+    }
+
+    interface ISalesContextFacade <<interface>> {
+    }
+
+    class LabOrdersContextFacade  {
+    }
+
+    class SalesContextFacade  {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Interfaces.REST" {
+    class AnalyticsReportsController  {
+        + GetAllAnalyticsReports(default): Task<ActionResult>
+        + GetAnalyticsReportById(id, default): Task<ActionResult>
+        + GetAnalyticsReportsByPeriod(period, default): Task<ActionResult>
+    }
+
+    class StaffMetricsController  {
+        + GetAllStaffMetrics(default): Task<ActionResult>
+        + GetStaffMetricsByReportId(reportId, default): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.Analytics.Interfaces.REST.Resources" {
+    class AnalyticsReportResource <<record>> {
+    }
+
+    class StaffMetricResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Analytics.Interfaces.REST.Transform" {
+    class AnalyticsReportResourceFromEntityAssembler  {
+        + ToResourceFromEntity(entity): AnalyticsReportResource
+    }
+
+    class StaffMetricResourceFromEntityAssembler  {
+        + ToResourceFromEntity(entity): StaffMetricResource
+    }
+
+}
+
+' Relationships
+AnalyticsReportQueryService ..|> IAnalyticsReportQueryService
+AnalyticsReportQueryService --> ISalesContextFacade : "uses"
+AnalyticsReportQueryService --> ILabOrdersContextFacade : "uses"
+StaffMetricQueryService ..|> IStaffMetricQueryService
+StaffMetricQueryService --> IStaffMetricRepository : "uses"
+StaffMetricRepository ..|> IStaffMetricRepository
+LabOrdersContextFacade ..|> ILabOrdersContextFacade
+SalesContextFacade ..|> ISalesContextFacade
+AnalyticsReportsController --> IAnalyticsReportQueryService : "uses"
+StaffMetricsController --> IStaffMetricQueryService : "uses"
+
+@enduml

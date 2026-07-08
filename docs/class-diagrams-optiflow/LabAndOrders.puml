@@ -1,0 +1,272 @@
+' Class Diagram for Bounded Context: LabAndOrders
+@startuml LabAndOrdersClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.LabAndOrders.Application.Errors" {
+    enum CreateLaboratoryError <<enum>> {
+        DuplicateName
+        InvalidContactInfo
+        UnexpectedError
+    }
+
+    enum CreateWorkOrderError <<enum>> {
+        UnexpectedError
+    }
+
+    enum LinkSaleError <<enum>> {
+        WorkOrderNotFound
+        UnexpectedError
+    }
+
+    enum UpdateOrderStatusError <<enum>> {
+        WorkOrderNotFound
+        InvalidStatus
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Application.Internal.CommandServices" {
+    class LaboratoryCommandService  {
+    }
+
+    class WorkOrderCommandService  {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Application.Internal.QueryServices" {
+    class LaboratoryQueryService  {
+    }
+
+    class WorkOrderQueryService  {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Application.Services" {
+    interface ILaboratoryCommandService <<interface>> {
+    }
+
+    interface ILaboratoryQueryService <<interface>> {
+    }
+
+    interface IWorkOrderCommandService <<interface>> {
+    }
+
+    interface IWorkOrderQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Aggregates" {
+    class Laboratory  {
+        + Id: int
+        + AccountId: Guid
+        + Name: string
+        + ContactInfo: ContactInfo
+    }
+
+    class WorkOrder  {
+        + Id: int
+        + AccountId: Guid
+        + SaleId: int
+        + RecipeId: int
+        + LaboratoryId: LaboratoryId
+        + Status: string
+        + Priority: string
+        + PatientName: string
+        + LaboratoryName: string
+        + LensType: string
+        + LensProductId: int?
+        + Frame: string
+        + FrameProductId: int?
+        + Prescription: string
+        + DeliveryDate: string
+        + Deposit: decimal
+        + Total: decimal
+        + IsRework: bool
+        --
+        + UpdateStatus(command): void
+        + LinkSale(saleId): void
+        - IsBackwardTransition(from, to): bool
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Commands" {
+    class CreateLaboratoryCommand <<record>> {
+    }
+
+    class CreateWorkOrderCommand <<record>> {
+    }
+
+    class LinkSaleCommand <<record>> {
+    }
+
+    class UpdateOrderStatusCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Events" {
+    class WorkOrderCreatedEvent <<record>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.Queries" {
+    class GetAllLaboratoriesQuery <<record>> {
+    }
+
+    class GetAllWorkOrdersQuery <<record>> {
+    }
+
+    class GetLaboratoryByIdQuery <<record>> {
+    }
+
+    class GetWorkOrderByIdQuery <<record>> {
+    }
+
+    class GetWorkOrderBySaleIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Model.ValueObjects" {
+    class ContactInfo  {
+        + Phone: string
+        + Email: string
+    }
+
+    class LaboratoryId <<record>> {
+    }
+
+    class OrderPriority <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+    class OrderStatus <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Domain.Repositories" {
+    interface ILaboratoryRepository <<interface>> {
+    }
+
+    interface IWorkOrderRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplyLabAndOrdersConfiguration(builder, dbContext): void
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Infrastructure.Persistence.EFC.Repositories" {
+    class LaboratoryRepository  {
+        + FindByNameAsync(name, default): Task<Laboratory?>
+    }
+
+    class WorkOrderRepository  {
+        + FindBySaleIdAsync(saleId, default): Task<WorkOrder?>
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Interfaces.REST" {
+    class LaboratoriesController  {
+        + GetAllLaboratories(default): Task<ActionResult>
+        + GetLaboratoryById(id, default): Task<ActionResult>
+    }
+
+    class WorkOrdersController  {
+        + GetAllWorkOrders(default): Task<ActionResult>
+        + GetWorkOrderById(id, default): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Interfaces.REST.Resources" {
+    class CreateLaboratoryResource <<record>> {
+    }
+
+    class CreateWorkOrderResource <<record>> {
+    }
+
+    class LaboratoryResource <<record>> {
+    }
+
+    class LinkSaleResource <<record>> {
+    }
+
+    class UpdateWorkOrderStatusResource <<record>> {
+    }
+
+    class WorkOrderResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.LabAndOrders.Interfaces.REST.Transform" {
+    class CreateLaboratoryCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreateLaboratoryCommand
+    }
+
+    class CreateWorkOrderCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreateWorkOrderCommand
+    }
+
+    class LaboratoryResourceFromEntityAssembler  {
+        + ToResourceFromEntity(laboratory): LaboratoryResource
+    }
+
+    class LinkSaleCommandFromResourceAssembler  {
+        + ToCommandFromResource(workOrderId, resource): LinkSaleCommand
+    }
+
+    class UpdateOrderStatusCommandFromResourceAssembler  {
+        + ToCommandFromResource(workOrderId, resource): UpdateOrderStatusCommand
+    }
+
+    class WorkOrderResourceFromEntityAssembler  {
+        + ToResourceFromEntity(workOrder): WorkOrderResource
+    }
+
+}
+
+' Relationships
+LaboratoryCommandService ..|> ILaboratoryCommandService
+LaboratoryCommandService --> ILaboratoryRepository : "uses"
+WorkOrderCommandService ..|> IWorkOrderCommandService
+WorkOrderCommandService --> IWorkOrderRepository : "uses"
+LaboratoryQueryService ..|> ILaboratoryQueryService
+LaboratoryQueryService --> ILaboratoryRepository : "uses"
+WorkOrderQueryService ..|> IWorkOrderQueryService
+WorkOrderQueryService --> IWorkOrderRepository : "uses"
+LaboratoryRepository ..|> ILaboratoryRepository
+WorkOrderRepository ..|> IWorkOrderRepository
+LaboratoriesController --> ILaboratoryCommandService : "uses"
+LaboratoriesController --> ILaboratoryQueryService : "uses"
+WorkOrdersController --> IWorkOrderCommandService : "uses"
+WorkOrdersController --> IWorkOrderQueryService : "uses"
+
+@enduml
