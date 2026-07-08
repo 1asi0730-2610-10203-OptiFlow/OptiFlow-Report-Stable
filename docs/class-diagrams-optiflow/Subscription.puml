@@ -1,0 +1,595 @@
+' Class Diagram for Bounded Context: Subscription
+@startuml SubscriptionClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.Subscription.Application.Errors" {
+    enum ActivateSubscriptionError <<enum>> {
+        SubscriptionNotFound
+        AlreadyActive
+        UnexpectedError
+    }
+
+    enum CancelSubscriptionError <<enum>> {
+        SubscriptionNotFound
+        AlreadyCancelled
+        UnexpectedError
+    }
+
+    enum ChangePlanError <<enum>> {
+        SubscriptionNotFound
+        InvalidPlan
+        UnexpectedError
+    }
+
+    enum CreatePlanError <<enum>> {
+        NameAlreadyExists
+        UnexpectedError
+    }
+
+    enum ProcessSubscriptionPaymentError <<enum>> {
+        SubscriptionNotFound
+        PaymentFailed
+        InvalidPaymentMethod
+        UnexpectedError
+    }
+
+    enum RenewSubscriptionError <<enum>> {
+        SubscriptionNotFound
+        BillingNotFound
+        PaymentFailed
+        UnexpectedError
+    }
+
+    enum SelectSubscriptionPlanError <<enum>> {
+        InvalidPlan
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.Subscription.Application.Internal.CommandServices" {
+    class BillingCommandService  {
+    }
+
+    class PaymentCommandService  {
+    }
+
+    class PlanCommandService  {
+    }
+
+    class SubscriptionCommandService  {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Application.Internal.EventHandlers" {
+    class PaymentProcessedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent, cancellationToken): Task
+    }
+
+    class PaymentProcessingStartedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+    class PlanChangeRequestedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+    class PlanChangeRequestSentEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent, cancellationToken): Task
+    }
+
+    class PlanSubscriptionSelectedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent, cancellationToken): Task
+    }
+
+    class RenewalDueEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent, cancellationToken): Task
+    }
+
+    class RequestedRenewSubscriptionEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+    class SubscriptionCancelledEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+    class SubscriptionEndDateCheckedEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+    class SubscriptionExpiredEventHandler  {
+        + Handle(domainEvent, cancellationToken): Task
+        - On(domainEvent): Task
+    }
+
+}
+
+package "optiflow_platform.Subscription.Application.Internal.OutboundServices.Stripe" {
+    interface IStripeCheckoutService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Application.Internal.QueryServices" {
+    class BillingQueryService  {
+    }
+
+    class PaymentQueryService  {
+    }
+
+    class PlanQueryService  {
+        + Handle(query, default): Task<Plan?>
+        + Handle(query, default): Task<IEnumerable<Plan>>
+    }
+
+    class SubscriptionQueryService  {
+        + GetCurrentActiveSubscriptionAsync(default): Task<SubscriptionAggregate?>
+    }
+
+}
+
+package "optiflow_platform.Subscription.Application.Services" {
+    interface IBillingCommandService <<interface>> {
+    }
+
+    interface IBillingQueryService <<interface>> {
+    }
+
+    interface IPaymentCommandService <<interface>> {
+    }
+
+    interface IPaymentQueryService <<interface>> {
+    }
+
+    interface IPlanCommandService <<interface>> {
+    }
+
+    interface IPlanQueryService <<interface>> {
+    }
+
+    interface ISubscriptionCommandService <<interface>> {
+    }
+
+    interface ISubscriptionQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Model.Aggregates" {
+    class Billing  {
+        + Id: int
+        + AccountId: Guid
+        + SubscriptionId: SubscriptionId
+        + RenewalDate: DateTimeOffset
+        + AutoRenew: bool
+        + BillingStatus: string
+        --
+        + MarkDue(): void
+        + MarkRenewed(): void
+        + MarkExpired(): void
+    }
+
+    class Payment  {
+        + Id: int
+        + AccountId: Guid
+        + SubscriptionId: SubscriptionId
+        + Amount: decimal
+        + PaymentMethod: string
+        + Status: PaymentStatus
+        + ProcessedAt: DateTimeOffset?
+        --
+        + MarkProcessed(): void
+        + MarkFailed(): void
+    }
+
+    class Plan  {
+        + Id: int
+        + Name: string
+        + Tier: SubscriptionTier
+        + Price: decimal
+        + Description: string
+    }
+
+    class Subscription  {
+        + Id: int
+        + AccountId: Guid
+        + AdminId: int
+        + PlanId: PlanId
+        + Tier: SubscriptionTier
+        + Amount: decimal
+        + PaymentMethod: string
+        + Status: SubscriptionStatus
+        + StartDate: DateTimeOffset?
+        + EndDate: DateTimeOffset?
+        --
+        + Activate(command): void
+        + Cancel(command): void
+        + Expire(command): void
+        + ChangePlan(command): void
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Model.Commands" {
+    class ActivateSubscriptionCommand <<record>> {
+    }
+
+    class CancelSubscriptionCommand <<record>> {
+    }
+
+    class ChangePlanCommand <<record>> {
+    }
+
+    class CheckSubscriptionRenewalCommand <<record>> {
+    }
+
+    class CreatePlanCommand <<record>> {
+    }
+
+    class ExpireSubscriptionCommand <<record>> {
+    }
+
+    class ProcessSubscriptionPaymentCommand <<record>> {
+    }
+
+    class RequestAutoRenewCommand <<record>> {
+    }
+
+    class SelectSubscriptionPlanCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Model.Events" {
+    class PaymentProcessedEvent <<record>> {
+    }
+
+    class PaymentProcessingStartedEvent <<record>> {
+    }
+
+    class PlanChangeRequestedEvent <<record>> {
+    }
+
+    class PlanChangeRequestSentEvent <<record>> {
+    }
+
+    class PlanSubscriptionSelectedEvent <<record>> {
+    }
+
+    class RenewalDueEvent <<record>> {
+    }
+
+    class RequestedRenewSubscriptionEvent <<record>> {
+    }
+
+    class SubscriptionCancelledEvent <<record>> {
+    }
+
+    class SubscriptionEndDateCheckedEvent <<record>> {
+    }
+
+    class SubscriptionExpiredEvent <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Model.Queries" {
+    class GetAllPlansQuery <<record>> {
+    }
+
+    class GetAllSubscriptionsQuery <<record>> {
+    }
+
+    class GetBillingBySubscriptionIdQuery <<record>> {
+    }
+
+    class GetPaymentByIdQuery <<record>> {
+    }
+
+    class GetPaymentsBySubscriptionIdQuery <<record>> {
+    }
+
+    class GetPlanByIdQuery <<record>> {
+    }
+
+    class GetSubscriptionByIdQuery <<record>> {
+    }
+
+    class GetSubscriptionsByAdminIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Model.ValueObjects" {
+    class BillingId <<record>> {
+        + Value: int
+        --
+        + ToString(): string
+    }
+
+    class PaymentId <<record>> {
+        + Value: int
+        --
+        + ToString(): string
+    }
+
+    class PaymentStatus <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+    class PlanId <<record>> {
+        + Value: int
+        --
+        + ToString(): string
+    }
+
+    class SubscriptionId <<record>> {
+        + Value: int
+        --
+        + ToString(): string
+    }
+
+    class SubscriptionStatus <<record>> {
+        -   validValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+    class SubscriptionTier <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+}
+
+package "optiflow_platform.Subscription.Domain.Repositories" {
+    interface IBillingRepository <<interface>> {
+    }
+
+    interface IPaymentRepository <<interface>> {
+    }
+
+    interface IPlanRepository <<interface>> {
+    }
+
+    interface ISubscriptionRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplySubscriptionConfiguration(builder, dbContext): void
+    }
+
+}
+
+package "optiflow_platform.Subscription.Infrastructure.Persistence.EFC.Repositories" {
+    class BillingRepository  {
+    }
+
+    class PaymentRepository  {
+    }
+
+    class PlanRepository  {
+        + FindByNameAsync(name, default): Task<Plan?>
+    }
+
+    class SubscriptionRepository  {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Infrastructure.Seeding" {
+    class PlanSeeder  {
+        + SeedAsync(planCommandService, logger, default): Task
+    }
+
+}
+
+package "optiflow_platform.Subscription.Infrastructure.Stripe.Services" {
+    class StripeCheckoutService  {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Interfaces.REST" {
+    class BillingController  {
+        + CheckRenewal(subscriptionId, cancellationToken): Task<ActionResult>
+        + RequestAutoRenew(subscriptionId, cancellationToken): Task<ActionResult>
+    }
+
+    class CheckoutController  {
+    }
+
+    class SubscriptionPaymentsController  {
+        + GetSubscriptionPaymentById(id, default): Task<ActionResult>
+    }
+
+    class PlansController  {
+        + CreatePlan(resource, cancellationToken): Task<ActionResult>
+        + GetAllPlans(default): Task<ActionResult>
+        + GetPlanById(id, default): Task<ActionResult>
+    }
+
+    class StripeWebhookController  {
+        + Handle(cancellationToken): Task<IActionResult>
+        + Return(""): Task<IActionResult>
+    }
+
+    class SubscriptionsController  {
+        + GetMySubscription(default): Task<ActionResult>
+        + GetAllSubscriptions(default): Task<ActionResult>
+        + GetSubscriptionById(id, default): Task<ActionResult>
+        + GetSubscriptionsByAdminId(adminId, default): Task<ActionResult>
+        + CancelSubscription(id, cancellationToken): Task<ActionResult>
+        + ExpireSubscription(id, cancellationToken): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.Subscription.Interfaces.REST.Resources" {
+    class ActivateSubscriptionResource <<record>> {
+    }
+
+    class BillingResource <<record>> {
+    }
+
+    class ChangePlanResource <<record>> {
+    }
+
+    class CheckoutSessionResource <<record>> {
+    }
+
+    class CreateCheckoutSessionResource <<record>> {
+    }
+
+    class CreatePlanResource <<record>> {
+    }
+
+    class SubscriptionPaymentResource <<record>> {
+    }
+
+    class PlanResource <<record>> {
+    }
+
+    class ProcessPaymentResource <<record>> {
+    }
+
+    class SelectSubscriptionPlanResource <<record>> {
+    }
+
+    class SubscriptionResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Subscription.Interfaces.REST.Transform" {
+    class ActivateSubscriptionCommandFromResourceAssembler  {
+    }
+
+    class BillingResourceFromEntityAssembler  {
+        + ToResourceFromEntity(billing): BillingResource
+    }
+
+    class ChangePlanCommandFromResourceAssembler  {
+    }
+
+    class CreatePlanCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreatePlanCommand
+    }
+
+    class SubscriptionPaymentResourceFromEntityAssembler  {
+        + ToResourceFromEntity(payment): SubscriptionPaymentResource
+    }
+
+    class PlanResourceFromEntityAssembler  {
+        + ToResourceFromEntity(plan): PlanResource
+    }
+
+    class ProcessPaymentCommandFromResourceAssembler  {
+    }
+
+    class SelectSubscriptionPlanCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): SelectSubscriptionPlanCommand
+    }
+
+    class SubscriptionResourceFromEntityAssembler  {
+        + ToResourceFromEntity(subscription): SubscriptionResource
+    }
+
+}
+
+' Relationships
+BillingCommandService ..|> IBillingCommandService
+BillingCommandService --> IBillingRepository : "uses"
+BillingCommandService --> ISubscriptionRepository : "uses"
+PaymentCommandService ..|> IPaymentCommandService
+PaymentCommandService --> IPaymentRepository : "uses"
+PaymentCommandService --> ISubscriptionRepository : "uses"
+PlanCommandService ..|> IPlanCommandService
+PlanCommandService --> IPlanRepository : "uses"
+SubscriptionCommandService ..|> ISubscriptionCommandService
+SubscriptionCommandService --> ISubscriptionRepository : "uses"
+PaymentProcessedEventHandler --> ISubscriptionQueryService : "uses"
+PaymentProcessedEventHandler --> ISubscriptionCommandService : "uses"
+PlanChangeRequestSentEventHandler --> ISubscriptionQueryService : "uses"
+PlanChangeRequestSentEventHandler --> IPaymentCommandService : "uses"
+PlanSubscriptionSelectedEventHandler --> ISubscriptionQueryService : "uses"
+PlanSubscriptionSelectedEventHandler --> IPaymentCommandService : "uses"
+RenewalDueEventHandler --> ISubscriptionQueryService : "uses"
+RenewalDueEventHandler --> IPaymentCommandService : "uses"
+RenewalDueEventHandler --> IBillingCommandService : "uses"
+RenewalDueEventHandler --> ISubscriptionCommandService : "uses"
+BillingQueryService ..|> IBillingQueryService
+BillingQueryService --> IBillingRepository : "uses"
+PaymentQueryService ..|> IPaymentQueryService
+PaymentQueryService --> IPaymentRepository : "uses"
+PlanQueryService ..|> IPlanQueryService
+PlanQueryService --> IPlanRepository : "uses"
+SubscriptionQueryService ..|> ISubscriptionQueryService
+SubscriptionQueryService --> ISubscriptionRepository : "uses"
+ActivateSubscriptionCommand --> SubscriptionId : "uses"
+ActivateSubscriptionCommand --> SubscriptionTier : "uses"
+CancelSubscriptionCommand --> SubscriptionId : "uses"
+ChangePlanCommand --> SubscriptionId : "uses"
+ChangePlanCommand --> PlanId : "uses"
+ChangePlanCommand --> SubscriptionTier : "uses"
+CheckSubscriptionRenewalCommand --> SubscriptionId : "uses"
+CreatePlanCommand --> SubscriptionTier : "uses"
+ExpireSubscriptionCommand --> SubscriptionId : "uses"
+ProcessSubscriptionPaymentCommand --> SubscriptionId : "uses"
+RequestAutoRenewCommand --> SubscriptionId : "uses"
+SelectSubscriptionPlanCommand --> PlanId : "uses"
+SelectSubscriptionPlanCommand --> SubscriptionTier : "uses"
+GetBillingBySubscriptionIdQuery --> SubscriptionId : "uses"
+GetPaymentByIdQuery --> PaymentId : "uses"
+GetPaymentsBySubscriptionIdQuery --> SubscriptionId : "uses"
+GetPlanByIdQuery --> PlanId : "uses"
+GetSubscriptionByIdQuery --> SubscriptionId : "uses"
+BillingRepository ..|> IBillingRepository
+PaymentRepository ..|> IPaymentRepository
+PlanRepository ..|> IPlanRepository
+SubscriptionRepository ..|> ISubscriptionRepository
+StripeCheckoutService ..|> IStripeCheckoutService
+BillingController --> IBillingCommandService : "uses"
+BillingController --> IBillingQueryService : "uses"
+CheckoutController --> IStripeCheckoutService : "uses"
+CheckoutController --> ISubscriptionCommandService : "uses"
+CheckoutController --> ISubscriptionQueryService : "uses"
+CheckoutController --> ISubscriptionRepository : "uses"
+CheckoutController --> IPlanQueryService : "uses"
+SubscriptionPaymentsController --> IPaymentCommandService : "uses"
+SubscriptionPaymentsController --> IPaymentQueryService : "uses"
+PlansController --> IPlanCommandService : "uses"
+PlansController --> IPlanQueryService : "uses"
+StripeWebhookController --> ISubscriptionCommandService : "uses"
+StripeWebhookController --> ISubscriptionRepository : "uses"
+SubscriptionsController --> ISubscriptionCommandService : "uses"
+SubscriptionsController --> ISubscriptionQueryService : "uses"
+
+@enduml

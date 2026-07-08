@@ -1,0 +1,177 @@
+' Class Diagram for Bounded Context: PatientCenter
+@startuml PatientCenterClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.PatientCenter.Application.Errors" {
+    enum CreateNotificationError <<enum>> {
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Application.Internal.CommandServices" {
+    class PatientNotificationCommandService  {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Application.Internal.QueryServices" {
+    class LensMaterialQueryService  {
+    }
+
+    class PatientNotificationQueryService  {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Application.Services" {
+    interface ILensMaterialQueryService <<interface>> {
+    }
+
+    interface IPatientNotificationCommandService <<interface>> {
+    }
+
+    interface IPatientNotificationQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Commands" {
+    class CreateNotificationCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Entities" {
+    class LensMaterial  {
+        + Id: int
+        + FullName: string
+        + IndexValue: string
+        + BasePrice: decimal
+        + Description: string
+    }
+
+    class PatientNotification  {
+        + Id: int
+        + AccountId: Guid
+        + PatientId: int
+        + WorkOrderId: int
+        + Message: string
+        + Status: string
+        + SentAt: DateTime?
+        --
+        + MarkAsRead(): void
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.Queries" {
+    class GetAllLensMaterialsQuery <<record>> {
+    }
+
+    class GetNotificationsByPatientIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Model.ValueObjects" {
+    class NotificationStatus <<record>> {
+        -   ValidValues: HashSet<string>
+        + Value: string
+        --
+        + ToString(): string
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Domain.Repositories" {
+    interface ILensMaterialRepository <<interface>> {
+    }
+
+    interface IPatientNotificationRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplyPatientCenterConfiguration(builder, dbContext): void
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Infrastructure.Persistence.EFC.Repositories" {
+    class LensMaterialRepository  {
+    }
+
+    class PatientNotificationRepository  {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Interfaces.REST" {
+    class LensMaterialsController  {
+        + GetAllLensMaterials(default): Task<ActionResult>
+    }
+
+    class PatientNotificationsController  {
+    }
+
+    class PatientOrdersController  {
+    }
+
+    class PatientProfileController  {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Interfaces.REST.Resources" {
+    class LensMaterialResource <<record>> {
+    }
+
+    class PatientNotificationResource <<record>> {
+    }
+
+    class CreatePatientNotificationResource <<record>> {
+    }
+
+    class PatientOrderResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.PatientCenter.Interfaces.REST.Transform" {
+    class CreateNotificationCommandFromResourceAssembler  {
+    }
+
+    class LensMaterialResourceFromEntityAssembler  {
+        + ToResourceFromEntity(m): LensMaterialResource
+    }
+
+    class PatientNotificationResourceFromEntityAssembler  {
+        + ToResourceFromEntity(n): PatientNotificationResource
+    }
+
+}
+
+' Relationships
+PatientNotificationCommandService ..|> IPatientNotificationCommandService
+PatientNotificationCommandService --> IPatientNotificationRepository : "uses"
+LensMaterialQueryService ..|> ILensMaterialQueryService
+LensMaterialQueryService --> ILensMaterialRepository : "uses"
+PatientNotificationQueryService ..|> IPatientNotificationQueryService
+PatientNotificationQueryService --> IPatientNotificationRepository : "uses"
+LensMaterialRepository ..|> ILensMaterialRepository
+PatientNotificationRepository ..|> IPatientNotificationRepository
+LensMaterialsController --> ILensMaterialQueryService : "uses"
+PatientNotificationsController --> IPatientNotificationQueryService : "uses"
+PatientNotificationsController --> IPatientNotificationCommandService : "uses"
+
+@enduml

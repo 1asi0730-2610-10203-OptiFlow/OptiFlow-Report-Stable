@@ -1,0 +1,520 @@
+' Class Diagram for Bounded Context: Shared
+@startuml SharedClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.Shared.Application.Errors" {
+    enum CreateSystemNotificationError <<enum>> {
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Internal.CommandServices" {
+    class SystemNotificationCommandService  {
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Internal.EventHandlers" {
+    interface IEventHandler <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Internal.QueryServices" {
+    class SystemNotificationQueryService  {
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Model" {
+    class Result  {
+        + IsSuccess: bool
+        + Error: Enum?
+        + Message: string
+        --
+        + Success(): Result
+        + Failure(error, message): Result
+    }
+
+    class Result  {
+        + IsSuccess: bool
+        + Value: TValue?
+        + Error: Enum?
+        + Message: string
+        --
+        + Success(value): Result<TValue>
+        + Failure(error, message): Result<TValue>
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Patterns" {
+    class Result <<record>> {
+        + IsSuccess: bool
+        + IsFailure: bool
+        --
+        + Match(onSuccess, onFailure): void
+    }
+
+    class Success <<record>> {
+    }
+
+    class Failure <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Application.Services" {
+    interface ICurrentUserContext <<interface>> {
+    }
+
+    interface ISystemNotificationCommandService <<interface>> {
+    }
+
+    interface ISystemNotificationQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model.Commands" {
+    class CreateSystemNotificationCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model.Entities" {
+    class SystemNotification  {
+        + Id: int
+        + AccountId: Guid
+        + RecipientUserId: int
+        + Category: string
+        + Message: string
+        + IsRead: bool
+        + CreatedAt: DateTime
+        --
+        + MarkAsRead(): void
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model.Events" {
+    interface IEvent <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model" {
+    interface IAuditableEntity <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model.Queries" {
+    class GetNotificationsByRecipientUserIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Model.ValueObjects" {
+    class NotificationCategory  {
+    }
+
+}
+
+package "optiflow_platform.Shared.Domain.Repositories" {
+    interface IBaseRepository <<interface>> {
+    }
+
+    interface ISystemNotificationRepository <<interface>> {
+    }
+
+    interface IUnitOfWork <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Persistence.EFC.Configuration" {
+    class AppDbContext  {
+        + CurrentAccountId: Guid?
+        --
+        # OnConfiguring(builder): void
+        # OnModelCreating(builder): void
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplySharedConfiguration(builder, dbContext): void
+        + UseSnakeCaseNamingConvention(builder): void
+    }
+
+    class StringExtensions  {
+        + ToSnakeCase(text): string
+        + Convert(e): IEnumerable<char>
+        + ToPlural(text): string
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Persistence.EFC.Interceptors" {
+    class AuditableEntityInterceptor  {
+        + SavingChanges(eventData, result): InterceptionResult<int>
+        - ApplyAuditTimestamps(context): void
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Persistence.EFC.Migrations" {
+    class InitialMigration  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class InitialMigration  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class FixPendingChanges  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class FixPendingChanges  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddPatientCenterModule  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddPatientCenterModule  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddPatientCenterTables  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddPatientCenterTables  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class InitialCreate  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class InitialCreate  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddPaymentMethodAndPaidAtColumns  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddPaymentMethodAndPaidAtColumns  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddSalesAdvanceColumn  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddSalesAdvanceColumn  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddClinicalUuids  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddWorkOrderIdToNotifications  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddWorkOrderIdToNotifications  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class SyncModelConfiguration  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class SyncModelConfiguration  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddIamTables  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddIamTables  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class RemoveCategoryEntityUseProductCategoryEnum  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class RemoveCategoryEntityUseProductCategoryEnum  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddLensProductIdToWorkOrder  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddLensProductIdToWorkOrder  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddFrameProductIdToWorkOrder  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddFrameProductIdToWorkOrder  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddSaleItems  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddSaleItems  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class UpdatePendingChanges  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class UpdatePendingChanges  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class DropStaleCategoriesTable  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class DropStaleCategoriesTable  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddSystemNotifications  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddSystemNotifications  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountsAndUserAccountId  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountsAndUserAccountId  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToSalesAndSystemNotifications  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToSalesAndSystemNotifications  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToInventory  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToInventory  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToClinical  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToClinical  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToLabAndOrders  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToLabAndOrders  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToPatientNotifications  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToPatientNotifications  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddAccountIdToSubscription  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddAccountIdToSubscription  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddRoleToUser  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddRoleToUser  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddStaffTable  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddStaffTable  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AddStaffRolesTable  {
+        # Up(migrationBuilder): void
+        # Down(migrationBuilder): void
+    }
+
+    class AddStaffRolesTable  {
+        # BuildTargetModel(modelBuilder): void
+    }
+
+    class AppDbContextModelSnapshot  {
+        # BuildModel(modelBuilder): void
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Persistence.EFC.Repositories" {
+    class BaseRepository  {
+        -   Context: AppDbContext
+        --
+        + AddAsync(entity, default): Task
+        + FindByIdAsync(id, default): Task<TEntity?>
+        + Update(entity): void
+        + Remove(entity): void
+        + ListAsync(default): Task<IEnumerable<TEntity>>
+    }
+
+    class SystemNotificationRepository  {
+    }
+
+    class UnitOfWork  {
+        + CompleteAsync(default): Task
+    }
+
+}
+
+package "optiflow_platform.Shared.Infrastructure.Security" {
+    class CurrentUserContext  {
+        - ParseClaim(claimType): Guid?
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.ASP.Configuration.Extensions" {
+    class StringExtensions  {
+        + ToKebabCase(text): string
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.ASP.Configuration" {
+    class KebabCaseRouteNamingConvention  {
+        + Apply(controller): void
+        - ReplaceControllerTemplate(selector, name): AttributeRouteModel?
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.Rest.ProblemDetails" {
+    class ProblemDetailsFactory  {
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.Rest.Resources" {
+    class SystemNotificationResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.Rest" {
+    class SystemNotificationsController  {
+        + GetNotificationsByUserId(userId, default): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.Shared.Interfaces.Rest.Transform" {
+    class SystemNotificationResourceFromEntityAssembler  {
+        + ToResourceFromEntity(n): SystemNotificationResource
+    }
+
+}
+
+' Relationships
+SystemNotificationCommandService ..|> ISystemNotificationCommandService
+SystemNotificationCommandService --> ISystemNotificationRepository : "uses"
+SystemNotificationCommandService --> IUnitOfWork : "uses"
+SystemNotificationQueryService ..|> ISystemNotificationQueryService
+SystemNotificationQueryService --> ISystemNotificationRepository : "uses"
+Success --|> Result
+Failure --|> Result
+ISystemNotificationRepository ..|> IBaseRepository
+BaseRepository ..|> IBaseRepository
+BaseRepository --> AppDbContext : "uses"
+SystemNotificationRepository --|> BaseRepository
+SystemNotificationRepository ..|> ISystemNotificationRepository
+SystemNotificationRepository --> AppDbContext : "uses"
+UnitOfWork ..|> IUnitOfWork
+UnitOfWork --> AppDbContext : "uses"
+CurrentUserContext ..|> ICurrentUserContext
+SystemNotificationsController --> ISystemNotificationQueryService : "uses"
+SystemNotificationsController --> ISystemNotificationRepository : "uses"
+SystemNotificationsController --> IUnitOfWork : "uses"
+
+@enduml

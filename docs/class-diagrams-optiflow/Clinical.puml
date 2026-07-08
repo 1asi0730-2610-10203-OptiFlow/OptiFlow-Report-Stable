@@ -1,0 +1,292 @@
+' Class Diagram for Bounded Context: Clinical
+@startuml ClinicalClassDiagram
+
+skinparam class {
+    BackgroundColor White
+    BorderColor #222222
+    ArrowColor #666666
+}
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+package "optiflow_platform.Clinical.Application.Errors" {
+    enum CreatePatientError <<enum>> {
+        DniAlreadyExists
+        UnexpectedError
+    }
+
+    enum UpdatePatientError <<enum>> {
+        PatientNotFound
+        DniAlreadyExists
+        UnexpectedError
+    }
+
+    enum CreatePrescriptionError <<enum>> {
+        ClinicalRecordNotFound
+        UnexpectedError
+    }
+
+}
+
+package "optiflow_platform.Clinical.Application.Internal.CommandServices" {
+    class PatientCommandService  {
+    }
+
+    class PrescriptionCommandService  {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Application.Internal.QueryServices" {
+    class PatientQueryService  {
+        + Handle(query, default): Task<IEnumerable<Patient>>
+        + Handle(query, default): Task<Patient?>
+        + Handle(query, default): Task<Patient?>
+        + Handle(query, default): Task<Patient?>
+    }
+
+    class ClinicalRecordQueryService  {
+        + Handle(query, default): Task<IEnumerable<ClinicalRecord>>
+        + Handle(query, default): Task<ClinicalRecord?>
+        + Handle(query, default): Task<ClinicalRecord?>
+    }
+
+    class PrescriptionQueryService  {
+        + Handle(query, default): Task<IEnumerable<Prescription>>
+        + Handle(query, default): Task<IEnumerable<Prescription>>
+    }
+
+}
+
+package "optiflow_platform.Clinical.Application.Services" {
+    interface IClinicalRecordQueryService <<interface>> {
+    }
+
+    interface IPrescriptionCommandService <<interface>> {
+    }
+
+    interface IPrescriptionQueryService <<interface>> {
+    }
+
+    interface IPatientCommandService <<interface>> {
+    }
+
+    interface IPatientQueryService <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Domain.Model.Aggregates" {
+    class Patient  {
+        + Id: int
+        + AccountId: Guid
+        + PatientId: int
+        + CustomerUuid: string
+        + FirstName: string
+        + LastName: string
+        + Dni: string
+        + Phone: string?
+        + Email: string?
+        + BirthDate: DateOnly
+        --
+        + Update(command): void
+    }
+
+}
+
+package "optiflow_platform.Clinical.Domain.Model.Commands" {
+    class CreatePatientCommand <<record>> {
+    }
+
+    class UpdatePatientCommand <<record>> {
+    }
+
+    class CreatePrescriptionCommand <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Domain.Model.Entities" {
+    class ClinicalRecord  {
+        + Id: int
+        + AccountId: Guid
+        + RecordId: int
+        + ClinicalRecordUuid: string
+        + PatientId: int
+        -   _prescriptions: List<Prescription>
+    }
+
+    class Prescription  {
+        + Id: int
+        + AccountId: Guid
+        + PrescriptionId: int
+        + PrescriptionUuid: string
+        + ClinicalRecordId: int
+        + OdSphere: decimal
+        + OdCylinder: decimal
+        + OdAxis: int
+        + OiSphere: decimal
+        + OiCylinder: decimal
+        + OiAxis: int
+        + Addition: decimal?
+        + Notes: string
+        + DoctorName: string
+        + CreatedAt: DateTime
+    }
+
+}
+
+package "optiflow_platform.Clinical.Domain.Model.Queries" {
+    class GetAllPatientsQuery <<record>> {
+    }
+
+    class GetPatientByIdQuery <<record>> {
+    }
+
+    class GetPatientByDniQuery <<record>> {
+    }
+
+    class GetPatientByEmailQuery <<record>> {
+    }
+
+    class GetAllClinicalRecordsQuery <<record>> {
+    }
+
+    class GetClinicalRecordByPatientIdQuery <<record>> {
+    }
+
+    class GetClinicalRecordByIdQuery <<record>> {
+    }
+
+    class GetAllPrescriptionsQuery <<record>> {
+    }
+
+    class GetPrescriptionsByRecordIdQuery <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Domain.Repositories" {
+    interface IClinicalRecordRepository <<interface>> {
+    }
+
+    interface IPatientRepository <<interface>> {
+    }
+
+    interface IPrescriptionRepository <<interface>> {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Infrastructure.Persistence.EFC.Configuration.Extensions" {
+    class ModelBuilderExtensions  {
+        + ApplyClinicalConfiguration(builder, dbContext): void
+    }
+
+}
+
+package "optiflow_platform.Clinical.Infrastructure.Persistence.EFC.Repositories" {
+    class ClinicalRecordRepository  {
+        + FindByPatientIdAsync(patientId, default): Task<ClinicalRecord?>
+    }
+
+    class PrescriptionRepository  {
+    }
+
+    class PatientRepository  {
+        + FindByDniAsync(dni, default): Task<Patient?>
+        + FindByEmailIgnoringScopeAsync(email, default): Task<Patient?>
+    }
+
+}
+
+package "optiflow_platform.Clinical.Interfaces.REST" {
+    class ClinicalRecordsController  {
+        + GetAllClinicalRecords(default): Task<ActionResult>
+        + GetClinicalRecordById(id, default): Task<ActionResult>
+        + GetClinicalRecordByPatientId(patientId, default): Task<ActionResult>
+    }
+
+    class PrescriptionsController  {
+        + GetAllPrescriptions(default): Task<ActionResult>
+        + GetPrescriptionsByRecord(recordId, default): Task<ActionResult>
+    }
+
+    class PatientsController  {
+        + GetAllPatients(default): Task<ActionResult>
+        + GetPatientById(id, default): Task<ActionResult>
+    }
+
+}
+
+package "optiflow_platform.Clinical.Interfaces.REST.Resources" {
+    class PatientResource <<record>> {
+    }
+
+    class CreatePatientResource <<record>> {
+    }
+
+    class UpdatePatientResource <<record>> {
+    }
+
+    class ClinicalRecordResource <<record>> {
+    }
+
+    class PrescriptionResource <<record>> {
+    }
+
+    class CreatePrescriptionResource <<record>> {
+    }
+
+}
+
+package "optiflow_platform.Clinical.Interfaces.REST.Transform" {
+    class CreatePatientCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreatePatientCommand
+    }
+
+    class UpdatePatientCommandFromResourceAssembler  {
+        + ToCommandFromResource(patientId, resource): UpdatePatientCommand
+    }
+
+    class PatientResourceFromEntityAssembler  {
+        + ToResourceFromEntity(entity): PatientResource
+    }
+
+    class ClinicalRecordResourceFromEntityAssembler  {
+        + ToResourceFromEntity(entity): ClinicalRecordResource
+    }
+
+    class CreatePrescriptionCommandFromResourceAssembler  {
+        + ToCommandFromResource(resource): CreatePrescriptionCommand
+    }
+
+    class PrescriptionResourceFromEntityAssembler  {
+        + ToResourceFromEntity(entity): PrescriptionResource
+    }
+
+}
+
+' Relationships
+PatientCommandService ..|> IPatientCommandService
+PatientCommandService --> IPatientRepository : "uses"
+PatientCommandService --> IClinicalRecordRepository : "uses"
+PrescriptionCommandService ..|> IPrescriptionCommandService
+PrescriptionCommandService --> IPrescriptionRepository : "uses"
+PrescriptionCommandService --> IClinicalRecordRepository : "uses"
+PatientQueryService ..|> IPatientQueryService
+PatientQueryService --> IPatientRepository : "uses"
+ClinicalRecordQueryService ..|> IClinicalRecordQueryService
+ClinicalRecordQueryService --> IClinicalRecordRepository : "uses"
+PrescriptionQueryService ..|> IPrescriptionQueryService
+PrescriptionQueryService --> IPrescriptionRepository : "uses"
+ClinicalRecordRepository ..|> IClinicalRecordRepository
+PrescriptionRepository ..|> IPrescriptionRepository
+PatientRepository ..|> IPatientRepository
+ClinicalRecordsController --> IClinicalRecordQueryService : "uses"
+PrescriptionsController --> IPrescriptionCommandService : "uses"
+PrescriptionsController --> IPrescriptionQueryService : "uses"
+PatientsController --> IPatientCommandService : "uses"
+PatientsController --> IPatientQueryService : "uses"
+
+@enduml
