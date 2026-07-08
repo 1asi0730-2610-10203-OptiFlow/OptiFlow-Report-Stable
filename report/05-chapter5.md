@@ -79,7 +79,7 @@ El equipo utiliza **GitHub** como plataforma y sistema de control de versiones, 
 |---|---|---|
 | **Landing Page** | OptiFlow-Landing-Page | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Landing-Page |
 | **Frontend Web Application** | OptiFlow-Frontend | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Frontend |
-| **Web Services (Backend API)** | OptiFlow-API | Not created yet |
+| **Web Services (Backend API)** | optiflow-platform | https://github.com/1asi0730-2610-10203-OptiFlow/optiflow-platform |
 | **Fake RESTful API (Mock API)** | OptiFlow-Mock-Api | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Mock-Api |
 | **Informe del Proyecto** | OptiFlow-Report-Stable | https://github.com/1asi0730-2610-10203-OptiFlow/OptiFlow-Report-Stable |
 
@@ -221,7 +221,6 @@ El Fake API se basa en **json-server** con un archivo `db.json` que expone todos
 #### Sprint Planning 1
 En esta sección se especifican los aspectos principales del Sprint Planning Meeting correspondiente a la primera iteración del proyecto. El enfoque principal de este Sprint abarca la elaboración de los artefactos fundacionales de Lean UX, especificación de requerimientos, diseño de base de datos, modelado DDD, diseño de interfaces en Figma y el despliegue inicial del Landing Page.
 
-#### Sprint Planning 1
 | Aspect | Details |
 | :--- | :--- |
 | **Sprint #** | Sprint 1 |
@@ -1771,8 +1770,6 @@ En este sprint se logró principalmente el despliegue del backend utilizando Azu
 ![](../docs/register-lab.png)
 ![](../docs/register-supplier.png)
 
-![alt text](image.png)
-
 Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQCYdJ6buvRlRqYAf8LnbvznAUvRkR-WcuUp-oQkUtj4pXY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=t9U6Gj
 
 
@@ -1848,7 +1845,9 @@ Si la suscripción ya se encuentra activa, el sistema responde `409 Conflict`; s
 
 **Capturas de la interacción con la documentación:**
 
-*(Insertar aquí las capturas de pantalla de la interfaz de Swagger UI en `https://optiflow.azurewebsites.net/swagger`, mostrando: (1) la lista completa de controladores agrupados por tag — Products, Sales, Payments, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics —, y (2) la ejecución de "Try it out" sobre el endpoint POST /products con datos de muestra y su respuesta 201 Created.)*
+La siguiente captura muestra la interfaz de Swagger UI generada por Swashbuckle en `https://optiflow.azurewebsites.net/swagger`, con la lista completa de controladores agrupados por tag (Products, Sales, Payments, WorkOrders, Laboratories, Patients, Prescriptions, Subscriptions, AnalyticsReports, StaffMetrics) desde la cual es posible ejecutar cada operación mediante "Try it out".
+
+![swagger-ui-sprint3](../docs/swagger.png){width=100%}
 
 **Commits relacionados con Documentación para este Sprint:**
 
@@ -2452,7 +2451,23 @@ Durante el Sprint 4 se completó la transformación de OptiFlow en una plataform
 - **Checkout de suscripciones con Stripe:** la selección y pago de planes de suscripción se conectó con la pasarela de pago de Stripe.
 - **Cableado de datos reales:** el módulo de ventas expone ítems de venta itemizados, vincula la orden de laboratorio con la venta, y descuenta stock del inventario al completar una venta; el Dashboard muestra métricas reales (pacientes atendidos, órdenes de laboratorio) y los reportes analíticos se calculan en vivo sobre los datos de la cuenta.
 
-*(Insertar capturas de pantalla que evidencien: la vista de login/registro del portal con autenticación IAM activa, el flujo de suscripción con Stripe, el detalle itemizado de una venta y el perfil del paciente conectado al backend real)*
+**Evidencia de implementación (código fuente del repositorio `OptiFlow-Frontend`):**
+
+La siguiente tabla mapea cada logro ejecutable con los artefactos de código que lo implementan y el endpoint del backend que consumen, verificables en el repositorio del frontend:
+
+| Capacidad | Artefacto de código (frontend) | Endpoint consumido (backend) |
+|---|---|---|
+| Login con email y contraseña | `iam/presentation/views/login-view.vue` + `auth.store.js › signIn()` | `POST /api/v1/authentication/sign-in` |
+| Registro de administrador | `iam/presentation/views/register-view.vue` + `auth.store.js › signUp()` | `POST /api/v1/authentication/sign-up` |
+| Google Sign-In | `iam/presentation/components/GoogleSignInButton.vue` + `auth.store.js › googleSignIn()` | `POST /api/v1/authentication/sign-in/google` |
+| Recuperación / restablecimiento de contraseña | `forgot-password-view.vue`, `reset-password-view.vue` | `POST /api/v1/authentication/password-recoveries`, `/password-resets` |
+| Perfil (actualizar email / contraseña) | `iam/presentation/views/profile-view.vue` + `auth.store.js › updateEmail()`, `updatePassword()` | `PUT /api/v1/users/{id}/email`, `/password` |
+| Persistencia de sesión JWT y sincronización entre pestañas | `auth.store.js` (`localStorage` + listener del evento `storage`) | — |
+| Adjunto automático del token en cada request | `shared/infrastructure/base-api.js` (interceptor `Authorization: Bearer <token>`) | — |
+| Protección de rutas por estado de sesión y suscripción | `router.js › beforeEach` (guards) + interceptor de respuesta (401 → `/login`, 403 `SUBSCRIPTION_REQUIRED`/`ACCOUNT_SETUP_REQUIRED` → `/select-plan`) | `GET /api/v1/subscriptions/me` |
+| Checkout de suscripción con Stripe | `subscription/presentation/views/select-plan-view.vue`, `payment-success-view.vue` + `subscription-api.js › createCheckoutSession()` | `POST /api/v1/checkout`, `POST /api/v1/checkout/confirm` |
+
+*(Espacio reservado para las capturas de pantalla de la ejecución: vista de login/registro con IAM activo, flujo de suscripción con Stripe, detalle itemizado de una venta y perfil del paciente conectado al backend real.)*
 
 Link del video: *(Insertar enlace al video de ejecución del Sprint 4 en Microsoft Stream/SharePoint)*
 
@@ -2502,7 +2517,9 @@ Si las credenciales son incorrectas, el sistema responde `401 Unauthorized`; si 
 
 **Capturas de la interacción con la documentación:**
 
-*(Insertar capturas de la interfaz de Swagger UI mostrando el nuevo grupo de controladores Authentication, Users, Accounts y SystemNotifications, así como la ejecución de "Try it out" sobre POST /api/v1/authentication/sign-in con su respuesta 200 OK y el uso del botón Authorize con el token JWT.)*
+La documentación interactiva sigue disponible en `https://optiflow.azurewebsites.net/swagger`. Con la incorporación de IAM se sumaron los grupos de controladores Authentication, Users, Accounts y SystemNotifications, y los endpoints protegidos requieren el token JWT a través del botón **Authorize** de Swagger UI.
+
+![swagger-ui-sprint4](../docs/swagger.png){width=100%}
 
 **Commits relacionados con Documentación de servicios para este Sprint:**
 
@@ -2519,10 +2536,13 @@ Si las credenciales son incorrectas, el sistema responde `401 Unauthorized`; si 
 
 Durante el Sprint 4 se consolidó el despliegue de la **versión final** de los productos digitales sobre Azure, cerrando el ciclo de vida del proyecto. El backend en **Azure App Service** (`optiflow.azurewebsites.net`) fue actualizado con las migraciones de Entity Framework Core correspondientes al multi-tenancy (columnas `account_id` en cada bounded context, tabla de cuentas y tabla de notificaciones de sistema), la integración de Stripe (configurada mediante las variables de entorno del App Service) y la seguridad JWT para todos los controladores protegidos. El frontend Vue.js se mantiene desplegado en **Azure Static Web Apps** con integración continua vía GitHub Actions, consumiendo ahora la API asegurada. La Landing Page permanece en su versión estable `v3.0.0` publicada en GitHub Pages al cierre del Sprint 3.
 
+El despliegue se mantiene sobre la misma infraestructura consolidada en el Sprint 3, por lo que la evidencia del entorno de producción es la misma que la del sprint anterior:
+
 ![](../assets/deployment-azure.png)
 > Captura del Resource Group en Azure Portal mostrando el App Service del backend y la Static Web App del frontend en estado operativo durante el Sprint 4.
 
-*(Insertar capturas del pipeline de GitHub Actions ejecutado para el despliegue final del Sprint 4 y de las variables de entorno de Stripe/JWT configuradas en el App Service de Azure)*
+![](../docs/optiflow-server.png)
+> Captura del servidor de base de datos (SQL) que respalda la persistencia de la API en producción durante el Sprint 4.
 
 **URLs de Producción:**
 - **Landing Page:** https://1asi0730-2610-10203-optiflow.github.io/OptiFlow-Landing-Page/
