@@ -2158,7 +2158,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Implementar la comparación entre estimatedDate y la fecha actual en la vista My Lenses. Si la fecha ya pasó y el pedido no está en estado DELIVERED, mostrar el campo en rojo con un ícono de advertencia y el texto "Delayed — estimated date has passed".</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2168,7 +2168,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Refactorizar las tarjetas del tablero Kanban para que el botón de avance de estado sea visible permanentemente (sin depender de hover), utilizando una opacidad reducida en reposo que aumente al hacer hover, o reubicándolo como elemento siempre visible en la parte inferior de la tarjeta.</td>
       <td>3 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-Review</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2178,7 +2178,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Agregar debajo de cada gráfico del Dashboard (gráfico de líneas de conversión e ingresos semanales) una sección con los valores numéricos principales en formato de tabla compacta o texto, accesible para tecnologías de asistencia y usuarios con discapacidad visual.</td>
       <td>4 hrs</td>
       <td>Juan Pablo</td>
-      <td>To-do</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2188,7 +2188,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Agregar un texto de ayuda breve debajo de cada campo de prescripción en la Calculadora de Grosor del portal del paciente (ej. "Encuéntralo en tu receta óptica. Ejemplo: -2.50"). Corregir además el label técnico del selector de material.</td>
       <td>2 hrs</td>
       <td>Mia</td>
-      <td>To-Review</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
@@ -2208,7 +2208,7 @@ En el sprint el enfoque principal fue la corrección de los problemas de usabili
       <td>Agregar imágenes de referencia de los modelos de montura disponibles en la vista Virtual Try-On, para que el paciente tenga una referencia visual concreta del producto antes de activar la cámara.</td>
       <td>3 hrs</td>
       <td>Mia</td>
-      <td>To-Review</td>
+      <td>Done</td>
     </tr>
     <tr>
       <td></td>
