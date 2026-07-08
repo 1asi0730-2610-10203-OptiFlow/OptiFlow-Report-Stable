@@ -2467,7 +2467,16 @@ La siguiente tabla mapea cada logro ejecutable con los artefactos de código que
 | Protección de rutas por estado de sesión y suscripción | `router.js › beforeEach` (guards) + interceptor de respuesta (401 → `/login`, 403 `SUBSCRIPTION_REQUIRED`/`ACCOUNT_SETUP_REQUIRED` → `/select-plan`) | `GET /api/v1/subscriptions/me` |
 | Checkout de suscripción con Stripe | `subscription/presentation/views/select-plan-view.vue`, `payment-success-view.vue` + `subscription-api.js › createCheckoutSession()` | `POST /api/v1/checkout`, `POST /api/v1/checkout/confirm` |
 
-*(Espacio reservado para las capturas de pantalla de la ejecución: vista de login/registro con IAM activo, flujo de suscripción con Stripe, detalle itemizado de una venta y perfil del paciente conectado al backend real.)*
+**Capturas de la ejecución:**
+
+![login-iam-sprint4](../assets/exec-sprint4-login.png){width=100%}
+> Vista de inicio de sesión con IAM activo: autenticación real por email/contraseña, selector Óptica/Cliente y opción de Google Sign-In contra el backend desplegado.
+
+![dashboard-sprint4](../assets/exec-sprint4-dashboard.png){width=100%}
+> Panel de control tras autenticarse, mostrando métricas reales calculadas en vivo sobre los datos de la cuenta (pacientes, ingresos mensuales, órdenes de laboratorio activas, conversión y alertas de bajo stock).
+
+![swagger-authorize-sprint4](../assets/exec-sprint4-swagger-auth.png){width=100%}
+> Documentación Swagger en producción (`optiflow.azurewebsites.net/swagger`) con el botón **Authorize** y los grupos de controladores Accounts, Analytics Reports y Authentication expuestos bajo seguridad JWT.
 
 Link del video: https://upcedupe-my.sharepoint.com/:v:/g/personal/u202411310_upc_edu_pe/IQBkruTPmXMxR5jA8qkQQckzAUyxBfdumridbXqc-7M__gQ?e=OeiQYH&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
